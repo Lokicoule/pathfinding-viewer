@@ -1,0 +1,30 @@
+.grid {
+  display: grid;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cell:hover {
+  background-color: #f1f1f1;
+}
+
+.cell.start {
+  background-color: #00f;
+}
+
+.cell.end {
+  background-color: #f00;
+}
+
+.cell.wall {
+  background-color: #333;
+}

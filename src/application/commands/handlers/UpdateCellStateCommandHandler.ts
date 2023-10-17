@@ -1,8 +1,8 @@
 import { UpdateCellStateCommand, UpdateCellStatePayload } from "..";
-import { CellState } from "../../../components/Cell";
+import { CellState } from "../../../domain/entities/Cell";
 import { Handler } from "../../../shared/bases/Handler";
 import { Result } from "../../../shared/types/Result";
-import { CompositionRoot } from "../../composition";
+import { CompositionRoot } from "../../CompositionRoot";
 
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {
   private constructor(compositionRoot: CompositionRoot) {
@@ -28,7 +28,7 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
     }
 
     const { cell, state } = payload.value;
-
+    console.log(cell);
     // TODO: Refactor this to use a map of functions.
     if (cell.isWallable && state === CellState.Wall) {
       cell.state = state;
@@ -41,8 +41,9 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
     if (cell.isEndable && state === CellState.End) {
       cell.state = state;
     }
-
-    cell.show();
+    console.log(`Cell clicked: row = ${cell.x}, col = ${cell.y} - ${state}`);
+    console.log(cell);
+    this.compositionRoot.cache.get("grid").updateCell(cell);
   }
 
   private validatePayload(command: UpdateCellStateCommand): Result<

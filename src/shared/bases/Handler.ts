@@ -1,4 +1,4 @@
-import { CompositionRoot } from "../../application/composition";
+import { CompositionRoot } from "../../application/CompositionRoot";
 
 export abstract class Handler<T> {
   constructor(

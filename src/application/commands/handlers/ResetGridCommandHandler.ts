@@ -1,6 +1,6 @@
 import { ResetGridCommand } from "..";
 import { Handler } from "../../../shared/bases/Handler";
-import { CompositionRoot } from "../../composition";
+import { CompositionRoot } from "../../CompositionRoot";
 
 export class ResetGridCommandHandler extends Handler<ResetGridCommand> {
   private constructor(compositionRoot: CompositionRoot) {

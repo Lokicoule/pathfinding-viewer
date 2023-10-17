@@ -3,8 +3,6 @@ import { Cell, CellState } from "./Cell";
 type GridProps = {
   rows: number;
   cols: number;
-  cellSize: number;
-  canvasContext: CanvasRenderingContext2D;
 };
 
 type GridState = {
@@ -26,40 +24,31 @@ export class Grid {
     return new Grid(props);
   }
 
+  public getCells(): Cell[][] {
+    return this.state.grid;
+  }
+
   public getCell(row: number, col: number): Cell {
     return this.state.grid[row][col];
   }
 
-  public show(): void {
-    console.log("Showing grid");
-    const { grid } = this.state;
-
-    for (let i = 0; i < grid.length; i++) {
-      for (let j = 0; j < grid[i].length; j++) {
-        const cell = grid[i][j];
-        cell.show();
-      }
-    }
-  }
-
   public reset(): void {
-    console.log("Resetting grid");
-    const grid = this.initialize(this.state.props);
-    this.state.grid = grid;
-
-    this.show();
+    this.state.grid = this.initialize(this.state.props);
   }
 
-  public updateCellState(row: number, col: number, state: CellState): void {
+  public updateCell(cell: Cell): void {
     const { grid } = this.state;
-    grid[row][col].state = state;
 
-    this.show();
+    const row = grid[cell.y];
+    const col = row[cell.x];
+
+    col.state = cell.state;
+
+    this.state.grid = grid;
   }
 
   private initialize(props: GridProps): Cell[][] {
-    console.log("Initializing grid");
-    const { cellSize, canvasContext, rows, cols } = props;
+    const { rows, cols } = props;
 
     const grid: Cell[][] = [];
 
@@ -68,10 +57,8 @@ export class Grid {
       for (let j = 0; j < cols; j++) {
         const cell = Cell.create({
           state: CellState.Empty,
-          size: cellSize,
           x: j,
           y: i,
-          context: canvasContext,
         });
         row.push(cell);
       }

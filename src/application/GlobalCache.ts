@@ -1,4 +1,4 @@
-import { Grid } from "../components/Grid";
+import { Grid } from "../domain/entities/Grid";
 
 type GlobalState = {
   grid: Grid;

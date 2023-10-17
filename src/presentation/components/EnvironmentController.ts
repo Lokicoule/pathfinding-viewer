@@ -1,9 +1,9 @@
 import {
   ResetGridCommand,
   UpdateCellStateCommand,
-} from "../application/commands";
-import { CompositionRoot } from "../application/composition";
-import { CellState } from "./Cell";
+} from "../../application/commands";
+import { CompositionRoot } from "../../application/CompositionRoot";
+import { CellState, Cell } from "../../domain/entities/Cell";
 
 export class EnvironmentController {
   private constructor(private readonly compositionRoot: CompositionRoot) {}
@@ -14,14 +14,12 @@ export class EnvironmentController {
     return new EnvironmentController(compositionRoot);
   }
 
-  public handleCellChange(offsetX: number, offsetY: number) {
-    const row = Math.floor(offsetY / 40);
-    const col = Math.floor(offsetX / 40);
-
-    console.log(`Cell clicked: row = ${row}, col = ${col}`);
+  public handleCellChange(cell: Cell) {
+    console.log(`Cell clicked: row = ${cell.x}, col = ${cell.y}`);
+    console.log(cell);
     this.compositionRoot.eventBus.publish(
       UpdateCellStateCommand.create({
-        cell: this.compositionRoot.cache.get("grid").getCell(row, col),
+        cell,
         state: CellState.Wall,
       })
     );

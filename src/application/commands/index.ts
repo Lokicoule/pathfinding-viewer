@@ -1,4 +1,4 @@
-import { Cell, CellState } from "../../components/Cell";
+import { Cell, CellState } from "../../domain/entities/Cell";
 import { BaseCommand } from "../../shared/bases/Command";
 
 export interface UpdateCellStatePayload {
@@ -28,4 +28,17 @@ export class ResetGridCommand extends BaseCommand<void> {
   }
 }
 
-export type Commands = UpdateCellStateCommand | ResetGridCommand;
+export class InitializeGridCommand extends BaseCommand<void> {
+  private constructor() {
+    super(InitializeGridCommand.name);
+  }
+
+  public static create(): InitializeGridCommand {
+    return new InitializeGridCommand();
+  }
+}
+
+export type Commands =
+  | UpdateCellStateCommand
+  | ResetGridCommand
+  | InitializeGridCommand;
