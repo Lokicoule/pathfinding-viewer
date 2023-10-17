@@ -22,6 +22,8 @@ export class CompositionRoot {
     this.__updateCellStateCommandHandler =
       UpdateCellStateCommandHandler.create(this);
     this.__resetGridCommandHandler = ResetGridCommandHandler.create(this);
+
+    this.setupSubscriptions();
   }
 
   public static create(): CompositionRoot {
@@ -38,6 +40,11 @@ export class CompositionRoot {
 
   public get environmentController(): EnvironmentController {
     return this.__environmentController;
+  }
+
+  private setupSubscriptions(): void {
+    this.__updateCellStateCommandHandler.setupSubscription();
+    this.__resetGridCommandHandler.setupSubscription();
   }
 }
 

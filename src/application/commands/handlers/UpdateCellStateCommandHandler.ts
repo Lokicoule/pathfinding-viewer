@@ -7,14 +7,16 @@ import { CompositionRoot } from "../../composition";
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {
   private constructor(compositionRoot: CompositionRoot) {
     super(compositionRoot, UpdateCellStateCommandHandler.name);
-
-    this.setupSubscriptions();
   }
 
   public static create(
     compositionRoot: CompositionRoot
   ): UpdateCellStateCommandHandler {
     return new UpdateCellStateCommandHandler(compositionRoot);
+  }
+
+  public setupSubscription(): void {
+    this.compositionRoot.eventBus.subscribe(UpdateCellStateCommand.name, this);
   }
 
   public handle(command: UpdateCellStateCommand): void {
@@ -78,9 +80,5 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
     }
 
     return Result.success(payload);
-  }
-
-  private setupSubscriptions(): void {
-    this.compositionRoot.eventBus.subscribe(UpdateCellStateCommand.name, this);
   }
 }
