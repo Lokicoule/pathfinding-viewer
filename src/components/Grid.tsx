@@ -24,6 +24,10 @@ export class Grid {
     return new Grid(props);
   }
 
+  public getCell(row: number, col: number): Cell {
+    return this.state.grid[row][col];
+  }
+
   public show(): void {
     console.log("Showing grid");
     const { grid } = this.state;
@@ -31,7 +35,7 @@ export class Grid {
     for (let i = 0; i < grid.length; i++) {
       for (let j = 0; j < grid[i].length; j++) {
         const cell = grid[i][j];
-        cell.show(i, j);
+        cell.show();
       }
     }
   }
@@ -52,18 +56,24 @@ export class Grid {
     for (let i = 0; i < rows; i++) {
       const row: Cell[] = [];
       for (let j = 0; j < cols; j++) {
-        const cell = Cell.create(CellState.Empty, cellSize, canvasContext);
+        const cell = Cell.create({
+          state: CellState.Empty,
+          size: cellSize,
+          x: j,
+          y: i,
+          context: canvasContext,
+        });
         row.push(cell);
       }
       grid.push(row);
     }
 
-    grid[2][2] = Cell.create(CellState.Start, cellSize, canvasContext);
-    grid[2][4] = Cell.create(CellState.End, cellSize, canvasContext);
-    grid[2][6] = Cell.create(CellState.Wall, cellSize, canvasContext);
-    grid[2][8] = Cell.create(CellState.Explored, cellSize, canvasContext);
-    grid[2][10] = Cell.create(CellState.Frontier, cellSize, canvasContext);
-    grid[2][12] = Cell.create(CellState.Path, cellSize, canvasContext);
+    grid[2][2].state = CellState.Start;
+    grid[2][4].state = CellState.End;
+    grid[2][6].state = CellState.Wall;
+    grid[2][8].state = CellState.Explored;
+    grid[2][10].state = CellState.Frontier;
+    grid[2][12].state = CellState.Path;
 
     return grid;
   }

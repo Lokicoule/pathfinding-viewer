@@ -1,21 +1,16 @@
 import { useEffect, useRef } from "react";
-import { Grid } from "./Grid";
 import { compositionRoot } from "../application/composition";
-import { UpdateCellStateCommand } from "../application/commands";
-import { CellState } from "./Cell";
+import { Grid } from "./Grid";
+import { EnvironmentController } from "./EnvironmentController";
 
-const Environment = () => {
+type EnvironmentProps = {
+  controller: EnvironmentController;
+};
+
+type EnvironmentComponent = React.FC<EnvironmentProps>;
+
+const Environment: EnvironmentComponent = ({ controller }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const handleCellClick = (e: React.MouseEvent) => {
-    const row = Math.floor(e.nativeEvent.offsetY / 40);
-    const col = Math.floor(e.nativeEvent.offsetX / 40);
-
-    console.log(`Cell clicked: row = ${row}, col = ${col}`);
-    compositionRoot.eventBus.publish(
-      UpdateCellStateCommand.create({ row, col, state: CellState.Wall })
-    );
-  };
 
   useEffect(() => {
     console.log("Environment component mounted");
@@ -48,7 +43,12 @@ const Environment = () => {
       ref={canvasRef}
       width={600}
       height={400}
-      onClick={handleCellClick}
+      onClick={(event) =>
+        controller.handleCellChange(
+          event.nativeEvent.offsetX,
+          event.nativeEvent.offsetY
+        )
+      }
     />
   );
 };

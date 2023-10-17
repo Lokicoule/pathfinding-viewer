@@ -1,3 +1,4 @@
+import { EnvironmentController } from "../components/EnvironmentController";
 import { EventBus } from "./EventBus";
 import { GlobalCache } from "./GlobalCache";
 import { UpdateCellStateCommand } from "./commands";
@@ -7,10 +8,13 @@ export class CompositionRoot {
   private __cache: GlobalCache;
   private __eventBus: EventBus;
   private __updateCellStateCommandHandler: UpdateCellStateCommandHandler;
+  private __environmentController: EnvironmentController;
 
   private constructor() {
     this.__cache = GlobalCache.create();
     this.__eventBus = EventBus.create();
+
+    this.__environmentController = EnvironmentController.create(this);
 
     this.__updateCellStateCommandHandler = UpdateCellStateCommandHandler.create(
       this.__eventBus
@@ -29,6 +33,10 @@ export class CompositionRoot {
 
   public get eventBus(): EventBus {
     return this.__eventBus;
+  }
+
+  public get environmentController(): EnvironmentController {
+    return this.__environmentController;
   }
 
   private setupEventBus(): void {

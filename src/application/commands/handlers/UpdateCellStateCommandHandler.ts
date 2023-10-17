@@ -2,7 +2,6 @@ import { UpdateCellStateCommand, UpdateCellStatePayload } from "..";
 import { CellState } from "../../../components/Cell";
 import { Result } from "../../../shared/types/Result";
 import { EventBus, Handler } from "../../EventBus";
-import { compositionRoot } from "../../composition";
 
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {
   private constructor(eventBus: EventBus) {
@@ -19,13 +18,26 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
     const payload = this.validatePayload(command);
 
     if (payload.isFailure || payload.value === undefined) {
-      return;
+      console.error(payload.error?.errors);
+      throw new Error(payload.error?.message);
     }
 
-    const { row, col, state } = payload.value;
+    const { cell, state } = payload.value;
 
-    console.log(`Cell at row ${row} and column ${col} is now ${state}.`);
-    compositionRoot.cache.get("grid").updateCellState(row, col, state);
+    // TODO: Refactor this to use a map of functions.
+    if (cell.isWallable && state === CellState.Wall) {
+      cell.state = state;
+    }
+
+    if (cell.isStartable && state === CellState.Start) {
+      cell.state = state;
+    }
+
+    if (cell.isEndable && state === CellState.End) {
+      cell.state = state;
+    }
+
+    cell.show();
   }
 
   private validatePayload(command: UpdateCellStateCommand): Result<
@@ -44,15 +56,11 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
       });
     }
 
-    const { row, col, state } = payload;
+    const { cell, state } = payload;
     const errors: string[] = [];
 
-    if (row < 0) {
-      errors.push("Row must be greater than or equal to 0.");
-    }
-
-    if (col < 0) {
-      errors.push("Column must be greater than or equal to 0.");
+    if (cell === undefined) {
+      errors.push("Cell must not be undefined.");
     }
 
     if (CellState[state] === undefined) {

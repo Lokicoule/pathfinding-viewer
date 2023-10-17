@@ -1,9 +1,8 @@
-import { CellState } from "../../components/Cell";
+import { Cell, CellState } from "../../components/Cell";
 import { BaseCommand } from "../../shared/bases/Command";
 
 export interface UpdateCellStatePayload {
-  readonly row: number;
-  readonly col: number;
+  readonly cell: Cell;
   readonly state: CellState;
 }
 

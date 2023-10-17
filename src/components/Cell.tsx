@@ -11,6 +11,8 @@ export enum CellState {
 type CellProps = {
   state: CellState;
   size: number;
+  x: number;
+  y: number;
   context: CanvasRenderingContext2D;
 };
 
@@ -30,26 +32,22 @@ export class Cell {
     this.props = props;
   }
 
-  public static create(
-    state: CellState,
-    size: number,
-    context: CanvasRenderingContext2D
-  ): Cell {
-    return new Cell({ state, size, context });
+  public static create(props: CellProps): Cell {
+    return new Cell(props);
   }
 
-  public show(row: number, col: number): void {
-    const { state, size, context } = this.props;
+  public show(): void {
+    const { state, size, context, x, y } = this.props;
 
-    const x = col * size;
-    const y = row * size;
+    const col = x * size;
+    const row = y * size;
 
     context.fillStyle =
       CELL_STATE_COLORS.get(state) ?? CELL_STATE_COLORS.get(CellState.Empty)!;
-    context.strokeRect(x, y, size, size);
+    context.strokeRect(col, row, size, size);
     context.strokeStyle = "gray";
     context.lineWidth = 1;
-    context.fillRect(x, y, size - 1, size - 1);
+    context.fillRect(col, row, size - 1, size - 1);
   }
 
   public set state(state: CellState) {
@@ -82,5 +80,43 @@ export class Cell {
 
   public get isEmpty(): boolean {
     return this.props.state === CellState.Empty;
+  }
+
+  public get isWallable(): boolean {
+    return (
+      this.props.state === CellState.Empty ||
+      this.props.state === CellState.Frontier ||
+      this.props.state === CellState.Explored ||
+      this.props.state === CellState.Path
+    );
+  }
+
+  public get isTraversable(): boolean {
+    return (
+      this.props.state === CellState.Empty ||
+      this.props.state === CellState.Frontier ||
+      this.props.state === CellState.Explored ||
+      this.props.state === CellState.Path
+    );
+  }
+
+  public get isStartable(): boolean {
+    return (
+      this.props.state === CellState.Empty ||
+      this.props.state === CellState.Frontier ||
+      this.props.state === CellState.Explored ||
+      this.props.state === CellState.Path ||
+      this.props.state === CellState.Wall
+    );
+  }
+
+  public get isEndable(): boolean {
+    return (
+      this.props.state === CellState.Empty ||
+      this.props.state === CellState.Frontier ||
+      this.props.state === CellState.Explored ||
+      this.props.state === CellState.Path ||
+      this.props.state === CellState.Wall
+    );
   }
 }
