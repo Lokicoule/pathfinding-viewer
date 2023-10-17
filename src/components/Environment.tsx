@@ -39,17 +39,22 @@ const Environment: EnvironmentComponent = ({ controller }) => {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={600}
-      height={400}
-      onClick={(event) =>
-        controller.handleCellChange(
-          event.nativeEvent.offsetX,
-          event.nativeEvent.offsetY
-        )
-      }
-    />
+    <div>
+      <canvas
+        ref={canvasRef}
+        width={600}
+        height={400}
+        onClick={(event) =>
+          controller.handleCellChange(
+            event.nativeEvent.offsetX,
+            event.nativeEvent.offsetY
+          )
+        }
+      />
+      <div>
+        <button onClick={() => controller.handleMenuReset()}>Reset</button>
+      </div>
+    </div>
   );
 };
 

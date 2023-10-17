@@ -1,13 +1,16 @@
 import { EnvironmentController } from "../components/EnvironmentController";
 import { EventBus } from "./EventBus";
 import { GlobalCache } from "./GlobalCache";
-import { UpdateCellStateCommand } from "./commands";
+import { ResetGridCommandHandler } from "./commands/handlers/ResetGridCommandHandler";
 import { UpdateCellStateCommandHandler } from "./commands/handlers/UpdateCellStateCommandHandler";
 
 export class CompositionRoot {
   private __cache: GlobalCache;
   private __eventBus: EventBus;
+
   private __updateCellStateCommandHandler: UpdateCellStateCommandHandler;
+  private __resetGridCommandHandler: ResetGridCommandHandler;
+
   private __environmentController: EnvironmentController;
 
   private constructor() {
@@ -16,11 +19,9 @@ export class CompositionRoot {
 
     this.__environmentController = EnvironmentController.create(this);
 
-    this.__updateCellStateCommandHandler = UpdateCellStateCommandHandler.create(
-      this.__eventBus
-    );
-
-    this.setupEventBus();
+    this.__updateCellStateCommandHandler =
+      UpdateCellStateCommandHandler.create(this);
+    this.__resetGridCommandHandler = ResetGridCommandHandler.create(this);
   }
 
   public static create(): CompositionRoot {
@@ -37,13 +38,6 @@ export class CompositionRoot {
 
   public get environmentController(): EnvironmentController {
     return this.__environmentController;
-  }
-
-  private setupEventBus(): void {
-    this.__eventBus.subscribe(
-      UpdateCellStateCommand.name,
-      this.__updateCellStateCommandHandler
-    );
   }
 }
 

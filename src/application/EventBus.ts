@@ -1,9 +1,10 @@
 import { Events } from "../domain/events";
 import { Commands } from "./commands";
+import { CompositionRoot } from "./composition";
 
 export abstract class Handler<T> {
   constructor(
-    protected readonly eventBus: EventBus,
+    protected readonly compositionRoot: CompositionRoot,
     public readonly name: string
   ) {}
 

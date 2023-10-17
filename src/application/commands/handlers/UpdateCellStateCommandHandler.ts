@@ -1,17 +1,20 @@
 import { UpdateCellStateCommand, UpdateCellStatePayload } from "..";
 import { CellState } from "../../../components/Cell";
 import { Result } from "../../../shared/types/Result";
-import { EventBus, Handler } from "../../EventBus";
+import { Handler } from "../../EventBus";
+import { CompositionRoot } from "../../composition";
 
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {
-  private constructor(eventBus: EventBus) {
-    super(eventBus, UpdateCellStateCommandHandler.name);
+  private constructor(compositionRoot: CompositionRoot) {
+    super(compositionRoot, UpdateCellStateCommandHandler.name);
 
     this.setupSubscriptions();
   }
 
-  public static create(eventBus: EventBus): UpdateCellStateCommandHandler {
-    return new UpdateCellStateCommandHandler(eventBus);
+  public static create(
+    compositionRoot: CompositionRoot
+  ): UpdateCellStateCommandHandler {
+    return new UpdateCellStateCommandHandler(compositionRoot);
   }
 
   public handle(command: UpdateCellStateCommand): void {
@@ -78,6 +81,6 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
   }
 
   private setupSubscriptions(): void {
-    this.eventBus.subscribe(UpdateCellStateCommand.name, this);
+    this.compositionRoot.eventBus.subscribe(UpdateCellStateCommand.name, this);
   }
 }

@@ -1,4 +1,7 @@
-import { UpdateCellStateCommand } from "../application/commands";
+import {
+  ResetGridCommand,
+  UpdateCellStateCommand,
+} from "../application/commands";
 import { CompositionRoot } from "../application/composition";
 import { CellState } from "./Cell";
 
@@ -22,5 +25,10 @@ export class EnvironmentController {
         state: CellState.Wall,
       })
     );
+  }
+
+  public handleMenuReset() {
+    console.log("Resetting grid");
+    this.compositionRoot.eventBus.publish(ResetGridCommand.create());
   }
 }

@@ -9,6 +9,7 @@ type GridProps = {
 
 type GridState = {
   grid: Cell[][];
+  props: GridProps;
 };
 
 export class Grid {
@@ -17,6 +18,7 @@ export class Grid {
   private constructor(props: GridProps) {
     this.state = {
       grid: this.initialize(props),
+      props,
     };
   }
 
@@ -38,6 +40,14 @@ export class Grid {
         cell.show();
       }
     }
+  }
+
+  public reset(): void {
+    console.log("Resetting grid");
+    const grid = this.initialize(this.state.props);
+    this.state.grid = grid;
+
+    this.show();
   }
 
   public updateCellState(row: number, col: number, state: CellState): void {

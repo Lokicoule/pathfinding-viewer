@@ -18,4 +18,14 @@ export class UpdateCellStateCommand extends BaseCommand<UpdateCellStatePayload> 
   }
 }
 
-export type Commands = UpdateCellStateCommand;
+export class ResetGridCommand extends BaseCommand<void> {
+  private constructor() {
+    super(ResetGridCommand.name);
+  }
+
+  public static create(): ResetGridCommand {
+    return new ResetGridCommand();
+  }
+}
+
+export type Commands = UpdateCellStateCommand | ResetGridCommand;
