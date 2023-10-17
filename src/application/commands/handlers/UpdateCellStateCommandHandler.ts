@@ -2,6 +2,7 @@ import { UpdateCellStateCommand, UpdateCellStatePayload } from "..";
 import { CellState } from "../../../components/Cell";
 import { Result } from "../../../shared/types/Result";
 import { EventBus, Handler } from "../../EventBus";
+import { compositionRoot } from "../../composition";
 
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {
   private constructor(eventBus: EventBus) {
@@ -24,6 +25,7 @@ export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateComman
     const { row, col, state } = payload.value;
 
     console.log(`Cell at row ${row} and column ${col} is now ${state}.`);
+    compositionRoot.cache.get("grid").updateCellState(row, col, state);
   }
 
   private validatePayload(command: UpdateCellStateCommand): Result<

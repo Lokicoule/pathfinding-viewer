@@ -34,6 +34,8 @@ const Environment = () => {
       canvasContext,
     });
 
+    compositionRoot.cache.set("grid", grid);
+
     grid.show();
 
     return () => {

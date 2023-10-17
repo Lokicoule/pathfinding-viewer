@@ -36,6 +36,13 @@ export class Grid {
     }
   }
 
+  public updateCellState(row: number, col: number, state: CellState): void {
+    const { grid } = this.state;
+    grid[row][col].state = state;
+
+    this.show();
+  }
+
   private initialize(props: GridProps): Cell[][] {
     console.log("Initializing grid");
     const { cellSize, canvasContext, rows, cols } = props;
