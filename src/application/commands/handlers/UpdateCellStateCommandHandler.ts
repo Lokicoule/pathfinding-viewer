@@ -1,7 +1,7 @@
 import { UpdateCellStateCommand, UpdateCellStatePayload } from "..";
 import { CellState } from "../../../components/Cell";
+import { Handler } from "../../../shared/bases/Handler";
 import { Result } from "../../../shared/types/Result";
-import { Handler } from "../../EventBus";
 import { CompositionRoot } from "../../composition";
 
 export class UpdateCellStateCommandHandler extends Handler<UpdateCellStateCommand> {

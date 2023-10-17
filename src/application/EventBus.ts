@@ -1,15 +1,6 @@
 import { Events } from "../domain/events";
+import { Handler } from "../shared/bases/Handler";
 import { Commands } from "./commands";
-import { CompositionRoot } from "./composition";
-
-export abstract class Handler<T> {
-  constructor(
-    protected readonly compositionRoot: CompositionRoot,
-    public readonly name: string
-  ) {}
-
-  abstract handle(command: T): void;
-}
 
 export class EventBus {
   private handlers: Record<string, Handler<Events | Commands>[]> = {};

@@ -1,5 +1,5 @@
 import { ResetGridCommand } from "..";
-import { Handler } from "../../EventBus";
+import { Handler } from "../../../shared/bases/Handler";
 import { CompositionRoot } from "../../composition";
 
 export class ResetGridCommandHandler extends Handler<ResetGridCommand> {
