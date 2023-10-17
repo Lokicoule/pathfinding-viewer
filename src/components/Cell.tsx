@@ -25,7 +25,10 @@ const CELL_STATE_COLORS: Map<CellState, string> = new Map([
 ]);
 
 export class Cell {
-  private constructor(public readonly props: CellProps) {}
+  private props: CellProps;
+  private constructor(props: CellProps) {
+    this.props = props;
+  }
 
   public static create(
     state: CellState,
@@ -45,6 +48,39 @@ export class Cell {
       CELL_STATE_COLORS.get(state) ?? CELL_STATE_COLORS.get(CellState.Empty)!;
     context.strokeRect(x, y, size, size);
     context.strokeStyle = "gray";
-    context.fillRect(x, y, size, size);
+    context.lineWidth = 1;
+    context.fillRect(x, y, size - 1, size - 1);
+  }
+
+  public set state(state: CellState) {
+    this.props.state = state;
+  }
+
+  public get isStart(): boolean {
+    return this.props.state === CellState.Start;
+  }
+
+  public get isEnd(): boolean {
+    return this.props.state === CellState.End;
+  }
+
+  public get isWall(): boolean {
+    return this.props.state === CellState.Wall;
+  }
+
+  public get isPath(): boolean {
+    return this.props.state === CellState.Path;
+  }
+
+  public get isExplored(): boolean {
+    return this.props.state === CellState.Explored;
+  }
+
+  public get isFrontier(): boolean {
+    return this.props.state === CellState.Frontier;
+  }
+
+  public get isEmpty(): boolean {
+    return this.props.state === CellState.Empty;
   }
 }
