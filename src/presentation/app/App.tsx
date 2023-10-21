@@ -1,14 +1,15 @@
-import "./App.css";
-import { compositionRoot } from "../../application/CompositionRoot";
+import { compositionRoot } from "../../bootstrapping/CompositionRoot";
+import { MediatorProvider } from "../../infrastructure/mediator/react/MediatorProvider";
 import Environment from "../components/Environment";
+
+import "./App.css";
 
 function App() {
   return (
     <div id="root">
-      <Environment
-        controller={compositionRoot.environmentController}
-        presenter={compositionRoot.environmentPresenter}
-      />
+      <MediatorProvider mediator={compositionRoot.mediator}>
+        <Environment />
+      </MediatorProvider>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Cell, CellState } from "./Cell";
+import { Node, NodeState } from "./Node";
 
 type GridProps = {
   rows: number;
@@ -6,7 +6,7 @@ type GridProps = {
 };
 
 type GridState = {
-  grid: Cell[][];
+  grid: Node[][];
   props: GridProps;
 };
 
@@ -24,11 +24,11 @@ export class Grid {
     return new Grid(props);
   }
 
-  public getCells(): Cell[][] {
+  public getNodes(): Node[][] {
     return this.state.grid;
   }
 
-  public getCell(row: number, col: number): Cell {
+  public getNode(row: number, col: number): Node {
     return this.state.grid[row][col];
   }
 
@@ -36,41 +36,41 @@ export class Grid {
     this.state.grid = this.initialize(this.state.props);
   }
 
-  public updateCell(cell: Cell): void {
+  public updateNode(Node: Node): void {
     const { grid } = this.state;
 
-    const row = grid[cell.y];
-    const col = row[cell.x];
+    const row = grid[Node.y];
+    const col = row[Node.x];
 
-    col.state = cell.state;
+    col.state = Node.state;
 
     this.state.grid = grid;
   }
 
-  private initialize(props: GridProps): Cell[][] {
+  private initialize(props: GridProps): Node[][] {
     const { rows, cols } = props;
 
-    const grid: Cell[][] = [];
+    const grid: Node[][] = [];
 
     for (let i = 0; i < rows; i++) {
-      const row: Cell[] = [];
+      const row: Node[] = [];
       for (let j = 0; j < cols; j++) {
-        const cell = Cell.create({
-          state: CellState.Empty,
+        const node = Node.create({
+          state: NodeState.Empty,
           x: j,
           y: i,
         });
-        row.push(cell);
+        row.push(node);
       }
       grid.push(row);
     }
 
-    grid[2][2].state = CellState.Start;
-    grid[2][4].state = CellState.End;
-    grid[2][6].state = CellState.Wall;
-    grid[2][8].state = CellState.Explored;
-    grid[2][10].state = CellState.Frontier;
-    grid[2][12].state = CellState.Path;
+    grid[2][2].state = NodeState.Start;
+    grid[2][4].state = NodeState.End;
+    grid[2][6].state = NodeState.Wall;
+    grid[2][8].state = NodeState.Explored;
+    grid[2][10].state = NodeState.Frontier;
+    grid[2][12].state = NodeState.Path;
 
     return grid;
   }

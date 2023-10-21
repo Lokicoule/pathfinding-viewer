@@ -1,40 +1,23 @@
-import { useEffect, useState } from "react";
-import { EnvironmentController } from "./EnvironmentController";
-import { EnvironmentPresenter } from "./EnvironmentPresenter";
-import { EnvironmentViewModel } from "./EnvironmentViewModel";
-
 import "./Environment.css";
-import GridView from "./GridView";
+import { useCommand } from "../../infrastructure/mediator/react/hooks/useCommand";
+import { InitializeGridCommand } from "../../domain/commands/InitializeGridCommand";
 
-type EnvironmentProps = {
-  controller: EnvironmentController;
-  presenter: EnvironmentPresenter;
-};
+type EnvironmentComponent = React.FC;
 
-type EnvironmentComponent = React.FC<EnvironmentProps>;
-
-const Environment: EnvironmentComponent = ({ controller, presenter }) => {
-  const [viewModel, setViewModel] = useState<
-    EnvironmentViewModel | undefined
-  >();
-
-  useEffect(() => {
-    presenter.load((vm) => setViewModel(vm));
-  }, [presenter]);
-
-  if (!viewModel) {
-    return null;
-  }
+const Environment: EnvironmentComponent = () => {
+  const sendCommand = useCommand(InitializeGridCommand.name);
 
   return (
     <div>
-      <GridView
-        controller={controller}
-        cells={viewModel.grid.getCells()}
-        cellSize={viewModel.cellSize}
-      />
+      {/* <GridView nodeSize={30} nodes={grid.getNodes()} /> */}
       <div>
-        <button onClick={() => controller.handleMenuReset()}>Reset</button>
+        <button
+          onClick={() => {
+            sendCommand(new InitializeGridCommand(10, 10));
+          }}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );

@@ -1,34 +1,30 @@
-import { EnvironmentController } from "./EnvironmentController";
-
-import { Cell } from "../../domain/entities/Cell";
+import { Node } from "../../domain/entities/Node";
 
 type GridViewProps = {
-  controller: EnvironmentController;
-  cells: Cell[][];
-  cellSize: number;
+  nodes: Node[][];
+  nodeSize: number;
 };
 
 type GridComponent = React.FC<GridViewProps>;
 
-const GridView: GridComponent = ({ controller, cells, cellSize }) => {
+const GridView: GridComponent = ({ nodes, nodeSize }) => {
+  console.log(nodes);
+
   return (
     <div className="grid">
-      {cells.map((row, rowIndex) => (
+      {nodes.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
-          {row.map((cell, colIndex) => (
+          {row.map((node) => (
             <div
-              key={colIndex}
-              className={`cell ${cell.isStart ? "start" : ""} ${
-                cell.isEnd ? "end" : ""
-              } ${cell.isWall ? "wall" : ""}`}
+              key={node.id}
+              className={`cell ${node.isStart ? "start" : ""} ${
+                node.isEnd ? "end" : ""
+              } ${node.isWall ? "wall" : ""}`}
               style={{
-                width: `${cellSize}px`,
-                height: `${cellSize}px`,
+                width: `${nodeSize}px`,
+                height: `${nodeSize}px`,
               }}
-              onClick={() => controller.handleCellChange(cell)}
-            >
-              {cell.state ? "X" : "Y"}
-            </div>
+            ></div>
           ))}
         </div>
       ))}
