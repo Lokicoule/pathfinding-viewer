@@ -1,3 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1rem;
+  background-color: #333;
+  color: #fff;
+}
+
+.header > * {
+  margin: 0 0.5rem;
+}
+
 .grid {
   display: grid;
 }

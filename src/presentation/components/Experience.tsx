@@ -1,7 +1,6 @@
 import { InitializeGridCommand } from "../../domain/commands/InitializeGridCommand";
 import { useCommand } from "../../infrastructure/mediator/react/hooks/useCommand";
-
-import "./Experience.module.css";
+import GridView from "./GridView";
 
 type EnvironmentComponent = React.FC;
 
@@ -10,7 +9,7 @@ const Environment: EnvironmentComponent = () => {
 
   return (
     <div>
-      {/* <GridView nodeSize={30} nodes={grid.getNodes()} /> */}
+      <GridView />
       <div>
         <button
           onClick={() => {

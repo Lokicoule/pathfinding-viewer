@@ -1,28 +1,24 @@
-import { Node } from "../../domain/entities/Node";
+import { useGridStore } from "../../infrastructure/stores/react/hooks/useGridStore";
 
-type GridViewProps = {
-  nodes: Node[][];
-  nodeSize: number;
-};
+type GridComponent = React.FC;
 
-type GridComponent = React.FC<GridViewProps>;
-
-const GridView: GridComponent = ({ nodes, nodeSize }) => {
-  console.log(nodes);
+const GridView: GridComponent = () => {
+  const grid = useGridStore();
 
   return (
     <div className="grid">
-      {nodes.map((row, rowIndex) => (
+      {grid.getGrid().map((row, rowIndex) => (
         <div key={rowIndex} className="row">
-          {row.map((node) => (
+          {row.map((node, idx) => (
             <div
-              key={node.id}
-              className={`cell ${node.isStart ? "start" : ""} ${
-                node.isEnd ? "end" : ""
-              } ${node.isWall ? "wall" : ""}`}
+              key={idx}
+              className={`cell ${node.isStart() ? "start" : ""} ${
+                node.isEnd() ? "end" : ""
+              } ${node.isWall() ? "wall" : ""}`}
               style={{
-                width: `${nodeSize}px`,
-                height: `${nodeSize}px`,
+                width: `${grid.getSize()}px`,
+                height: `${grid.getSize()}px`,
+                backgroundColor: "white",
               }}
             ></div>
           ))}

@@ -1,4 +1,4 @@
-export enum NodeState {
+export enum NodeType {
   Empty,
   Start,
   End,
@@ -8,104 +8,72 @@ export enum NodeState {
   Frontier,
 }
 
-type NodeProps = {
-  state: NodeState;
+type NodeState = {
+  type: NodeType;
   x: number;
   y: number;
 };
 
 export class Node {
-  private props: NodeProps;
-  private _id: string;
+  private state: NodeState;
 
-  private constructor(props: NodeProps) {
-    this.props = props;
-    this._id = `x${props.x}-y${props.y}`;
+  private constructor(state: NodeState) {
+    this.state = state;
   }
 
-  public static create(props: NodeProps): Node {
-    return new Node(props);
+  public static create(state: NodeState): Node {
+    return new Node(state);
   }
 
-  public set state(state: NodeState) {
-    this.props.state = state;
+  public getType(): NodeType {
+    return this.state.type;
   }
 
-  public get id(): string {
-    return this._id;
+  public setType(type: NodeType): void {
+    this.state.type = type;
   }
 
-  public get x(): number {
-    return this.props.x;
+  public getX(): number {
+    return this.state.x;
   }
 
-  public get y(): number {
-    return this.props.y;
+  public getY(): number {
+    return this.state.y;
   }
 
-  public get isStart(): boolean {
-    return this.props.state === NodeState.Start;
+  public isStart(): boolean {
+    return this.state.type === NodeType.Start;
   }
 
-  public get isEnd(): boolean {
-    return this.props.state === NodeState.End;
+  public isEnd(): boolean {
+    return this.state.type === NodeType.End;
   }
 
-  public get isWall(): boolean {
-    return this.props.state === NodeState.Wall;
+  public isWall(): boolean {
+    return this.state.type === NodeType.Wall;
   }
 
-  public get isPath(): boolean {
-    return this.props.state === NodeState.Path;
+  public isEmpty(): boolean {
+    return this.state.type === NodeType.Empty;
   }
 
-  public get isExplored(): boolean {
-    return this.props.state === NodeState.Explored;
+  public isPath(): boolean {
+    return this.state.type === NodeType.Path;
   }
 
-  public get isFrontier(): boolean {
-    return this.props.state === NodeState.Frontier;
+  public isExplored(): boolean {
+    return this.state.type === NodeType.Explored;
   }
 
-  public get isEmpty(): boolean {
-    return this.props.state === NodeState.Empty;
+  public isFrontier(): boolean {
+    return this.state.type === NodeType.Frontier;
   }
 
-  public get isWallable(): boolean {
-    return (
-      this.props.state === NodeState.Empty ||
-      this.props.state === NodeState.Frontier ||
-      this.props.state === NodeState.Explored ||
-      this.props.state === NodeState.Path
-    );
+  public isWalkable(): boolean {
+    return !this.isWall();
   }
 
-  public get isTraversable(): boolean {
-    return (
-      this.props.state === NodeState.Empty ||
-      this.props.state === NodeState.Frontier ||
-      this.props.state === NodeState.Explored ||
-      this.props.state === NodeState.Path
-    );
-  }
-
-  public get isStartable(): boolean {
-    return (
-      this.props.state === NodeState.Empty ||
-      this.props.state === NodeState.Frontier ||
-      this.props.state === NodeState.Explored ||
-      this.props.state === NodeState.Path ||
-      this.props.state === NodeState.Wall
-    );
-  }
-
-  public get isEndable(): boolean {
-    return (
-      this.props.state === NodeState.Empty ||
-      this.props.state === NodeState.Frontier ||
-      this.props.state === NodeState.Explored ||
-      this.props.state === NodeState.Path ||
-      this.props.state === NodeState.Wall
-    );
+  public isTraversable(): boolean {
+    return !this.isWall() && !this.isExplored();
   }
 }
