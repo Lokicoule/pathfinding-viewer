@@ -1,6 +1,7 @@
-import "./Environment.css";
-import { useCommand } from "../../infrastructure/mediator/react/hooks/useCommand";
 import { InitializeGridCommand } from "../../domain/commands/InitializeGridCommand";
+import { useCommand } from "../../infrastructure/mediator/react/hooks/useCommand";
+
+import "./Experience.module.css";
 
 type EnvironmentComponent = React.FC;
 
