@@ -2,6 +2,7 @@ import { AddWallCommand } from "../../domain/commands/AddWallCommand";
 import { useCommand } from "../../infrastructure/mediator/react";
 import { useGridStore } from "../../infrastructure/stores/react/hooks/useGridStore";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
+import { concatClassNames } from "../utils/concatClassNames";
 
 type GridComponent = React.FC;
 
@@ -16,9 +17,12 @@ const GridView: GridComponent = () => {
           {row.map((node) => (
             <div
               key={node.id}
-              className={`cell ${node.isStart() ? "start" : ""} ${
-                node.isEnd() ? "end" : ""
-              } ${node.isWall() ? "wall" : ""}`}
+              className={concatClassNames(
+                "cell",
+                node.isStart() ? "start" : undefined,
+                node.isEnd() ? "end" : undefined,
+                node.isWall() ? "wall" : undefined
+              )}
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
