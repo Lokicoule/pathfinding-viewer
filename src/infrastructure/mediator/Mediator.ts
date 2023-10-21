@@ -1,5 +1,7 @@
 import { Command } from "../../domain/interfaces/Command";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
+import { Event } from "../../domain/interfaces/Event";
+import { EventHandler } from "../../domain/interfaces/EventHandler";
 import { Query } from "../../domain/interfaces/Query";
 import { QueryHandler } from "../../domain/interfaces/QueryHandler";
 import { Result } from "../../domain/interfaces/Result";
@@ -7,14 +9,13 @@ import { Result } from "../../domain/interfaces/Result";
 export class Mediator {
   private commandHandlers: Map<string, CommandHandler<Command>> = new Map();
   private queryHandlers: Map<string, QueryHandler<Query, Result>> = new Map();
+  private eventHandlers: Map<string, Array<EventHandler>> = new Map();
 
   registerCommandHandler<TCommand extends Command>(
     commandName: string,
     handler: CommandHandler<TCommand>
   ) {
     this.commandHandlers.set(commandName, handler);
-
-    console.log("registerCommandHandler", this.commandHandlers);
   }
 
   registerQueryHandler<TQuery extends Query, TResult extends Result>(
@@ -24,19 +25,22 @@ export class Mediator {
     this.queryHandlers.set(queryName, handler);
   }
 
+  registerEventHandler(eventName: string, handler: EventHandler) {
+    const handlers = this.eventHandlers.get(eventName);
+
+    if (handlers) {
+      handlers.push(handler);
+    } else {
+      this.eventHandlers.set(eventName, [handler]);
+    }
+  }
+
   sendCommand<TCommand extends Command>(
     commandName: string,
     command: TCommand
   ) {
     const handler = this.commandHandlers.get(commandName);
 
-    console.log(
-      "sendCommand",
-      commandName,
-      command,
-      handler,
-      this.commandHandlers
-    );
     if (handler) {
       handler.handle(command);
     } else {
@@ -57,11 +61,25 @@ export class Mediator {
     }
   }
 
+  sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
+    const handlers = this.eventHandlers.get(eventName);
+
+    if (handlers) {
+      handlers.forEach((handler) => handler(event));
+    } else {
+      throw new Error(`No handler registered for event: ${eventName}`);
+    }
+  }
+
   unregisterCommandHandler(commandName: string) {
     this.commandHandlers.delete(commandName);
   }
 
   unregisterQueryHandler(queryName: string) {
     this.queryHandlers.delete(queryName);
+  }
+
+  unregisterEventHandler(eventName: string) {
+    this.eventHandlers.delete(eventName);
   }
 }

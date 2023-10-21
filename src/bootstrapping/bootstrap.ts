@@ -1,12 +1,7 @@
+import { NODE_PIXEL_SIZE } from "../shared/constants";
 import { CompositionRoot } from "./CompositionRoot";
 import { calculateGridDimensions } from "./utils/calculateGridDimensions";
 
-const cellSize = 30;
+const { numCols, numRows } = calculateGridDimensions(NODE_PIXEL_SIZE, 70, 70);
 
-const { numCols, numRows } = calculateGridDimensions(cellSize);
-
-export const compositionRoot = CompositionRoot.create(
-  numCols,
-  numRows,
-  cellSize
-);
+export const compositionRoot = CompositionRoot.create(numCols, numRows);

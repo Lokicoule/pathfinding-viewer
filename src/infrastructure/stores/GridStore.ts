@@ -2,15 +2,9 @@ import { Node, NodeType } from "../../domain/entities/Node";
 
 export class GridStore {
   private grid: Node[][];
-  private size: number;
 
-  constructor(width: number, height: number, size: number = 30) {
-    this.size = size;
+  constructor(width: number, height: number) {
     this.grid = this.initializeGrid(width, height);
-  }
-
-  public getSize(): number {
-    return this.size;
   }
 
   public getGrid(): Node[][] {
@@ -26,7 +20,11 @@ export class GridStore {
 
   public setNodeType(x: number, y: number, type: NodeType): void {
     if (this.isValidPosition(x, y)) {
-      this.grid[y][x].setType(type);
+      this.grid[y][x] = Node.create({
+        x,
+        y,
+        type,
+      });
     }
   }
 
@@ -42,6 +40,9 @@ export class GridStore {
         grid[y][x] = Node.create({ x, y, type: NodeType.Empty });
       }
     }
+
+    grid[1][1].setType(NodeType.Start);
+    grid[height - 2][width - 2].setType(NodeType.End);
 
     return grid;
   }

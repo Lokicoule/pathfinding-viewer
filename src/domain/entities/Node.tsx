@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid";
+
 export enum NodeType {
   Empty,
   Start,
@@ -15,6 +17,7 @@ type NodeState = {
 };
 
 export class Node {
+  public readonly id: string = uuid();
   private state: NodeState;
 
   private constructor(state: NodeState) {

@@ -1,4 +1,4 @@
 import { createContext } from "react";
-import { GridStore } from "../GridStore";
+import { Node } from "../../../domain/entities/Node";
 
-export const GridStoreContext = createContext<GridStore | null>(null);
+export const GridStoreContext = createContext<Node[][] | null>(null);

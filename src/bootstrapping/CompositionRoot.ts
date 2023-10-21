@@ -1,4 +1,6 @@
+import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
 import { InitializeGridCommandHandler } from "../application/command-handlers/InitializeGridCommandHandler";
+import { AddWallCommand } from "../domain/commands/AddWallCommand";
 import { InitializeGridCommand } from "../domain/commands/InitializeGridCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { GridStore } from "../infrastructure/stores/GridStore";
@@ -11,9 +13,9 @@ export class CompositionRoot {
     this.initialize();
   }
 
-  public static create(numCols: number, numRows: number, nodeSize: number) {
+  public static create(numCols: number, numRows: number) {
     const mediator = new Mediator();
-    const gridStore = new GridStore(numCols, numRows, nodeSize);
+    const gridStore = new GridStore(numCols, numRows);
 
     return new CompositionRoot(mediator, gridStore);
   }
@@ -22,6 +24,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       InitializeGridCommand.name,
       new InitializeGridCommandHandler()
+    );
+    this.mediator.registerCommandHandler(
+      AddWallCommand.name,
+      new AddWallCommandHandler(this.mediator, this.gridStore)
     );
   }
 }
