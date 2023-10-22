@@ -1,6 +1,8 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
+import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetStartNodeCommandHandler } from "../application/command-handlers/SetStartNodeCommandHandler";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
+import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { GridStore } from "../infrastructure/stores/GridStore";
@@ -28,6 +30,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       SetStartNodeCommand.name,
       new SetStartNodeCommandHandler(this.mediator, this.gridStore)
+    );
+    this.mediator.registerCommandHandler(
+      ResetGridCommand.name,
+      new ResetGridCommandHandler(this.mediator, this.gridStore)
     );
   }
 }
