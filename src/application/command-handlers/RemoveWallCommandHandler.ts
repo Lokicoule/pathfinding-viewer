@@ -1,34 +1,32 @@
-import { AddWallCommand } from "../../domain/commands/AddWallCommand";
+import { RemoveWallCommand } from "../../domain/commands/RemoveWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
 
-export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
+export class RemoveWallCommandHandler
+  implements CommandHandler<RemoveWallCommand>
+{
   constructor(
     private readonly mediator: Mediator,
     private readonly gridStore: GridStore
   ) {}
 
-  handle(command: AddWallCommand): void {
-    console.log("AddWallCommandHandler", command);
+  handle(command: RemoveWallCommand): void {
+    console.log("RemoveWallCommandHandler", command);
 
     const { x, y } = command;
     const node = this.gridStore.getNode(x, y);
 
-    if (
-      !node ||
-      node.getType() === NodeType.Start ||
-      node.getType() === NodeType.End
-    ) {
+    if (!node || node.getType() !== NodeType.Wall) {
       return;
     }
 
-    const result = this.gridStore.setNodeType(x, y, NodeType.Wall);
+    const result = this.gridStore.setNodeType(x, y, NodeType.Empty);
 
     if (!result.success) {
-      console.error("AddWallCommandHandler", result.error);
+      console.error("RemoveWallCommandHandler", result.error);
       return;
     }
 

@@ -1,5 +1,5 @@
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
-import { NodeType } from "../../domain/entities/Node";
+import { NodeType } from "../../domain/enums/NodeType";
 import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";

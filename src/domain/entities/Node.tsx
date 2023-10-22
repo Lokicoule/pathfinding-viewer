@@ -1,14 +1,5 @@
 import { v4 as uuid } from "uuid";
-
-export enum NodeType {
-  Empty,
-  Start,
-  End,
-  Wall,
-  Path,
-  Explored,
-  Frontier,
-}
+import { NodeType } from "../enums/NodeType";
 
 type NodeState = {
   type: NodeType;

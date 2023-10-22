@@ -1,10 +1,16 @@
-import { Node, NodeType } from "../../domain/entities/Node";
+import { Node } from "../../domain/entities/Node";
+import { NodeType } from "../../domain/enums/NodeType";
+import { Result } from "../../domain/interfaces/Result";
 
 export class GridStore {
   private grid: Node[][];
+  private startNode!: Node;
+  private endNode!: Node;
 
   constructor(width: number, height: number) {
     this.grid = this.initializeGrid(width, height);
+    this.setStartNode(1, 1);
+    this.setEndNode(width - 2, height - 2);
   }
 
   public getGrid(): Node[][] {
@@ -18,18 +24,65 @@ export class GridStore {
     return undefined;
   }
 
-  public setNodeType(x: number, y: number, type: NodeType): void {
-    if (this.isValidPosition(x, y)) {
+  public setNodeType(x: number, y: number, type: NodeType): Result {
+    const validation = this.isValidPosition(x, y);
+
+    if (validation.success) {
       this.grid[y][x] = Node.create({
         x,
         y,
         type,
       });
+      return { success: true };
     }
+
+    return validation;
   }
 
-  private isValidPosition(x: number, y: number): boolean {
-    return x >= 0 && x < this.grid[0].length && y >= 0 && y < this.grid.length;
+  public getStartNode(): Node {
+    return this.startNode;
+  }
+
+  public setStartNode(x: number, y: number): Result {
+    const validation = this.isValidPosition(x, y);
+
+    if (validation.success) {
+      this.startNode = this.grid[y][x];
+      this.startNode.setType(NodeType.Start);
+      return { success: true };
+    }
+
+    return validation;
+  }
+
+  public getEndNode(): Node {
+    return this.endNode;
+  }
+
+  public setEndNode(x: number, y: number): Result {
+    const validation = this.isValidPosition(x, y);
+
+    if (validation.success) {
+      this.endNode = this.grid[y][x];
+      this.endNode.setType(NodeType.End);
+
+      return { success: true };
+    }
+
+    return validation;
+  }
+
+  private isValidPosition(x: number, y: number): Result {
+    if (x >= 0 && x < this.grid[0].length && y >= 0 && y < this.grid.length) {
+      return { success: true };
+    }
+
+    return {
+      success: false,
+      error: {
+        message: `Invalid position: (${x}, ${y})`,
+      },
+    };
   }
 
   private initializeGrid(width: number, height: number): Node[][] {
@@ -40,9 +93,6 @@ export class GridStore {
         grid[y][x] = Node.create({ x, y, type: NodeType.Empty });
       }
     }
-
-    grid[1][1].setType(NodeType.Start);
-    grid[height - 2][width - 2].setType(NodeType.End);
 
     return grid;
   }

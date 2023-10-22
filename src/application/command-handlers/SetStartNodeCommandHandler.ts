@@ -1,5 +1,5 @@
 import { SetStartNodeCommand } from "../../domain/commands/SetStartNodeCommand";
-import { NodeType } from "../../domain/entities/Node";
+import { NodeType } from "../../domain/enums/NodeType";
 import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
@@ -18,7 +18,54 @@ export class SetStartNodeCommandHandler
 
     const { x, y } = command;
 
-    this.gridStore.setNodeType(x, y, NodeType.Start);
+    const node = this.gridStore.getNode(x, y);
+
+    if (
+      !node ||
+      node.getType() === NodeType.Start ||
+      node.getType() === NodeType.End
+    ) {
+      return;
+    }
+
+    const previousStartNode = this.gridStore.getStartNode();
+
+    const setPreviousStartNodeResult = this.gridStore.setNodeType(
+      previousStartNode.getX(),
+      previousStartNode.getY(),
+      NodeType.Empty
+    );
+    if (!setPreviousStartNodeResult.success) {
+      console.error(
+        "SetStartNodeCommandHandler",
+        "setPreviousStartNode",
+        setPreviousStartNodeResult.error
+      );
+      return;
+    }
+
+    const setStartNodeResult = this.gridStore.setStartNode(x, y);
+    if (!setStartNodeResult.success) {
+      console.error(
+        "SetStartNodeCommandHandler",
+        "setStartNode",
+        setStartNodeResult.error
+      );
+      const restorePreviousStartNodeResult = this.gridStore.setNodeType(
+        previousStartNode.getX(),
+        previousStartNode.getY(),
+        NodeType.Start
+      );
+
+      if (!restorePreviousStartNodeResult.success) {
+        console.error(
+          "SetStartNodeCommandHandler",
+          "restorePreviousStartNode",
+          restorePreviousStartNodeResult.error
+        );
+      }
+      return;
+    }
 
     this.mediator.sendEvent(GridUpdatedEvent.name, new GridUpdatedEvent());
   }
