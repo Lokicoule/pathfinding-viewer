@@ -1,3 +1,3 @@
 export * from "./useCommand";
-export * from "./useQuery";
+export * from "./useEvent";
 export * from "./useMediator";

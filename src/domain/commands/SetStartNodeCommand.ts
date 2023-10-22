@@ -1,7 +1,7 @@
 import { Command } from "../interfaces/Command";
 
-export class InitializeGridCommand implements Command {
-  public readonly type = InitializeGridCommand.name;
+export class SetStartNodeCommand implements Command {
+  public readonly type = SetStartNodeCommand.name;
 
-  constructor(public readonly width: number, public readonly height: number) {}
+  constructor(public readonly x: number, public readonly y: number) {}
 }

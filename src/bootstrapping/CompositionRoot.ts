@@ -1,7 +1,7 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
-import { InitializeGridCommandHandler } from "../application/command-handlers/InitializeGridCommandHandler";
+import { SetStartNodeCommandHandler } from "../application/command-handlers/SetStartNodeCommandHandler";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
-import { InitializeGridCommand } from "../domain/commands/InitializeGridCommand";
+import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { GridStore } from "../infrastructure/stores/GridStore";
 
@@ -22,12 +22,12 @@ export class CompositionRoot {
 
   public initialize() {
     this.mediator.registerCommandHandler(
-      InitializeGridCommand.name,
-      new InitializeGridCommandHandler()
-    );
-    this.mediator.registerCommandHandler(
       AddWallCommand.name,
       new AddWallCommandHandler(this.mediator, this.gridStore)
+    );
+    this.mediator.registerCommandHandler(
+      SetStartNodeCommand.name,
+      new SetStartNodeCommandHandler(this.mediator, this.gridStore)
     );
   }
 }
