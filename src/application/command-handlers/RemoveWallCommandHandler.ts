@@ -1,6 +1,6 @@
 import { RemoveWallCommand } from "../../domain/commands/RemoveWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
+import { WallRemovedEvent } from "../../domain/events/WallRemovedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
@@ -30,6 +30,6 @@ export class RemoveWallCommandHandler
       return;
     }
 
-    this.mediator.sendEvent(GridUpdatedEvent.name, new GridUpdatedEvent());
+    this.mediator.sendEvent(WallRemovedEvent.name, new WallRemovedEvent());
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Node } from "../../../domain/entities/Node";
-import { GridUpdatedEvent } from "../../../domain/events/GridUpdatedEvent";
+import { RenderedEvent } from "../../../domain/events/RenderedEvent";
 import { useEventListener } from "../../mediator/react/hooks/useEventListener";
 import { GridStore } from "../GridStore";
 import { GridStoreContext } from "./GridStoreContext";
@@ -22,12 +22,12 @@ export const GridStoreProvider: GridStoreProviderComponent = ({
   const { on, off } = useEventListener();
 
   useEffect(() => {
-    on(GridUpdatedEvent.name, () => {
+    on(RenderedEvent.name, () => {
       setGrid([...store.getGrid()]);
     });
 
     return () => {
-      off(GridUpdatedEvent.name);
+      off(RenderedEvent.name);
     };
   }, [on, off, store]);
 

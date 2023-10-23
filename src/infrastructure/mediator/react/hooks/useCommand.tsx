@@ -1,10 +1,10 @@
 import { Command } from "../../../../domain/interfaces/Command";
 import { useMediator } from "./useMediator";
 
-export function useCommand<TCommand extends Command>(commandName: string) {
+export function useCommand<TCommand extends Command>() {
   const mediator = useMediator();
 
-  return (command: TCommand) => {
+  return (commandName: string, command: TCommand) => {
     mediator.sendCommand(commandName, command);
   };
 }

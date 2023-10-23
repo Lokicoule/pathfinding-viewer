@@ -1,6 +1,6 @@
 import { SetEndNodeCommand } from "../../domain/commands/SetEndNodeCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
+import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
@@ -70,6 +70,6 @@ export class SetEndNodeCommandHandler
       return;
     }
 
-    this.mediator.sendEvent(GridUpdatedEvent.name, new GridUpdatedEvent());
+    this.mediator.sendEvent(StartNodeSetEvent.name, new StartNodeSetEvent());
   }
 }

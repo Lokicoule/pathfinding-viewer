@@ -1,6 +1,6 @@
 import { AddWallCommand } from "../../domain/commands/AddWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
+import { WallAddedEvent } from "../../domain/events/WallAddedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
@@ -32,6 +32,6 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
       return;
     }
 
-    this.mediator.sendEvent(GridUpdatedEvent.name, new GridUpdatedEvent());
+    this.mediator.sendEvent(WallAddedEvent.name, new WallAddedEvent());
   }
 }

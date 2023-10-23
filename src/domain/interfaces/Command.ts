@@ -1,3 +1,3 @@
-export interface Command {
-  readonly type: string;
+export abstract class Command {
+  public abstract readonly type: string;
 }

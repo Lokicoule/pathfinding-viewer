@@ -1,6 +1,6 @@
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { GridUpdatedEvent } from "../../domain/events/GridUpdatedEvent";
+import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
@@ -30,6 +30,6 @@ export class ResetGridCommandHandler
       }
     }
 
-    this.mediator.sendEvent(GridUpdatedEvent.name, new GridUpdatedEvent());
+    this.mediator.sendEvent(GridResetEvent.name, new GridResetEvent());
   }
 }

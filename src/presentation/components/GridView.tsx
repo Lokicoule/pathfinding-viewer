@@ -10,10 +10,10 @@ type GridComponent = React.FC;
 const GridView: GridComponent = () => {
   const grid = useGridStore();
 
-  const sendNodeInteractionCommand = useCommand(NodeInteractionCommand.name);
+  const sendCommand = useCommand();
 
   const handleNodeClick = (node: Node) => {
-    sendNodeInteractionCommand(new NodeInteractionCommand(node));
+    sendCommand(NodeInteractionCommand.name, new NodeInteractionCommand(node));
   };
 
   return (
