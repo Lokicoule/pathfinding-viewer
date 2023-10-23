@@ -2845,8 +2845,8 @@
         "type": 2
       },
       "seed": 426038861,
-      "version": 200,
-      "versionNonce": 394144301,
+      "version": 201,
+      "versionNonce": 1304164717,
       "isDeleted": false,
       "boundElements": [
         {
@@ -2854,7 +2854,7 @@
           "id": "B_W5gaukvS322mPp-Zn8S"
         }
       ],
-      "updated": 1697973289580,
+      "updated": 1697973513770,
       "link": null,
       "locked": false,
       "points": [
@@ -2884,8 +2884,8 @@
     {
       "id": "B_W5gaukvS322mPp-Zn8S",
       "type": "text",
-      "x": -523.5244750976562,
-      "y": -311.0382080078126,
+      "x": -674.008850097656,
+      "y": -292.43359495853025,
       "width": 376.77587890625,
       "height": 45,
       "angle": 0,
@@ -2900,11 +2900,11 @@
       "frameId": null,
       "roundness": null,
       "seed": 675362307,
-      "version": 25,
-      "versionNonce": 423234317,
+      "version": 26,
+      "versionNonce": 142273699,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1697973278164,
+      "updated": 1697973505147,
       "link": null,
       "locked": false,
       "text": "Update React State",

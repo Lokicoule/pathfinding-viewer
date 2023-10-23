@@ -1,7 +1,5 @@
-import { AddWallCommand } from "../../domain/commands/AddWallCommand";
-import { RemoveWallCommand } from "../../domain/commands/RemoveWallCommand";
-import { SetEndNodeCommand } from "../../domain/commands/SetEndNodeCommand";
-import { SetStartNodeCommand } from "../../domain/commands/SetStartNodeCommand";
+import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCommand";
+import { Node } from "../../domain/entities/Node";
 import { useCommand } from "../../infrastructure/mediator/react";
 import { useGridStore } from "../../infrastructure/stores/react/hooks/useGridStore";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
@@ -11,10 +9,12 @@ type GridComponent = React.FC;
 
 const GridView: GridComponent = () => {
   const grid = useGridStore();
-  const sendAddWallCommand = useCommand(AddWallCommand.name);
-  const sendRemoveWallCommand = useCommand(RemoveWallCommand.name);
-  const sendSetStartNodeCommand = useCommand(SetStartNodeCommand.name);
-  const sendSetEndNodeCommand = useCommand(SetEndNodeCommand.name);
+
+  const sendNodeInteractionCommand = useCommand(NodeInteractionCommand.name);
+
+  const handleNodeClick = (node: Node) => {
+    sendNodeInteractionCommand(new NodeInteractionCommand(node));
+  };
 
   return (
     <div className="grid">
@@ -33,18 +33,7 @@ const GridView: GridComponent = () => {
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
               }}
-              onClick={() =>
-                /* sendSetEndNodeCommand(
-                    new SetEndNodeCommand(node.getX(), node.getY())
-                  ) */
-                /* sendSetStartNodeCommand(
-                    new SetStartNodeCommand(node.getX(), node.getY())
-                  ) */
-                //sendAddWallCommand(new AddWallCommand(node.getX(), node.getY()))
-                sendRemoveWallCommand(
-                  new RemoveWallCommand(node.getX(), node.getY())
-                )
-              }
+              onClick={() => handleNodeClick(node)}
             ></div>
           ))}
         </div>

@@ -1,19 +1,10 @@
-import { useMediator } from ".";
-import { EventHandler } from "../../../../domain/interfaces/EventHandler";
+import { Event } from "../../../../domain/interfaces/Event";
+import { useMediator } from "./useMediator";
 
-export const useEvent = () => {
+export function useEvent<TEvent extends Event>(EventName: string) {
   const mediator = useMediator();
 
-  const onEvent = (eventName: string, handler: EventHandler) => {
-    mediator.registerEventHandler(eventName, handler);
+  return (Event: TEvent) => {
+    mediator.sendEvent(EventName, Event);
   };
-
-  const offEvent = (eventName: string) => {
-    mediator.unregisterEventHandler(eventName);
-  };
-
-  return {
-    on: onEvent,
-    off: offEvent,
-  };
-};
+}

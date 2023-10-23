@@ -1,10 +1,12 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
+import { NodeInteractionCommandHandler } from "../application/command-handlers/nodeInteractionCommandHandler/NodeInteractionCommandHandler";
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
 import { SetSelectedNodeTypeCommandHandler } from "../application/command-handlers/SetSelectedNodeTypeCommandHandler";
 import { SetStartNodeCommandHandler } from "../application/command-handlers/SetStartNodeCommandHandler";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
+import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
@@ -32,6 +34,10 @@ export class CompositionRoot {
   }
 
   public initialize() {
+    this.registerMediatorHandlers();
+  }
+
+  private registerMediatorHandlers() {
     this.mediator.registerCommandHandler(
       AddWallCommand.name,
       new AddWallCommandHandler(this.mediator, this.gridStore)
@@ -55,6 +61,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       SetSelectedNodeTypeCommand.name,
       new SetSelectedNodeTypeCommandHandler(this.experienceStore)
+    );
+    this.mediator.registerCommandHandler(
+      NodeInteractionCommand.name,
+      new NodeInteractionCommandHandler(this.mediator, this.experienceStore)
     );
   }
 }

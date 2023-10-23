@@ -1,3 +1,7 @@
 import { Event } from "./Event";
 
-export type EventHandler = (event: Event) => void;
+export interface EventHandler<T extends Event> {
+  handle(event: T): void;
+}
+
+export type EventHandlerFn = (event: Event) => void;

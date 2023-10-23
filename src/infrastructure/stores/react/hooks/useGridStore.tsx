@@ -1,4 +1,3 @@
-// GridStoreContext.js
 import { useContext } from "react";
 import { GridStoreContext } from "../GridStoreContext";
 

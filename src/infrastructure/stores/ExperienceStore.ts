@@ -4,7 +4,7 @@ export class ExperienceStore {
   private selectedNodeType: SelectedNodeType;
 
   constructor() {
-    this.selectedNodeType = SelectedNodeType.Empty;
+    this.selectedNodeType = SelectedNodeType.Wall;
   }
 
   public getSelectedNodeType(): SelectedNodeType {
