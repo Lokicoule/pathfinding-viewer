@@ -14,7 +14,7 @@ export class Mediator {
     Array<EventHandlerFn | EventHandler<Event>>
   > = new Map();
 
-  registerCommandHandler<TCommand extends Command>(
+  public registerCommandHandler<TCommand extends Command>(
     commandName: string,
     handler: CommandHandler<TCommand>
   ) {
@@ -25,9 +25,11 @@ export class Mediator {
     } else {
       this.commandHandlers.set(commandName, [handler]);
     }
+
+    return () => this.unregisterCommandHandler(commandName, handler);
   }
 
-  registerEventHandler<TEvent extends Event>(
+  public registerEventHandler<TEvent extends Event>(
     eventName: string,
     handler: EventHandlerFn | EventHandler<TEvent>
   ) {
@@ -38,9 +40,11 @@ export class Mediator {
     } else {
       this.eventHandlers.set(eventName, [handler]);
     }
+
+    return () => this.unregisterEventHandler(eventName, handler);
   }
 
-  sendCommand<TCommand extends Command>(
+  public sendCommand<TCommand extends Command>(
     commandName: string,
     command: TCommand
   ) {
@@ -53,7 +57,7 @@ export class Mediator {
     }
   }
 
-  sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
+  public sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
     const handlers = this.eventHandlers.get(eventName);
 
     if (handlers) {
@@ -69,11 +73,27 @@ export class Mediator {
     }
   }
 
-  unregisterCommandHandler(commandName: string) {
-    this.commandHandlers.delete(commandName);
+  private unregisterCommandHandler<TCommand extends Command>(
+    commandName: string,
+    handler: CommandHandler<TCommand>
+  ) {
+    const handlers = this.commandHandlers.get(commandName);
+
+    if (handlers) {
+      const index = handlers.indexOf(handler);
+      handlers.splice(index, 1);
+    }
   }
 
-  unregisterEventHandler(eventName: string) {
-    this.eventHandlers.delete(eventName);
+  private unregisterEventHandler<TEvent extends Event>(
+    eventName: string,
+    handler: EventHandlerFn | EventHandler<TEvent>
+  ) {
+    const handlers = this.eventHandlers.get(eventName);
+
+    if (handlers) {
+      const index = handlers.indexOf(handler);
+      handlers.splice(index, 1);
+    }
   }
 }

@@ -5,13 +5,17 @@ import GridView from "./GridView";
 type EnvironmentComponent = React.FC;
 
 const Environment: EnvironmentComponent = () => {
-  const sendResetCommand = useCommand(ResetGridCommand.name);
+  const sendCommand = useCommand();
 
   return (
     <div>
       <GridView />
       <div>
-        <button onClick={() => sendResetCommand(new ResetGridCommand())}>
+        <button
+          onClick={() =>
+            sendCommand(ResetGridCommand.name, new ResetGridCommand())
+          }
+        >
           Reset
         </button>
       </div>

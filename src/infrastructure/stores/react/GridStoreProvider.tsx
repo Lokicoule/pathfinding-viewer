@@ -19,17 +19,17 @@ export const GridStoreProvider: GridStoreProviderComponent = ({
 }) => {
   const [grid, setGrid] = useState<Node[][]>(store.getGrid());
 
-  const { on, off } = useEventListener();
+  const { on } = useEventListener();
 
   useEffect(() => {
-    on(RenderedEvent.name, () => {
+    const off = on(RenderedEvent.name, () => {
       setGrid([...store.getGrid()]);
     });
 
     return () => {
-      off(RenderedEvent.name);
+      off();
     };
-  }, [on, off, store]);
+  });
 
   return (
     <GridStoreContext.Provider value={grid}>

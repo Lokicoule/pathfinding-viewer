@@ -1,10 +1,10 @@
-import { Command } from "../../../../domain/interfaces/Command";
+import { Event } from "../../../../domain/interfaces/Event";
 import { useMediator } from "./useMediator";
 
-export function useEvent<TCommand extends Command>() {
+export function useEvent<TEvent extends Event>() {
   const mediator = useMediator();
 
-  return (eventName: string, command: TCommand) => {
-    mediator.sendEvent(eventName, command);
+  return (eventName: string, event: TEvent) => {
+    mediator.sendEvent(eventName, event);
   };
 }
