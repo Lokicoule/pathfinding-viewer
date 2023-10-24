@@ -15,7 +15,7 @@ import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
 import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
-import { Mediator } from "../infrastructure/mediator/Mediator";
+import { Mediator } from "../application/mediator/Mediator";
 import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../infrastructure/stores/GridStore";
 

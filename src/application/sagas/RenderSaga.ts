@@ -4,7 +4,7 @@ import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
 import { WallAddedEvent } from "../../domain/events/WallAddedEvent";
 import { WallRemovedEvent } from "../../domain/events/WallRemovedEvent";
-import { Mediator } from "../../infrastructure/mediator/Mediator";
+import { Mediator } from "../mediator/Mediator";
 
 export class RenderSaga {
   constructor(private readonly mediator: Mediator) {

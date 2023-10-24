@@ -3,8 +3,8 @@ import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Event } from "../../domain/interfaces/Event";
 import { EventHandler } from "../../domain/interfaces/EventHandler";
 import { Callback } from "../../domain/types/Callback";
-import { CommandBus } from "./CommandBus";
-import { EventBus } from "./EventBus";
+import { CommandBus } from "../../infrastructure/pubsub/CommandBus";
+import { EventBus } from "../../infrastructure/pubsub/EventBus";
 
 export class Mediator {
   private commandBus: CommandBus = new CommandBus();
@@ -14,18 +14,14 @@ export class Mediator {
     commandName: string,
     handler: CommandHandler<TCommand>
   ) {
-    this.commandBus.subscribeCommand(commandName, handler);
-
-    return () => this.unregisterCommandHandler(commandName, handler);
+    return this.commandBus.subscribeCommand(commandName, handler);
   }
 
   public registerEventHandler<TEvent extends Event>(
     eventName: string,
     handler: EventHandler<TEvent> | Callback
   ) {
-    this.eventBus.subscribeEvent(eventName, handler);
-
-    return () => this.unregisterEventHandler(eventName, handler);
+    return this.eventBus.subscribeEvent(eventName, handler);
   }
 
   public sendCommand<TCommand extends Command>(
@@ -37,19 +33,5 @@ export class Mediator {
 
   public sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
     this.eventBus.publishEvent(eventName, event);
-  }
-
-  private unregisterCommandHandler<TCommand extends Command>(
-    commandName: string,
-    handler: CommandHandler<TCommand>
-  ) {
-    this.commandBus.unsubscribeCommand(commandName, handler);
-  }
-
-  private unregisterEventHandler<TEvent extends Event>(
-    eventName: string,
-    handler: EventHandler<TEvent> | Callback
-  ) {
-    this.eventBus.unsubscribeEvent(eventName, handler);
   }
 }

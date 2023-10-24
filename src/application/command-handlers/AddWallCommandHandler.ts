@@ -2,7 +2,7 @@ import { AddWallCommand } from "../../domain/commands/AddWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { WallAddedEvent } from "../../domain/events/WallAddedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { Mediator } from "../../infrastructure/mediator/Mediator";
+import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
 
 export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {

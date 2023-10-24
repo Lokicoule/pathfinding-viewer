@@ -1,5 +1,5 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { MediatorProvider } from "../../infrastructure/mediator/react";
+import { MediatorProvider } from "../contexts/mediator/MediatorProvider";
 import { GridStoreProvider } from "../../infrastructure/stores/react/GridStoreProvider";
 import Experience from "../components/Experience";
 

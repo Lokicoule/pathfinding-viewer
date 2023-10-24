@@ -2,7 +2,7 @@ import { SetEndNodeCommand } from "../../../../domain/commands/SetEndNodeCommand
 import { SetSelectedNodeTypeCommand } from "../../../../domain/commands/SetSelectedNodeTypeCommand";
 import { SelectedNodeType } from "../../../../domain/enums/SelectedNodeType";
 import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
-import { Mediator } from "../../../../infrastructure/mediator/Mediator";
+import { Mediator } from "../../../mediator/Mediator";
 
 export function handleEndNodeChange(
   mediator: Mediator,

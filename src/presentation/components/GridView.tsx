@@ -1,6 +1,6 @@
 import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCommand";
 import { Node } from "../../domain/entities/Node";
-import { useCommand } from "../../infrastructure/mediator/react";
+import { useCommand } from "../hooks/mediator/useCommand";
 import { useGridStore } from "../../infrastructure/stores/react/hooks/useGridStore";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 import { concatClassNames } from "../utils/concatClassNames";

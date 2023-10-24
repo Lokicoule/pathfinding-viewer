@@ -1,4 +1,4 @@
-import { Callback } from "../../../../domain/types/Callback";
+import { Callback } from "../../../domain/types/Callback";
 import { useMediator } from "./useMediator";
 
 export const useEventListener = () => {

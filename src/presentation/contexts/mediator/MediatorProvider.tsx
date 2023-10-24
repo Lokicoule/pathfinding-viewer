@@ -1,4 +1,4 @@
-import { Mediator } from "../Mediator";
+import { Mediator } from "../../../application/mediator/Mediator";
 import { MediatorContext } from "./MediatorContext";
 
 type MediatorProviderProps = {

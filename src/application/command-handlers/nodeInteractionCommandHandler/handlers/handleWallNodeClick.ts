@@ -2,7 +2,7 @@ import { RemoveWallCommand } from "../../../../domain/commands/RemoveWallCommand
 import { SetSelectedNodeTypeCommand } from "../../../../domain/commands/SetSelectedNodeTypeCommand";
 import { SelectedNodeType } from "../../../../domain/enums/SelectedNodeType";
 import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
-import { Mediator } from "../../../../infrastructure/mediator/Mediator";
+import { Mediator } from "../../../mediator/Mediator";
 
 export function handleWallNodeClick(
   mediator: Mediator,

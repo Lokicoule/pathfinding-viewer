@@ -2,7 +2,7 @@ import { RemoveWallCommand } from "../../domain/commands/RemoveWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { WallRemovedEvent } from "../../domain/events/WallRemovedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { Mediator } from "../../infrastructure/mediator/Mediator";
+import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../../infrastructure/stores/GridStore";
 
 export class RemoveWallCommandHandler
