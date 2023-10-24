@@ -1,7 +1,5 @@
 import { Event } from "./Event";
 
-export interface EventHandler<T extends Event> {
-  handle(event: T): void;
+export abstract class EventHandler<TEvent extends Event> {
+  abstract handle(event: TEvent): void;
 }
-
-export type EventHandlerFn = (event: Event) => void;

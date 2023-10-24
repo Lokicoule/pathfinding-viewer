@@ -1,18 +1,14 @@
 import { Command } from "../../domain/interfaces/Command";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Event } from "../../domain/interfaces/Event";
-import {
-  EventHandler,
-  EventHandlerFn,
-} from "../../domain/interfaces/EventHandler";
+import { EventHandler } from "../../domain/interfaces/EventHandler";
+import { Callback } from "../../domain/types/Callback";
 
 export class Mediator {
   private commandHandlers: Map<string, Array<CommandHandler<Command>>> =
     new Map();
-  private eventHandlers: Map<
-    string,
-    Array<EventHandlerFn | EventHandler<Event>>
-  > = new Map();
+  private eventHandlers: Map<string, Array<Callback | EventHandler<Event>>> =
+    new Map();
 
   public registerCommandHandler<TCommand extends Command>(
     commandName: string,
@@ -31,7 +27,7 @@ export class Mediator {
 
   public registerEventHandler<TEvent extends Event>(
     eventName: string,
-    handler: EventHandlerFn | EventHandler<TEvent>
+    handler: Callback | EventHandler<TEvent>
   ) {
     const handlers = this.eventHandlers.get(eventName);
 
@@ -51,7 +47,7 @@ export class Mediator {
     const handlers = this.commandHandlers.get(commandName);
 
     if (handlers) {
-      handlers.forEach((handler) => handler.handle(command));
+      handlers.forEach((handler) => handler.execute(command));
     } else {
       throw new Error(`No handler registered for command: ${commandName}`);
     }
@@ -65,7 +61,7 @@ export class Mediator {
         if ((handler as EventHandler<Event>).handle) {
           (handler as EventHandler<Event>).handle(event);
         } else {
-          (handler as EventHandlerFn)(event);
+          (handler as Callback)(event);
         }
       });
     } else {
@@ -87,7 +83,7 @@ export class Mediator {
 
   private unregisterEventHandler<TEvent extends Event>(
     eventName: string,
-    handler: EventHandlerFn | EventHandler<TEvent>
+    handler: Callback | EventHandler<TEvent>
   ) {
     const handlers = this.eventHandlers.get(eventName);
 

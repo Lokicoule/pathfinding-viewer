@@ -1,6 +1,6 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
-import { Result } from "../../domain/interfaces/Result";
+import { Result } from "../../domain/types/Result";
 
 export class GridStore {
   private grid: Node[][];

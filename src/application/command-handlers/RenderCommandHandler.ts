@@ -6,7 +6,7 @@ import { Mediator } from "../../infrastructure/mediator/Mediator";
 export class RenderCommandHandler implements CommandHandler<RenderCommand> {
   constructor(private readonly mediator: Mediator) {}
 
-  handle(): void {
+  execute(): void {
     this.mediator.sendEvent(RenderedEvent.name, new RenderedEvent());
   }
 }

@@ -11,7 +11,7 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
     private readonly gridStore: GridStore
   ) {}
 
-  handle(command: AddWallCommand): void {
+  execute(command: AddWallCommand): void {
     console.log("AddWallCommandHandler", command);
 
     const { x, y } = command;

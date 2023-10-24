@@ -13,7 +13,7 @@ export class RemoveWallCommandHandler
     private readonly gridStore: GridStore
   ) {}
 
-  handle(command: RemoveWallCommand): void {
+  execute(command: RemoveWallCommand): void {
     console.log("RemoveWallCommandHandler", command);
 
     const { x, y } = command;

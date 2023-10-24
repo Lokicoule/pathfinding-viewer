@@ -1,5 +1,5 @@
 import { Command } from "./Command";
 
-export interface CommandHandler<TCommand extends Command> {
-  handle(command: TCommand): void;
+export abstract class CommandHandler<TCommand extends Command> {
+  abstract execute(command: TCommand): void;
 }

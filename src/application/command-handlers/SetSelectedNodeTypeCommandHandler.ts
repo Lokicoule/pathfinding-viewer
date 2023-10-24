@@ -7,7 +7,7 @@ export class SetSelectedNodeTypeCommandHandler
 {
   constructor(private readonly experienceStore: ExperienceStore) {}
 
-  handle(command: SetSelectedNodeTypeCommand): void {
+  execute(command: SetSelectedNodeTypeCommand): void {
     console.log("SetSelectedNodeTypeCommandHandler", command);
 
     const { nodeType } = command;

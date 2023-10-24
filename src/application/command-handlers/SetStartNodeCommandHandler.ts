@@ -13,7 +13,7 @@ export class SetStartNodeCommandHandler
     private readonly gridStore: GridStore
   ) {}
 
-  handle(command: SetStartNodeCommand): void {
+  execute(command: SetStartNodeCommand): void {
     console.log("SetStartNodeCommandHandler", command);
 
     const { x, y } = command;

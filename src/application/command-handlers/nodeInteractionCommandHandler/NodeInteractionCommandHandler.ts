@@ -18,7 +18,7 @@ export class NodeInteractionCommandHandler
     private readonly experienceStore: ExperienceStore
   ) {}
 
-  public handle(command: NodeInteractionCommand) {
+  public execute(command: NodeInteractionCommand) {
     console.log("NodeInteractionMediator", command);
 
     const selectedNodeType = this.experienceStore.getSelectedNodeType();

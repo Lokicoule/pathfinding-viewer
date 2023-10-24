@@ -13,7 +13,7 @@ export class ResetGridCommandHandler
     private readonly gridStore: GridStore
   ) {}
 
-  handle(): void {
+  execute(): void {
     console.log("ResetGridCommandHandler");
 
     const grid = this.gridStore.getGrid();
