@@ -1,5 +1,7 @@
 import { Event } from "../interfaces/Event";
 
-export class WallRemovedEvent implements Event {
-  public readonly type = WallRemovedEvent.name;
+export class WallRemovedEvent extends Event {
+  constructor() {
+    super("WallRemovedEvent");
+  }
 }

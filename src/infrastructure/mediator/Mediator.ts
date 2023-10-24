@@ -3,39 +3,27 @@ import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { Event } from "../../domain/interfaces/Event";
 import { EventHandler } from "../../domain/interfaces/EventHandler";
 import { Callback } from "../../domain/types/Callback";
+import { CommandBus } from "./CommandBus";
+import { EventBus } from "./EventBus";
 
 export class Mediator {
-  private commandHandlers: Map<string, Array<CommandHandler<Command>>> =
-    new Map();
-  private eventHandlers: Map<string, Array<Callback | EventHandler<Event>>> =
-    new Map();
+  private commandBus: CommandBus = new CommandBus();
+  private eventBus: EventBus = new EventBus();
 
   public registerCommandHandler<TCommand extends Command>(
     commandName: string,
     handler: CommandHandler<TCommand>
   ) {
-    const handlers = this.commandHandlers.get(commandName);
-
-    if (handlers) {
-      handlers.push(handler);
-    } else {
-      this.commandHandlers.set(commandName, [handler]);
-    }
+    this.commandBus.subscribeCommand(commandName, handler);
 
     return () => this.unregisterCommandHandler(commandName, handler);
   }
 
   public registerEventHandler<TEvent extends Event>(
     eventName: string,
-    handler: Callback | EventHandler<TEvent>
+    handler: EventHandler<TEvent> | Callback
   ) {
-    const handlers = this.eventHandlers.get(eventName);
-
-    if (handlers) {
-      handlers.push(handler);
-    } else {
-      this.eventHandlers.set(eventName, [handler]);
-    }
+    this.eventBus.subscribeEvent(eventName, handler);
 
     return () => this.unregisterEventHandler(eventName, handler);
   }
@@ -44,52 +32,24 @@ export class Mediator {
     commandName: string,
     command: TCommand
   ) {
-    const handlers = this.commandHandlers.get(commandName);
-
-    if (handlers) {
-      handlers.forEach((handler) => handler.execute(command));
-    } else {
-      throw new Error(`No handler registered for command: ${commandName}`);
-    }
+    this.commandBus.publishCommand(commandName, command);
   }
 
   public sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
-    const handlers = this.eventHandlers.get(eventName);
-
-    if (handlers) {
-      handlers.forEach((handler) => {
-        if ((handler as EventHandler<Event>).handle) {
-          (handler as EventHandler<Event>).handle(event);
-        } else {
-          (handler as Callback)(event);
-        }
-      });
-    } else {
-      throw new Error(`No handler registered for event: ${eventName}`);
-    }
+    this.eventBus.publishEvent(eventName, event);
   }
 
   private unregisterCommandHandler<TCommand extends Command>(
     commandName: string,
     handler: CommandHandler<TCommand>
   ) {
-    const handlers = this.commandHandlers.get(commandName);
-
-    if (handlers) {
-      const index = handlers.indexOf(handler);
-      handlers.splice(index, 1);
-    }
+    this.commandBus.unsubscribeCommand(commandName, handler);
   }
 
   private unregisterEventHandler<TEvent extends Event>(
     eventName: string,
-    handler: Callback | EventHandler<TEvent>
+    handler: EventHandler<TEvent> | Callback
   ) {
-    const handlers = this.eventHandlers.get(eventName);
-
-    if (handlers) {
-      const index = handlers.indexOf(handler);
-      handlers.splice(index, 1);
-    }
+    this.eventBus.unsubscribeEvent(eventName, handler);
   }
 }

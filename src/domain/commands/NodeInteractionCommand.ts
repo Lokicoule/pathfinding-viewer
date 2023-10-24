@@ -1,7 +1,8 @@
 import { Node } from "../entities/Node";
 import { Command } from "../interfaces/Command";
 
-export class NodeInteractionCommand implements Command {
-  public readonly type = NodeInteractionCommand.name;
-  constructor(public readonly node: Node) {}
+export class NodeInteractionCommand extends Command {
+  constructor(public readonly node: Node) {
+    super("NodeInteractionCommand");
+  }
 }

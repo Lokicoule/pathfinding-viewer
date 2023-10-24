@@ -1,3 +1,3 @@
-export interface Event {
-  readonly type: string;
+export abstract class Event {
+  constructor(public readonly name: string) {}
 }

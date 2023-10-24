@@ -9,5 +9,6 @@ export function useMediator() {
       "Mediator not found. Make sure to wrap your app with MediatorProvider."
     );
   }
+
   return mediator;
 }

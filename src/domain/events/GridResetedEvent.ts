@@ -1,5 +1,7 @@
 import { Event } from "../interfaces/Event";
 
-export class GridResetEvent implements Event {
-  public readonly type = GridResetEvent.name;
+export class GridResetEvent extends Event {
+  constructor() {
+    super("GridResetEvent");
+  }
 }

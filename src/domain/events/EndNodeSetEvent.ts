@@ -1,5 +1,7 @@
 import { Event } from "../interfaces/Event";
 
-export class EndNodeSetEvent implements Event {
-  public readonly type = EndNodeSetEvent.name;
+export class EndNodeSetEvent extends Event {
+  constructor() {
+    super("EndNodeSetEvent");
+  }
 }
