@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Node } from "../../../domain/entities/Node";
 import { RenderedEvent } from "../../../domain/events/RenderedEvent";
-import { useEventListener } from "../../../presentation/hooks/mediator/useEventListener";
+import { useEventListener } from "../../../presentation/adapters/mediator/hooks/useEventListener";
 import { GridStore } from "../GridStore";
 import { GridStoreContext } from "./GridStoreContext";
 

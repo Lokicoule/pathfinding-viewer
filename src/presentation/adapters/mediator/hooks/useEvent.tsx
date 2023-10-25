@@ -1,4 +1,4 @@
-import { Event } from "../../../domain/interfaces/Event";
+import { Event } from "../../../../domain/interfaces/Event";
 import { useMediator } from "./useMediator";
 
 export function useEvent<TEvent extends Event>() {

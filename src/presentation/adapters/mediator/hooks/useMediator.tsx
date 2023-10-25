@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MediatorContext } from "../../contexts/mediator/MediatorContext";
+import { MediatorContext } from "../contexts";
 
 export function useMediator() {
   const mediator = useContext(MediatorContext);

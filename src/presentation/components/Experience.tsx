@@ -1,5 +1,5 @@
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
-import { useCommand } from "../hooks/mediator/useCommand";
+import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
 
 type EnvironmentComponent = React.FC;

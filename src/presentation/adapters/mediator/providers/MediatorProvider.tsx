@@ -1,5 +1,5 @@
-import { Mediator } from "../../../application/mediator/Mediator";
-import { MediatorContext } from "./MediatorContext";
+import { Mediator } from "../../../../application/mediator/Mediator";
+import { MediatorContext } from "../contexts";
 
 type MediatorProviderProps = {
   mediator: Mediator;
