@@ -1,14 +1,19 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
 import { MediatorProvider } from "../adapters/mediator/providers";
-import { GridStoreProvider } from "../../infrastructure/stores/react/GridStoreProvider";
 import Experience from "../components/Experience";
+import { StoreProvider } from "../store/StoreProvider";
 
 import "./App.css";
 
 function App() {
+  const stores = {
+    gridStore: compositionRoot.gridStore,
+    experienceStore: compositionRoot.experienceStore,
+  };
+
   return (
     <MediatorProvider mediator={compositionRoot.mediator}>
-      <GridStoreProvider store={compositionRoot.gridStore}>
+      <StoreProvider stores={stores}>
         <div className="container">
           <div className="header">
             <h1>Pathfinding Visualizer</h1>
@@ -17,7 +22,7 @@ function App() {
             <Experience />
           </div>
         </div>
-      </GridStoreProvider>
+      </StoreProvider>
     </MediatorProvider>
   );
 }

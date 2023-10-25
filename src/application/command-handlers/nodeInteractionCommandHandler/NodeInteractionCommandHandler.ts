@@ -1,8 +1,8 @@
 import { NodeInteractionCommand } from "../../../domain/commands/NodeInteractionCommand";
 import { SelectedNodeType } from "../../../domain/enums/SelectedNodeType";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
+import { ExperienceStore } from "../../../presentation/stores/ExperienceStore";
 import { Mediator } from "../../mediator/Mediator";
-import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
 import { handleEmptyNodeClick } from "./handlers/handleEmptyNodeClick";
 import { handleEndNodeChange } from "./handlers/handleEndNodeChange";
 import { handleEndNodeClick } from "./handlers/handleEndNodeClick";

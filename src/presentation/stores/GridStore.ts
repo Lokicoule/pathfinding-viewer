@@ -1,25 +1,36 @@
+import { Mediator } from "../../application/mediator/Mediator";
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Result } from "../../domain/types/Result";
+import Store from "../store/Store";
 
-export class GridStore {
-  private grid: Node[][];
-  private startNode!: Node;
-  private endNode!: Node;
+export type GridStoreState = {
+  grid: Node[][];
+  startNode: Node;
+  endNode: Node;
+};
 
-  constructor(width: number, height: number) {
-    this.grid = this.initializeGrid(width, height);
-    this.setStartNode(1, 1);
-    this.setEndNode(width - 2, height - 2);
+export class GridStore extends Store<GridStoreState> {
+  constructor(mediator: Mediator, width: number, height: number) {
+    super(mediator, "gridStateUpdated", {
+      grid: GridStore.initializeGrid(width, height),
+      startNode: Node.create({ x: 1, y: 1, type: NodeType.Start }),
+      endNode: Node.create({ x: width - 2, y: height - 2, type: NodeType.End }),
+    });
+
+    this.state.grid[this.state.startNode.getY()][this.state.startNode.getX()] =
+      this.state.startNode;
+    this.state.grid[this.state.endNode.getY()][this.state.endNode.getX()] =
+      this.state.endNode;
   }
 
   public getGrid(): Node[][] {
-    return this.grid;
+    return this.state.grid;
   }
 
   public getNode(x: number, y: number): Node | undefined {
     if (this.isValidPosition(x, y)) {
-      return this.grid[y][x];
+      return this.state.grid[y][x];
     }
     return undefined;
   }
@@ -28,11 +39,12 @@ export class GridStore {
     const validation = this.isValidPosition(x, y);
 
     if (validation.success) {
-      this.grid[y][x] = Node.create({
+      this.state.grid[y][x] = Node.create({
         x,
         y,
         type,
       });
+      super.render();
       return { success: true };
     }
 
@@ -40,15 +52,16 @@ export class GridStore {
   }
 
   public getStartNode(): Node {
-    return this.startNode;
+    return this.state.startNode;
   }
 
   public setStartNode(x: number, y: number): Result {
     const validation = this.isValidPosition(x, y);
 
     if (validation.success) {
-      this.startNode = this.grid[y][x];
-      this.startNode.setType(NodeType.Start);
+      this.state.startNode = this.state.grid[y][x];
+      this.state.startNode.setType(NodeType.Start);
+      super.render();
       return { success: true };
     }
 
@@ -56,16 +69,16 @@ export class GridStore {
   }
 
   public getEndNode(): Node {
-    return this.endNode;
+    return this.state.endNode;
   }
 
   public setEndNode(x: number, y: number): Result {
     const validation = this.isValidPosition(x, y);
 
     if (validation.success) {
-      this.endNode = this.grid[y][x];
-      this.endNode.setType(NodeType.End);
-
+      this.state.endNode = this.state.grid[y][x];
+      this.state.endNode.setType(NodeType.End);
+      super.render();
       return { success: true };
     }
 
@@ -73,7 +86,12 @@ export class GridStore {
   }
 
   private isValidPosition(x: number, y: number): Result {
-    if (x >= 0 && x < this.grid[0].length && y >= 0 && y < this.grid.length) {
+    if (
+      x >= 0 &&
+      x < this.state.grid[0].length &&
+      y >= 0 &&
+      y < this.state.grid.length
+    ) {
       return { success: true };
     }
 
@@ -85,7 +103,7 @@ export class GridStore {
     };
   }
 
-  private initializeGrid(width: number, height: number): Node[][] {
+  public static initializeGrid(width: number, height: number): Node[][] {
     const grid = new Array(height);
     for (let y = 0; y < height; y++) {
       grid[y] = new Array(width);

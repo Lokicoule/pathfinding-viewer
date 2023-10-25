@@ -1,6 +1,5 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
-import { RenderCommandHandler } from "../application/command-handlers/RenderCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
 import { SetSelectedNodeTypeCommandHandler } from "../application/command-handlers/SetSelectedNodeTypeCommandHandler";
@@ -16,8 +15,9 @@ import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
 import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../application/mediator/Mediator";
-import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
-import { GridStore } from "../infrastructure/stores/GridStore";
+import { GridStore } from "../presentation/stores/GridStore";
+import { ExperienceStore } from "../presentation/stores/ExperienceStore";
+import { RenderCommandHandler } from "../application/command-handlers/RenderCommandHandler";
 
 export class CompositionRoot {
   private constructor(
@@ -30,8 +30,8 @@ export class CompositionRoot {
 
   public static create(numCols: number, numRows: number) {
     const mediator = new Mediator();
-    const gridStore = new GridStore(numCols, numRows);
-    const experienceStore = new ExperienceStore();
+    const gridStore = new GridStore(mediator, numCols, numRows);
+    const experienceStore = new ExperienceStore(mediator);
 
     return new CompositionRoot(mediator, gridStore, experienceStore);
   }
