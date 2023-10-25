@@ -1,3 +1,4 @@
+import { RenderCommand } from "../../domain/commands/RenderCommand";
 import { EndNodeSetEvent } from "../../domain/events/EndNodeSetEvent";
 import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
@@ -20,5 +21,7 @@ export class RenderSaga {
     });
   }
 
-  private run = () => {};
+  private run = () => {
+    this.mediator.sendCommand(RenderCommand.name, new RenderCommand());
+  };
 }

@@ -1,5 +1,5 @@
-import { Mediator } from "../../../../application/mediator/Mediator";
-import { MediatorContext } from "../contexts";
+import { createContext } from "react";
+import { Mediator } from "../../../application/mediator/Mediator";
 
 type MediatorProviderProps = {
   mediator: Mediator;
@@ -8,6 +8,8 @@ type MediatorProviderProps = {
 type MediatorProviderComponent = React.FC<
   React.PropsWithChildren<MediatorProviderProps>
 >;
+
+export const MediatorContext = createContext<Mediator | null>(null);
 
 export const MediatorProvider: MediatorProviderComponent = ({
   mediator,

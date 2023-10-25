@@ -1,8 +1,7 @@
-import { Mediator } from "../../application/mediator/Mediator";
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Result } from "../../domain/types/Result";
-import Store from "../store/Store";
+import Store from "../../infrastructure/store/Store";
 
 export type GridStoreState = {
   grid: Node[][];
@@ -11,8 +10,8 @@ export type GridStoreState = {
 };
 
 export class GridStore extends Store<GridStoreState> {
-  constructor(mediator: Mediator, width: number, height: number) {
-    super(mediator, "gridStateUpdated", {
+  constructor(width: number, height: number) {
+    super({
       grid: GridStore.initializeGrid(width, height),
       startNode: Node.create({ x: 1, y: 1, type: NodeType.Start }),
       endNode: Node.create({ x: width - 2, y: height - 2, type: NodeType.End }),
@@ -44,7 +43,6 @@ export class GridStore extends Store<GridStoreState> {
         y,
         type,
       });
-      super.render();
       return { success: true };
     }
 
@@ -61,7 +59,6 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.startNode = this.state.grid[y][x];
       this.state.startNode.setType(NodeType.Start);
-      super.render();
       return { success: true };
     }
 
@@ -78,7 +75,6 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.endNode = this.state.grid[y][x];
       this.state.endNode.setType(NodeType.End);
-      super.render();
       return { success: true };
     }
 

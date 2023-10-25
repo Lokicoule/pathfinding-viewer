@@ -30,8 +30,8 @@ export class CompositionRoot {
 
   public static create(numCols: number, numRows: number) {
     const mediator = new Mediator();
-    const gridStore = new GridStore(mediator, numCols, numRows);
-    const experienceStore = new ExperienceStore(mediator);
+    const gridStore = new GridStore(numCols, numRows);
+    const experienceStore = new ExperienceStore();
 
     return new CompositionRoot(mediator, gridStore, experienceStore);
   }

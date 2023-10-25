@@ -1,14 +1,13 @@
-import { Mediator } from "../../application/mediator/Mediator";
 import { SelectedNodeType } from "../../domain/enums/SelectedNodeType";
-import Store from "../store/Store";
+import Store from "../../infrastructure/store/Store";
 
 type ExperienceStoreState = {
   selectedNodeType: SelectedNodeType;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {
-  constructor(mediator: Mediator) {
-    super(mediator, "experienceStateUpdated", {
+  constructor() {
+    super({
       selectedNodeType: SelectedNodeType.Wall,
     });
   }

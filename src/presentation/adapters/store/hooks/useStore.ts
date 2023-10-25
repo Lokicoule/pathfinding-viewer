@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "./StoreProvider";
+import { StoreContext } from "../StoreProvider";
+import { useEventListener } from "../../mediator/hooks";
 
 function useStores() {
   const stores = useContext(StoreContext);
@@ -20,9 +21,12 @@ function useStoreByName(storeName: string) {
   return store;
 }
 
-function useStore<T extends Record<string, unknown>>(storeName: string): T {
+function useStore<T extends Record<string, unknown>>(
+  storeName: string,
+  eventName: string
+): T {
+  const subscribe = useEventListener();
   const store = useStoreByName(storeName);
-
   const [state, setState] = useState(store.getState());
 
   useEffect(() => {
@@ -30,7 +34,7 @@ function useStore<T extends Record<string, unknown>>(storeName: string): T {
       setState({ ...store.getState() });
     };
 
-    const unsubscribe = store.subscribe(handleChange);
+    const unsubscribe = subscribe(eventName, handleChange);
 
     return () => {
       unsubscribe();

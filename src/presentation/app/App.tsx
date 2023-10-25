@@ -1,7 +1,7 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { MediatorProvider } from "../adapters/mediator/providers";
+import { MediatorProvider } from "../adapters/mediator/MediatorProvider";
 import Experience from "../components/Experience";
-import { StoreProvider } from "../store/StoreProvider";
+import { StoreProvider } from "../adapters/store/StoreProvider";
 
 import "./App.css";
 
