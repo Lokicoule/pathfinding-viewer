@@ -25,7 +25,7 @@ export class ResetGridCommandHandler
           node.getType() !== NodeType.Start &&
           node.getType() !== NodeType.End
         ) {
-          this.gridStore.setNodeType(x, y, NodeType.Empty);
+          this.gridStore.setNodeType({ x, y }, NodeType.Empty);
         }
       }
     }

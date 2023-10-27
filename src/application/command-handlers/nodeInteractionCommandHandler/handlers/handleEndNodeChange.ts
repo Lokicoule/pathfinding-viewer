@@ -8,10 +8,7 @@ export function handleEndNodeChange(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  const setEndNodeCommand = new SetEndNodeCommand(
-    command.node.getX(),
-    command.node.getY()
-  );
+  const setEndNodeCommand = new SetEndNodeCommand(command.node.getVector());
   const setSelectedNodeTypeCommand = new SetSelectedNodeTypeCommand(
     SelectedNodeType.Wall
   );

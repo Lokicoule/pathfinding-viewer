@@ -14,8 +14,8 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
   execute(command: AddWallCommand): void {
     console.log("AddWallCommandHandler", command);
 
-    const { x, y } = command;
-    const node = this.gridStore.getNode(x, y);
+    const { vector } = command;
+    const node = this.gridStore.getNode(vector);
 
     if (
       !node ||
@@ -25,7 +25,7 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
       return;
     }
 
-    const result = this.gridStore.setNodeType(x, y, NodeType.Wall);
+    const result = this.gridStore.setNodeType(vector, NodeType.Wall);
 
     if (!result.success) {
       console.error("AddWallCommandHandler", result.error);

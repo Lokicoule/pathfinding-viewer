@@ -1,10 +1,10 @@
 import { v4 as uuid } from "uuid";
 import { NodeType } from "../enums/NodeType";
+import { Vector } from "../valueObjects/Vector";
 
 type NodeState = {
   type: NodeType;
-  x: number;
-  y: number;
+  vector: Vector;
 };
 
 export class Node {
@@ -27,12 +27,8 @@ export class Node {
     this.state.type = type;
   }
 
-  public getX(): number {
-    return this.state.x;
-  }
-
-  public getY(): number {
-    return this.state.y;
+  public getVector(): Vector {
+    return this.state.vector;
   }
 
   public isStart(): boolean {

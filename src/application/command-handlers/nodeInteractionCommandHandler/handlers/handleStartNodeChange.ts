@@ -8,10 +8,7 @@ export function handleStartNodeChange(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  const setStartNodeCommand = new SetStartNodeCommand(
-    command.node.getX(),
-    command.node.getY()
-  );
+  const setStartNodeCommand = new SetStartNodeCommand(command.node.getVector());
   const setSelectedNodeTypeCommand = new SetSelectedNodeTypeCommand(
     SelectedNodeType.Wall
   );

@@ -16,9 +16,9 @@ export class SetEndNodeCommandHandler
   execute(command: SetEndNodeCommand): void {
     console.log("SetEndNodeCommandHandler", command);
 
-    const { x, y } = command;
+    const { vector } = command;
 
-    const node = this.gridStore.getNode(x, y);
+    const node = this.gridStore.getNode(vector);
 
     if (
       !node ||
@@ -31,8 +31,7 @@ export class SetEndNodeCommandHandler
     const previousEndNode = this.gridStore.getEndNode();
 
     const setPreviousEndNodeResult = this.gridStore.setNodeType(
-      previousEndNode.getX(),
-      previousEndNode.getY(),
+      previousEndNode.getVector(),
       NodeType.Empty
     );
 
@@ -45,7 +44,7 @@ export class SetEndNodeCommandHandler
       return;
     }
 
-    const setEndNodeResult = this.gridStore.setEndNode(x, y);
+    const setEndNodeResult = this.gridStore.setEndNode(vector);
 
     if (!setEndNodeResult.success) {
       console.error(
@@ -55,8 +54,7 @@ export class SetEndNodeCommandHandler
       );
 
       const restorePreviousEndNodeResult = this.gridStore.setNodeType(
-        previousEndNode.getX(),
-        previousEndNode.getY(),
+        previousEndNode.getVector(),
         NodeType.End
       );
 

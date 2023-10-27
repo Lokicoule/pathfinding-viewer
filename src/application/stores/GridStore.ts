@@ -1,6 +1,7 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Result } from "../../domain/types/Result";
+import { Vector } from "../../domain/valueObjects/Vector";
 import { Store } from "../../infrastructure/store/Store";
 
 export type GridStoreState = {
@@ -13,34 +14,41 @@ export class GridStore extends Store<GridStoreState> {
   constructor(width: number, height: number) {
     super({
       grid: GridStore.initializeGrid(width, height),
-      startNode: Node.create({ x: 1, y: 1, type: NodeType.Start }),
-      endNode: Node.create({ x: width - 2, y: height - 2, type: NodeType.End }),
+      startNode: Node.create({
+        vector: { x: 1, y: 1 },
+        type: NodeType.Start,
+      }),
+      endNode: Node.create({
+        type: NodeType.End,
+        vector: { x: width - 2, y: height - 2 },
+      }),
     });
 
-    this.state.grid[this.state.startNode.getY()][this.state.startNode.getX()] =
-      this.state.startNode;
-    this.state.grid[this.state.endNode.getY()][this.state.endNode.getX()] =
-      this.state.endNode;
+    this.state.grid[this.state.startNode.getVector().y][
+      this.state.startNode.getVector().x
+    ] = this.state.startNode;
+    this.state.grid[this.state.endNode.getVector().y][
+      this.state.endNode.getVector().x
+    ] = this.state.endNode;
   }
 
   public getGrid(): Node[][] {
     return this.state.grid;
   }
 
-  public getNode(x: number, y: number): Node | undefined {
-    if (this.isValidPosition(x, y)) {
-      return this.state.grid[y][x];
+  public getNode(vector: Vector): Node | undefined {
+    if (this.isValidPosition(vector)) {
+      return this.state.grid[vector.y][vector.x];
     }
     return undefined;
   }
 
-  public setNodeType(x: number, y: number, type: NodeType): Result {
-    const validation = this.isValidPosition(x, y);
+  public setNodeType(vector: Vector, type: NodeType): Result {
+    const validation = this.isValidPosition(vector);
 
     if (validation.success) {
-      this.state.grid[y][x] = Node.create({
-        x,
-        y,
+      this.state.grid[vector.y][vector.x] = Node.create({
+        vector,
         type,
       });
 
@@ -55,11 +63,11 @@ export class GridStore extends Store<GridStoreState> {
     return this.state.startNode;
   }
 
-  public setStartNode(x: number, y: number): Result {
-    const validation = this.isValidPosition(x, y);
+  public setStartNode(vector: Vector): Result {
+    const validation = this.isValidPosition(vector);
 
     if (validation.success) {
-      this.state.startNode = this.state.grid[y][x];
+      this.state.startNode = this.state.grid[vector.y][vector.x];
       this.state.startNode.setType(NodeType.Start);
 
       super.setState(this.state);
@@ -73,11 +81,11 @@ export class GridStore extends Store<GridStoreState> {
     return this.state.endNode;
   }
 
-  public setEndNode(x: number, y: number): Result {
-    const validation = this.isValidPosition(x, y);
+  public setEndNode(vector: Vector): Result {
+    const validation = this.isValidPosition(vector);
 
     if (validation.success) {
-      this.state.endNode = this.state.grid[y][x];
+      this.state.endNode = this.state.grid[vector.y][vector.x];
       this.state.endNode.setType(NodeType.End);
 
       super.setState(this.state);
@@ -87,12 +95,12 @@ export class GridStore extends Store<GridStoreState> {
     return validation;
   }
 
-  private isValidPosition(x: number, y: number): Result {
+  private isValidPosition(vector: Vector): Result {
     if (
-      x >= 0 &&
-      x < this.state.grid[0].length &&
-      y >= 0 &&
-      y < this.state.grid.length
+      vector.x >= 0 &&
+      vector.x < this.state.grid[0].length &&
+      vector.y >= 0 &&
+      vector.y < this.state.grid.length
     ) {
       return { success: true };
     }
@@ -100,7 +108,7 @@ export class GridStore extends Store<GridStoreState> {
     return {
       success: false,
       error: {
-        message: `Invalid position: (${x}, ${y})`,
+        message: `Invalid position: (${vector.x}, ${vector.y})`,
       },
     };
   }
@@ -110,7 +118,10 @@ export class GridStore extends Store<GridStoreState> {
     for (let y = 0; y < height; y++) {
       grid[y] = new Array(width);
       for (let x = 0; x < width; x++) {
-        grid[y][x] = Node.create({ x, y, type: NodeType.Empty });
+        grid[y][x] = Node.create({
+          type: NodeType.Empty,
+          vector: { x, y },
+        });
       }
     }
 

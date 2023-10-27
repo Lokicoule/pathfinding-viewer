@@ -16,9 +16,9 @@ export class SetStartNodeCommandHandler
   execute(command: SetStartNodeCommand): void {
     console.log("SetStartNodeCommandHandler", command);
 
-    const { x, y } = command;
+    const { vector } = command;
 
-    const node = this.gridStore.getNode(x, y);
+    const node = this.gridStore.getNode(vector);
 
     if (
       !node ||
@@ -31,8 +31,7 @@ export class SetStartNodeCommandHandler
     const previousStartNode = this.gridStore.getStartNode();
 
     const setPreviousStartNodeResult = this.gridStore.setNodeType(
-      previousStartNode.getX(),
-      previousStartNode.getY(),
+      previousStartNode.getVector(),
       NodeType.Empty
     );
     if (!setPreviousStartNodeResult.success) {
@@ -44,7 +43,7 @@ export class SetStartNodeCommandHandler
       return;
     }
 
-    const setStartNodeResult = this.gridStore.setStartNode(x, y);
+    const setStartNodeResult = this.gridStore.setStartNode(vector);
     if (!setStartNodeResult.success) {
       console.error(
         "SetStartNodeCommandHandler",
@@ -52,8 +51,7 @@ export class SetStartNodeCommandHandler
         setStartNodeResult.error
       );
       const restorePreviousStartNodeResult = this.gridStore.setNodeType(
-        previousStartNode.getX(),
-        previousStartNode.getY(),
+        previousStartNode.getVector(),
         NodeType.Start
       );
 

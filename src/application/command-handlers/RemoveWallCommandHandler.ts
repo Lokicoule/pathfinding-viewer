@@ -16,14 +16,14 @@ export class RemoveWallCommandHandler
   execute(command: RemoveWallCommand): void {
     console.log("RemoveWallCommandHandler", command);
 
-    const { x, y } = command;
-    const node = this.gridStore.getNode(x, y);
+    const { vector } = command;
+    const node = this.gridStore.getNode(vector);
 
     if (!node || node.getType() !== NodeType.Wall) {
       return;
     }
 
-    const result = this.gridStore.setNodeType(x, y, NodeType.Empty);
+    const result = this.gridStore.setNodeType(vector, NodeType.Empty);
 
     if (!result.success) {
       console.error("RemoveWallCommandHandler", result.error);

@@ -13,10 +13,7 @@ export function handleWallNodeClick(
   const setSelectedNodeTypeCommand = new SetSelectedNodeTypeCommand(
     SelectedNodeType.Wall
   );
-  const removeWallCommand = new RemoveWallCommand(
-    command.node.getX(),
-    command.node.getY()
-  );
+  const removeWallCommand = new RemoveWallCommand(command.node.getVector());
 
   mediator.sendCommand(
     SetSelectedNodeTypeCommand.name,
