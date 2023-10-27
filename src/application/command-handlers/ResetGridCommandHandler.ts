@@ -2,7 +2,7 @@ import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { GridStore } from "../../presentation/stores/gridStore/GridStore";
+import { GridStore } from "../stores/GridStore";
 import { Mediator } from "../mediator/Mediator";
 
 export class ResetGridCommandHandler

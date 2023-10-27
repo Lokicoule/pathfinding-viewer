@@ -15,8 +15,8 @@ import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
 import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../application/mediator/Mediator";
-import { GridStore } from "../presentation/stores/gridStore/GridStore";
-import { ExperienceStore } from "../presentation/stores/experienceStore/ExperienceStore";
+import { GridStore } from "../application/stores/GridStore";
+import { ExperienceStore } from "../application/stores/ExperienceStore";
 import { RenderCommandHandler } from "../application/command-handlers/RenderCommandHandler";
 
 class Stores {

@@ -2,7 +2,7 @@ import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCom
 import { Node } from "../../domain/entities/Node";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import { useGrid } from "../stores/gridStore/hooks/useGrid";
+import { useGrid } from "../hooks/useGrid";
 import { concatClassNames } from "../utils/concatClassNames";
 
 type GridComponent = React.FC;

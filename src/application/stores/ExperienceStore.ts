@@ -1,5 +1,5 @@
-import { SelectedNodeType } from "../../../domain/enums/SelectedNodeType";
-import { Store } from "../../../infrastructure/store/Store";
+import { SelectedNodeType } from "../../domain/enums/SelectedNodeType";
+import { Store } from "../../infrastructure/store/Store";
 
 type ExperienceStoreState = {
   selectedNodeType: SelectedNodeType;
