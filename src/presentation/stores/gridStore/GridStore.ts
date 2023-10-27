@@ -1,7 +1,7 @@
-import { Node } from "../../domain/entities/Node";
-import { NodeType } from "../../domain/enums/NodeType";
-import { Result } from "../../domain/types/Result";
-import Store from "../../infrastructure/store/Store";
+import { Node } from "../../../domain/entities/Node";
+import { NodeType } from "../../../domain/enums/NodeType";
+import { Result } from "../../../domain/types/Result";
+import { Store } from "../../../infrastructure/store/Store";
 
 export type GridStoreState = {
   grid: Node[][];
@@ -43,6 +43,8 @@ export class GridStore extends Store<GridStoreState> {
         y,
         type,
       });
+
+      super.setState(this.state);
       return { success: true };
     }
 
@@ -59,6 +61,8 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.startNode = this.state.grid[y][x];
       this.state.startNode.setType(NodeType.Start);
+
+      super.setState(this.state);
       return { success: true };
     }
 
@@ -75,6 +79,8 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.endNode = this.state.grid[y][x];
       this.state.endNode.setType(NodeType.End);
+
+      super.setState(this.state);
       return { success: true };
     }
 

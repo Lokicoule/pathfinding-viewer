@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import Store from "../../../infrastructure/store/Store";
+import { Store } from "../../../infrastructure/store/Store";
 
 type StoreProviderProps = {
   stores: Record<string, Store<Record<string, unknown>>>;

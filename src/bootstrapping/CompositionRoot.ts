@@ -15,25 +15,32 @@ import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
 import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../application/mediator/Mediator";
-import { GridStore } from "../presentation/stores/GridStore";
-import { ExperienceStore } from "../presentation/stores/ExperienceStore";
+import { GridStore } from "../presentation/stores/gridStore/GridStore";
+import { ExperienceStore } from "../presentation/stores/experienceStore/ExperienceStore";
 import { RenderCommandHandler } from "../application/command-handlers/RenderCommandHandler";
+
+class Stores {
+  public readonly gridStore: GridStore;
+  public readonly experienceStore: ExperienceStore;
+
+  constructor(numCols: number, numRows: number) {
+    this.gridStore = new GridStore(numCols, numRows);
+    this.experienceStore = new ExperienceStore();
+  }
+}
 
 export class CompositionRoot {
   private constructor(
     public readonly mediator: Mediator,
-    public readonly gridStore: GridStore,
-    public readonly experienceStore: ExperienceStore
+    public readonly stores: Stores
   ) {
     this.initialize();
   }
 
   public static create(numCols: number, numRows: number) {
     const mediator = new Mediator();
-    const gridStore = new GridStore(numCols, numRows);
-    const experienceStore = new ExperienceStore();
 
-    return new CompositionRoot(mediator, gridStore, experienceStore);
+    return new CompositionRoot(mediator, new Stores(numCols, numRows));
   }
 
   public initialize() {
@@ -45,31 +52,34 @@ export class CompositionRoot {
   private registerMediatorHandlers() {
     this.mediator.registerCommandHandler(
       AddWallCommand.name,
-      new AddWallCommandHandler(this.mediator, this.gridStore)
+      new AddWallCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       RemoveWallCommand.name,
-      new RemoveWallCommandHandler(this.mediator, this.gridStore)
+      new RemoveWallCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       SetStartNodeCommand.name,
-      new SetStartNodeCommandHandler(this.mediator, this.gridStore)
+      new SetStartNodeCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       SetEndNodeCommand.name,
-      new SetEndNodeCommandHandler(this.mediator, this.gridStore)
+      new SetEndNodeCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       ResetGridCommand.name,
-      new ResetGridCommandHandler(this.mediator, this.gridStore)
+      new ResetGridCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       SetSelectedNodeTypeCommand.name,
-      new SetSelectedNodeTypeCommandHandler(this.experienceStore)
+      new SetSelectedNodeTypeCommandHandler(this.stores.experienceStore)
     );
     this.mediator.registerCommandHandler(
       NodeInteractionCommand.name,
-      new NodeInteractionCommandHandler(this.mediator, this.experienceStore)
+      new NodeInteractionCommandHandler(
+        this.mediator,
+        this.stores.experienceStore
+      )
     );
     this.mediator.registerCommandHandler(
       RenderCommand.name,

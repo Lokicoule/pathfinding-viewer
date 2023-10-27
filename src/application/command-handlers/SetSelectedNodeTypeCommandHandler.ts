@@ -1,6 +1,6 @@
 import { SetSelectedNodeTypeCommand } from "../../domain/commands/SetSelectedNodeTypeCommand";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { ExperienceStore } from "../../presentation/stores/ExperienceStore";
+import { ExperienceStore } from "../../presentation/stores/experienceStore/ExperienceStore";
 
 export class SetSelectedNodeTypeCommandHandler
   implements CommandHandler<SetSelectedNodeTypeCommand>

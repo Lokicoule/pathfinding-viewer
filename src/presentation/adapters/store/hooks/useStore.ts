@@ -1,47 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../StoreProvider";
-import { useEventListener } from "../../mediator/hooks";
+import { useSyncExternalStore } from "react";
+import { Store, StoreState } from "../../../../infrastructure/store/Store";
 
-function useStores() {
-  const stores = useContext(StoreContext);
-  if (stores === null) {
-    throw new Error("useStores must be used within a StoreProvider");
-  }
-  return stores;
-}
+export const useStore = <T extends StoreState>(store: Store<StoreState>): T => {
+  const subscribe = (callback: () => void) => {
+    return store.subscribe(callback);
+  };
 
-function useStoreByName(storeName: string) {
-  const stores = useStores();
-  const store = stores[storeName];
+  const getSnapshot = () => {
+    return store.getState();
+  };
 
-  if (!store) {
-    throw new Error(`Store with name ${storeName} not found`);
-  }
+  return useSyncExternalStore(subscribe, getSnapshot) as T;
+};
 
-  return store;
-}
-
-function useStore<T extends Record<string, unknown>>(
-  storeName: string,
-  eventName: string
-): T {
-  const subscribe = useEventListener();
-  const store = useStoreByName(storeName);
-  const [state, setState] = useState(store.getState());
-
-  useEffect(() => {
-    const handleChange = () => {
-      setState({ ...store.getState() });
-    };
-
-    const unsubscribe = subscribe(eventName, handleChange);
-
-    return () => {
-      unsubscribe();
-    };
-  });
-
-  return state as T;
-}
-
-export default useStore;
+export const useStoreWithSelector = <T extends StoreState, R>(
+  store: Store<T>,
+  selector: (state: T) => R
+): R => {
+  const state = useStore<T>(store);
+  return selector(state);
+};

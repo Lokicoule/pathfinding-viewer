@@ -1,17 +1,14 @@
 import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCommand";
 import { Node } from "../../domain/entities/Node";
-import { RenderedEvent } from "../../domain/events/RenderedEvent";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import useStore from "../adapters/store/hooks/useStore";
-import { GridStoreState } from "../stores/GridStore";
+import { useGrid } from "../stores/gridStore/hooks/useGrid";
 import { concatClassNames } from "../utils/concatClassNames";
 
 type GridComponent = React.FC;
 
 const GridView: GridComponent = () => {
-  const gridStore = useStore<GridStoreState>("gridStore", RenderedEvent.name);
-
+  const grid = useGrid();
   const sendCommand = useCommand();
 
   const handleNodeClick = (node: Node) => {
@@ -20,7 +17,7 @@ const GridView: GridComponent = () => {
 
   return (
     <div className="grid">
-      {gridStore.grid.map((row, rowIndex) => (
+      {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
           {row.map((node) => (
             <div

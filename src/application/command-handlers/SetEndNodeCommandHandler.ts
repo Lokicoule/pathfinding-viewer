@@ -2,7 +2,7 @@ import { SetEndNodeCommand } from "../../domain/commands/SetEndNodeCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { GridStore } from "../../presentation/stores/GridStore";
+import { GridStore } from "../../presentation/stores/gridStore/GridStore";
 import { Mediator } from "../mediator/Mediator";
 
 export class SetEndNodeCommandHandler
