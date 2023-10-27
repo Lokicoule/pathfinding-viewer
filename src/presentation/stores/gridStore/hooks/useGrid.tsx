@@ -1,4 +1,4 @@
-import { useStoreWithSelector } from "../../../adapters/store/hooks/useStore";
+import { useStoreWithSelector } from "../../../adapters/store/hooks/useStoreWithSelector";
 import { compositionRoot } from "../../../../bootstrapping/bootstrap";
 import { GridStoreState } from "../GridStore";
 
