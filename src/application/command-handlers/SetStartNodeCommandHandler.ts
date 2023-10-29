@@ -28,21 +28,6 @@ export class SetStartNodeCommandHandler
       return;
     }
 
-    const previousStartNode = this.gridStore.getStartNode();
-
-    const setPreviousStartNodeResult = this.gridStore.setNodeType(
-      previousStartNode.getVector(),
-      NodeType.Empty
-    );
-    if (!setPreviousStartNodeResult.success) {
-      console.error(
-        "SetStartNodeCommandHandler",
-        "setPreviousStartNode",
-        setPreviousStartNodeResult.error
-      );
-      return;
-    }
-
     const setStartNodeResult = this.gridStore.setStartNode(vector);
     if (!setStartNodeResult.success) {
       console.error(
@@ -50,18 +35,7 @@ export class SetStartNodeCommandHandler
         "setStartNode",
         setStartNodeResult.error
       );
-      const restorePreviousStartNodeResult = this.gridStore.setNodeType(
-        previousStartNode.getVector(),
-        NodeType.Start
-      );
 
-      if (!restorePreviousStartNodeResult.success) {
-        console.error(
-          "SetStartNodeCommandHandler",
-          "restorePreviousStartNode",
-          restorePreviousStartNodeResult.error
-        );
-      }
       return;
     }
 

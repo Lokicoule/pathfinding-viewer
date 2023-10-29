@@ -28,22 +28,6 @@ export class SetEndNodeCommandHandler
       return;
     }
 
-    const previousEndNode = this.gridStore.getEndNode();
-
-    const setPreviousEndNodeResult = this.gridStore.setNodeType(
-      previousEndNode.getVector(),
-      NodeType.Empty
-    );
-
-    if (!setPreviousEndNodeResult.success) {
-      console.error(
-        "SetEndNodeCommandHandler",
-        "setPreviousEndNode",
-        setPreviousEndNodeResult.error
-      );
-      return;
-    }
-
     const setEndNodeResult = this.gridStore.setEndNode(vector);
 
     if (!setEndNodeResult.success) {
@@ -53,18 +37,6 @@ export class SetEndNodeCommandHandler
         setEndNodeResult.error
       );
 
-      const restorePreviousEndNodeResult = this.gridStore.setNodeType(
-        previousEndNode.getVector(),
-        NodeType.End
-      );
-
-      if (!restorePreviousEndNodeResult.success) {
-        console.error(
-          "SetEndNodeCommandHandler",
-          "restorePreviousEndNode",
-          restorePreviousEndNodeResult.error
-        );
-      }
       return;
     }
 

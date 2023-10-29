@@ -23,10 +23,6 @@ export class Node {
     return this.state.type;
   }
 
-  public setType(type: NodeType): void {
-    this.state.type = type;
-  }
-
   public getVector(): Vector {
     return this.state.vector;
   }

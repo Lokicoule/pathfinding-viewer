@@ -43,34 +43,17 @@ export class GridStore extends Store<GridStoreState> {
     return undefined;
   }
 
-  public setNodeType(vector: Vector, type: NodeType): Result {
-    const validation = this.isValidPosition(vector);
-
-    if (validation.success) {
-      this.state.grid[vector.y][vector.x] = Node.create({
-        vector,
-        type,
-      });
-
-      super.setState(this.state);
-      return { success: true };
-    }
-
-    return validation;
-  }
-
   public getStartNode(): Node {
     return this.state.startNode;
   }
 
   public setStartNode(vector: Vector): Result {
-    const validation = this.isValidPosition(vector);
+    const validation = this.setNodeAs(vector, NodeType.Start);
 
     if (validation.success) {
+      this.setNodeAs(this.state.startNode.getVector(), NodeType.Empty);
       this.state.startNode = this.state.grid[vector.y][vector.x];
-      this.state.startNode.setType(NodeType.Start);
 
-      super.setState(this.state);
       return { success: true };
     }
 
@@ -82,17 +65,48 @@ export class GridStore extends Store<GridStoreState> {
   }
 
   public setEndNode(vector: Vector): Result {
+    const validation = this.setNodeAs(vector, NodeType.End);
+
+    if (validation.success) {
+      this.setNodeAs(this.state.endNode.getVector(), NodeType.Empty);
+      this.state.endNode = this.state.grid[vector.y][vector.x];
+
+      return { success: true };
+    }
+
+    return validation;
+  }
+
+  public setNodeAs(vector: Vector, type: NodeType): Result {
     const validation = this.isValidPosition(vector);
 
     if (validation.success) {
-      this.state.endNode = this.state.grid[vector.y][vector.x];
-      this.state.endNode.setType(NodeType.End);
+      const newNode = Node.create({ type, vector });
+      this.state.grid[vector.y][vector.x] = newNode;
 
       super.setState(this.state);
       return { success: true };
     }
 
     return validation;
+  }
+
+  public swapNodes(vectorA: Vector, vectorB: Vector): Result {
+    const validationA = this.isValidPosition(vectorA);
+    const validationB = this.isValidPosition(vectorB);
+
+    if (validationA.success && validationB.success) {
+      const nodeA = this.state.grid[vectorA.y][vectorA.x];
+      const nodeB = this.state.grid[vectorB.y][vectorB.x];
+
+      this.state.grid[vectorA.y][vectorA.x] = nodeB;
+      this.state.grid[vectorB.y][vectorB.x] = nodeA;
+
+      super.setState(this.state);
+      return { success: true };
+    }
+
+    return validationA.success ? validationB : validationA;
   }
 
   private isValidPosition(vector: Vector): Result {

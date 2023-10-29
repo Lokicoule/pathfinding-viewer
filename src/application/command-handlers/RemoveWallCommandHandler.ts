@@ -23,7 +23,7 @@ export class RemoveWallCommandHandler
       return;
     }
 
-    const result = this.gridStore.setNodeType(vector, NodeType.Empty);
+    const result = this.gridStore.setNodeAs(vector, NodeType.Empty);
 
     if (!result.success) {
       console.error("RemoveWallCommandHandler", result.error);
