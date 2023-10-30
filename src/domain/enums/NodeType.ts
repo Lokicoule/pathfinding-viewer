@@ -5,5 +5,4 @@ export enum NodeType {
   Wall,
   Path,
   Explored,
-  Frontier,
 }

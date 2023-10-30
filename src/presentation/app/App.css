@@ -48,3 +48,11 @@
 .cell.wall {
   background-color: #333;
 }
+
+.cell.explored {
+  background-color: darkcyan;
+}
+
+.cell.path {
+  background-color: #0f0;
+}

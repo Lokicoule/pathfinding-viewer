@@ -10,6 +10,7 @@ type NodeState = {
 export class Node {
   public readonly id: string = uuid();
   private state: NodeState;
+  private previousNode?: Node;
 
   private constructor(state: NodeState) {
     this.state = state;
@@ -51,15 +52,15 @@ export class Node {
     return this.state.type === NodeType.Explored;
   }
 
-  public isFrontier(): boolean {
-    return this.state.type === NodeType.Frontier;
+  public setExplored(): void {
+    this.state.type = NodeType.Explored;
   }
 
-  public isWalkable(): boolean {
-    return !this.isWall();
+  public setPreviousNode(previousNode: Node | undefined): void {
+    this.previousNode = previousNode;
   }
 
-  public isTraversable(): boolean {
-    return !this.isWall() && !this.isExplored();
+  public getPreviousNode(): Node | undefined {
+    return this.previousNode;
   }
 }

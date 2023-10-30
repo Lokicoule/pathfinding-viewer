@@ -1,4 +1,5 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
+import { BreadthFirstSearchCommandHandler } from "../application/command-handlers/BreadthFirstSearchCommandHandler";
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
@@ -11,6 +12,7 @@ import { RestoreToDefaultNodeTypeOnEventSaga } from "../application/sagas/ResetS
 import { ExperienceStore } from "../application/stores/ExperienceStore";
 import { GridStore } from "../application/stores/GridStore";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
+import { BreadthFirstSearchCommand } from "../domain/commands/BreadthFirstSearchCommand";
 import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
@@ -87,6 +89,10 @@ export class CompositionRoot {
         this.mediator,
         this.stores.gridStore
       )
+    );
+    this.mediator.registerCommandHandler(
+      BreadthFirstSearchCommand.name,
+      new BreadthFirstSearchCommandHandler(this.mediator, this.stores.gridStore)
     );
   }
 }

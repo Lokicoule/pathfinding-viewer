@@ -50,6 +50,8 @@ const GridView: GridComponent = () => {
                 "cell",
                 node.isStart() ? "start" : undefined,
                 node.isEnd() ? "end" : undefined,
+                node.isExplored() ? "explored" : undefined,
+                node.isPath() ? "path" : undefined,
                 node.isWall() && !nodes.Map.has(node.id) ? "wall" : undefined,
                 nodes.Map.has(node.id) && !node.isWall() ? "wall" : undefined
               )}

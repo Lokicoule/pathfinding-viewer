@@ -1,3 +1,4 @@
+import { BreadthFirstSearchCommand } from "../../domain/commands/BreadthFirstSearchCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
@@ -17,6 +18,16 @@ const Environment: EnvironmentComponent = () => {
           }
         >
           Reset
+        </button>
+        <button
+          onClick={() =>
+            sendCommand(
+              BreadthFirstSearchCommand.name,
+              new BreadthFirstSearchCommand()
+            )
+          }
+        >
+          Start
         </button>
       </div>
     </div>
