@@ -1,7 +1,5 @@
-import { SetSelectedNodeTypeCommand } from "../../../../domain/commands/SetSelectedNodeTypeCommand";
-import { SetStartNodeCommand } from "../../../../domain/commands/SetStartNodeCommand";
-import { SelectedNodeType } from "../../../../domain/enums/SelectedNodeType";
 import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
+import { SetStartNodeCommand } from "../../../../domain/commands/SetStartNodeCommand";
 import { Mediator } from "../../../mediator/Mediator";
 
 export function handleStartNodeChange(
@@ -9,13 +7,6 @@ export function handleStartNodeChange(
   command: NodeInteractionCommand
 ) {
   const setStartNodeCommand = new SetStartNodeCommand(command.node.getVector());
-  const setSelectedNodeTypeCommand = new SetSelectedNodeTypeCommand(
-    SelectedNodeType.Wall
-  );
 
   mediator.sendCommand(SetStartNodeCommand.name, setStartNodeCommand);
-  mediator.sendCommand(
-    SetSelectedNodeTypeCommand.name,
-    setSelectedNodeTypeCommand
-  );
 }

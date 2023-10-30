@@ -109,6 +109,32 @@ export class GridStore extends Store<GridStoreState> {
     return validationA.success ? validationB : validationA;
   }
 
+  public swapStartAndEndNodes(): Result {
+    const validation = this.swapNodes(
+      this.state.startNode.getVector(),
+      this.state.endNode.getVector()
+    );
+
+    if (validation.success) {
+      const startNode =
+        this.state.grid[this.state.startNode.getVector().y][
+          this.state.startNode.getVector().x
+        ];
+      const endNode =
+        this.state.grid[this.state.endNode.getVector().y][
+          this.state.endNode.getVector().x
+        ];
+
+      this.state.startNode = startNode;
+      this.state.endNode = endNode;
+
+      super.setState(this.state);
+      return { success: true };
+    }
+
+    return validation;
+  }
+
   private isValidPosition(vector: Vector): Result {
     if (
       vector.x >= 0 &&

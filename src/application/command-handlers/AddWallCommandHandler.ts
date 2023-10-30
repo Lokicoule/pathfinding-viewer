@@ -2,8 +2,8 @@ import { AddWallCommand } from "../../domain/commands/AddWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
 import { WallAddedEvent } from "../../domain/events/WallAddedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { GridStore } from "../stores/GridStore";
 import { Mediator } from "../mediator/Mediator";
+import { GridStore } from "../stores/GridStore";
 
 export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
   constructor(
@@ -12,23 +12,15 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
   ) {}
 
   execute(command: AddWallCommand): void {
-    console.log("AddWallCommandHandler", command);
+    const node = this.gridStore.getNode(command.vector);
 
-    const { vector } = command;
-    const node = this.gridStore.getNode(vector);
-
-    if (
-      !node ||
-      node.getType() === NodeType.Start ||
-      node.getType() === NodeType.End
-    ) {
+    if (!node || [NodeType.Start, NodeType.End].includes(node.getType()))
       return;
-    }
 
-    const result = this.gridStore.setNodeAs(vector, NodeType.Wall);
+    const result = this.gridStore.setNodeAs(command.vector, NodeType.Wall);
 
     if (!result.success) {
-      console.error("AddWallCommandHandler", result.error);
+      console.error(`AddWallCommandHandler - ${result.error}`);
       return;
     }
 

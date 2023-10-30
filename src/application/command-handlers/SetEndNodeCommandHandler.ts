@@ -1,9 +1,9 @@
 import { SetEndNodeCommand } from "../../domain/commands/SetEndNodeCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
+import { EndNodeSetEvent } from "../../domain/events/EndNodeSetEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { GridStore } from "../stores/GridStore";
 import { Mediator } from "../mediator/Mediator";
+import { GridStore } from "../stores/GridStore";
 
 export class SetEndNodeCommandHandler
   implements CommandHandler<SetEndNodeCommand>
@@ -14,32 +14,20 @@ export class SetEndNodeCommandHandler
   ) {}
 
   execute(command: SetEndNodeCommand): void {
-    console.log("SetEndNodeCommandHandler", command);
+    const node = this.gridStore.getNode(command.vector);
 
-    const { vector } = command;
-
-    const node = this.gridStore.getNode(vector);
-
-    if (
-      !node ||
-      node.getType() === NodeType.Start ||
-      node.getType() === NodeType.End
-    ) {
+    if (!node || [NodeType.Start, NodeType.End].includes(node.getType()))
       return;
-    }
 
-    const setEndNodeResult = this.gridStore.setEndNode(vector);
+    const setEndNodeResult = this.gridStore.setEndNode(command.vector);
 
     if (!setEndNodeResult.success) {
       console.error(
-        "SetEndNodeCommandHandler",
-        "setEndNode",
-        setEndNodeResult.error
+        `SetEndNodeCommandHandler - setEndNode: ${setEndNodeResult.error}`
       );
-
       return;
     }
 
-    this.mediator.sendEvent(StartNodeSetEvent.name, new StartNodeSetEvent());
+    this.mediator.sendEvent(EndNodeSetEvent.name, new EndNodeSetEvent());
   }
 }

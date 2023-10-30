@@ -4,20 +4,20 @@ import { ResetGridCommandHandler } from "../application/command-handlers/ResetGr
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
 import { SetSelectedNodeTypeCommandHandler } from "../application/command-handlers/SetSelectedNodeTypeCommandHandler";
 import { SetStartNodeCommandHandler } from "../application/command-handlers/SetStartNodeCommandHandler";
+import { SwapStartAndEndNodesCommandHandler } from "../application/command-handlers/SwapStartAndEndNodesCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/command-handlers/nodeInteractionCommandHandler/NodeInteractionCommandHandler";
-import { RenderSaga } from "../application/sagas/RenderSaga";
+import { Mediator } from "../application/mediator/Mediator";
+import { RestoreToDefaultNodeTypeOnEventSaga } from "../application/sagas/ResetSelectedNodeTypeSaga";
+import { ExperienceStore } from "../application/stores/ExperienceStore";
+import { GridStore } from "../application/stores/GridStore";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
 import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
-import { RenderCommand } from "../domain/commands/RenderCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
 import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
-import { Mediator } from "../application/mediator/Mediator";
-import { GridStore } from "../application/stores/GridStore";
-import { ExperienceStore } from "../application/stores/ExperienceStore";
-import { RenderCommandHandler } from "../application/command-handlers/RenderCommandHandler";
+import { SwapStartAndEndNodesCommand } from "../domain/commands/SwapStartAndEndNodesCommand";
 
 class Stores {
   public readonly gridStore: GridStore;
@@ -44,7 +44,7 @@ export class CompositionRoot {
   }
 
   public initialize() {
-    new RenderSaga(this.mediator);
+    RestoreToDefaultNodeTypeOnEventSaga.register(this.mediator);
 
     this.registerMediatorHandlers();
   }
@@ -82,8 +82,11 @@ export class CompositionRoot {
       )
     );
     this.mediator.registerCommandHandler(
-      RenderCommand.name,
-      new RenderCommandHandler(this.mediator)
+      SwapStartAndEndNodesCommand.name,
+      new SwapStartAndEndNodesCommandHandler(
+        this.mediator,
+        this.stores.gridStore
+      )
     );
   }
 }

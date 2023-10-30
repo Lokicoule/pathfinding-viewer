@@ -1,7 +1,5 @@
-import { RemoveWallCommand } from "../../../../domain/commands/RemoveWallCommand";
-import { SetSelectedNodeTypeCommand } from "../../../../domain/commands/SetSelectedNodeTypeCommand";
-import { SelectedNodeType } from "../../../../domain/enums/SelectedNodeType";
 import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
+import { RemoveWallCommand } from "../../../../domain/commands/RemoveWallCommand";
 import { Mediator } from "../../../mediator/Mediator";
 
 export function handleWallNodeClick(
@@ -10,14 +8,7 @@ export function handleWallNodeClick(
 ) {
   console.log("handleWallNodeClick", command);
 
-  const setSelectedNodeTypeCommand = new SetSelectedNodeTypeCommand(
-    SelectedNodeType.Wall
-  );
   const removeWallCommand = new RemoveWallCommand(command.node.getVector());
 
-  mediator.sendCommand(
-    SetSelectedNodeTypeCommand.name,
-    setSelectedNodeTypeCommand
-  );
   mediator.sendCommand(RemoveWallCommand.name, removeWallCommand);
 }

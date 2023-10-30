@@ -1,6 +1,5 @@
-import { compositionRoot } from "../../../bootstrapping/bootstrap";
 import { NodeInteractionCommand } from "../../../domain/commands/NodeInteractionCommand";
-import { SetSelectedNodeTypeCommand } from "../../../domain/commands/SetSelectedNodeTypeCommand";
+import { SwapStartAndEndNodesCommand } from "../../../domain/commands/SwapStartAndEndNodesCommand";
 import { SelectedNodeType } from "../../../domain/enums/SelectedNodeType";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../mediator/Mediator";
@@ -41,25 +40,17 @@ export class NodeInteractionCommandHandler
       command.node.isStart() &&
       selectedNodeType === SelectedNodeType.End
     ) {
-      compositionRoot.stores.gridStore.swapNodes(
-        compositionRoot.stores.gridStore.getEndNode().getVector(),
-        compositionRoot.stores.gridStore.getStartNode().getVector()
-      );
       this.mediator.sendCommand(
-        SetSelectedNodeTypeCommand.name,
-        new SetSelectedNodeTypeCommand(SelectedNodeType.Wall)
+        SwapStartAndEndNodesCommand.name,
+        new SwapStartAndEndNodesCommand()
       );
     } else if (
       command.node.isEnd() &&
       selectedNodeType === SelectedNodeType.Start
     ) {
-      compositionRoot.stores.gridStore.swapNodes(
-        compositionRoot.stores.gridStore.getEndNode().getVector(),
-        compositionRoot.stores.gridStore.getStartNode().getVector()
-      );
       this.mediator.sendCommand(
-        SetSelectedNodeTypeCommand.name,
-        new SetSelectedNodeTypeCommand(SelectedNodeType.Wall)
+        SwapStartAndEndNodesCommand.name,
+        new SwapStartAndEndNodesCommand()
       );
     } else if (command.node.isStart()) {
       handleStartNodeClick(this.mediator);

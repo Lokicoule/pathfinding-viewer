@@ -14,8 +14,6 @@ export class ResetGridCommandHandler
   ) {}
 
   execute(): void {
-    console.log("ResetGridCommandHandler");
-
     const grid = this.gridStore.getGrid();
 
     for (let y = 0; y < grid.length; y++) {
