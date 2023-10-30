@@ -37,4 +37,9 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
 
     this.state.currentMementoIndex = this.state.nodeHistory.length - 1;
   }
+
+  public reset() {
+    this.state.nodeHistory = new NodeHistory();
+    this.state.currentMementoIndex = -1;
+  }
 }

@@ -4,6 +4,7 @@ import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { GridStore } from "../stores/GridStore";
 import { Mediator } from "../mediator/Mediator";
+import { compositionRoot } from "../../bootstrapping/bootstrap";
 
 export class ResetGridCommandHandler
   implements CommandHandler<ResetGridCommand>
@@ -27,6 +28,8 @@ export class ResetGridCommandHandler
         }
       }
     }
+
+    compositionRoot.stores.experienceStore.reset();
 
     this.mediator.sendEvent(GridResetEvent.name, new GridResetEvent());
   }
