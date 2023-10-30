@@ -6,7 +6,8 @@ export function handleStartNodeChange(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  const setStartNodeCommand = new SetStartNodeCommand(command.node.getVector());
-
-  mediator.sendCommand(SetStartNodeCommand.name, setStartNodeCommand);
+  mediator.sendCommand(
+    SetStartNodeCommand.name,
+    new SetStartNodeCommand(command.node.getVector())
+  );
 }

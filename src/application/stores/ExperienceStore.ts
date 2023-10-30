@@ -1,22 +1,40 @@
-import { SelectedNodeType } from "../../domain/enums/SelectedNodeType";
+import { Node } from "../../domain/entities/Node";
+import { NodeHistory } from "../../domain/entities/NodeHistory";
+import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
 import { Store } from "../../infrastructure/store/Store";
 
 type ExperienceStoreState = {
-  selectedNodeType: SelectedNodeType;
+  nodeHistory: NodeHistory;
+  currentMementoIndex: number;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {
   constructor() {
     super({
-      selectedNodeType: SelectedNodeType.Wall,
+      nodeHistory: new NodeHistory(),
+      currentMementoIndex: -1,
     });
   }
 
-  public getSelectedNodeType(): SelectedNodeType {
-    return this.state.selectedNodeType;
+  public getLastInteractedNode(): Node | undefined {
+    const lastMemento = this.state.nodeHistory.getMemento(
+      this.state.currentMementoIndex
+    );
+    return lastMemento ? lastMemento.getNode() : undefined;
   }
 
-  public setSelectedNodeType(selectedNodeType: SelectedNodeType): void {
-    this.state.selectedNodeType = selectedNodeType;
+  public getPreviousLastInteractedNode(): Node | undefined {
+    const previousMemento = this.state.nodeHistory.getMemento(
+      this.state.currentMementoIndex - 1
+    );
+    return previousMemento ? previousMemento.getNode() : undefined;
+  }
+
+  public setLastInteractedNode(node: Node) {
+    const memento = NodeMemento.fromNode(node);
+
+    this.state.nodeHistory.addMemento(memento);
+
+    this.state.currentMementoIndex = this.state.nodeHistory.length - 1;
   }
 }

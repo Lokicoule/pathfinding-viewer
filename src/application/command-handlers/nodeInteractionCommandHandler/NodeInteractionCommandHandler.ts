@@ -1,16 +1,13 @@
 import { NodeInteractionCommand } from "../../../domain/commands/NodeInteractionCommand";
 import { SwapStartAndEndNodesCommand } from "../../../domain/commands/SwapStartAndEndNodesCommand";
-import { SelectedNodeType } from "../../../domain/enums/SelectedNodeType";
+import { Node } from "../../../domain/entities/Node";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { Mediator } from "../../mediator/Mediator";
 import { ExperienceStore } from "../../stores/ExperienceStore";
 import { handleEmptyNodeClick } from "./handlers/handleEmptyNodeClick";
 import { handleEndNodeChange } from "./handlers/handleEndNodeChange";
-import { handleEndNodeClick } from "./handlers/handleEndNodeClick";
 import { handleStartNodeChange } from "./handlers/handleStartNodeChange";
-import { handleStartNodeClick } from "./handlers/handleStartNodeClick";
 import { handleWallNodeClick } from "./handlers/handleWallNodeClick";
-
 export class NodeInteractionCommandHandler
   implements CommandHandler<NodeInteractionCommand>
 {
@@ -20,50 +17,63 @@ export class NodeInteractionCommandHandler
   ) {}
 
   public execute(command: NodeInteractionCommand) {
-    console.log("NodeInteractionMediator", command);
+    const lastInteractedNode = this.experienceStore.getLastInteractedNode();
+    const previousLastInteractedNode =
+      this.experienceStore.getPreviousLastInteractedNode();
 
-    const selectedNodeType = this.experienceStore.getSelectedNodeType();
+    this.experienceStore.setLastInteractedNode(command.node);
 
-    if (
-      selectedNodeType === SelectedNodeType.Start &&
-      !command.node.isStart() &&
-      !command.node.isEnd()
+    const { node } = command;
+
+    if (lastInteractedNode?.isStart() && !previousLastInteractedNode?.isEnd()) {
+      this.handleStartNodeInteraction(node, command);
+    } else if (
+      lastInteractedNode?.isEnd() &&
+      !previousLastInteractedNode?.isStart()
     ) {
+      this.handleEndNodeInteraction(node, command);
+    } else {
+      this.handleOtherNodeInteraction(node, command);
+    }
+  }
+
+  private handleStartNodeInteraction(
+    node: Node,
+    command: NodeInteractionCommand
+  ) {
+    if (!node.isStart() && !node.isEnd()) {
       handleStartNodeChange(this.mediator, command);
-    } else if (
-      selectedNodeType === SelectedNodeType.End &&
-      !command.node.isEnd() &&
-      !command.node.isStart()
-    ) {
+    } else if (node.isEnd()) {
+      this.swapStartAndEndNodes();
+    }
+  }
+
+  private handleEndNodeInteraction(
+    node: Node,
+    command: NodeInteractionCommand
+  ) {
+    if (!node.isEnd() && !node.isStart()) {
       handleEndNodeChange(this.mediator, command);
-    } else if (
-      command.node.isStart() &&
-      selectedNodeType === SelectedNodeType.End
-    ) {
-      this.mediator.sendCommand(
-        SwapStartAndEndNodesCommand.name,
-        new SwapStartAndEndNodesCommand()
-      );
-    } else if (
-      command.node.isEnd() &&
-      selectedNodeType === SelectedNodeType.Start
-    ) {
-      this.mediator.sendCommand(
-        SwapStartAndEndNodesCommand.name,
-        new SwapStartAndEndNodesCommand()
-      );
-    } else if (command.node.isStart()) {
-      handleStartNodeClick(this.mediator);
-    } else if (command.node.isEnd()) {
-      handleEndNodeClick(this.mediator);
-    } else if (command.node.isWall()) {
+    } else if (node.isStart()) {
+      this.swapStartAndEndNodes();
+    }
+  }
+
+  private handleOtherNodeInteraction(
+    node: Node,
+    command: NodeInteractionCommand
+  ) {
+    if (node.isWall()) {
       handleWallNodeClick(this.mediator, command);
-    } else if (
-      command.node.isEmpty() ||
-      command.node.isPath() ||
-      command.node.isExplored()
-    ) {
+    } else if (node.isEmpty() || node.isPath() || node.isExplored()) {
       handleEmptyNodeClick(this.mediator, command);
     }
+  }
+
+  private swapStartAndEndNodes() {
+    this.mediator.sendCommand(
+      SwapStartAndEndNodesCommand.name,
+      new SwapStartAndEndNodesCommand()
+    );
   }
 }

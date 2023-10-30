@@ -1,5 +1,3 @@
-import { SetSelectedNodeTypeCommand } from "../../domain/commands/SetSelectedNodeTypeCommand";
-import { SelectedNodeType } from "../../domain/enums/SelectedNodeType";
 import { EndNodeSetEvent } from "../../domain/events/EndNodeSetEvent";
 import { StartAndEndNodesSwappedEvent } from "../../domain/events/StartAndEndNodesSwappedEvent";
 import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
@@ -28,10 +26,5 @@ export class RestoreToDefaultNodeTypeOnEventSaga {
     return new RestoreToDefaultNodeTypeOnEventSaga(mediator);
   }
 
-  private run = () => {
-    this.mediator.sendCommand(
-      SetSelectedNodeTypeCommand.name,
-      new SetSelectedNodeTypeCommand(SelectedNodeType.Wall)
-    );
-  };
+  private run = () => {};
 }

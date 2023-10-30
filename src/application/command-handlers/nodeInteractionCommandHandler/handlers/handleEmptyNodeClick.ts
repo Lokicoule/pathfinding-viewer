@@ -6,7 +6,8 @@ export function handleEmptyNodeClick(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  const addWallCommand = new AddWallCommand(command.node.getVector());
-
-  mediator.sendCommand(AddWallCommand.name, addWallCommand);
+  mediator.sendCommand(
+    AddWallCommand.name,
+    new AddWallCommand(command.node.getVector())
+  );
 }

@@ -6,7 +6,8 @@ export function handleEndNodeChange(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  const setEndNodeCommand = new SetEndNodeCommand(command.node.getVector());
-
-  mediator.sendCommand(SetEndNodeCommand.name, setEndNodeCommand);
+  mediator.sendCommand(
+    SetEndNodeCommand.name,
+    new SetEndNodeCommand(command.node.getVector())
+  );
 }

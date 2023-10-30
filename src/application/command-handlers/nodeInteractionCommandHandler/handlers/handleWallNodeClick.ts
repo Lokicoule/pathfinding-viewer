@@ -6,9 +6,8 @@ export function handleWallNodeClick(
   mediator: Mediator,
   command: NodeInteractionCommand
 ) {
-  console.log("handleWallNodeClick", command);
-
-  const removeWallCommand = new RemoveWallCommand(command.node.getVector());
-
-  mediator.sendCommand(RemoveWallCommand.name, removeWallCommand);
+  mediator.sendCommand(
+    RemoveWallCommand.name,
+    new RemoveWallCommand(command.node.getVector())
+  );
 }

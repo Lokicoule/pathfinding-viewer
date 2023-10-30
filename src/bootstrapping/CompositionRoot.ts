@@ -2,7 +2,7 @@ import { AddWallCommandHandler } from "../application/command-handlers/AddWallCo
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
-import { SetSelectedNodeTypeCommandHandler } from "../application/command-handlers/SetSelectedNodeTypeCommandHandler";
+import { SetLastInteractedNodeCommandHandler } from "../application/command-handlers/SetLastInteractedNodeCommandHandler";
 import { SetStartNodeCommandHandler } from "../application/command-handlers/SetStartNodeCommandHandler";
 import { SwapStartAndEndNodesCommandHandler } from "../application/command-handlers/SwapStartAndEndNodesCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/command-handlers/nodeInteractionCommandHandler/NodeInteractionCommandHandler";
@@ -15,7 +15,7 @@ import { NodeInteractionCommand } from "../domain/commands/NodeInteractionComman
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { SetEndNodeCommand } from "../domain/commands/SetEndNodeCommand";
-import { SetSelectedNodeTypeCommand } from "../domain/commands/SetSelectedNodeTypeCommand";
+import { SetLastInteractedNodeCommand } from "../domain/commands/SetLastInteractedNodeCommand";
 import { SetStartNodeCommand } from "../domain/commands/SetStartNodeCommand";
 import { SwapStartAndEndNodesCommand } from "../domain/commands/SwapStartAndEndNodesCommand";
 
@@ -71,8 +71,8 @@ export class CompositionRoot {
       new ResetGridCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
-      SetSelectedNodeTypeCommand.name,
-      new SetSelectedNodeTypeCommandHandler(this.stores.experienceStore)
+      SetLastInteractedNodeCommand.name,
+      new SetLastInteractedNodeCommandHandler(this.stores.experienceStore)
     );
     this.mediator.registerCommandHandler(
       NodeInteractionCommand.name,
