@@ -14,7 +14,7 @@ function useStateMap<K, V>(initialMap = new Map<K, V>()) {
   };
 
   const clearMap = () => {
-    setMap(new Map());
+    map.clear();
   };
 
   return {
