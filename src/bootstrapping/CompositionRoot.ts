@@ -1,6 +1,7 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
 import { AnimateShortestPathCommandHandler } from "../application/command-handlers/AnimateShortestPathCommandHandler";
 import { BreadthFirstSearchCommandHandler } from "../application/command-handlers/BreadthFirstSearchCommandHandler";
+import { DepthFirstSearchCommandHandler } from "../application/command-handlers/DepthFirstSearchCommandHandler";
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
@@ -14,6 +15,7 @@ import { GridStore } from "../application/stores/GridStore";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
 import { AnimateShortestPathCommand } from "../domain/commands/AnimateShortestPathCommand";
 import { BreadthFirstSearchCommand } from "../domain/commands/BreadthFirstSearchCommand";
+import { DepthFirstSearchCommand } from "../domain/commands/DepthFirstSearchCommand";
 import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
@@ -86,6 +88,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       BreadthFirstSearchCommand.name,
       new BreadthFirstSearchCommandHandler(this.mediator, this.stores.gridStore)
+    );
+    this.mediator.registerCommandHandler(
+      DepthFirstSearchCommand.name,
+      new DepthFirstSearchCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       AnimateShortestPathCommand.name,

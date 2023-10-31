@@ -1,14 +1,14 @@
-import { BreadthFirstSearchCommand } from "../../domain/commands/BreadthFirstSearchCommand";
+import { DepthFirstSearchCommand } from "../../domain/commands/DepthFirstSearchCommand";
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { BreadthFirstSearchCompletedEvent } from "../../domain/events/BreadthFirstSearchCompletedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { BreadthFirstSearchAlgorithm } from "../algorithms/BreadthFirstSearchAlgorithm";
+import { DepthFirstSearchAlgorithm } from "../algorithms/DepthFirstSearchAlgorithm";
 import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../stores/GridStore";
 
-export class BreadthFirstSearchCommandHandler
-  implements CommandHandler<BreadthFirstSearchCommand>
+export class DepthFirstSearchCommandHandler
+  implements CommandHandler<DepthFirstSearchCommand>
 {
   constructor(
     private readonly mediator: Mediator,
@@ -26,7 +26,7 @@ export class BreadthFirstSearchCommandHandler
         this.gridStore.getEndNode().getVector().x
       ];
 
-    const algorithm = BreadthFirstSearchAlgorithm.create(
+    const algorithm = DepthFirstSearchAlgorithm.create(
       grid,
       startNode,
       endNode

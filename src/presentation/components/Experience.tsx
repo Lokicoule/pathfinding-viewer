@@ -1,4 +1,5 @@
 import { BreadthFirstSearchCommand } from "../../domain/commands/BreadthFirstSearchCommand";
+import { DepthFirstSearchCommand } from "../../domain/commands/DepthFirstSearchCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
@@ -27,7 +28,17 @@ const Environment: EnvironmentComponent = () => {
             )
           }
         >
-          Start
+          Start BFS
+        </button>
+        <button
+          onClick={() =>
+            sendCommand(
+              DepthFirstSearchCommand.name,
+              new DepthFirstSearchCommand()
+            )
+          }
+        >
+          Start DFS
         </button>
       </div>
     </div>
