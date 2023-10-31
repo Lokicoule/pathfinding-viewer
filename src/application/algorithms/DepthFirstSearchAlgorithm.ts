@@ -1,4 +1,5 @@
 import { Node } from "../../domain/entities/Node";
+import { Stack } from "../../domain/entities/Stack";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
@@ -19,11 +20,11 @@ export class DepthFirstSearchAlgorithm implements Algorithm {
 
   public run(): Node[] {
     const visitedNodesInOrder: Node[] = [];
-    const stack: Node[] = [];
+    const stack: Stack<Node> = new Stack();
 
     stack.push(this.startNode);
 
-    while (stack.length > 0) {
+    while (!stack.isEmpty()) {
       const currentNode = stack.pop();
 
       if (currentNode && !currentNode.isExplored() && !currentNode.isWall()) {
