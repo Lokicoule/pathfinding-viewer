@@ -20,7 +20,6 @@ export class SetStartNodeCommandHandler
       console.error(
         `SetStartNodeCommandHandler - setStartNode: ${setStartNodeResult.error}`
       );
-      return;
     }
   }
 }

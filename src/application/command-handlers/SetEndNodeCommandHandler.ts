@@ -20,7 +20,6 @@ export class SetEndNodeCommandHandler
       console.error(
         `SetEndNodeCommandHandler - setEndNode: ${setEndNodeResult.error}`
       );
-      return;
     }
   }
 }

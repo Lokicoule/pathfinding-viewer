@@ -3,7 +3,7 @@ import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { BreadthFirstSearchCompletedEvent } from "../../domain/events/BreadthFirstSearchCompletedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { BreadthFirstSearchAlgorithm } from "../algorithms/BreadthFirstSearch";
+import { BreadthFirstSearchAlgorithm } from "../algorithms/BreadthFirstSearchAlgorithm";
 import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../stores/GridStore";
 

@@ -17,7 +17,6 @@ export class RemoveWallCommandHandler
 
     if (!result.success) {
       console.error("RemoveWallCommandHandler", result.error);
-      return;
     }
   }
 }

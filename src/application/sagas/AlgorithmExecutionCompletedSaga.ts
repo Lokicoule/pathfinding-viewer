@@ -16,7 +16,6 @@ export class AlgorithmExecutionCompletedSaga {
   }
 
   private run = (event: BreadthFirstSearchCompletedEvent) => {
-    console.log("AlgorithmExecutionCompletedSaga.run", event);
     this.mediator.sendCommand(
       AnimateShortestPathCommand.name,
       new AnimateShortestPathCommand(event.endNode)

@@ -16,7 +16,6 @@ export class AddWallCommandHandler implements CommandHandler<AddWallCommand> {
 
     if (!result.success) {
       console.error(`AddWallCommandHandler - ${result.error}`);
-      return;
     }
   }
 }

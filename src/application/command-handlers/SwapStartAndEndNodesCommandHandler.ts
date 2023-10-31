@@ -12,7 +12,6 @@ export class SwapStartAndEndNodesCommandHandler
 
     if (!result.success) {
       console.error("SwapStartAndEndNodesCommandHandler", result.error);
-      return;
     }
   }
 }

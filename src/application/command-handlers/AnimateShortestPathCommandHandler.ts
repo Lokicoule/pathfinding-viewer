@@ -14,7 +14,6 @@ export class AnimateShortestPathCommandHandler
   ) {}
 
   execute(command: AnimateShortestPathCommand): void {
-    console.log("AnimateShortestPathCommandHandler", command);
     const shortestPath = this.getShortestPath(command.endNode);
     this.animateShortestPath(shortestPath);
   }
