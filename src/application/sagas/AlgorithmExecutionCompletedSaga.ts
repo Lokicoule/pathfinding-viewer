@@ -1,6 +1,7 @@
 import { AnimateShortestPathCommand } from "../../domain/commands/AnimateShortestPathCommand";
 import { BreadthFirstSearchCompletedEvent } from "../../domain/events/BreadthFirstSearchCompletedEvent";
 import { DepthFirstSearchCompletedEvent } from "../../domain/events/DepthFirstSearchCompletedEvent";
+import { DjikstraCompletedEvent } from "../../domain/events/DjikstraCompletedEvent";
 import { Mediator } from "../mediator/Mediator";
 
 export class AlgorithmExecutionCompletedSaga {
@@ -8,6 +9,7 @@ export class AlgorithmExecutionCompletedSaga {
     const runsOn = [
       BreadthFirstSearchCompletedEvent.name,
       DepthFirstSearchCompletedEvent.name,
+      DjikstraCompletedEvent.name,
     ];
 
     runsOn.forEach((eventName: string) => {

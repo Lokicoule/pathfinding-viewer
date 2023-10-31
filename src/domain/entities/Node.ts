@@ -11,6 +11,7 @@ export class Node {
   public readonly id: string = uuid();
   private state: NodeState;
   private previousNode?: Node;
+  private distance: number = Infinity;
 
   private constructor(state: NodeState) {
     this.state = state;
@@ -56,11 +57,19 @@ export class Node {
     this.state.type = NodeType.Explored;
   }
 
+  public getPreviousNode(): Node | undefined {
+    return this.previousNode;
+  }
+
   public setPreviousNode(previousNode: Node | undefined): void {
     this.previousNode = previousNode;
   }
 
-  public getPreviousNode(): Node | undefined {
-    return this.previousNode;
+  public getDistance(): number {
+    return this.distance;
+  }
+
+  public setDistance(distance: number): void {
+    this.distance = distance;
   }
 }
