@@ -1,17 +1,12 @@
 import { RemoveWallCommand } from "../../domain/commands/RemoveWallCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { WallRemovedEvent } from "../../domain/events/WallRemovedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { GridStore } from "../stores/GridStore";
-import { Mediator } from "../mediator/Mediator";
 
 export class RemoveWallCommandHandler
   implements CommandHandler<RemoveWallCommand>
 {
-  constructor(
-    private readonly mediator: Mediator,
-    private readonly gridStore: GridStore
-  ) {}
+  constructor(private readonly gridStore: GridStore) {}
 
   execute(command: RemoveWallCommand): void {
     const node = this.gridStore.getNode(command.vector);
@@ -24,7 +19,5 @@ export class RemoveWallCommandHandler
       console.error("RemoveWallCommandHandler", result.error);
       return;
     }
-
-    this.mediator.sendEvent(WallRemovedEvent.name, new WallRemovedEvent());
   }
 }

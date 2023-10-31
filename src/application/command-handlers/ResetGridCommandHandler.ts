@@ -1,18 +1,13 @@
+import { compositionRoot } from "../../bootstrapping/bootstrap";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { GridResetEvent } from "../../domain/events/GridResetedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { GridStore } from "../stores/GridStore";
-import { Mediator } from "../mediator/Mediator";
-import { compositionRoot } from "../../bootstrapping/bootstrap";
 
 export class ResetGridCommandHandler
   implements CommandHandler<ResetGridCommand>
 {
-  constructor(
-    private readonly mediator: Mediator,
-    private readonly gridStore: GridStore
-  ) {}
+  constructor(private readonly gridStore: GridStore) {}
 
   execute(): void {
     const grid = this.gridStore.getGrid();
@@ -30,7 +25,5 @@ export class ResetGridCommandHandler
     }
 
     compositionRoot.stores.experienceStore.reset();
-
-    this.mediator.sendEvent(GridResetEvent.name, new GridResetEvent());
   }
 }

@@ -1,7 +1,9 @@
 import { BreadthFirstSearchCommand } from "../../domain/commands/BreadthFirstSearchCommand";
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
+import { BreadthFirstSearchCompletedEvent } from "../../domain/events/BreadthFirstSearchCompletedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
+import { BreadthFirstSearchAlgorithm } from "../algorithms/BreadthFirstSearch";
 import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../stores/GridStore";
 
@@ -23,18 +25,21 @@ export class BreadthFirstSearchCommandHandler
       grid[this.gridStore.getEndNode().getVector().y][
         this.gridStore.getEndNode().getVector().x
       ];
-    const visitedNodesInOrder = this.breadthFirstSearch(
+
+    const algorithm = BreadthFirstSearchAlgorithm.create(
       grid,
       startNode,
       endNode
     );
+    const visitedNodesInOrder = algorithm.run();
 
     console.log(visitedNodesInOrder);
 
     this.animateBreadthFirstSearch(visitedNodesInOrder).then(() => {
-      const shortestPath = this.getShortestPath(endNode);
-      console.log("shortestPath", shortestPath);
-      this.animateShortestPath(shortestPath);
+      this.mediator.sendEvent(
+        BreadthFirstSearchCompletedEvent.name,
+        new BreadthFirstSearchCompletedEvent(endNode)
+      );
     });
   }
 
@@ -57,56 +62,6 @@ export class BreadthFirstSearchCommandHandler
     return clonedGrid;
   }
 
-  private breadthFirstSearch(
-    grid: Node[][],
-    startNode: Node,
-    endNode: Node
-  ): Node[] {
-    const visitedNodesInOrder: Node[] = [];
-    const queue: Node[] = [];
-
-    queue.push(startNode);
-
-    while (queue.length > 0) {
-      const currentNode = queue.shift();
-
-      if (!currentNode || currentNode.isExplored() || currentNode.isWall()) {
-        continue;
-      }
-
-      if (currentNode.getType() !== NodeType.Start && currentNode !== endNode) {
-        currentNode.setExplored();
-      }
-
-      visitedNodesInOrder.push(currentNode);
-
-      if (currentNode === endNode) {
-        break;
-      }
-
-      const unvisitedNeighbors = this.getUnvisitedNeighbors(currentNode, grid);
-
-      for (const neighbor of unvisitedNeighbors) {
-        neighbor.setPreviousNode(currentNode);
-        queue.push(neighbor);
-      }
-    }
-
-    return visitedNodesInOrder;
-  }
-
-  private getUnvisitedNeighbors(node: Node, grid: Node[][]): Node[] {
-    const neighbors: Node[] = [];
-    const { x, y } = node.getVector();
-
-    if (y > 0) neighbors.push(grid[y - 1][x]);
-    if (y < grid.length - 1) neighbors.push(grid[y + 1][x]);
-    if (x > 0) neighbors.push(grid[y][x - 1]);
-    if (x < grid[0].length - 1) neighbors.push(grid[y][x + 1]);
-
-    return neighbors.filter((neighbor) => !neighbor.isExplored());
-  }
-
   private animateBreadthFirstSearch(
     visitedNodesInOrder: Node[]
   ): Promise<void> {
@@ -123,31 +78,5 @@ export class BreadthFirstSearchCommandHandler
         }, 10 * i);
       }
     });
-  }
-
-  private getShortestPath(endNode: Node): Node[] {
-    const shortestPath: Node[] = [];
-    let currentNode: Node | undefined = endNode;
-
-    while (currentNode && currentNode.getType() !== NodeType.Start) {
-      shortestPath.unshift(currentNode);
-
-      currentNode = currentNode.getPreviousNode();
-    }
-
-    return shortestPath;
-  }
-
-  private animateShortestPath(shortestPath: Node[]): void {
-    for (let i = 0; i < shortestPath.length; i++) {
-      setTimeout(() => {
-        const node = shortestPath[i];
-        if (
-          node.getType() !== NodeType.Start &&
-          node.getType() !== NodeType.End
-        )
-          this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
-      }, 50 * i);
-    }
   }
 }

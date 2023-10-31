@@ -1,1 +1,1 @@
-export type Callback = (...args: unknown[]) => void;
+export type Callback = (...args: any[]) => void | Promise<void>;

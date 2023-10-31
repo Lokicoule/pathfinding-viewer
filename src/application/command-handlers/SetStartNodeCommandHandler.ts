@@ -1,17 +1,12 @@
 import { SetStartNodeCommand } from "../../domain/commands/SetStartNodeCommand";
 import { NodeType } from "../../domain/enums/NodeType";
-import { StartNodeSetEvent } from "../../domain/events/StartNodeSetEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { Mediator } from "../mediator/Mediator";
 import { GridStore } from "../stores/GridStore";
 
 export class SetStartNodeCommandHandler
   implements CommandHandler<SetStartNodeCommand>
 {
-  constructor(
-    private readonly mediator: Mediator,
-    private readonly gridStore: GridStore
-  ) {}
+  constructor(private readonly gridStore: GridStore) {}
 
   execute(command: SetStartNodeCommand): void {
     const node = this.gridStore.getNode(command.vector);
@@ -27,7 +22,5 @@ export class SetStartNodeCommandHandler
       );
       return;
     }
-
-    this.mediator.sendEvent(StartNodeSetEvent.name, new StartNodeSetEvent());
   }
 }
