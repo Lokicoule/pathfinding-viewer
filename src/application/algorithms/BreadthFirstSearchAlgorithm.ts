@@ -1,4 +1,5 @@
 import { Node } from "../../domain/entities/Node";
+import { Queue } from "../../domain/entities/Queue";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
@@ -19,12 +20,12 @@ export class BreadthFirstSearchAlgorithm implements Algorithm {
 
   public run(): Node[] {
     const visitedNodesInOrder: Node[] = [];
-    const queue: Node[] = [];
+    const queue: Queue<Node> = new Queue();
 
-    queue.push(this.startNode);
+    queue.enqueue(this.startNode);
 
-    while (queue.length > 0) {
-      const currentNode = queue.shift();
+    while (!queue.isEmpty()) {
+      const currentNode = queue.dequeue();
 
       if (currentNode && !currentNode.isExplored() && !currentNode.isWall()) {
         if (
@@ -44,7 +45,7 @@ export class BreadthFirstSearchAlgorithm implements Algorithm {
 
         for (const neighbor of unvisitedNeighbors) {
           neighbor.setPreviousNode(currentNode);
-          queue.push(neighbor);
+          queue.enqueue(neighbor);
         }
       }
     }
