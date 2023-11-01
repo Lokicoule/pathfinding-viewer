@@ -1,6 +1,4 @@
-import { BreadthFirstSearchCommand } from "../../domain/commands/BreadthFirstSearchCommand";
-import { DepthFirstSearchCommand } from "../../domain/commands/DepthFirstSearchCommand";
-import { DjikstraCommand } from "../../domain/commands/DjikstraCommand";
+import { AlgorithmRunnerCommand } from "../../domain/commands/AlgorithmRunnerCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
@@ -24,8 +22,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() =>
             sendCommand(
-              BreadthFirstSearchCommand.name,
-              new BreadthFirstSearchCommand()
+              AlgorithmRunnerCommand.name,
+              new AlgorithmRunnerCommand("BFS")
             )
           }
         >
@@ -34,8 +32,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() =>
             sendCommand(
-              DepthFirstSearchCommand.name,
-              new DepthFirstSearchCommand()
+              AlgorithmRunnerCommand.name,
+              new AlgorithmRunnerCommand("DFS")
             )
           }
         >
@@ -43,7 +41,10 @@ const Environment: EnvironmentComponent = () => {
         </button>
         <button
           onClick={() =>
-            sendCommand(DjikstraCommand.name, new DjikstraCommand())
+            sendCommand(
+              AlgorithmRunnerCommand.name,
+              new AlgorithmRunnerCommand("DIJKSTRA")
+            )
           }
         >
           Start Djikstra
