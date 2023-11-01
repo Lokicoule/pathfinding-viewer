@@ -13,6 +13,10 @@ const GridView: GridComponent = () => {
   const sendCommand = useCommand();
   const nodes = useStateMap<string, Node>();
 
+  const handleNodeClick = (node: Node) => {
+    sendCommand(NodeInteractionCommand.name, new NodeInteractionCommand(node));
+  };
+
   const handleMouseDown = (node: Node) => {
     nodes.addEntry(node.id, node);
   };
@@ -55,8 +59,17 @@ const GridView: GridComponent = () => {
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
               }}
-              onMouseDown={() => handleMouseDown(node)}
-              onMouseEnter={() => handleMouseEnter(node)}
+              onClick={() => handleNodeClick(node)}
+              onMouseDown={
+                !node.isStart() && !node.isEnd()
+                  ? () => handleMouseDown(node)
+                  : undefined
+              }
+              onMouseEnter={
+                !node.isStart() && !node.isEnd()
+                  ? () => handleMouseEnter(node)
+                  : undefined
+              }
               onMouseUp={() => handleMouseUp()}
             ></div>
           ))}

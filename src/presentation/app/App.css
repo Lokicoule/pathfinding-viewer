@@ -28,7 +28,7 @@
 
 .cell {
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #fafafa;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -38,21 +38,56 @@
 }
 
 .cell.start {
-  background-color: #00f;
+  background-color: #0e49b5;
 }
 
 .cell.end {
-  background-color: #f00;
+  background-color: #c70039;
 }
 
 .cell.wall {
-  background-color: #333;
+  background-color: #3b5360;
 }
 
 .cell.explored {
-  background-color: darkcyan;
+  background-color: #b9eddd;
+  animation: explored 0.8s ease-in;
 }
 
 .cell.path {
-  background-color: #0f0;
+  background-color: #38e54d;
+  animation: path 2s ease-out;
+}
+
+@keyframes explored {
+  0% {
+    scale: 1;
+    background-color: #b9eddd;
+  }
+  30% {
+    scale: 0;
+    border-radius: 50%;
+    background-color: #87cbb9;
+  }
+  100% {
+    scale: 1;
+    border-radius: 0;
+    background-color: #b7d3df;
+  }
+}
+
+@keyframes path {
+  0% {
+    border-radius: 50%;
+    scale: 0.2;
+    background-color: #38e54d;
+  }
+  80% {
+    scale: 1.3;
+    background-color: #bce29e;
+  }
+  100% {
+    scale: 1;
+    background-color: #38e54d;
+  }
 }
