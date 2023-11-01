@@ -1,6 +1,8 @@
 import { AddWallCommandHandler } from "../application/command-handlers/AddWallCommandHandler";
 import { AlgorithmAnimationCommandHandler } from "../application/command-handlers/AlgorithmAnimationCommandHandler";
 import { AlgorithmRunnerCommandHandler } from "../application/command-handlers/AlgorithmRunnerCommandHandler";
+import { MazeAlgorithmAnimationCommandHandler } from "../application/command-handlers/MazeAlgorithmAnimationCommandHandler";
+import { MazeGenerationRunnerCommandHandler } from "../application/command-handlers/MazeGenerationRunnerCommandHandler";
 import { RemoveWallCommandHandler } from "../application/command-handlers/RemoveWallCommandHandler";
 import { ResetGridCommandHandler } from "../application/command-handlers/ResetGridCommandHandler";
 import { SetEndNodeCommandHandler } from "../application/command-handlers/SetEndNodeCommandHandler";
@@ -14,6 +16,8 @@ import { GridStore } from "../application/stores/GridStore";
 import { AddWallCommand } from "../domain/commands/AddWallCommand";
 import { AlgorithmAnimationCommand } from "../domain/commands/AlgorithmAnimationCommand";
 import { AlgorithmRunnerCommand } from "../domain/commands/AlgorithmRunnerCommand";
+import { MazeAlgorithmAnimationCommand } from "../domain/commands/MazeAlgorithmAnimationCommand";
+import { MazeGenerationRunnerCommand } from "../domain/commands/MazeGenerationRunnerCommand";
 import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
 import { RemoveWallCommand } from "../domain/commands/RemoveWallCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
@@ -90,6 +94,20 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       AlgorithmAnimationCommand.name,
       new AlgorithmAnimationCommandHandler(this.mediator, this.stores.gridStore)
+    );
+    this.mediator.registerCommandHandler(
+      MazeAlgorithmAnimationCommand.name,
+      new MazeAlgorithmAnimationCommandHandler(
+        this.mediator,
+        this.stores.gridStore
+      )
+    );
+    this.mediator.registerCommandHandler(
+      MazeGenerationRunnerCommand.name,
+      new MazeGenerationRunnerCommandHandler(
+        this.mediator,
+        this.stores.gridStore
+      )
     );
   }
 }

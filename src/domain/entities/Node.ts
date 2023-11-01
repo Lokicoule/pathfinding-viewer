@@ -41,6 +41,14 @@ export class Node {
     return this.state.type === NodeType.Wall;
   }
 
+  public setWall(): void {
+    this.state.type = NodeType.Wall;
+  }
+
+  public setEmpty(): void {
+    this.state.type = NodeType.Empty;
+  }
+
   public isEmpty(): boolean {
     return this.state.type === NodeType.Empty;
   }
@@ -71,5 +79,9 @@ export class Node {
 
   public setDistance(distance: number): void {
     this.distance = distance;
+  }
+
+  public equals(node: Node): boolean {
+    return this.id === node.id;
   }
 }

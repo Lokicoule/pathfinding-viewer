@@ -1,4 +1,5 @@
 import { AlgorithmRunnerCommand } from "../../domain/commands/AlgorithmRunnerCommand";
+import { MazeGenerationRunnerCommand } from "../../domain/commands/MazeGenerationRunnerCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
@@ -48,6 +49,26 @@ const Environment: EnvironmentComponent = () => {
           }
         >
           Start Djikstra
+        </button>
+        <button
+          onClick={() => {
+            sendCommand(
+              MazeGenerationRunnerCommand.name,
+              new MazeGenerationRunnerCommand("HORIZONTAL")
+            );
+          }}
+        >
+          Generate Maze (Horizontal)
+        </button>
+        <button
+          onClick={() => {
+            sendCommand(
+              MazeGenerationRunnerCommand.name,
+              new MazeGenerationRunnerCommand("VERTICAL")
+            );
+          }}
+        >
+          Generate Maze (Vertical)
         </button>
       </div>
     </div>

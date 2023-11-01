@@ -27,14 +27,17 @@
 }
 
 .cell {
-  background-color: #fff;
   border: 1px solid #fafafa;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .cell:hover {
   background-color: #f1f1f1;
+}
+
+.cell.empty {
+  background-color: #fff;
+  animation: bounding 0.2s ease-in-out;
 }
 
 .cell.start {
@@ -47,6 +50,7 @@
 
 .cell.wall {
   background-color: #3b5360;
+  animation: bounding 0.2s ease-in-out;
 }
 
 .cell.explored {
@@ -89,5 +93,20 @@
   100% {
     scale: 1;
     background-color: #38e54d;
+  }
+}
+
+@keyframes bounding {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }

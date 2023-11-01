@@ -1,13 +1,20 @@
 import { AlgorithmAnimationCommand } from "../../domain/commands/AlgorithmAnimationCommand";
+import { MazeAlgorithmAnimationCommand } from "../../domain/commands/MazeAlgorithmAnimationCommand";
 import { AlgorithmRunnerCompletedEvent } from "../../domain/events/AlgorithmRunnerCompletedEvent";
+import { MazeAlgorithmRunnerCompletedEvent } from "../../domain/events/MazeAlgorithmRunnerCompletedEvent";
 import { Mediator } from "../mediator/Mediator";
 
 export class AlgorithmCompletionSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [AlgorithmRunnerCompletedEvent.name];
+    const runsOnSolver = [AlgorithmRunnerCompletedEvent.name];
+    const runsOnGenerator = [MazeAlgorithmRunnerCompletedEvent.name];
 
-    runsOn.forEach((eventName: string) => {
-      this.mediator.registerEventHandler(eventName, this.run);
+    runsOnSolver.forEach((eventName: string) => {
+      this.mediator.registerEventHandler(eventName, this.runSolverAnimation);
+    });
+
+    runsOnGenerator.forEach((eventName: string) => {
+      this.mediator.registerEventHandler(eventName, this.runGeneratorAnimation);
     });
   }
 
@@ -15,10 +22,19 @@ export class AlgorithmCompletionSaga {
     return new AlgorithmCompletionSaga(mediator);
   }
 
-  private run = (event: AlgorithmRunnerCompletedEvent) => {
+  private runSolverAnimation = (event: AlgorithmRunnerCompletedEvent) => {
     this.mediator.sendCommand(
       AlgorithmAnimationCommand.name,
       new AlgorithmAnimationCommand(event.endNode, event.visitedNodesInOrder)
+    );
+  };
+
+  private runGeneratorAnimation = (
+    event: MazeAlgorithmRunnerCompletedEvent
+  ) => {
+    this.mediator.sendCommand(
+      MazeAlgorithmAnimationCommand.name,
+      new MazeAlgorithmAnimationCommand(event.wallsInOrder)
     );
   };
 }

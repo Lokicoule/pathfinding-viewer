@@ -39,6 +39,24 @@ const GridView: GridComponent = () => {
     nodes.clearMap();
   };
 
+  const cellState = (node: Node) => {
+    if (node.isStart()) {
+      return "start";
+    } else if (node.isEnd()) {
+      return "end";
+    } else if (node.isExplored()) {
+      return "explored";
+    } else if (node.isPath()) {
+      return "path";
+    } else if (node.isWall() && !nodes.Map.has(node.id)) {
+      return "wall";
+    } else if (nodes.Map.has(node.id) && !node.isWall()) {
+      return "wall";
+    } else {
+      return "empty";
+    }
+  };
+
   return (
     <div className="grid">
       {grid.map((row, rowIndex) => (
@@ -46,15 +64,7 @@ const GridView: GridComponent = () => {
           {row.map((node) => (
             <div
               key={node.id}
-              className={concatClassNames(
-                "cell",
-                node.isStart() ? "start" : undefined,
-                node.isEnd() ? "end" : undefined,
-                node.isExplored() ? "explored" : undefined,
-                node.isPath() ? "path" : undefined,
-                node.isWall() && !nodes.Map.has(node.id) ? "wall" : undefined,
-                nodes.Map.has(node.id) && !node.isWall() ? "wall" : undefined
-              )}
+              className={concatClassNames("cell", cellState(node))}
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
