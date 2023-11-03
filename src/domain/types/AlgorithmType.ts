@@ -1,2 +1,5 @@
 export type AlgorithmType = "BFS" | "DFS" | "DIJKSTRA";
-export type MazeAlgorithmType = "HORIZONTAL" | "VERTICAL";
+export type MazeAlgorithmType =
+  | "HORIZONTAL"
+  | "VERTICAL"
+  | "RECURSIVE_DIVISION";

@@ -16,6 +16,7 @@ export class MazeGenerationRunnerCommandHandler
 
   execute(command: MazeGenerationRunnerCommand): void {
     const grid = this.cloneGrid(this.gridStore.getGrid());
+
     const startNode =
       grid[this.gridStore.getStartNode().getVector().y][
         this.gridStore.getStartNode().getVector().x
@@ -48,6 +49,10 @@ export class MazeGenerationRunnerCommandHandler
       case "VERTICAL":
         return import("../algorithms/maze/VerticalMazeGenerator").then(
           (module) => module.VerticalMazeGenerator
+        );
+      case "RECURSIVE_DIVISION":
+        return import("../algorithms/maze/RecursiveDivisionMazeGenerator").then(
+          (module) => module.RecursiveDivisionMazeGenerator
         );
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);

@@ -57,6 +57,10 @@ export class Node {
     return this.state.type === NodeType.Path;
   }
 
+  public setPath(): void {
+    this.state.type = NodeType.Path;
+  }
+
   public isExplored(): boolean {
     return this.state.type === NodeType.Explored;
   }

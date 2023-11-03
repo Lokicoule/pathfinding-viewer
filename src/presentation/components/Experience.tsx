@@ -70,6 +70,16 @@ const Environment: EnvironmentComponent = () => {
         >
           Generate Maze (Vertical)
         </button>
+        <button
+          onClick={() => {
+            sendCommand(
+              MazeGenerationRunnerCommand.name,
+              new MazeGenerationRunnerCommand("RECURSIVE_DIVISION")
+            );
+          }}
+        >
+          Generate Maze (Recursive Division)
+        </button>
       </div>
     </div>
   );
