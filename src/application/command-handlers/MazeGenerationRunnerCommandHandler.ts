@@ -17,20 +17,9 @@ export class MazeGenerationRunnerCommandHandler
   execute(command: MazeGenerationRunnerCommand): void {
     const grid = this.cloneGrid(this.gridStore.getGrid());
 
-    const startNode =
-      grid[this.gridStore.getStartNode().getVector().y][
-        this.gridStore.getStartNode().getVector().x
-      ];
-    const endNode =
-      grid[this.gridStore.getEndNode().getVector().y][
-        this.gridStore.getEndNode().getVector().x
-      ];
-
     const algorithm = this.algorithmFactory(command.algorithm);
 
-    const walls = algorithm.then((module) =>
-      module.create(grid, startNode, endNode).generateMaze()
-    );
+    const walls = algorithm.then((module) => module.create(grid).run());
 
     walls.then((walls) => {
       this.mediator.sendEvent(
@@ -42,18 +31,11 @@ export class MazeGenerationRunnerCommandHandler
 
   private async algorithmFactory(algorithmType: MazeAlgorithmType) {
     switch (algorithmType) {
-      case "HORIZONTAL":
-        return import("../algorithms/maze/HorizontalMazeGenerator").then(
-          (module) => module.HorizontalMazeGenerator
-        );
-      case "VERTICAL":
-        return import("../algorithms/maze/VerticalMazeGenerator").then(
-          (module) => module.VerticalMazeGenerator
-        );
       case "RECURSIVE_DIVISION":
-        return import("../algorithms/maze/RecursiveDivisionMazeGenerator").then(
-          (module) => module.RecursiveDivisionMazeGenerator
+        return import("../algorithms/maze/RecursiveDivisionAlgorithm").then(
+          (module) => module.RecursiveDivisionAlgorithm
         );
+
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }

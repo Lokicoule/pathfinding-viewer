@@ -50,26 +50,7 @@ const Environment: EnvironmentComponent = () => {
         >
           Start Djikstra
         </button>
-        <button
-          onClick={() => {
-            sendCommand(
-              MazeGenerationRunnerCommand.name,
-              new MazeGenerationRunnerCommand("HORIZONTAL")
-            );
-          }}
-        >
-          Generate Maze (Horizontal)
-        </button>
-        <button
-          onClick={() => {
-            sendCommand(
-              MazeGenerationRunnerCommand.name,
-              new MazeGenerationRunnerCommand("VERTICAL")
-            );
-          }}
-        >
-          Generate Maze (Vertical)
-        </button>
+
         <button
           onClick={() => {
             sendCommand(
