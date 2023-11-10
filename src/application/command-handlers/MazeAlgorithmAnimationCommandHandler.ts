@@ -28,7 +28,7 @@ export class MazeAlgorithmAnimationCommandHandler
           )
             this.gridStore.setNodeAs(node.getVector(), node.getType());
           if (i === wallsInOrder.length - 1) resolve();
-        }, 100 * i);
+        }, 10 * i);
       }
     });
   }

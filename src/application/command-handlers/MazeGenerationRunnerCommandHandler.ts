@@ -16,10 +16,16 @@ export class MazeGenerationRunnerCommandHandler
 
   execute(command: MazeGenerationRunnerCommand): void {
     const grid = this.cloneGrid(this.gridStore.getGrid());
+    const startNode =
+      grid[this.gridStore.getStartNode().getVector().y][
+        this.gridStore.getStartNode().getVector().x
+      ];
 
     const algorithm = this.algorithmFactory(command.algorithm);
 
-    const walls = algorithm.then((module) => module.create(grid).run());
+    const walls = algorithm.then((module) =>
+      module.create(grid, startNode).run()
+    );
 
     walls.then((walls) => {
       this.mediator.sendEvent(
@@ -31,11 +37,14 @@ export class MazeGenerationRunnerCommandHandler
 
   private async algorithmFactory(algorithmType: MazeAlgorithmType) {
     switch (algorithmType) {
+      case "PRIMS":
+        return import("../algorithms/maze/PrimsAlgorithm").then(
+          (module) => module.PrimsAlgorithm
+        );
       case "RECURSIVE_DIVISION":
         return import("../algorithms/maze/RecursiveDivisionAlgorithm").then(
           (module) => module.RecursiveDivisionAlgorithm
         );
-
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }
