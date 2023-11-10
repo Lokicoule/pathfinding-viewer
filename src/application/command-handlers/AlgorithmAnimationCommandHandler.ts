@@ -25,7 +25,7 @@ export class AlgorithmAnimationCommandHandler
     const shortestPath: Node[] = [];
     let currentNode: Node | undefined = endNode;
 
-    while (currentNode && currentNode.getType() !== NodeType.Start) {
+    while (currentNode && !currentNode.isStart()) {
       shortestPath.unshift(currentNode);
 
       currentNode = currentNode.getPreviousNode();
@@ -39,27 +39,29 @@ export class AlgorithmAnimationCommandHandler
       for (let i = 0; i < visitedNodesInOrder.length; i++) {
         setTimeout(() => {
           const node = visitedNodesInOrder[i];
-          if (
-            node.getType() !== NodeType.Start &&
-            node.getType() !== NodeType.End
-          )
+          if (!node.isStart() && !node.isEnd())
             this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
           if (i === visitedNodesInOrder.length - 1) resolve();
-        }, 10 * i);
+        }, 20 * i);
       }
     });
   }
 
   private animateShortestPath(shortestPath: Node[]): Promise<void> {
     return new Promise((resolve) => {
-      for (let i = 0; i < shortestPath.length; i++) {
+      let lastNode = shortestPath[0];
+
+      for (let i = 1; i < shortestPath.length; i++) {
         setTimeout(() => {
           const node = shortestPath[i];
-          if (
-            node.getType() !== NodeType.Start &&
-            node.getType() !== NodeType.End
-          )
-            this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
+          this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
+
+          if (!node.isStart() && !node.isEnd()) {
+            this.gridStore.setNodeAs(node.getVector(), NodeType.Start);
+          }
+
+          lastNode = node;
+
           if (i === shortestPath.length - 1) resolve();
         }, 50 * i);
       }

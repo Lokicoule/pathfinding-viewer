@@ -1,21 +1,15 @@
 import { Node } from "../../domain/entities/Node";
 import { Stack } from "../../domain/entities/Stack";
-import { NodeType } from "../../domain/enums/NodeType";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
 export class DepthFirstSearchAlgorithm implements Algorithm {
   private constructor(
     private readonly grid: Node[][],
-    private readonly startNode: Node,
-    private readonly endNode: Node
+    private readonly startNode: Node
   ) {}
 
-  public static create(
-    grid: Node[][],
-    startNode: Node,
-    endNode: Node
-  ): Algorithm {
-    return new DepthFirstSearchAlgorithm(grid, startNode, endNode);
+  public static create(grid: Node[][], startNode: Node): Algorithm {
+    return new DepthFirstSearchAlgorithm(grid, startNode);
   }
 
   public run(): Node[] {
@@ -28,16 +22,13 @@ export class DepthFirstSearchAlgorithm implements Algorithm {
       const currentNode = stack.pop();
 
       if (currentNode && !currentNode.isExplored() && !currentNode.isWall()) {
-        if (
-          currentNode.getType() !== NodeType.Start &&
-          currentNode !== this.endNode
-        ) {
+        if (!currentNode.isStart() && !currentNode.isEnd()) {
           currentNode.setExplored();
         }
 
         visitedNodesInOrder.push(currentNode);
 
-        if (currentNode === this.endNode) {
+        if (currentNode.isEnd()) {
           return visitedNodesInOrder;
         }
 

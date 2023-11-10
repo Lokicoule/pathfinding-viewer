@@ -30,9 +30,7 @@ export class AlgorithmRunnerCommandHandler
 
     const algorithm = this.algorithmFactory(command.algorithm);
 
-    const visitedNodesInOrder = algorithm
-      .create(grid, startNode, endNode)
-      .run();
+    const visitedNodesInOrder = algorithm.create(grid, startNode).run();
 
     this.mediator.sendEvent(
       AlgorithmRunnerCompletedEvent.name,

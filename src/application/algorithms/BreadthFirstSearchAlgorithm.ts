@@ -1,21 +1,15 @@
 import { Node } from "../../domain/entities/Node";
 import { Queue } from "../../domain/entities/Queue";
-import { NodeType } from "../../domain/enums/NodeType";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
 export class BreadthFirstSearchAlgorithm implements Algorithm {
   private constructor(
     private readonly grid: Node[][],
-    private readonly startNode: Node,
-    private readonly endNode: Node
+    private readonly startNode: Node
   ) {}
 
-  public static create(
-    grid: Node[][],
-    startNode: Node,
-    endNode: Node
-  ): Algorithm {
-    return new BreadthFirstSearchAlgorithm(grid, startNode, endNode);
+  public static create(grid: Node[][], startNode: Node): Algorithm {
+    return new BreadthFirstSearchAlgorithm(grid, startNode);
   }
 
   public run(): Node[] {
@@ -28,16 +22,13 @@ export class BreadthFirstSearchAlgorithm implements Algorithm {
       const currentNode = queue.dequeue();
 
       if (currentNode && !currentNode.isExplored() && !currentNode.isWall()) {
-        if (
-          currentNode.getType() !== NodeType.Start &&
-          currentNode !== this.endNode
-        ) {
+        if (!currentNode.isStart() && !currentNode.isEnd()) {
           currentNode.setExplored();
         }
 
         visitedNodesInOrder.push(currentNode);
 
-        if (currentNode === this.endNode) {
+        if (currentNode.isEnd()) {
           return visitedNodesInOrder;
         }
 

@@ -1,30 +1,25 @@
 import { Node } from "../../domain/entities/Node";
-import { NodeType } from "../../domain/enums/NodeType";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
 export class DijkstraAlgorithm implements Algorithm {
   private readonly grid: Node[][];
   private readonly startNode: Node;
-  private readonly endNode: Node;
 
-  private constructor(grid: Node[][], startNode: Node, endNode: Node) {
+  private constructor(grid: Node[][], startNode: Node) {
     this.grid = grid;
     this.startNode = startNode;
-    this.endNode = endNode;
   }
 
-  public static create(
-    grid: Node[][],
-    startNode: Node,
-    endNode: Node
-  ): Algorithm {
-    return new DijkstraAlgorithm(grid, startNode, endNode);
+  public static create(grid: Node[][], startNode: Node): Algorithm {
+    return new DijkstraAlgorithm(grid, startNode);
   }
 
   public run(): Node[] {
     const visitedNodesInOrder: Node[] = [];
+    const unvisitedNodes = this.grid.flat();
+
     this.startNode.setDistance(0);
-    const unvisitedNodes = this.initializeNodes();
+
     this.sortNodesByDistance(unvisitedNodes);
 
     while (unvisitedNodes.length > 0) {
@@ -35,16 +30,13 @@ export class DijkstraAlgorithm implements Algorithm {
           return visitedNodesInOrder;
         }
 
-        if (
-          closestNode.getType() !== NodeType.Start &&
-          closestNode.getType() !== NodeType.End
-        ) {
+        if (!closestNode.isStart() && !closestNode.isEnd()) {
           closestNode.setExplored();
         }
 
         visitedNodesInOrder.push(closestNode);
 
-        if (closestNode === this.endNode) {
+        if (closestNode.isEnd()) {
           return visitedNodesInOrder;
         }
 
@@ -54,18 +46,6 @@ export class DijkstraAlgorithm implements Algorithm {
     }
 
     return visitedNodesInOrder;
-  }
-
-  private initializeNodes(): Node[] {
-    const nodes: Node[] = [];
-
-    for (const row of this.grid) {
-      for (const node of row) {
-        nodes.push(node);
-      }
-    }
-
-    return nodes;
   }
 
   private sortNodesByDistance(nodes: Node[]): void {
