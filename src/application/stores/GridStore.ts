@@ -1,3 +1,4 @@
+import { Grid } from "../../domain/entities/Grid";
 import { Node } from "../../domain/entities/Node";
 import { NodeType } from "../../domain/enums/NodeType";
 import { Result } from "../../domain/types/Result";
@@ -5,7 +6,7 @@ import { Vector } from "../../domain/valueObjects/Vector";
 import { Store } from "../../infrastructure/store/Store";
 
 export type GridStoreState = {
-  grid: Node[][];
+  grid: Grid;
   startNode: Node;
   endNode: Node;
 };
@@ -13,7 +14,7 @@ export type GridStoreState = {
 export class GridStore extends Store<GridStoreState> {
   constructor(width: number, height: number) {
     super({
-      grid: GridStore.initializeGrid(width, height),
+      grid: Grid.create(width, height),
       startNode: Node.create({
         vector: { x: 1, y: 1 },
         type: NodeType.Start,
@@ -24,21 +25,25 @@ export class GridStore extends Store<GridStoreState> {
       }),
     });
 
-    this.state.grid[this.state.startNode.getVector().y][
-      this.state.startNode.getVector().x
-    ] = this.state.startNode;
-    this.state.grid[this.state.endNode.getVector().y][
-      this.state.endNode.getVector().x
-    ] = this.state.endNode;
+    this.state.grid.initialize(
+      NodeType.Empty,
+      this.state.startNode.getVector(),
+      this.state.endNode.getVector()
+    );
   }
 
-  public getGrid(): Node[][] {
+  public getGrid(): Grid {
     return this.state.grid;
+  }
+
+  public setGrid(grid: Grid): void {
+    this.state.grid = grid;
+    super.setState(this.state);
   }
 
   public getNode(vector: Vector): Node | undefined {
     if (this.isValidPosition(vector)) {
-      return this.state.grid[vector.y][vector.x];
+      return this.state.grid.getNode(vector.x, vector.y);
     }
     return undefined;
   }
@@ -48,11 +53,21 @@ export class GridStore extends Store<GridStoreState> {
   }
 
   public setStartNode(vector: Vector): Result {
+    const rollback = this.getNode(vector);
     const validation = this.setNodeAs(vector, NodeType.Start);
 
     if (validation.success) {
-      this.setNodeAs(this.state.startNode.getVector(), NodeType.Empty);
-      this.state.startNode = this.state.grid[vector.y][vector.x];
+      const validationEmpty = this.setNodeAs(
+        this.state.startNode.getVector(),
+        NodeType.Empty
+      );
+
+      if (!validationEmpty.success && rollback) {
+        this.setNodeAs(rollback.getVector(), NodeType.Start);
+        return validationEmpty;
+      }
+
+      this.state.startNode = this.state.grid.getNode(vector.x, vector.y);
 
       return { success: true };
     }
@@ -65,11 +80,22 @@ export class GridStore extends Store<GridStoreState> {
   }
 
   public setEndNode(vector: Vector): Result {
+    const rollback = this.getNode(vector);
+
     const validation = this.setNodeAs(vector, NodeType.End);
 
     if (validation.success) {
-      this.setNodeAs(this.state.endNode.getVector(), NodeType.Empty);
-      this.state.endNode = this.state.grid[vector.y][vector.x];
+      const emptyValidation = this.setNodeAs(
+        this.state.endNode.getVector(),
+        NodeType.Empty
+      );
+
+      if (!emptyValidation.success && rollback) {
+        this.setNodeAs(rollback.getVector(), NodeType.End);
+        return emptyValidation;
+      }
+
+      this.state.endNode = this.state.grid.getNode(vector.x, vector.y);
 
       return { success: true };
     }
@@ -81,8 +107,7 @@ export class GridStore extends Store<GridStoreState> {
     const validation = this.isValidPosition(vector);
 
     if (validation.success) {
-      const newNode = Node.create({ type, vector });
-      this.state.grid[vector.y][vector.x] = newNode;
+      this.state.grid.setNodeAs(vector, type);
 
       super.setState(this.state);
       return { success: true };
@@ -96,11 +121,7 @@ export class GridStore extends Store<GridStoreState> {
     const validationB = this.isValidPosition(vectorB);
 
     if (validationA.success && validationB.success) {
-      const nodeA = this.state.grid[vectorA.y][vectorA.x];
-      const nodeB = this.state.grid[vectorB.y][vectorB.x];
-
-      this.state.grid[vectorA.y][vectorA.x] = nodeB;
-      this.state.grid[vectorB.y][vectorB.x] = nodeA;
+      this.state.grid.swapNodes(vectorA, vectorB);
 
       super.setState(this.state);
       return { success: true };
@@ -116,17 +137,18 @@ export class GridStore extends Store<GridStoreState> {
     );
 
     if (validation.success) {
-      const startNode =
-        this.state.grid[this.state.startNode.getVector().y][
-          this.state.startNode.getVector().x
-        ];
-      const endNode =
-        this.state.grid[this.state.endNode.getVector().y][
-          this.state.endNode.getVector().x
-        ];
+      const startNode = this.state.grid.getNode(
+        this.state.startNode.getVector().x,
+        this.state.startNode.getVector().y
+      );
 
-      this.state.startNode = startNode;
-      this.state.endNode = endNode;
+      const endNode = this.state.grid.getNode(
+        this.state.endNode.getVector().x,
+        this.state.endNode.getVector().y
+      );
+
+      this.state.startNode = endNode;
+      this.state.endNode = startNode;
 
       super.setState(this.state);
       return { success: true };
@@ -135,13 +157,16 @@ export class GridStore extends Store<GridStoreState> {
     return validation;
   }
 
+  public reset(): void {
+    this.state.grid.initialize(NodeType.Empty);
+    this.state.grid.setNodeAs(this.state.startNode.getVector(), NodeType.Start);
+    this.state.grid.setNodeAs(this.state.endNode.getVector(), NodeType.End);
+
+    super.setState(this.state);
+  }
+
   private isValidPosition(vector: Vector): Result {
-    if (
-      vector.x >= 0 &&
-      vector.x < this.state.grid[0].length &&
-      vector.y >= 0 &&
-      vector.y < this.state.grid.length
-    ) {
+    if (this.state.grid.isValidPosition(vector)) {
       return { success: true };
     }
 
@@ -151,20 +176,5 @@ export class GridStore extends Store<GridStoreState> {
         message: `Invalid position: (${vector.x}, ${vector.y})`,
       },
     };
-  }
-
-  public static initializeGrid(width: number, height: number): Node[][] {
-    const grid = new Array(height);
-    for (let y = 0; y < height; y++) {
-      grid[y] = new Array(width);
-      for (let x = 0; x < width; x++) {
-        grid[y][x] = Node.create({
-          type: NodeType.Empty,
-          vector: { x, y },
-        });
-      }
-    }
-
-    return grid;
   }
 }

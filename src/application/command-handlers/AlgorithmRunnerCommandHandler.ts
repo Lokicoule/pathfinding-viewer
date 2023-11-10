@@ -1,5 +1,4 @@
 import { AlgorithmRunnerCommand } from "../../domain/commands/AlgorithmRunnerCommand";
-import { Node } from "../../domain/entities/Node";
 import { AlgorithmRunnerCompletedEvent } from "../../domain/events/AlgorithmRunnerCompletedEvent";
 import { CommandHandler } from "../../domain/interfaces/CommandHandler";
 import { AlgorithmType } from "../../domain/types/AlgorithmType";
@@ -18,15 +17,19 @@ export class AlgorithmRunnerCommandHandler
   ) {}
 
   execute(command: AlgorithmRunnerCommand): void {
-    const grid = this.cloneGrid(this.gridStore.getGrid());
-    const startNode =
-      grid[this.gridStore.getStartNode().getVector().y][
-        this.gridStore.getStartNode().getVector().x
-      ];
-    const endNode =
-      grid[this.gridStore.getEndNode().getVector().y][
-        this.gridStore.getEndNode().getVector().x
-      ];
+    const grid = this.gridStore.getGrid().copy();
+
+    const startNode = grid.getNode(
+      this.gridStore.getStartNode().getVector().x,
+      this.gridStore.getStartNode().getVector().y
+    );
+    const endNode = grid.getNode(
+      this.gridStore.getEndNode().getVector().x,
+      this.gridStore.getEndNode().getVector().y
+    );
+    console.log("startNode", startNode);
+    console.log("endNode", endNode);
+    console.log("grid", grid);
 
     const algorithm = this.algorithmFactory(command.algorithm);
 
@@ -49,24 +52,5 @@ export class AlgorithmRunnerCommandHandler
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }
-  }
-
-  private cloneGrid(grid: Node[][]): Node[][] {
-    const clonedGrid: Node[][] = [];
-
-    for (let y = 0; y < grid.length; y++) {
-      const row: Node[] = [];
-      for (let x = 0; x < grid[0].length; x++) {
-        const node = grid[y][x];
-        const clonedNode = Node.create({
-          type: node.getType(),
-          vector: node.getVector(),
-        });
-        row.push(clonedNode);
-      }
-      clonedGrid.push(row);
-    }
-
-    return clonedGrid;
   }
 }

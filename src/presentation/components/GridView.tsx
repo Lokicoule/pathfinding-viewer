@@ -59,7 +59,7 @@ const GridView: GridComponent = () => {
 
   return (
     <div className="grid">
-      {grid.map((row, rowIndex) => (
+      {grid.getNodes().map((row, rowIndex) => (
         <div key={rowIndex} className="row">
           {row.map((node) => (
             <div

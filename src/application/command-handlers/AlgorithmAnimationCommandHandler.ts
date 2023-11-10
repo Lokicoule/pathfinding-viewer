@@ -39,8 +39,10 @@ export class AlgorithmAnimationCommandHandler
       for (let i = 0; i < visitedNodesInOrder.length; i++) {
         setTimeout(() => {
           const node = visitedNodesInOrder[i];
+
           if (!node.isStart() && !node.isEnd())
             this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+
           if (i === visitedNodesInOrder.length - 1) resolve();
         }, 20 * i);
       }

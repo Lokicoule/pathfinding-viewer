@@ -8,12 +8,13 @@ type NodeState = {
 };
 
 export class Node {
-  public readonly id: string = uuid();
+  public readonly id: string;
   private state: NodeState;
   private previousNode?: Node;
   private distance: number = Infinity;
 
   private constructor(state: NodeState) {
+    this.id = uuid();
     this.state = state;
   }
 
@@ -87,5 +88,12 @@ export class Node {
 
   public equals(node: Node): boolean {
     return this.id === node.id;
+  }
+
+  public copy(): Node {
+    return Node.create({
+      type: this.state.type,
+      vector: this.state.vector,
+    });
   }
 }

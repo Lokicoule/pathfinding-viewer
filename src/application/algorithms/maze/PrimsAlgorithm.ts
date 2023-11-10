@@ -16,10 +16,7 @@ export class PrimsAlgorithm implements Algorithm {
 
   public static create(nodes: Node[][], startNode: Node): Algorithm {
     const graph = this.createGraphFromNodes(nodes);
-    const walls = this.initializeWalls(nodes);
-    console.log(walls);
-    console.log(graph);
-    return new PrimsAlgorithm(graph, startNode, walls);
+    return new PrimsAlgorithm(graph, startNode);
   }
 
   private static createGraphFromNodes(nodes: Node[][]): Graph<Node> {
@@ -27,9 +24,6 @@ export class PrimsAlgorithm implements Algorithm {
 
     for (const row of nodes) {
       for (const node of row) {
-        if (!node.isStart() && !node.isEnd()) {
-          node.setWall();
-        }
         graph.addVertex(node);
       }
     }
@@ -37,15 +31,9 @@ export class PrimsAlgorithm implements Algorithm {
     for (let i = 0; i < nodes.length; i++) {
       for (let j = 0; j < nodes[i].length; j++) {
         if (j < nodes[i].length - 1) {
-          if (!nodes[i][j].isStart() && !nodes[i][j].isEnd()) {
-            nodes[i][j].setWall();
-          }
           graph.addEdge(nodes[i][j], nodes[i][j + 1]);
         }
         if (i < nodes.length - 1) {
-          if (!nodes[i][j].isStart() && !nodes[i][j].isEnd()) {
-            nodes[i][j].setWall();
-          }
           graph.addEdge(nodes[i][j], nodes[i + 1][j]);
         }
       }
@@ -78,35 +66,6 @@ export class PrimsAlgorithm implements Algorithm {
     return this.walls;
   }
 
-  private static initializeWalls(nodes: Node[][], walls: Node[] = []): Node[] {
-    if (!nodes.length) return walls;
-
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = 0; j < nodes[i].length; j++) {
-        if (
-          (i === 0 ||
-            j === 0 ||
-            i === nodes.length - 1 ||
-            j === nodes[i].length - 1) &&
-          !nodes[i][j].isStart() &&
-          !nodes[i][j].isEnd()
-        ) {
-          walls.push(
-            Node.create({
-              type: NodeType.Wall,
-              vector: nodes[i][j].getVector(),
-            })
-          );
-        }
-      }
-    }
-
-    return this.initializeWalls(
-      nodes.slice(1, -1).map((row) => row.slice(1, -1)),
-      walls
-    );
-  }
-
   private getNeighbors(node: Node): Node[] {
     return this.graph
       .getEdges(node)
@@ -121,25 +80,15 @@ export class PrimsAlgorithm implements Algorithm {
 
   private updateWalls(randomNeighbor: Node): void {
     randomNeighbor.setExplored();
-    this.walls.push(
-      Node.create({
-        type: NodeType.Explored,
-        vector: randomNeighbor.getVector(),
-      })
-    );
+    this.walls.push(randomNeighbor.copy());
 
     const connectingNode = this.graph.getVertex(
       this.graph.getEdges(randomNeighbor)[0]
     ).value;
 
     if (!connectingNode.isStart() && !connectingNode.isEnd()) {
-      this.walls.push(
-        Node.create({
-          type: NodeType.Empty,
-          vector: connectingNode.getVector(),
-        })
-      );
       connectingNode.setEmpty();
+      this.walls.push(connectingNode.copy());
     }
 
     this.walls.push(

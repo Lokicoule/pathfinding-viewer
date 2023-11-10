@@ -1,14 +1,15 @@
+import { Grid } from "../../domain/entities/Grid";
 import { Node } from "../../domain/entities/Node";
 import { Stack } from "../../domain/entities/Stack";
 import { Algorithm } from "../../domain/interfaces/Algorithm";
 
 export class DepthFirstSearchAlgorithm implements Algorithm {
   private constructor(
-    private readonly grid: Node[][],
+    private readonly grid: Grid,
     private readonly startNode: Node
   ) {}
 
-  public static create(grid: Node[][], startNode: Node): Algorithm {
+  public static create(grid: Grid, startNode: Node): Algorithm {
     return new DepthFirstSearchAlgorithm(grid, startNode);
   }
 
@@ -45,14 +46,8 @@ export class DepthFirstSearchAlgorithm implements Algorithm {
   }
 
   private getUnvisitedNeighbors(node: Node): Node[] {
-    const neighbors: Node[] = [];
-    const { x, y } = node.getVector();
-
-    if (y > 0) neighbors.push(this.grid[y - 1][x]);
-    if (y < this.grid.length - 1) neighbors.push(this.grid[y + 1][x]);
-    if (x > 0) neighbors.push(this.grid[y][x - 1]);
-    if (x < this.grid[0].length - 1) neighbors.push(this.grid[y][x + 1]);
-
-    return neighbors.filter((neighbor) => !neighbor.isExplored());
+    return this.grid
+      .getNeighbors(node)
+      .filter((neighbor) => !neighbor.isExplored());
   }
 }
