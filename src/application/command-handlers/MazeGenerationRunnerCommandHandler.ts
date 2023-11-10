@@ -17,22 +17,20 @@ export class MazeGenerationRunnerCommandHandler
   async execute(command: MazeGenerationRunnerCommand): Promise<void> {
     const algorithm = await this.algorithmFactory(command.algorithm);
     const initState = this.nodeTypeFactory(command.algorithm);
-    console.log(this.gridStore.getGrid(), this.gridStore.getGrid().copy());
 
-    const grid = this.gridStore.getGrid().copy();
-
-    grid.initialize(
-      initState,
-      this.gridStore.getStartNode().getVector(),
-      this.gridStore.getEndNode().getVector()
-    );
+    const grid = this.gridStore
+      .getGrid()
+      .copy()
+      .initialize(
+        initState,
+        this.gridStore.getStartNode().getVector(),
+        this.gridStore.getEndNode().getVector()
+      );
 
     const startNode = grid.getNode(
       this.gridStore.getStartNode().getVector().x,
       this.gridStore.getStartNode().getVector().y
     );
-
-    console.log(this.gridStore, grid, startNode);
 
     this.gridStore.setGrid(grid.copy());
 
