@@ -27,14 +27,12 @@ export class MazeGenerationRunnerCommandHandler
         this.gridStore.getEndNode().getVector()
       );
 
-    const startNode = grid.getNode(
-      this.gridStore.getStartNode().getVector().x,
-      this.gridStore.getStartNode().getVector().y
-    );
+    const startNode = this.gridStore.getStartNode().copy();
+    const endNode = this.gridStore.getEndNode().copy();
 
     this.gridStore.setGrid(grid.copy());
 
-    const walls = algorithm.create(grid.getNodes(), startNode).run();
+    const walls = algorithm.create(grid.getNodes(), startNode, endNode).run();
 
     this.mediator.sendEvent(
       MazeAlgorithmRunnerCompletedEvent.name,
@@ -52,6 +50,10 @@ export class MazeGenerationRunnerCommandHandler
         return import("../algorithms/maze/RecursiveDivisionAlgorithm").then(
           (module) => module.RecursiveDivisionAlgorithm
         );
+      case "DFS":
+        return import("../algorithms/maze/DepthFirstSearchMazeAlgorithm").then(
+          (module) => module.DepthFirstSearchMazeAlgorithm
+        );
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }
@@ -59,6 +61,7 @@ export class MazeGenerationRunnerCommandHandler
 
   private nodeTypeFactory(algorithm: MazeAlgorithmType): NodeType {
     switch (algorithm) {
+      case "DFS":
       case "PRIMS":
         return NodeType.Wall;
       case "RECURSIVE_DIVISION":

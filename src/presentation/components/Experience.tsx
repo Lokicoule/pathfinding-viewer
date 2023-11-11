@@ -71,6 +71,16 @@ const Environment: EnvironmentComponent = () => {
         >
           Generate Maze (Prims)
         </button>
+        <button
+          onClick={() => {
+            sendCommand(
+              MazeGenerationRunnerCommand.name,
+              new MazeGenerationRunnerCommand("DFS")
+            );
+          }}
+        >
+          Generate Maze (Backtracking)
+        </button>
       </div>
     </div>
   );

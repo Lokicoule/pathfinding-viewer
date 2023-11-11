@@ -42,12 +42,14 @@ export class Node {
     return this.state.type === NodeType.Wall;
   }
 
-  public setWall(): void {
+  public setWall(): Node {
     this.state.type = NodeType.Wall;
+    return this;
   }
 
-  public setEmpty(): void {
+  public setEmpty(): Node {
     this.state.type = NodeType.Empty;
+    return this;
   }
 
   public isEmpty(): boolean {
@@ -66,8 +68,9 @@ export class Node {
     return this.state.type === NodeType.Explored;
   }
 
-  public setExplored(): void {
+  public setExplored(): Node {
     this.state.type = NodeType.Explored;
+    return this;
   }
 
   public getPreviousNode(): Node | undefined {
@@ -84,6 +87,11 @@ export class Node {
 
   public setDistance(distance: number): void {
     this.distance = distance;
+  }
+
+  public setStart(): Node {
+    this.state.type = NodeType.Start;
+    return this;
   }
 
   public equals(node: Node): boolean {
