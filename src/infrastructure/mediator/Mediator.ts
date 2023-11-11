@@ -12,7 +12,7 @@ export class Mediator {
 
   public registerCommandHandler<TCommand extends Command>(
     commandName: string,
-    handler: CommandHandler<TCommand>
+    handler: CommandHandler<TCommand> | Callback
   ) {
     return this.commandBus.subscribeCommand(commandName, handler);
   }

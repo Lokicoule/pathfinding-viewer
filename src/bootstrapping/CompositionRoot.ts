@@ -1,6 +1,10 @@
 import { ClearWallsCommandHandler } from "../application/interaction/command-handlers/ClearWallsCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/interaction/command-handlers/NodeInteractionCommandHandler";
 import { ResetGridCommandHandler } from "../application/interaction/command-handlers/ResetGridCommandHandler";
+import { StartAlgorithmCommandHandler } from "../application/interaction/command-handlers/StartAlgorithmCommandHandler";
+import { StopAlgorithmCommandHandler } from "../application/interaction/command-handlers/StopAlgorithmCommandHandler";
+import { AlgorithmStartSaga } from "../application/interaction/sagas/AlgorithmStartSaga";
+import { AlgorithmStopSaga } from "../application/interaction/sagas/AlgorithmStopSaga";
 import { MazeAnimationCommandHandler } from "../application/maze/command-handlers/MazeAnimationCommandHandler";
 import { MazeRunnerCommandHandler } from "../application/maze/command-handlers/MazeRunnerCommandHandler";
 import { MazeCompletionSaga } from "../application/maze/sagas/MazeCompletionSaga";
@@ -14,6 +18,8 @@ import { NodeInteractionCommand } from "../domain/commands/NodeInteractionComman
 import { PathfindingAnimationCommand } from "../domain/commands/PathfindingAnimationCommand";
 import { PathfindingRunnerCommand } from "../domain/commands/PathfindingRunnerCommand";
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
+import { StartAlgorithmCommand } from "../domain/commands/StartAlgorithmCommand";
+import { StopAlgorithmCommand } from "../domain/commands/StopAlgorithmCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../infrastructure/stores/GridStore";
@@ -45,6 +51,8 @@ export class CompositionRoot {
   public initialize() {
     PathfindingCompletionSaga.register(this.mediator);
     MazeCompletionSaga.register(this.mediator);
+    AlgorithmStartSaga.register(this.mediator);
+    AlgorithmStopSaga.register(this.mediator);
 
     this.registerMediatorHandlers();
   }
@@ -77,15 +85,26 @@ export class CompositionRoot {
     );
     this.mediator.registerCommandHandler(
       PathfindingAnimationCommand.name,
-      new PathfindingAnimationCommandHandler(this.stores.gridStore)
+      new PathfindingAnimationCommandHandler(
+        this.mediator,
+        this.stores.gridStore
+      )
     );
     this.mediator.registerCommandHandler(
       MazeAnimationCommand.name,
-      new MazeAnimationCommandHandler(this.stores.gridStore)
+      new MazeAnimationCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
       MazeRunnerCommand.name,
       new MazeRunnerCommandHandler(this.mediator, this.stores.gridStore)
+    );
+    this.mediator.registerCommandHandler(
+      StartAlgorithmCommand.name,
+      new StartAlgorithmCommandHandler(this.stores.experienceStore)
+    );
+    this.mediator.registerCommandHandler(
+      StopAlgorithmCommand.name,
+      new StopAlgorithmCommandHandler(this.stores.experienceStore)
     );
   }
 }

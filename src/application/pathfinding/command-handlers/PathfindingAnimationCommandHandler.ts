@@ -1,19 +1,29 @@
 import { PathfindingAnimationCommand } from "../../../domain/commands/PathfindingAnimationCommand";
 import { Node } from "../../../domain/entities/Node";
 import { NodeType } from "../../../domain/enums/NodeType";
+import { PathfindingAnimationCompletedEvent } from "../../../domain/events/PathfindingAnimationCompletedEvent";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
+import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
 
 export class PathfindingAnimationCommandHandler
   implements CommandHandler<PathfindingAnimationCommand>
 {
-  constructor(private readonly gridStore: GridStore) {}
+  constructor(
+    private readonly mediator: Mediator,
+    private readonly gridStore: GridStore
+  ) {}
 
   execute(command: PathfindingAnimationCommand): void {
     const shortestPath = this.getShortestPath(command.endNode);
 
     this.animateExploration(command.path).then(() => {
-      this.animateShortestPath(shortestPath);
+      this.animateShortestPath(shortestPath).then(() => {
+        this.mediator.sendEvent(
+          PathfindingAnimationCompletedEvent.name,
+          new PathfindingAnimationCompletedEvent()
+        );
+      });
     });
   }
 

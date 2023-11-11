@@ -3,9 +3,10 @@ import { NodeHistory } from "../../domain/entities/NodeHistory";
 import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
 import { Store } from "../store/Store";
 
-type ExperienceStoreState = {
+export type ExperienceStoreState = {
   nodeHistory: NodeHistory;
   currentMementoIndex: number;
+  isAlgorithmRunning: boolean;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {
@@ -13,6 +14,7 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     super({
       nodeHistory: new NodeHistory(),
       currentMementoIndex: -1,
+      isAlgorithmRunning: false,
     });
   }
 
@@ -41,5 +43,19 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
   public reset() {
     this.state.nodeHistory = new NodeHistory();
     this.state.currentMementoIndex = -1;
+  }
+
+  public startAlgorithm() {
+    this.state.isAlgorithmRunning = true;
+    console.log("Algorithm started");
+  }
+
+  public stopAlgorithm() {
+    this.state.isAlgorithmRunning = false;
+    console.log("Algorithm stopped");
+  }
+
+  public isAlgorithmRunning(): boolean {
+    return this.state.isAlgorithmRunning;
   }
 }

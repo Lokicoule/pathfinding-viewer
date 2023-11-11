@@ -28,7 +28,11 @@ export abstract class PubSub<
     if (handlers) {
       handlers.forEach((handler) => {
         if (message instanceof Command) {
-          (handler as CommandHandler<Command>).execute(message);
+          if (typeof handler === "function") {
+            (handler as Callback)(message);
+          } else {
+            (handler as CommandHandler<Command>).execute(message);
+          }
         } else if (message instanceof Event) {
           if (typeof handler === "function") {
             (handler as Callback)(message);

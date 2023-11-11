@@ -2,6 +2,7 @@ import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCom
 import { Node } from "../../domain/entities/Node";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
+import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
 import { useGrid } from "../hooks/useGrid";
 import useStateMap from "../hooks/useStateMap";
 import { concatClassNames } from "../utils/concatClassNames";
@@ -10,6 +11,8 @@ type GridComponent = React.FC;
 
 const GridView: GridComponent = () => {
   const grid = useGrid();
+  const isAlgorithmRunning = useAlgorithmIsRunning();
+
   const sendCommand = useCommand();
   const nodes = useStateMap<string, Node>();
 
@@ -69,6 +72,7 @@ const GridView: GridComponent = () => {
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
+                animationPlayState: isAlgorithmRunning ? "running" : "paused",
               }}
               onClick={() => handleNodeClick(node)}
               onMouseDown={
