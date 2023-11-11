@@ -4,9 +4,9 @@ import { Mediator } from "../../../infrastructure/mediator/Mediator";
 
 export class PathfindingCompletionSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOnSolver = [PathfindingRunnerCompletedEvent.name];
+    const runsOn = [PathfindingRunnerCompletedEvent.name];
 
-    runsOnSolver.forEach((eventName: string) => {
+    runsOn.forEach((eventName: string) => {
       this.mediator.registerEventHandler(eventName, this.run);
     });
   }
