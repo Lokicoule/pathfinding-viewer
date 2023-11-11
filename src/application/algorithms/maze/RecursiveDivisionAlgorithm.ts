@@ -1,27 +1,26 @@
 import { Node } from "../../../domain/entities/Node";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { MazeAlgorithm } from "./MazeAlgorithm";
 
 enum Direction {
   Horizontal = "horizontal",
   Vertical = "vertical",
 }
 
-export class RecursiveDivisionAlgorithm implements Algorithm {
-  private grid: Node[][];
-  private walls: Node[] = [];
-
-  private constructor(grid: Node[][]) {
-    this.grid = grid;
+export class RecursiveDivisionAlgorithm extends MazeAlgorithm {
+  private constructor(grid: Node[][], startNode: Node, endNode: Node) {
+    super(grid, startNode, endNode);
   }
 
-  public static create(grid: Node[][]): RecursiveDivisionAlgorithm {
-    return new RecursiveDivisionAlgorithm(grid);
+  public static create(
+    grid: Node[][],
+    startNode: Node,
+    endNode: Node
+  ): RecursiveDivisionAlgorithm {
+    return new RecursiveDivisionAlgorithm(grid, startNode, endNode);
   }
 
-  public run(): Node[] {
+  public runAlgorithm(): void {
     this.divide(0, this.grid.length - 1, 0, this.grid[0].length - 1);
-
-    return this.walls;
   }
 
   private divide(
@@ -83,7 +82,7 @@ export class RecursiveDivisionAlgorithm implements Algorithm {
         !this.grid[row][i].isEnd()
       ) {
         this.grid[row][i].setWall();
-        this.walls.push(this.grid[row][i]);
+        this.path.push(this.grid[row][i]);
       }
     }
   }
@@ -102,7 +101,7 @@ export class RecursiveDivisionAlgorithm implements Algorithm {
         !this.grid[i][col].isEnd()
       ) {
         this.grid[i][col].setWall();
-        this.walls.push(this.grid[i][col]);
+        this.path.push(this.grid[i][col]);
       }
     }
   }

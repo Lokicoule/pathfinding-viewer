@@ -1,26 +1,10 @@
 import { Node } from "../../../domain/entities/Node";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { MazeAlgorithm } from "./MazeAlgorithm";
 
-export class DepthFirstSearchMazeAlgorithm implements Algorithm {
-  private path: Node[] = [];
-
-  private static readonly UP = [-2, 0];
-  private static readonly DOWN = [2, 0];
-  private static readonly LEFT = [0, -2];
-  private static readonly RIGHT = [0, 2];
-
-  private static readonly DIRECTIONS = [
-    DepthFirstSearchMazeAlgorithm.UP,
-    DepthFirstSearchMazeAlgorithm.DOWN,
-    DepthFirstSearchMazeAlgorithm.LEFT,
-    DepthFirstSearchMazeAlgorithm.RIGHT,
-  ];
-
-  private constructor(
-    private readonly grid: Node[][],
-    private readonly startNode: Node,
-    private readonly endNode: Node
-  ) {}
+export class DepthFirstSearchMazeAlgorithm extends MazeAlgorithm {
+  private constructor(grid: Node[][], startNode: Node, endNode: Node) {
+    super(grid, startNode, endNode);
+  }
 
   public static create(
     grid: Node[][],
@@ -30,15 +14,8 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
     return new DepthFirstSearchMazeAlgorithm(grid, startNode, endNode);
   }
 
-  public run(): Node[] {
+  public runAlgorithm(): void {
     this.backtrack(this.startNode);
-
-    if (!this.path.filter((node) => node.isEnd()).length) {
-      const closestNode = this.getClosestNodeTo(this.endNode);
-      this.digPath(closestNode, this.endNode);
-    }
-
-    return this.path;
   }
 
   private backtrack(node: Node): void {
@@ -46,6 +23,7 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
 
     if (!node.isStart() && !node.isEnd()) {
       node.setExplored();
+      this.path.push(node.copy(), node.copy().setEmpty());
     }
 
     const neighbors = this.getUnvisitedNeighbors(node);
@@ -62,24 +40,6 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
     }
 
     this.resetNodeIfAllNeighborsExplored(node, neighbors);
-  }
-
-  private digPath(nodeA: Node, nodeB: Node): void {
-    const startRow = Math.min(nodeA.getVector().y, nodeB.getVector().y);
-    const endRow = Math.max(nodeA.getVector().y, nodeB.getVector().y);
-    const startCol = Math.min(nodeA.getVector().x, nodeB.getVector().x);
-    const endCol = Math.max(nodeA.getVector().x, nodeB.getVector().x);
-
-    for (let row = startRow; row <= endRow; row++) {
-      for (let col = startCol; col <= endCol; col++) {
-        const currentNode = this.grid[row][col];
-
-        if (!currentNode.isStart() && !currentNode.isEnd()) {
-          currentNode.setEmpty();
-          this.path.push(currentNode.copy().setEmpty());
-        }
-      }
-    }
   }
 
   private resetNodeIfAllNeighborsExplored(node: Node, neighbors: Node[]): void {
@@ -112,53 +72,10 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
     return neighbors.filter((neighbor) => !neighbor.isExplored());
   }
 
-  private isValidPosition(row: number, col: number): boolean {
-    return (
-      row >= 0 &&
-      row < this.grid.length &&
-      col >= 0 &&
-      col < this.grid[0].length
-    );
-  }
-
   private isMidNodeWall(row: number, col: number, node: Node): boolean {
     const midRow = (node.getVector().y + row) / 2;
     const midCol = (node.getVector().x + col) / 2;
 
     return this.grid[midRow][midCol].isWall();
-  }
-
-  private getRandomizedDirections() {
-    const directions = [...DepthFirstSearchMazeAlgorithm.DIRECTIONS];
-    directions.sort(() => Math.random() - 0.5);
-    return directions;
-  }
-
-  private selectRandomNode(nodes: Node[]): Node {
-    const randomIndex = Math.floor(Math.random() * nodes.length);
-    return nodes[randomIndex];
-  }
-
-  private getClosestNodeTo(nodeTo: Node): Node {
-    let closestNode = this.path[0];
-    let closestNodeDistance = Infinity;
-
-    for (const node of this.path) {
-      const distance = this.calculateDistance(node, nodeTo);
-
-      if (distance < closestNodeDistance) {
-        closestNode = node;
-        closestNodeDistance = distance;
-      }
-    }
-
-    return closestNode;
-  }
-
-  private calculateDistance(node1: Node, node2: Node): number {
-    return Math.sqrt(
-      Math.pow(node1.getVector().x - node2.getVector().x, 2) +
-        Math.pow(node1.getVector().y - node2.getVector().y, 2)
-    );
   }
 }
