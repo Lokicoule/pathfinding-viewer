@@ -2,10 +2,7 @@ import { Node } from "../../../domain/entities/Node";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
 
 export class DepthFirstSearchMazeAlgorithm implements Algorithm {
-  private grid: Node[][];
   private path: Node[] = [];
-  private startNode: Node;
-  private endNode: Node;
 
   private static readonly UP = [-2, 0];
   private static readonly DOWN = [2, 0];
@@ -19,11 +16,11 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
     DepthFirstSearchMazeAlgorithm.RIGHT,
   ];
 
-  private constructor(grid: Node[][], startNode: Node, endNode: Node) {
-    this.grid = grid;
-    this.startNode = startNode;
-    this.endNode = endNode;
-  }
+  private constructor(
+    private readonly grid: Node[][],
+    private readonly startNode: Node,
+    private readonly endNode: Node
+  ) {}
 
   public static create(
     grid: Node[][],
@@ -36,7 +33,7 @@ export class DepthFirstSearchMazeAlgorithm implements Algorithm {
   public run(): Node[] {
     this.backtrack(this.startNode);
 
-    if (!this.path.includes(this.endNode)) {
+    if (!this.path.filter((node) => node.isEnd()).length) {
       const closestNode = this.getClosestNodeTo(this.endNode);
       this.digPath(closestNode, this.endNode);
     }
