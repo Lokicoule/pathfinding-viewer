@@ -57,7 +57,10 @@ export class CompositionRoot {
     );
     this.mediator.registerCommandHandler(
       ResetGridCommand.name,
-      new ResetGridCommandHandler(this.stores.gridStore)
+      new ResetGridCommandHandler(
+        this.stores.experienceStore,
+        this.stores.gridStore
+      )
     );
     this.mediator.registerCommandHandler(
       PathfindingRunnerCommand.name,

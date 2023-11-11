@@ -158,9 +158,17 @@ export class GridStore extends Store<GridStoreState> {
   }
 
   public reset(): void {
-    this.state.grid.initialize(NodeType.Empty);
-    this.state.grid.setNodeAs(this.state.startNode.getVector(), NodeType.Start);
-    this.state.grid.setNodeAs(this.state.endNode.getVector(), NodeType.End);
+    this.state.grid.initialize(
+      NodeType.Empty,
+      new Vector(1, 1),
+      new Vector(this.state.grid.width - 2, this.state.grid.height - 2)
+    );
+
+    this.state.startNode = this.state.grid.getNode(1, 1);
+    this.state.endNode = this.state.grid.getNode(
+      this.state.grid.width - 2,
+      this.state.grid.height - 2
+    );
 
     super.setState(this.state);
   }
