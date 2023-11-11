@@ -1,5 +1,5 @@
-import { AlgorithmRunnerCommand } from "../../domain/commands/AlgorithmRunnerCommand";
-import { MazeGenerationRunnerCommand } from "../../domain/commands/MazeGenerationRunnerCommand";
+import { PathfindingRunnerCommand } from "../../domain/commands/PathfindingRunnerCommand";
+import { MazeRunnerCommand } from "../../domain/commands/MazeRunnerCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
@@ -23,8 +23,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() =>
             sendCommand(
-              AlgorithmRunnerCommand.name,
-              new AlgorithmRunnerCommand("BFS")
+              PathfindingRunnerCommand.name,
+              new PathfindingRunnerCommand("BFS")
             )
           }
         >
@@ -33,8 +33,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() =>
             sendCommand(
-              AlgorithmRunnerCommand.name,
-              new AlgorithmRunnerCommand("DFS")
+              PathfindingRunnerCommand.name,
+              new PathfindingRunnerCommand("DFS")
             )
           }
         >
@@ -43,8 +43,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() =>
             sendCommand(
-              AlgorithmRunnerCommand.name,
-              new AlgorithmRunnerCommand("DIJKSTRA")
+              PathfindingRunnerCommand.name,
+              new PathfindingRunnerCommand("DIJKSTRA")
             )
           }
         >
@@ -54,8 +54,8 @@ const Environment: EnvironmentComponent = () => {
         <button
           onClick={() => {
             sendCommand(
-              MazeGenerationRunnerCommand.name,
-              new MazeGenerationRunnerCommand("RECURSIVE_DIVISION")
+              MazeRunnerCommand.name,
+              new MazeRunnerCommand("RECURSIVE_DIVISION")
             );
           }}
         >
@@ -63,20 +63,14 @@ const Environment: EnvironmentComponent = () => {
         </button>
         <button
           onClick={() => {
-            sendCommand(
-              MazeGenerationRunnerCommand.name,
-              new MazeGenerationRunnerCommand("PRIMS")
-            );
+            sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("PRIMS"));
           }}
         >
           Generate Maze (Prims)
         </button>
         <button
           onClick={() => {
-            sendCommand(
-              MazeGenerationRunnerCommand.name,
-              new MazeGenerationRunnerCommand("DFS")
-            );
+            sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("DFS"));
           }}
         >
           Generate Maze (Backtracking)
