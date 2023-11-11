@@ -27,9 +27,6 @@ export class PathfindingRunnerCommandHandler
       this.gridStore.getEndNode().getVector().x,
       this.gridStore.getEndNode().getVector().y
     );
-    console.log("startNode", startNode);
-    console.log("endNode", endNode);
-    console.log("grid", grid);
 
     const algorithm = this.algorithmFactory(command.algorithm);
 

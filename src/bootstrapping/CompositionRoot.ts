@@ -1,3 +1,4 @@
+import { ClearWallsCommandHandler } from "../application/interaction/command-handlers/ClearWallsCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/interaction/command-handlers/NodeInteractionCommandHandler";
 import { ResetGridCommandHandler } from "../application/interaction/command-handlers/ResetGridCommandHandler";
 import { MazeAnimationCommandHandler } from "../application/maze/command-handlers/MazeAnimationCommandHandler";
@@ -6,6 +7,7 @@ import { MazeCompletionSaga } from "../application/maze/sagas/MazeCompletionSaga
 import { PathfindingAnimationCommandHandler } from "../application/pathfinding/command-handlers/PathfindingAnimationCommandHandler";
 import { PathfindingRunnerCommandHandler } from "../application/pathfinding/command-handlers/PathfindingRunnerCommandHandler";
 import { PathfindingCompletionSaga } from "../application/pathfinding/sagas/PathfindingCompletionSaga";
+import { ClearWallsCommand } from "../domain/commands/ClearWallsCommand";
 import { MazeAnimationCommand } from "../domain/commands/MazeAnimationCommand";
 import { MazeRunnerCommand } from "../domain/commands/MazeRunnerCommand";
 import { NodeInteractionCommand } from "../domain/commands/NodeInteractionCommand";
@@ -58,6 +60,13 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       ResetGridCommand.name,
       new ResetGridCommandHandler(
+        this.stores.experienceStore,
+        this.stores.gridStore
+      )
+    );
+    this.mediator.registerCommandHandler(
+      ClearWallsCommand.name,
+      new ClearWallsCommandHandler(
         this.stores.experienceStore,
         this.stores.gridStore
       )

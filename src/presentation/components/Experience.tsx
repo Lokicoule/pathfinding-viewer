@@ -3,6 +3,7 @@ import { MazeRunnerCommand } from "../../domain/commands/MazeRunnerCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
+import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
 
 type EnvironmentComponent = React.FC;
 
@@ -19,6 +20,13 @@ const Environment: EnvironmentComponent = () => {
           }
         >
           Reset
+        </button>
+        <button
+          onClick={() =>
+            sendCommand(ClearWallsCommand.name, new ClearWallsCommand())
+          }
+        >
+          Clear Walls
         </button>
         <button
           onClick={() =>

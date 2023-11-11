@@ -81,7 +81,9 @@ export class NodeInteractionCommandHandler
 
       const result = this.gridStore.setNodeAs(
         command.node.getVector(),
-        NodeType.Empty
+        command.node.getPreviousType() === NodeType.Wall
+          ? NodeType.Empty
+          : command.node.getPreviousType()
       );
 
       if (!result.success) {

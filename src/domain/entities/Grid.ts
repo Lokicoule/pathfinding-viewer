@@ -67,7 +67,13 @@ export class Grid {
       throw new Error("Invalid position");
     }
 
-    this.nodes[vector.y][vector.x] = Node.create({ type, vector });
+    const node = this.getNode(vector.x, vector.y);
+
+    this.nodes[vector.y][vector.x] = Node.create({
+      type,
+      vector,
+      previousType: node.getType(),
+    });
   }
 
   public initialize(type: NodeType, start?: Vector, end?: Vector): Grid {

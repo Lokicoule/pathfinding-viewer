@@ -48,9 +48,10 @@ const GridView: GridComponent = () => {
       return "explored";
     } else if (node.isPath()) {
       return "path";
-    } else if (node.isWall() && !nodes.Map.has(node.id)) {
-      return "wall";
-    } else if (nodes.Map.has(node.id) && !node.isWall()) {
+    } else if (
+      (node.isWall() && !nodes.Map.has(node.id)) ||
+      (nodes.Map.has(node.id) && !node.isWall())
+    ) {
       return "wall";
     } else {
       return "empty";
