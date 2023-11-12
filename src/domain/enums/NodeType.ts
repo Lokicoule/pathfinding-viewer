@@ -5,4 +5,5 @@ export enum NodeType {
   Wall,
   Path,
   Explored,
+  Highlighted,
 }

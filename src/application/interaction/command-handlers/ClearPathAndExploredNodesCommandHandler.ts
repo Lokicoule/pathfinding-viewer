@@ -13,7 +13,11 @@ export class ClearPathAndExploredNodesCommandHandler
   ) {}
 
   execute(): void {
-    this.gridStore.clear(NodeType.Path, NodeType.Explored);
+    this.gridStore.clear(
+      NodeType.Path,
+      NodeType.Explored,
+      NodeType.Highlighted
+    );
 
     this.experienceStore.reset();
   }

@@ -43,7 +43,7 @@ const GridView: GridComponent = () => {
   };
 
   const cellState = (node: Node) => {
-    if (node.isStart()) {
+    if (node.isStart() || node.isHighlighted()) {
       return "start";
     } else if (node.isEnd()) {
       return "end";

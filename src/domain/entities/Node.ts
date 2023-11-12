@@ -43,6 +43,10 @@ export class Node {
     return this.state.type === NodeType.End;
   }
 
+  public isHighlighted(): boolean {
+    return this.state.type === NodeType.Highlighted;
+  }
+
   public isWall(): boolean {
     return this.state.type === NodeType.Wall;
   }

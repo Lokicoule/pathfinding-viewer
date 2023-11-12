@@ -21,7 +21,7 @@ export class PathfindingRunnerCommandHandler
   execute(command: PathfindingRunnerCommand): void {
     const grid = this.gridStore
       .getGrid()
-      .clear(NodeType.Path, NodeType.Explored)
+      .clear(NodeType.Path, NodeType.Explored, NodeType.Highlighted)
       .copy();
 
     const startNode = grid.getNode(

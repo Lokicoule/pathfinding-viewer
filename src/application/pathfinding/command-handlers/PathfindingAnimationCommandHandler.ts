@@ -74,7 +74,7 @@ export class PathfindingAnimationCommandHandler
           this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
 
           if (!node.isStart() && !node.isEnd()) {
-            this.gridStore.setNodeAs(node.getVector(), NodeType.Start);
+            this.gridStore.setNodeAs(node.getVector(), NodeType.Highlighted);
           }
 
           lastNode = node;
