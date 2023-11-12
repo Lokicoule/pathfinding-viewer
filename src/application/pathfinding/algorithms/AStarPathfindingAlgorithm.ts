@@ -2,24 +2,22 @@ import { Grid } from "../../../domain/entities/Grid";
 import { Node } from "../../../domain/entities/Node";
 import { PriorityQueue } from "../../../infrastructure/datastructures/PriorityQueue";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
-export class AStarAlgorithm implements Algorithm {
-  private constructor(
-    private readonly grid: Grid,
-    private readonly startNode: Node,
-    private readonly endNode: Node
-  ) {}
-
-  public static create(grid: Grid, startNode: Node, endNode: Node): Algorithm {
-    return new AStarAlgorithm(grid, startNode, endNode);
+export class AStarPathfindingAlgorithm extends PathfindingAlgorithm {
+  private constructor(grid: Grid, startNode: Node, endNode: Node) {
+    super(grid, startNode, endNode);
   }
 
-  public run(): Node[] {
-    const visitedNodesInOrder: Node[] = [];
+  public static create(grid: Grid, startNode: Node, endNode: Node): Algorithm {
+    return new AStarPathfindingAlgorithm(grid, startNode, endNode);
+  }
+
+  public runAlgorithm(): void {
     const priorityQueue = new PriorityQueue<Node>();
 
     this.startNode.setG(0);
-    this.startNode.setH(this.calculateHeuristic(this.startNode, this.endNode));
+    this.startNode.setH(this.calculateDistance(this.startNode, this.endNode));
     priorityQueue.enqueue(this.startNode, this.startNode.getTotalCost());
 
     while (!priorityQueue.isEmpty()) {
@@ -30,10 +28,10 @@ export class AStarAlgorithm implements Algorithm {
           currentNode.setExplored();
         }
 
-        visitedNodesInOrder.push(currentNode);
+        this.queue.enqueue(currentNode);
 
         if (currentNode.isEnd()) {
-          return visitedNodesInOrder;
+          return;
         }
 
         const unvisitedNeighbors = this.getUnvisitedNeighbors(currentNode);
@@ -44,26 +42,11 @@ export class AStarAlgorithm implements Algorithm {
           if (tentativeG < neighbor.getG()) {
             neighbor.setPreviousNode(currentNode);
             neighbor.setG(tentativeG);
-            neighbor.setH(this.calculateHeuristic(neighbor, this.endNode));
+            neighbor.setH(this.calculateDistance(neighbor, this.endNode));
             priorityQueue.enqueue(neighbor, neighbor.getTotalCost());
           }
         }
       }
     }
-
-    return visitedNodesInOrder;
-  }
-
-  private getUnvisitedNeighbors(node: Node): Node[] {
-    return this.grid
-      .getNeighbors(node)
-      .filter((neighbor) => !neighbor.isExplored());
-  }
-
-  private calculateHeuristic(nodeA: Node, nodeB: Node): number {
-    return Math.sqrt(
-      Math.pow(nodeA.getVector().x - nodeB.getVector().x, 2) +
-        Math.pow(nodeA.getVector().y - nodeB.getVector().y, 2)
-    );
   }
 }

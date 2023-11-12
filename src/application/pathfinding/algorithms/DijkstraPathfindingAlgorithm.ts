@@ -1,22 +1,18 @@
 import { Grid } from "../../../domain/entities/Grid";
 import { Node } from "../../../domain/entities/Node";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
-export class DijkstraAlgorithm implements Algorithm {
-  private readonly grid: Grid;
-  private readonly startNode: Node;
-
-  private constructor(grid: Grid, startNode: Node) {
-    this.grid = grid;
-    this.startNode = startNode;
+export class DijkstraPathfindingAlgorithm extends PathfindingAlgorithm {
+  private constructor(grid: Grid, startNode: Node, endNode: Node) {
+    super(grid, startNode, endNode);
   }
 
-  public static create(grid: Grid, startNode: Node): Algorithm {
-    return new DijkstraAlgorithm(grid, startNode);
+  public static create(grid: Grid, startNode: Node, endNode: Node): Algorithm {
+    return new DijkstraPathfindingAlgorithm(grid, startNode, endNode);
   }
 
-  public run(): Node[] {
-    const visitedNodesInOrder: Node[] = [];
+  public runAlgorithm(): void {
     const unvisitedNodes = this.grid.getNodes().flat();
 
     this.startNode.setDistance(0);
@@ -28,25 +24,23 @@ export class DijkstraAlgorithm implements Algorithm {
 
       if (closestNode && !closestNode.isWall()) {
         if (closestNode.getDistance() === Infinity) {
-          return visitedNodesInOrder;
+          return;
         }
 
         if (!closestNode.isStart() && !closestNode.isEnd()) {
           closestNode.setExplored();
         }
 
-        visitedNodesInOrder.push(closestNode);
+        this.queue.enqueue(closestNode);
 
         if (closestNode.isEnd()) {
-          return visitedNodesInOrder;
+          return;
         }
 
         this.updateUnvisitedNeighbors(closestNode);
         this.sortNodesByDistance(unvisitedNodes);
       }
     }
-
-    return visitedNodesInOrder;
   }
 
   private sortNodesByDistance(nodes: Node[]): void {
@@ -64,11 +58,5 @@ export class DijkstraAlgorithm implements Algorithm {
         neighbor.setPreviousNode(node);
       }
     }
-  }
-
-  private getUnvisitedNeighbors(node: Node): Node[] {
-    return this.grid
-      .getNeighbors(node)
-      .filter((neighbor) => !neighbor.isExplored());
   }
 }

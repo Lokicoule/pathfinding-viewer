@@ -24,4 +24,8 @@ export class Queue<T> {
   public count(): number {
     return this.items.length;
   }
+
+  public toArray(): T[] {
+    return this.items;
+  }
 }

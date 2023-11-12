@@ -2,19 +2,18 @@ import { Grid } from "../../../domain/entities/Grid";
 import { Node } from "../../../domain/entities/Node";
 import { Stack } from "../../../infrastructure/datastructures/Stack";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
-export class DepthFirstSearchAlgorithm implements Algorithm {
-  private constructor(
-    private readonly grid: Grid,
-    private readonly startNode: Node
-  ) {}
-
-  public static create(grid: Grid, startNode: Node): Algorithm {
-    return new DepthFirstSearchAlgorithm(grid, startNode);
+export class DepthFirstSearchPathfindingAlgorithm extends PathfindingAlgorithm {
+  private constructor(grid: Grid, startNode: Node, endNode: Node) {
+    super(grid, startNode, endNode);
   }
 
-  public run(): Node[] {
-    const visitedNodesInOrder: Node[] = [];
+  public static create(grid: Grid, startNode: Node, endNode: Node): Algorithm {
+    return new DepthFirstSearchPathfindingAlgorithm(grid, startNode, endNode);
+  }
+
+  public runAlgorithm(): void {
     const stack: Stack<Node> = new Stack();
 
     stack.push(this.startNode);
@@ -27,10 +26,10 @@ export class DepthFirstSearchAlgorithm implements Algorithm {
           currentNode.setExplored();
         }
 
-        visitedNodesInOrder.push(currentNode);
+        this.queue.enqueue(currentNode);
 
         if (currentNode.isEnd()) {
-          return visitedNodesInOrder;
+          return;
         }
 
         const unvisitedNeighbors = this.getUnvisitedNeighbors(currentNode);
@@ -41,13 +40,5 @@ export class DepthFirstSearchAlgorithm implements Algorithm {
         }
       }
     }
-
-    return visitedNodesInOrder;
-  }
-
-  private getUnvisitedNeighbors(node: Node): Node[] {
-    return this.grid
-      .getNeighbors(node)
-      .filter((neighbor) => !neighbor.isExplored());
   }
 }
