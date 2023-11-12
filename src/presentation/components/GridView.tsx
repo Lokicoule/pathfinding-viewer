@@ -72,6 +72,7 @@ const GridView: GridComponent = () => {
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
+                pointerEvents: isAlgorithmRunning ? "none" : "auto",
                 //animationPlayState: isAlgorithmRunning ? "running" : "paused",
               }}
               onClick={() => handleNodeClick(node)}
