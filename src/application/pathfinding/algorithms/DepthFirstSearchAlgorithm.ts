@@ -1,6 +1,6 @@
 import { Grid } from "../../../domain/entities/Grid";
 import { Node } from "../../../domain/entities/Node";
-import { Stack } from "../../../domain/entities/Stack";
+import { Stack } from "../../../infrastructure/datastructures/Stack";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
 
 export class DepthFirstSearchAlgorithm implements Algorithm {

@@ -1,6 +1,6 @@
 import { Grid } from "../../../domain/entities/Grid";
 import { Node } from "../../../domain/entities/Node";
-import { Queue } from "../../../domain/entities/Queue";
+import { Queue } from "../../../infrastructure/datastructures/Queue";
 import { Algorithm } from "../../../domain/interfaces/Algorithm";
 
 export class BreadthFirstSearchAlgorithm implements Algorithm {
