@@ -5,7 +5,7 @@ import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
 import { useGrid } from "../hooks/useGrid";
 import useStateMap from "../hooks/useStateMap";
-import { concatClassNames } from "../utils/concatClassNames";
+import { concat } from "../utils/string";
 
 type GridComponent = React.FC;
 
@@ -47,17 +47,17 @@ const GridView: GridComponent = () => {
       return "start";
     } else if (node.isEnd()) {
       return "end";
-    } else if (node.isExplored()) {
-      return "explored";
-    } else if (node.isPath()) {
-      return "path";
     } else if (
       (node.isWall() && !nodes.Map.has(node.id)) ||
       (nodes.Map.has(node.id) && !node.isWall())
     ) {
-      return "wall";
-    } else {
-      return "empty";
+      return concat("wall", node.isEmpty() || node.isWall() ? "bounding" : "");
+    } else if (node.isEmpty() || (nodes.Map.has(node.id) && node.isWall())) {
+      return concat("empty", "bounding");
+    } else if (node.isExplored()) {
+      return concat("explored", isAlgorithmRunning ? "exploring" : "");
+    } else if (node.isPath()) {
+      return concat("path", isAlgorithmRunning ? "pathing" : "");
     }
   };
 
@@ -68,11 +68,10 @@ const GridView: GridComponent = () => {
           {row.map((node) => (
             <div
               key={node.id}
-              className={concatClassNames("cell", cellState(node))}
+              className={concat("cell", cellState(node))}
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
-                animationPlayState: isAlgorithmRunning ? "running" : "paused",
               }}
               onClick={() => handleNodeClick(node)}
               onMouseDown={

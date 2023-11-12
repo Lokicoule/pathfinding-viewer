@@ -35,11 +35,6 @@
   background-color: #f1f1f1;
 }
 
-.cell.empty {
-  background-color: #fff;
-  animation: bounding 0.2s ease-in-out;
-}
-
 .cell.start {
   background-color: #0e49b5;
 }
@@ -48,33 +43,46 @@
   background-color: #c70039;
 }
 
+.cell.empty {
+  background-color: #fff;
+}
+
 .cell.wall {
   background-color: #3b5360;
+}
+
+.cell.bounding {
   animation: bounding 0.2s ease-in-out;
 }
 
 .cell.explored {
   background-color: #b9eddd;
-  animation: explored 0.8s ease-in;
+}
+
+.cell.exploring {
+  animation: explored 0.8s ease-in-out;
 }
 
 .cell.path {
   background-color: #38e54d;
+}
+
+.cell.pathing {
   animation: path 2s ease-out;
 }
 
 @keyframes explored {
   0% {
-    scale: 1;
+    transform: scale(1);
     background-color: #b9eddd;
   }
   30% {
-    scale: 0;
+    transform: scale(0);
     border-radius: 50%;
     background-color: #87cbb9;
   }
   100% {
-    scale: 1;
+    transform: scale(1);
     border-radius: 0;
     background-color: #b7d3df;
   }
@@ -83,15 +91,15 @@
 @keyframes path {
   0% {
     border-radius: 50%;
-    scale: 0.2;
+    transform: scale(0.2);
     background-color: #38e54d;
   }
   80% {
-    scale: 1.3;
+    transform: scale(1.3);
     background-color: #bce29e;
   }
   100% {
-    scale: 1;
+    transform: scale(1);
     background-color: #38e54d;
   }
 }
