@@ -4,6 +4,7 @@ import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
 import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
+import { ClearPathAndExploredNodesCommand } from "../../domain/commands/ClearPathAndExploredNodesCommand";
 
 type EnvironmentComponent = React.FC;
 
@@ -27,6 +28,16 @@ const Environment: EnvironmentComponent = () => {
           }
         >
           Clear Walls
+        </button>
+        <button
+          onClick={() =>
+            sendCommand(
+              ClearPathAndExploredNodesCommand.name,
+              new ClearPathAndExploredNodesCommand()
+            )
+          }
+        >
+          Clear Path and Explored Nodes
         </button>
         <button
           onClick={() =>

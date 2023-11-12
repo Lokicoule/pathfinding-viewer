@@ -127,7 +127,7 @@ export class Grid {
     return grid;
   }
 
-  public clear(...nodeTypes: NodeType[]): void {
+  public clear(...nodeTypes: NodeType[]): Grid {
     for (let i = 0; i < this.nodes.length; i++) {
       for (let j = 0; j < this.nodes[i].length; j++) {
         if (nodeTypes.includes(this.nodes[i][j].getType())) {
@@ -135,5 +135,7 @@ export class Grid {
         }
       }
     }
+
+    return this;
   }
 }

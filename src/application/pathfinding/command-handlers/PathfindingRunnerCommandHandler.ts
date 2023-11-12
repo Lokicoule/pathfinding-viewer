@@ -7,6 +7,7 @@ import { DepthFirstSearchAlgorithm } from "../algorithms/DepthFirstSearchAlgorit
 import { DijkstraAlgorithm } from "../algorithms/DijkstraAlgorithm";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
+import { NodeType } from "../../../domain/enums/NodeType";
 
 export class PathfindingRunnerCommandHandler
   implements CommandHandler<PathfindingRunnerCommand>
@@ -17,7 +18,10 @@ export class PathfindingRunnerCommandHandler
   ) {}
 
   execute(command: PathfindingRunnerCommand): void {
-    const grid = this.gridStore.getGrid().copy();
+    const grid = this.gridStore
+      .getGrid()
+      .clear(NodeType.Path, NodeType.Explored)
+      .copy();
 
     const startNode = grid.getNode(
       this.gridStore.getStartNode().getVector().x,
