@@ -5,17 +5,21 @@ import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import GridView from "./GridView";
 import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
 import { ClearPathAndExploredNodesCommand } from "../../domain/commands/ClearPathAndExploredNodesCommand";
+import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
+import { StopAlgorithmCommand } from "../../domain/commands/StopAlgorithmCommand";
 
 type EnvironmentComponent = React.FC;
 
 const Environment: EnvironmentComponent = () => {
   const sendCommand = useCommand();
+  const isAlgorithmRunning = useAlgorithmIsRunning();
 
   return (
     <div>
       <GridView />
       <div>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(ResetGridCommand.name, new ResetGridCommand())
           }
@@ -23,6 +27,7 @@ const Environment: EnvironmentComponent = () => {
           Reset
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(ClearWallsCommand.name, new ClearWallsCommand())
           }
@@ -30,6 +35,7 @@ const Environment: EnvironmentComponent = () => {
           Clear Walls
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(
               ClearPathAndExploredNodesCommand.name,
@@ -40,6 +46,7 @@ const Environment: EnvironmentComponent = () => {
           Clear Path and Explored Nodes
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(
               PathfindingRunnerCommand.name,
@@ -50,6 +57,7 @@ const Environment: EnvironmentComponent = () => {
           Start BFS
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(
               PathfindingRunnerCommand.name,
@@ -60,6 +68,7 @@ const Environment: EnvironmentComponent = () => {
           Start DFS
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() =>
             sendCommand(
               PathfindingRunnerCommand.name,
@@ -71,6 +80,7 @@ const Environment: EnvironmentComponent = () => {
         </button>
 
         <button
+          disabled={isAlgorithmRunning}
           onClick={() => {
             sendCommand(
               MazeRunnerCommand.name,
@@ -81,6 +91,7 @@ const Environment: EnvironmentComponent = () => {
           Generate Maze (Recursive Division)
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() => {
             sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("PRIMS"));
           }}
@@ -88,11 +99,20 @@ const Environment: EnvironmentComponent = () => {
           Generate Maze (Prims)
         </button>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() => {
             sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("DFS"));
           }}
         >
           Generate Maze (Backtracking)
+        </button>
+        <button
+          disabled={!isAlgorithmRunning}
+          onClick={() => {
+            sendCommand(StopAlgorithmCommand.name, new StopAlgorithmCommand());
+          }}
+        >
+          Stop
         </button>
       </div>
     </div>
