@@ -126,4 +126,14 @@ export class Grid {
 
     return grid;
   }
+
+  public clear(...nodeTypes: NodeType[]): void {
+    for (let i = 0; i < this.nodes.length; i++) {
+      for (let j = 0; j < this.nodes[i].length; j++) {
+        if (nodeTypes.includes(this.nodes[i][j].getType())) {
+          this.nodes[i][j].setEmpty();
+        }
+      }
+    }
+  }
 }

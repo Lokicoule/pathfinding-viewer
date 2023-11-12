@@ -185,4 +185,10 @@ export class GridStore extends Store<GridStoreState> {
       },
     };
   }
+
+  public clear(...nodeTypes: NodeType[]): void {
+    this.state.grid.clear(...nodeTypes);
+
+    super.setState(this.state);
+  }
 }

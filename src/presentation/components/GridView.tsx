@@ -72,6 +72,7 @@ const GridView: GridComponent = () => {
               style={{
                 width: `${NODE_PIXEL_SIZE}px`,
                 height: `${NODE_PIXEL_SIZE}px`,
+                //animationPlayState: isAlgorithmRunning ? "running" : "paused",
               }}
               onClick={() => handleNodeClick(node)}
               onMouseDown={

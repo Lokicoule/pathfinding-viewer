@@ -13,21 +13,7 @@ export class ClearWallsCommandHandler
   ) {}
 
   execute(): void {
-    this.gridStore
-      .getGrid()
-      .getNodes()
-      .forEach((row) => {
-        row.forEach((node) => {
-          if (node.isWall()) {
-            this.gridStore.setNodeAs(
-              node.getVector(),
-              node.getPreviousType() === NodeType.Wall
-                ? NodeType.Empty
-                : node.getPreviousType()
-            );
-          }
-        });
-      });
+    this.gridStore.clear(NodeType.Wall);
 
     this.experienceStore.reset();
   }
