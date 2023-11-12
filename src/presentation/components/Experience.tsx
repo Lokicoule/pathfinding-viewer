@@ -84,6 +84,17 @@ const Environment: EnvironmentComponent = () => {
           >
             Start Dijkstra
           </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                PathfindingRunnerCommand.name,
+                new PathfindingRunnerCommand("A_STAR")
+              )
+            }
+          >
+            Start A*
+          </button>
         </div>
 
         {/* Maze Generation Actions */}

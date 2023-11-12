@@ -14,6 +14,8 @@ export class Node {
   private previousType: NodeType;
   private previousNode?: Node;
   private distance: number = Infinity;
+  private g: number = Infinity;
+  private h: number = 0;
 
   private constructor(state: NodeState) {
     this.id = uuid();
@@ -115,11 +117,36 @@ export class Node {
     return this.id === node.id;
   }
 
+  public getG(): number {
+    return this.g;
+  }
+
+  public setG(value: number): void {
+    this.g = value;
+  }
+
+  public getH(): number {
+    return this.h;
+  }
+
+  public setH(value: number): void {
+    this.h = value;
+  }
+
+  public getTotalCost(): number {
+    return this.g + this.h;
+  }
+
   public copy(): Node {
-    return Node.create({
+    const node = Node.create({
       type: this.state.type,
       vector: this.state.vector,
       previousType: this.previousType,
     });
+
+    node.setG(this.g);
+    node.setH(this.h);
+
+    return node;
   }
 }

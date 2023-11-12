@@ -2,7 +2,7 @@ import { MazeRunnerCommand } from "../../../domain/commands/MazeRunnerCommand";
 import { NodeType } from "../../../domain/enums/NodeType";
 import { MazeRunnerCompletedEvent } from "../../../domain/events/MazeRunnerCompletedEvent";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
-import { MazeAlgorithmType } from "../../../domain/types/PathfindingAlgorithmType";
+import { MazeAlgorithmType } from "../../../domain/types/MazeAlgorithmType";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
 

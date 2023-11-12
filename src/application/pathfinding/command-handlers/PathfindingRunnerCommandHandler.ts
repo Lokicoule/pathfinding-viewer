@@ -8,6 +8,7 @@ import { DijkstraAlgorithm } from "../algorithms/DijkstraAlgorithm";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
 import { NodeType } from "../../../domain/enums/NodeType";
+import { AStarAlgorithm } from "../algorithms/AStarAlgorithm";
 
 export class PathfindingRunnerCommandHandler
   implements CommandHandler<PathfindingRunnerCommand>
@@ -34,7 +35,7 @@ export class PathfindingRunnerCommandHandler
 
     const algorithm = this.algorithmFactory(command.algorithm);
 
-    const path = algorithm.create(grid, startNode).run();
+    const path = algorithm.create(grid, startNode, endNode).run();
 
     this.mediator.sendEvent(
       PathfindingRunnerCompletedEvent.name,
@@ -50,6 +51,8 @@ export class PathfindingRunnerCommandHandler
         return DepthFirstSearchAlgorithm;
       case "DIJKSTRA":
         return DijkstraAlgorithm;
+      case "A_STAR":
+        return AStarAlgorithm;
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }
