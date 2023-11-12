@@ -18,102 +18,119 @@ const Environment: EnvironmentComponent = () => {
     <div>
       <GridView />
       <div>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(ResetGridCommand.name, new ResetGridCommand())
-          }
-        >
-          Reset
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(ClearWallsCommand.name, new ClearWallsCommand())
-          }
-        >
-          Clear Walls
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(
-              ClearPathAndExploredNodesCommand.name,
-              new ClearPathAndExploredNodesCommand()
-            )
-          }
-        >
-          Clear Path and Explored Nodes
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(
-              PathfindingRunnerCommand.name,
-              new PathfindingRunnerCommand("BFS")
-            )
-          }
-        >
-          Start BFS
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(
-              PathfindingRunnerCommand.name,
-              new PathfindingRunnerCommand("DFS")
-            )
-          }
-        >
-          Start DFS
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() =>
-            sendCommand(
-              PathfindingRunnerCommand.name,
-              new PathfindingRunnerCommand("DIJKSTRA")
-            )
-          }
-        >
-          Start Djikstra
-        </button>
+        {/* Grid Actions */}
+        <div>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(ResetGridCommand.name, new ResetGridCommand())
+            }
+          >
+            Reset Grid
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(ClearWallsCommand.name, new ClearWallsCommand())
+            }
+          >
+            Clear Walls
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                ClearPathAndExploredNodesCommand.name,
+                new ClearPathAndExploredNodesCommand()
+              )
+            }
+          >
+            Clear Path and Explored Nodes
+          </button>
+        </div>
 
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() => {
-            sendCommand(
-              MazeRunnerCommand.name,
-              new MazeRunnerCommand("RECURSIVE_DIVISION")
-            );
-          }}
-        >
-          Generate Maze (Recursive Division)
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() => {
-            sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("PRIMS"));
-          }}
-        >
-          Generate Maze (Prims)
-        </button>
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={() => {
-            sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("DFS"));
-          }}
-        >
-          Generate Maze (Backtracking)
-        </button>
-        <button
-          disabled={!isAlgorithmRunning}
-          onClick={() => {
-            sendCommand(StopAlgorithmCommand.name, new StopAlgorithmCommand());
-          }}
-        >
-          Stop
-        </button>
+        {/* Pathfinding Algorithm Actions */}
+        <div>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                PathfindingRunnerCommand.name,
+                new PathfindingRunnerCommand("BFS")
+              )
+            }
+          >
+            Start BFS
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                PathfindingRunnerCommand.name,
+                new PathfindingRunnerCommand("DFS")
+              )
+            }
+          >
+            Start DFS
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                PathfindingRunnerCommand.name,
+                new PathfindingRunnerCommand("DIJKSTRA")
+              )
+            }
+          >
+            Start Dijkstra
+          </button>
+        </div>
+
+        {/* Maze Generation Actions */}
+        <div>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                MazeRunnerCommand.name,
+                new MazeRunnerCommand("RECURSIVE_DIVISION")
+              )
+            }
+          >
+            Generate Maze (Recursive Division)
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(
+                MazeRunnerCommand.name,
+                new MazeRunnerCommand("PRIMS")
+              )
+            }
+          >
+            Generate Maze (Prim's)
+          </button>
+          <button
+            disabled={isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("DFS"))
+            }
+          >
+            Generate Maze (Backtracking)
+          </button>
+        </div>
+
+        {/* Control Actions */}
+        <div>
+          <button
+            disabled={!isAlgorithmRunning}
+            onClick={() =>
+              sendCommand(StopAlgorithmCommand.name, new StopAlgorithmCommand())
+            }
+          >
+            Stop
+          </button>
+        </div>
       </div>
     </div>
   );
