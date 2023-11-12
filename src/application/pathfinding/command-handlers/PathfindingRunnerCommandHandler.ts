@@ -5,10 +5,6 @@ import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { PathfindingAlgorithmType } from "../../../domain/types/PathfindingAlgorithmType";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
-import { AStarPathfindingAlgorithm } from "../algorithms/AStarPathfindingAlgorithm";
-import { BreadthFirstSearchPathfindingAlgorithm } from "../algorithms/BreadthFirstSearchPathfindingAlgorithm";
-import { DepthFirstSearchPathfindingAlgorithm } from "../algorithms/DepthFirstSearchPathfindingAlgorithm";
-import { DijkstraPathfindingAlgorithm } from "../algorithms/DijkstraPathfindingAlgorithm";
 
 export class PathfindingRunnerCommandHandler
   implements CommandHandler<PathfindingRunnerCommand>
@@ -18,7 +14,9 @@ export class PathfindingRunnerCommandHandler
     private readonly gridStore: GridStore
   ) {}
 
-  execute(command: PathfindingRunnerCommand): void {
+  async execute(command: PathfindingRunnerCommand): Promise<void> {
+    const algorithm = await this.algorithmFactory(command.algorithm);
+
     const grid = this.gridStore
       .getGrid()
       .clear(NodeType.Path, NodeType.Explored, NodeType.Highlighted)
@@ -33,8 +31,6 @@ export class PathfindingRunnerCommandHandler
       this.gridStore.getEndNode().getVector().y
     );
 
-    const algorithm = this.algorithmFactory(command.algorithm);
-
     const path = algorithm.create(grid, startNode, endNode).run();
 
     this.mediator.sendEvent(
@@ -43,16 +39,24 @@ export class PathfindingRunnerCommandHandler
     );
   }
 
-  private algorithmFactory(algorithmType: PathfindingAlgorithmType) {
+  private async algorithmFactory(algorithmType: PathfindingAlgorithmType) {
     switch (algorithmType) {
       case "BFS":
-        return BreadthFirstSearchPathfindingAlgorithm;
+        return import(
+          "../algorithms/BreadthFirstSearchPathfindingAlgorithm"
+        ).then((module) => module.BreadthFirstSearchPathfindingAlgorithm);
       case "DFS":
-        return DepthFirstSearchPathfindingAlgorithm;
+        return import(
+          "../algorithms/DepthFirstSearchPathfindingAlgorithm"
+        ).then((module) => module.DepthFirstSearchPathfindingAlgorithm);
       case "DIJKSTRA":
-        return DijkstraPathfindingAlgorithm;
+        return import("../algorithms/DijkstraPathfindingAlgorithm").then(
+          (module) => module.DijkstraPathfindingAlgorithm
+        );
       case "A_STAR":
-        return AStarPathfindingAlgorithm;
+        return import("../algorithms/AStarPathfindingAlgorithm").then(
+          (module) => module.AStarPathfindingAlgorithm
+        );
       default:
         throw new Error(`${algorithmType} is not a valid algorithm`);
     }
