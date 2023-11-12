@@ -40,22 +40,23 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     this.state.currentMementoIndex = this.state.nodeHistory.length - 1;
   }
 
-  public reset() {
-    this.state.nodeHistory = new NodeHistory();
-    this.state.currentMementoIndex = -1;
-  }
-
   public startAlgorithm() {
     this.state.isAlgorithmRunning = true;
-    console.log("Algorithm started");
+    this.setState(this.state);
   }
 
   public stopAlgorithm() {
     this.state.isAlgorithmRunning = false;
-    console.log("Algorithm stopped");
+    this.setState(this.state);
   }
 
   public isAlgorithmRunning(): boolean {
     return this.state.isAlgorithmRunning;
+  }
+
+  public reset() {
+    this.state.nodeHistory = new NodeHistory();
+    this.state.currentMementoIndex = -1;
+    this.stopAlgorithm();
   }
 }

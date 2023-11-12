@@ -96,12 +96,17 @@ export class CompositionRoot {
       PathfindingAnimationCommand.name,
       new PathfindingAnimationCommandHandler(
         this.mediator,
+        this.stores.experienceStore,
         this.stores.gridStore
       )
     );
     this.mediator.registerCommandHandler(
       MazeAnimationCommand.name,
-      new MazeAnimationCommandHandler(this.mediator, this.stores.gridStore)
+      new MazeAnimationCommandHandler(
+        this.mediator,
+        this.stores.experienceStore,
+        this.stores.gridStore
+      )
     );
     this.mediator.registerCommandHandler(
       MazeRunnerCommand.name,
