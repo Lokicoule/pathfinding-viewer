@@ -1,150 +1,109 @@
-import { PathfindingRunnerCommand } from "../../domain/commands/PathfindingRunnerCommand";
-import { MazeRunnerCommand } from "../../domain/commands/MazeRunnerCommand";
-import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
-import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import GridView from "./GridView";
-import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
+/* 
 import { ClearPathAndExploredNodesCommand } from "../../domain/commands/ClearPathAndExploredNodesCommand";
-import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
+import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
+import { PathfindingRunnerCommand } from "../../domain/commands/PathfindingRunnerCommand";
+import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 import { StopAlgorithmCommand } from "../../domain/commands/StopAlgorithmCommand";
+
+import {
+  PATHFINDING_ALGORITHMS,
+  mapStringToPathfindingAlgorithm,
+} from "../../domain/types/PathfindingAlgorithmType";
+import { useCommand } from "../adapters/mediator/hooks/useCommand";
+import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
 
 type EnvironmentComponent = React.FC;
 
-const Environment: EnvironmentComponent = () => {
+const Actions: EnvironmentComponent = () => {
   const sendCommand = useCommand();
   const isAlgorithmRunning = useAlgorithmIsRunning();
 
+  const resetActionMediator = (action: string) => {
+    switch (action) {
+      case "RESET_GRID":
+        sendCommand(ResetGridCommand.name, new ResetGridCommand());
+        break;
+      case "CLEAR_WALLS":
+        sendCommand(ClearWallsCommand.name, new ClearWallsCommand());
+        break;
+      case "CLEAR_PATH_AND_EXPLORED_NODES":
+        sendCommand(
+          ClearPathAndExploredNodesCommand.name,
+          new ClearPathAndExploredNodesCommand()
+        );
+        break;
+    }
+  };
+
+  const pathfindingAlgorithmMediator = (algorithm: string) => {
+    sendCommand(
+      PathfindingRunnerCommand.name,
+      new PathfindingRunnerCommand(mapStringToPathfindingAlgorithm(algorithm))
+    );
+  };
+
+  const handleSelectChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    mediator: (algorithm: string) => void
+  ) => {
+    const action = event.target.value;
+    mediator(action);
+  };
+
   return (
-    <div>
-      <GridView />
-      <div>
-        {/* Grid Actions */}
-        <div>
-          <button
+    <div
+      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
+    >
+      <CardHeader>
+        <h2 className="font-bold text-2xl">Actions</h2>
+      </CardHeader>
+      <CardBody>
+        <div className="flex flex-col gap-4">
+          <Select
             disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(ResetGridCommand.name, new ResetGridCommand())
-            }
+            placeholder="Select Reset Action"
+            label="Select Reset Action"
+            onChange={(event) => handleSelectChange(event, resetActionMediator)}
           >
-            Reset Grid
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(ClearWallsCommand.name, new ClearWallsCommand())
-            }
-          >
-            Clear Walls
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                ClearPathAndExploredNodesCommand.name,
-                new ClearPathAndExploredNodesCommand()
-              )
-            }
-          >
-            Clear Path and Explored Nodes
-          </button>
-        </div>
+            <SelectItem key="t" value="RESET_GRID">
+              Reset Grid
+            </SelectItem>
+            <SelectItem key="ts" value="CLEAR_WALLS">
+              Clear Walls
+            </SelectItem>
+            <SelectItem key="td" value="CLEAR_PATH_AND_EXPLORED_NODES">
+              Clear Path and Explored Nodes
+            </SelectItem>
+          </Select>
 
-        {/* Pathfinding Algorithm Actions */}
-        <div>
-          <button
+          <Select
             disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                PathfindingRunnerCommand.name,
-                new PathfindingRunnerCommand("BFS")
-              )
+            placeholder="Run Pathfinding Algorithm"
+            onChange={(event) =>
+              handleSelectChange(event, pathfindingAlgorithmMediator)
             }
           >
-            Start BFS
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                PathfindingRunnerCommand.name,
-                new PathfindingRunnerCommand("DFS")
-              )
-            }
-          >
-            Start DFS
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                PathfindingRunnerCommand.name,
-                new PathfindingRunnerCommand("DIJKSTRA")
-              )
-            }
-          >
-            Start Dijkstra
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                PathfindingRunnerCommand.name,
-                new PathfindingRunnerCommand("A_STAR")
-              )
-            }
-          >
-            Start A*
-          </button>
+            {PATHFINDING_ALGORITHMS.map((algorithm) => (
+              <SelectItem key={algorithm} value={algorithm}>
+                Start {algorithm}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
-
-        {/* Maze Generation Actions */}
         <div>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                MazeRunnerCommand.name,
-                new MazeRunnerCommand("RECURSIVE_DIVISION")
-              )
-            }
-          >
-            Generate Maze (Recursive Division)
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(
-                MazeRunnerCommand.name,
-                new MazeRunnerCommand("PRIMS")
-              )
-            }
-          >
-            Generate Maze (Prim's)
-          </button>
-          <button
-            disabled={isAlgorithmRunning}
-            onClick={() =>
-              sendCommand(MazeRunnerCommand.name, new MazeRunnerCommand("DFS"))
-            }
-          >
-            Generate Maze (Backtracking)
-          </button>
-        </div>
-
-        {/* Control Actions */}
-        <div>
-          <button
+          <Button
             disabled={!isAlgorithmRunning}
             onClick={() =>
               sendCommand(StopAlgorithmCommand.name, new StopAlgorithmCommand())
             }
           >
             Stop
-          </button>
+          </Button>
         </div>
-      </div>
+      </CardBody>
     </div>
   );
 };
 
-export default Environment;
+export default Actions;
+ */

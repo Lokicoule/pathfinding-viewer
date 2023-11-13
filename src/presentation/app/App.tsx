@@ -1,20 +1,19 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
 import { MediatorProvider } from "../adapters/mediator/MediatorProvider";
-import Experience from "../components/Experience";
+import GridCard from "../components/GridCard";
 
 import "./App.css";
 
 function App() {
   return (
     <MediatorProvider mediator={compositionRoot.mediator}>
-      <div className="container">
-        <div className="header">
-          <h1>Pathfinding Visualizer</h1>
+      <main className="h-full w-full min-h-screen flex flex-col justify-start items-center space-y-10">
+        {/* <Header /> */}
+        <div className="flex flex-row justify-evenly">
+          <GridCard />
         </div>
-        <div className="content">
-          <Experience />
-        </div>
-      </div>
+        {/* <Experience /> */}
+      </main>
     </MediatorProvider>
   );
 }

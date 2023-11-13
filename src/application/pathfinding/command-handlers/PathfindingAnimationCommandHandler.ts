@@ -88,9 +88,13 @@ export class PathfindingAnimationCommandHandler
   private handleAnimationCompleted() {
     this.animationController.stopAnimation();
 
-    this.mediator.sendEvent(
-      PathfindingAnimationCompletedEvent.name,
-      new PathfindingAnimationCompletedEvent()
+    setTimeout(
+      () =>
+        this.mediator.sendEvent(
+          PathfindingAnimationCompletedEvent.name,
+          new PathfindingAnimationCompletedEvent()
+        ),
+      2000
     );
   }
 }

@@ -1,5 +1,7 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeHistory } from "../../domain/entities/NodeHistory";
+import { MazeAlgorithmType } from "../../domain/types/MazeAlgorithmType";
+import { PathfindingAlgorithmType } from "../../domain/types/PathfindingAlgorithmType";
 import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
 import { Store } from "../store/Store";
 
@@ -7,6 +9,7 @@ export type ExperienceStoreState = {
   nodeHistory: NodeHistory;
   currentMementoIndex: number;
   isAlgorithmRunning: boolean;
+  algorithm: MazeAlgorithmType | PathfindingAlgorithmType | undefined;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {
@@ -15,6 +18,7 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
       nodeHistory: new NodeHistory(),
       currentMementoIndex: -1,
       isAlgorithmRunning: false,
+      algorithm: undefined,
     });
   }
 
@@ -54,9 +58,24 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     return this.state.isAlgorithmRunning;
   }
 
+  public setAlgorithm(
+    algorithm: MazeAlgorithmType | PathfindingAlgorithmType | undefined
+  ) {
+    this.state.algorithm = algorithm;
+    this.setState(this.state);
+  }
+
+  public getAlgorithm():
+    | MazeAlgorithmType
+    | PathfindingAlgorithmType
+    | undefined {
+    return this.state.algorithm;
+  }
+
   public reset() {
     this.state.nodeHistory = new NodeHistory();
     this.state.currentMementoIndex = -1;
     this.stopAlgorithm();
+    this.setAlgorithm(undefined);
   }
 }
