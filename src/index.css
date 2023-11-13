@@ -14,33 +14,6 @@ body {
   background-attachment: fixed;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: linear-gradient(
-    to right,
-    rgb(56, 189, 248),
-    rgb(59, 130, 246)
-  );
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 select {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -83,4 +56,8 @@ label {
   opacity: 0.6;
   filter: blur(10em);
   z-index: -1;
+}
+
+.gradient-underline-animation {
+  @apply bg-gradient-to-r from-rose-100 to-teal-100 bg-no-repeat bg-bottom bg-[length:100%_6px] hover:bg-[length:100%_100%] transition-[background-size] duration-300 ease-in-out hover:text-white;
 }

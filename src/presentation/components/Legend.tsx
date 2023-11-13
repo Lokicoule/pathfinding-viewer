@@ -1,10 +1,13 @@
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 
-export type LegendComponent = React.FC;
+export type LegendComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
 
-export const Legend: LegendComponent = () => {
+export const Legend: LegendComponent = ({ className, ...props }) => {
   return (
-    <div className="flex justify-center items-center gap-10">
+    <div
+      className={`flex justify-center items-center gap-10 ${className}`}
+      {...props}
+    >
       <div className="flex justify-center items-center gap-2">
         <div
           className="cell start"

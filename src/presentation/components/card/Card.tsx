@@ -15,16 +15,36 @@ type CardComponent = React.FC<CardProps> & {
   Footer: CardSectionComponent;
 };
 
-const CardBody: CardSectionComponent = ({ children, ...props }) => {
-  return <div className={`px-4 py-5 sm:p-6 ${props}`}>{children}</div>;
+const CardHeader: CardSectionComponent = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+      {children}
+    </div>
+  );
 };
 
-const CardHeader: CardSectionComponent = ({ children, ...props }) => {
-  return <div className={`px-4 py-5 sm:p-6 ${props}`}>{children}</div>;
+const CardBody: CardSectionComponent = ({ children, className, ...props }) => {
+  return (
+    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+      {children}
+    </div>
+  );
 };
 
-const CardFooter: CardSectionComponent = ({ children, ...props }) => {
-  return <div className={`px-4 py-5 sm:p-6 ${props}`}>{children}</div>;
+const CardFooter: CardSectionComponent = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+      {children}
+    </div>
+  );
 };
 
 const Card: CardComponent = ({ isBlurred, children, ...props }) => {

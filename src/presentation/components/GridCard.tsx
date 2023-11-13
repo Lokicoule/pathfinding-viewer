@@ -7,6 +7,7 @@ import { useGrid } from "../hooks/useGrid";
 import useStateMap from "../hooks/useStateMap";
 import { concat } from "../utils/string";
 import Algorithm from "./Algorithm";
+import Controls from "./Controls";
 import { Legend } from "./Legend";
 import Maze from "./Maze";
 import Pathfinding from "./Pathfinding";
@@ -70,14 +71,17 @@ const GridCard: GridCardComponent = () => {
     <Card isBlurred className="border-none h-full w-full">
       <Card.Header>
         <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row justify-start items-center">
-            <Maze />
-            <Pathfinding />
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-start items-center">
+              <Maze />
+              <Pathfinding />
+            </div>
           </div>
+          <Controls />
         </div>
       </Card.Header>
-      <Card.Body className="flex flex-col items-center justify-center">
-        <div className="flex justify-end">
+      <Card.Body>
+        <div className="flex justify-end items-center">
           <Legend />
         </div>
         <div className="mt-4">
@@ -111,17 +115,7 @@ const GridCard: GridCardComponent = () => {
         </div>
       </Card.Body>
       <Card.Footer>
-        <div className="flex justify-between w-full text-white">
-          <div className="flex flex-row gap-2">
-            <Algorithm />
-          </div>
-          <div className="flex justify-start gap-2">
-            <p className="font-bold">Status: </p>
-            <p className="font-bold">
-              {isAlgorithmRunning ? "Running" : "Stopped"}
-            </p>
-          </div>
-        </div>
+        <Algorithm />
       </Card.Footer>
     </Card>
   );
