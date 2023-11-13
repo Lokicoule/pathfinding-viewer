@@ -41,19 +41,19 @@ export class PathfindingRunnerCommandHandler
 
   private async algorithmFactory(algorithmType: PathfindingAlgorithmType) {
     switch (algorithmType) {
-      case "BFS":
+      case "PATHFINDING_BFS":
         return import(
           "../algorithms/BreadthFirstSearchPathfindingAlgorithm"
         ).then((module) => module.BreadthFirstSearchPathfindingAlgorithm);
-      case "DFS":
+      case "PATHFINDING_DFS":
         return import(
           "../algorithms/DepthFirstSearchPathfindingAlgorithm"
         ).then((module) => module.DepthFirstSearchPathfindingAlgorithm);
-      case "DIJKSTRA":
+      case "PATHFINDING_DIJKSTRA":
         return import("../algorithms/DijkstraPathfindingAlgorithm").then(
           (module) => module.DijkstraPathfindingAlgorithm
         );
-      case "A_STAR":
+      case "PATHFINDING_A_STAR":
         return import("../algorithms/AStarPathfindingAlgorithm").then(
           (module) => module.AStarPathfindingAlgorithm
         );

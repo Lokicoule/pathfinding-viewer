@@ -42,15 +42,15 @@ export class MazeRunnerCommandHandler
 
   private async algorithmFactory(algorithmType: MazeAlgorithmType) {
     switch (algorithmType) {
-      case "PRIMS":
+      case "MAZE_PRIMS":
         return import("../algorithms/PrimsMazeAlgorithm").then(
           (module) => module.PrimsMazeAlgorithm
         );
-      case "RECURSIVE_DIVISION":
+      case "MAZE_RECURSIVE_DIVISION":
         return import("../algorithms/RecursiveDivisionMazeAlgorithm").then(
           (module) => module.RecursiveDivisionMazeAlgorithm
         );
-      case "DFS":
+      case "MAZE_DFS":
         return import("../algorithms/DepthFirstSearchMazeAlgorithm").then(
           (module) => module.DepthFirstSearchMazeAlgorithm
         );
@@ -61,10 +61,10 @@ export class MazeRunnerCommandHandler
 
   private nodeTypeFactory(algorithm: MazeAlgorithmType): NodeType {
     switch (algorithm) {
-      case "DFS":
-      case "PRIMS":
+      case "MAZE_DFS":
+      case "MAZE_PRIMS":
         return NodeType.Wall;
-      case "RECURSIVE_DIVISION":
+      case "MAZE_RECURSIVE_DIVISION":
         return NodeType.Empty;
       default:
         throw new Error(`${algorithm} is not a valid algorithm`);

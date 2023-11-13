@@ -6,15 +6,9 @@ import {
 } from "../../domain/types/PathfindingAlgorithmType";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../hooks/useAlgorithm";
+import { PATHFINDING_ALGORITHMS } from "../constants/pathfindingConstants";
 
 type PathfindingComponent = React.FC;
-
-const PATHFINDING_ALGORITHMS = new Map<PathfindingAlgorithmType, string>([
-  ["A_STAR", "A*"],
-  ["BFS", "Breadth-First Search"],
-  ["DFS", "Depth-First Search"],
-  ["DIJKSTRA", "Dijkstra"],
-]);
 
 const Pathfinding: PathfindingComponent = () => {
   const { isAlgorithmRunning } = useAlgorithm();
@@ -55,6 +49,7 @@ const Pathfinding: PathfindingComponent = () => {
           ))}
         </select>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() => pathfindingAlgorithmMediator(algorithm)}
           className="text-white font-bold py-2 px-4 rounded-full"
         >

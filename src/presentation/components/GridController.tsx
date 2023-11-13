@@ -19,7 +19,7 @@ const GridController: GridControllerComponent = () => {
       case "CLEAR_WALLS":
         sendCommand(ClearWallsCommand.name, new ClearWallsCommand());
         break;
-      case "CLEAR_PATH_AND_EXPLORED_NODES":
+      case "CLEAR_PATHFINDING_AND_EXPLORED_NODES":
         sendCommand(
           ClearPathAndExploredNodesCommand.name,
           new ClearPathAndExploredNodesCommand()
@@ -44,7 +44,9 @@ const GridController: GridControllerComponent = () => {
       </button>
       <button
         disabled={isAlgorithmRunning}
-        onClick={() => resetActionMediator("CLEAR_PATH_AND_EXPLORED_NODES")}
+        onClick={() =>
+          resetActionMediator("CLEAR_PATHFINDING_AND_EXPLORED_NODES")
+        }
       >
         Clear Path and Explored Nodes
       </button>

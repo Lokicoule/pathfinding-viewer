@@ -16,10 +16,10 @@ export class AlgorithmStartSaga {
     return new AlgorithmStartSaga(mediator);
   }
 
-  private run = () => {
+  private run = (command: MazeRunnerCommand | PathfindingRunnerCommand) => {
     this.mediator.sendCommand(
       StartAlgorithmCommand.name,
-      new StartAlgorithmCommand()
+      new StartAlgorithmCommand(command.algorithm)
     );
   };
 }

@@ -6,6 +6,7 @@ import { useAlgorithm } from "../hooks/useAlgorithm";
 import { useGrid } from "../hooks/useGrid";
 import useStateMap from "../hooks/useStateMap";
 import { concat } from "../utils/string";
+import Algorithm from "./Algorithm";
 import { Legend } from "./Legend";
 import Maze from "./Maze";
 import Pathfinding from "./Pathfinding";
@@ -15,7 +16,7 @@ type GridCardComponent = React.FC;
 
 const GridCard: GridCardComponent = () => {
   const grid = useGrid();
-  const { isAlgorithmRunning, algorithm } = useAlgorithm();
+  const { isAlgorithmRunning } = useAlgorithm();
 
   const sendCommand = useCommand();
   const nodes = useStateMap<string, Node>();
@@ -73,45 +74,46 @@ const GridCard: GridCardComponent = () => {
             <Maze />
             <Pathfinding />
           </div>
-          <Legend />
         </div>
       </Card.Header>
       <Card.Body className="flex flex-col items-center justify-center">
-        {grid.getNodes().map((row, rowIndex) => (
-          <div key={rowIndex} className="row">
-            {row.map((node) => (
-              <div
-                key={node.id}
-                className={concat("cell", cellState(node))}
-                style={{
-                  width: `${NODE_PIXEL_SIZE}px`,
-                  height: `${NODE_PIXEL_SIZE}px`,
-                  pointerEvents: isAlgorithmRunning ? "none" : "auto",
-                }}
-                onClick={() => handleNodeClick(node)}
-                onMouseDown={
-                  !node.isStart() && !node.isEnd()
-                    ? () => handleMouseDown(node)
-                    : undefined
-                }
-                onMouseEnter={
-                  !node.isStart() && !node.isEnd()
-                    ? () => handleMouseEnter(node)
-                    : undefined
-                }
-                onMouseUp={() => handleMouseUp()}
-              ></div>
-            ))}
-          </div>
-        ))}
+        <div className="flex justify-end">
+          <Legend />
+        </div>
+        <div className="mt-4">
+          {grid.getNodes().map((row, rowIndex) => (
+            <div key={rowIndex} className="row">
+              {row.map((node) => (
+                <div
+                  key={node.id}
+                  className={concat("cell", cellState(node))}
+                  style={{
+                    width: `${NODE_PIXEL_SIZE}px`,
+                    height: `${NODE_PIXEL_SIZE}px`,
+                    pointerEvents: isAlgorithmRunning ? "none" : "auto",
+                  }}
+                  onClick={() => handleNodeClick(node)}
+                  onMouseDown={
+                    !node.isStart() && !node.isEnd()
+                      ? () => handleMouseDown(node)
+                      : undefined
+                  }
+                  onMouseEnter={
+                    !node.isStart() && !node.isEnd()
+                      ? () => handleMouseEnter(node)
+                      : undefined
+                  }
+                  onMouseUp={() => handleMouseUp()}
+                ></div>
+              ))}
+            </div>
+          ))}
+        </div>
       </Card.Body>
       <Card.Footer>
-        <div className="flex justify-between w-full">
+        <div className="flex justify-between w-full text-white">
           <div className="flex flex-row gap-2">
-            <div className="flex justify-start gap-2">
-              <p className="font-bold">Algorithm: </p>
-              <p className="font-bold">{algorithm}</p>
-            </div>
+            <Algorithm />
           </div>
           <div className="flex justify-start gap-2">
             <p className="font-bold">Status: </p>

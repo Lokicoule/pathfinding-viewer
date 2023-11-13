@@ -1,11 +1,11 @@
+import { StartAlgorithmCommandHandler } from "../application/algorithm/command-handlers/StartAlgorithmCommandHandler";
+import { StopAlgorithmCommandHandler } from "../application/algorithm/command-handlers/StopAlgorithmCommandHandler";
+import { AlgorithmStartSaga } from "../application/algorithm/sagas/AlgorithmStartSaga";
+import { AlgorithmStopSaga } from "../application/algorithm/sagas/AlgorithmStopSaga";
 import { ClearPathAndExploredNodesCommandHandler } from "../application/interaction/command-handlers/ClearPathAndExploredNodesCommandHandler";
 import { ClearWallsCommandHandler } from "../application/interaction/command-handlers/ClearWallsCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/interaction/command-handlers/NodeInteractionCommandHandler";
 import { ResetGridCommandHandler } from "../application/interaction/command-handlers/ResetGridCommandHandler";
-import { StartAlgorithmCommandHandler } from "../application/interaction/command-handlers/StartAlgorithmCommandHandler";
-import { StopAlgorithmCommandHandler } from "../application/interaction/command-handlers/StopAlgorithmCommandHandler";
-import { AlgorithmStartSaga } from "../application/interaction/sagas/AlgorithmStartSaga";
-import { AlgorithmStopSaga } from "../application/interaction/sagas/AlgorithmStopSaga";
 import { MazeAnimationCommandHandler } from "../application/maze/command-handlers/MazeAnimationCommandHandler";
 import { MazeRunnerCommandHandler } from "../application/maze/command-handlers/MazeRunnerCommandHandler";
 import { MazeCompletionSaga } from "../application/maze/sagas/MazeCompletionSaga";

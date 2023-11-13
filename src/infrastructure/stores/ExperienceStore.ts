@@ -1,5 +1,6 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeHistory } from "../../domain/entities/NodeHistory";
+import { AlgorithmType } from "../../domain/types/AlgorithmType";
 import { MazeAlgorithmType } from "../../domain/types/MazeAlgorithmType";
 import { PathfindingAlgorithmType } from "../../domain/types/PathfindingAlgorithmType";
 import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
@@ -9,7 +10,7 @@ export type ExperienceStoreState = {
   nodeHistory: NodeHistory;
   currentMementoIndex: number;
   isAlgorithmRunning: boolean;
-  algorithm: MazeAlgorithmType | PathfindingAlgorithmType | undefined;
+  algorithm: AlgorithmType;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {

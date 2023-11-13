@@ -7,7 +7,8 @@ export class StartAlgorithmCommandHandler
 {
   constructor(private readonly experienceStore: ExperienceStore) {}
 
-  execute(): void {
+  execute(command: StartAlgorithmCommand): void {
+    this.experienceStore.setAlgorithm(command.algorithm);
     this.experienceStore.startAlgorithm();
   }
 }

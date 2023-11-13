@@ -5,16 +5,13 @@ import {
   mapStringToMazeAlgorithm,
 } from "../../domain/types/MazeAlgorithmType";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
+import { MAZE_ALGORITHMS } from "../constants/mazeConstants";
+import { useAlgorithm } from "../hooks/useAlgorithm";
 
 type MazeComponent = React.FC;
 
-const MAZE_ALGORITHMS = new Map<MazeAlgorithmType, string>([
-  ["RECURSIVE_DIVISION", "Recursive Division"],
-  ["PRIMS", "Prim's Algorithm"],
-  ["DFS", "Depth-First Search"],
-]);
-
 const Maze: MazeComponent = () => {
+  const { isAlgorithmRunning } = useAlgorithm();
   const [algorithm, setAlgorithm] = useState<MazeAlgorithmType>(
     MAZE_ALGORITHMS.keys().next().value
   );
@@ -38,6 +35,7 @@ const Maze: MazeComponent = () => {
       </label>
       <div className="flex flex-row gap-4">
         <select
+          disabled={isAlgorithmRunning}
           onChange={handleSelectChange}
           name="maze-algorithm"
           className="p-2"
@@ -49,6 +47,7 @@ const Maze: MazeComponent = () => {
           ))}
         </select>
         <button
+          disabled={isAlgorithmRunning}
           onClick={() => mazeAlgorithmMediator(algorithm)}
           className="text-white font-bold py-2 px-4 rounded-full"
         >

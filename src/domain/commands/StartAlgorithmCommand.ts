@@ -1,7 +1,8 @@
 import { Command } from "../interfaces/Command";
+import { AlgorithmType } from "../types/AlgorithmType";
 
 export class StartAlgorithmCommand extends Command {
-  constructor() {
+  constructor(public readonly algorithm: AlgorithmType) {
     super("StartAlgorithmCommand");
   }
 }
