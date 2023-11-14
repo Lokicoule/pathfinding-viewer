@@ -2,12 +2,10 @@ import { PlaybackStore } from "../stores/PlaybackStore";
 
 class AnimationController {
   private abortController: AbortController | null = null;
-  private timeouts: {
-    id: number;
-    callback: () => void;
-    delay: number;
-    created: number;
-  }[] = [];
+  private timeouts: Map<
+    number,
+    { callback: () => void; delay: number; created: number }
+  > = new Map();
   private pausedTimeouts: { callback: () => void; remainingTime: number }[] =
     [];
 
@@ -44,8 +42,7 @@ class AnimationController {
       this.removeTimeout(timeoutId);
     }, delay);
 
-    this.timeouts.push({
-      id: timeoutId,
+    this.timeouts.set(timeoutId, {
       callback,
       delay,
       created: created || Date.now(),
@@ -61,13 +58,13 @@ class AnimationController {
   }
 
   private pauseAnimation() {
-    this.timeouts.forEach((timeout) => {
+    this.timeouts.forEach((timeout, id) => {
       const elapsed = Date.now() - timeout.created;
       const remainingTime = timeout.delay - elapsed;
       this.pausedTimeouts.push({ callback: timeout.callback, remainingTime });
-      clearTimeout(timeout.id);
+      clearTimeout(id);
     });
-    this.timeouts = [];
+    this.timeouts.clear();
   }
 
   private resumeAnimation() {
@@ -82,28 +79,35 @@ class AnimationController {
   }
 
   private stopAnimation() {
-    this.timeouts.forEach((timeout) => {
+    this.timeouts.forEach((timeout, id) => {
       timeout.callback();
-      clearTimeout(timeout.id);
+      clearTimeout(id);
     });
+    this.pausedTimeouts.forEach((pausedTimeout, id) => {
+      pausedTimeout.callback();
+      clearTimeout(id);
+    });
+    this.timeouts.clear();
+    this.pausedTimeouts = [];
     this.abortAnimation();
   }
 
   private abortAnimation() {
     if (this.abortController) {
       this.abortController.abort();
+      this.abortController = null;
     }
   }
 
   private clearAllTimeouts() {
-    this.timeouts.forEach((timeout) => {
-      clearTimeout(timeout.id);
+    this.timeouts.forEach((_, timeoutId) => {
+      clearTimeout(timeoutId);
     });
-    this.timeouts = [];
+    this.timeouts.clear();
   }
 
   private removeTimeout(timeoutId: number) {
-    this.timeouts = this.timeouts.filter((timeout) => timeout.id !== timeoutId);
+    this.timeouts.delete(timeoutId);
   }
 }
 

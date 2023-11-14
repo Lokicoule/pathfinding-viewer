@@ -30,8 +30,8 @@ export class PathfindingAnimationCommandHandler
     const shortestPath = this.getShortestPath(command.endNode);
 
     this.animateExploration(command.path)
-      .finally(() => this.animateShortestPath(shortestPath))
-      .finally(() => this.handleAnimationCompleted());
+      .then(() => this.animateShortestPath(shortestPath))
+      .then(() => this.handleAnimationCompleted());
   }
 
   private getShortestPath(endNode: Node): Node[] {
