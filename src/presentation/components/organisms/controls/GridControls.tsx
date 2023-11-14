@@ -7,9 +7,9 @@ import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { concat } from "../../../utils/string";
 import Button from "../../atoms/button/Button";
 
-type ControlsComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
+type GridControlsComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
 
-const Controls: ControlsComponent = ({ className, ...props }) => {
+const GridControls: GridControlsComponent = ({ className, ...props }) => {
   const sendCommand = useCommand();
   const { isAlgorithmRunning } = useAlgorithm();
 
@@ -32,7 +32,7 @@ const Controls: ControlsComponent = ({ className, ...props }) => {
 
   return (
     <div className={concat("flex flex-col gap-2", className)} {...props}>
-      <span className="text-lg font-semibold">Controls</span>
+      <span className="text-lg font-semibold">GridControls</span>
       <div className="flex flex-row">
         <Button
           className="bg-gradient-to-r from-rose-100 to-[#f3e9e9]"
@@ -65,4 +65,4 @@ const Controls: ControlsComponent = ({ className, ...props }) => {
   );
 };
 
-export default Controls;
+export default GridControls;

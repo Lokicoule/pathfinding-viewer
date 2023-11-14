@@ -18,13 +18,11 @@ export class PlaybackStore extends Store<PlaybackStoreState> {
 
   public setPlayback(playback: PlaybackValue) {
     this.state.playback = Playback.create(playback);
-    console.log("PlaybackStore.setPlayback()", this.state.playback);
 
     this.setState(this.state);
   }
 
   public isPaused(): boolean {
-    console.log("PlaybackStore.isPaused()", this.state.playback);
     return this.state.playback.isPaused();
   }
 
