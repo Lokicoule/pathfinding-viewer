@@ -1,6 +1,6 @@
 import { PlaybackStore } from "../stores/PlaybackStore";
 
-class AnimationController {
+class AnimationManager {
   private abortController: AbortController | null = null;
   private timeouts: Map<
     number,
@@ -24,8 +24,8 @@ class AnimationController {
     });
   }
 
-  public static create(playbackStore: PlaybackStore): AnimationController {
-    return new AnimationController(playbackStore);
+  public static create(playbackStore: PlaybackStore): AnimationManager {
+    return new AnimationManager(playbackStore);
   }
 
   public createTimeout(
@@ -111,4 +111,4 @@ class AnimationController {
   }
 }
 
-export { AnimationController };
+export { AnimationManager };

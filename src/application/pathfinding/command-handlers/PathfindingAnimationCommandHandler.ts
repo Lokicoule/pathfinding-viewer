@@ -3,7 +3,7 @@ import { Node } from "../../../domain/entities/Node";
 import { NodeType } from "../../../domain/enums/NodeType";
 import { PathfindingAnimationCompletedEvent } from "../../../domain/events/PathfindingAnimationCompletedEvent";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
-import { AnimationController } from "../../../infrastructure/controllers/AnimationController";
+import { AnimationManager } from "../../../infrastructure/animation/AnimationManager";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
@@ -12,8 +12,8 @@ import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
 export class PathfindingAnimationCommandHandler
   implements CommandHandler<PathfindingAnimationCommand>
 {
-  private explorationAnimationController: AnimationController;
-  private pathAnimationController: AnimationController;
+  private explorationAnimationManager: AnimationManager;
+  private pathAnimationManager: AnimationManager;
 
   constructor(
     private readonly mediator: Mediator,
@@ -21,9 +21,8 @@ export class PathfindingAnimationCommandHandler
     private readonly gridStore: GridStore,
     playbackStore: PlaybackStore
   ) {
-    this.explorationAnimationController =
-      AnimationController.create(playbackStore);
-    this.pathAnimationController = AnimationController.create(playbackStore);
+    this.explorationAnimationManager = AnimationManager.create(playbackStore);
+    this.pathAnimationManager = AnimationManager.create(playbackStore);
   }
 
   execute(command: PathfindingAnimationCommand): void {
@@ -50,7 +49,7 @@ export class PathfindingAnimationCommandHandler
   private animateExploration(visitedNodesInOrder: Node[]): Promise<void> {
     return new Promise((resolve) => {
       for (let i = 0; i < visitedNodesInOrder.length; i++) {
-        this.explorationAnimationController.createTimeout(() => {
+        this.explorationAnimationManager.createTimeout(() => {
           const node = visitedNodesInOrder[i];
 
           if (!node.isStart() && !node.isEnd())
@@ -68,7 +67,7 @@ export class PathfindingAnimationCommandHandler
       let lastNode = shortestPath[0];
 
       for (let i = 1; i < shortestPath.length; i++) {
-        this.pathAnimationController.createTimeout(() => {
+        this.pathAnimationManager.createTimeout(() => {
           const node = shortestPath[i];
           this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
 
