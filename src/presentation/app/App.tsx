@@ -8,11 +8,9 @@ function App() {
   return (
     <MediatorProvider mediator={compositionRoot.mediator}>
       <main className="h-full w-full min-h-screen flex flex-col justify-start items-center space-y-10">
-        {/* <Header /> */}
         <div className="flex flex-row justify-evenly">
           <GridCard />
         </div>
-        {/* <Experience /> */}
       </main>
     </MediatorProvider>
   );
