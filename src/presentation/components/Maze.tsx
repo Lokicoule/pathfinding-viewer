@@ -30,14 +30,11 @@ const Maze: MazeComponent = () => {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="maze-algorithm" className="text-lg font-semibold">
-        Maze Algorithm
-      </label>
+      <p className="text-lg font-semibold">Maze Algorithm</p>
       <div className="flex flex-row gap-4">
         <select
           disabled={isAlgorithmRunning}
           onChange={handleSelectChange}
-          name="maze-algorithm"
           className="p-2"
         >
           {Array.from(MAZE_ALGORITHMS).map(([key, value]) => (

@@ -1,5 +1,6 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeHistory } from "../../domain/entities/NodeHistory";
+import { Speed } from "../../domain/valueObjects/Speed";
 import { AlgorithmType } from "../../domain/types/AlgorithmType";
 import { MazeAlgorithmType } from "../../domain/types/MazeAlgorithmType";
 import { PathfindingAlgorithmType } from "../../domain/types/PathfindingAlgorithmType";
@@ -11,6 +12,7 @@ export type ExperienceStoreState = {
   currentMementoIndex: number;
   isAlgorithmRunning: boolean;
   algorithm: AlgorithmType;
+  speed: Speed;
 };
 
 export class ExperienceStore extends Store<ExperienceStoreState> {
@@ -20,6 +22,7 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
       currentMementoIndex: -1,
       isAlgorithmRunning: false,
       algorithm: undefined,
+      speed: Speed.create(Speed.FAST),
     });
   }
 
@@ -78,5 +81,14 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     this.state.currentMementoIndex = -1;
     this.stopAlgorithm();
     this.setAlgorithm(undefined);
+  }
+
+  public setSpeed(speed: Speed) {
+    this.state.speed = speed;
+    this.setState(this.state);
+  }
+
+  public getSpeed(): Speed {
+    return this.state.speed;
   }
 }

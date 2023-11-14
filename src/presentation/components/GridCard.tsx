@@ -11,6 +11,7 @@ import Controls from "./Controls";
 import { Legend } from "./Legend";
 import Maze from "./Maze";
 import Pathfinding from "./Pathfinding";
+import SpeedControl from "./SpeedControl";
 import Card from "./card/Card";
 
 type GridCardComponent = React.FC;
@@ -72,7 +73,7 @@ const GridCard: GridCardComponent = () => {
       <Card.Header>
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-start items-center">
+            <div className="flex flex-row justify-start items-center space-x-10">
               <Maze />
               <Pathfinding />
             </div>
@@ -81,7 +82,8 @@ const GridCard: GridCardComponent = () => {
         </div>
       </Card.Header>
       <Card.Body>
-        <div className="flex justify-end items-center">
+        <div className="flex justify-between items-center">
+          <SpeedControl />
           <Legend />
         </div>
         <div className="mt-4">
@@ -108,6 +110,7 @@ const GridCard: GridCardComponent = () => {
                       : undefined
                   }
                   onMouseUp={() => handleMouseUp()}
+                  onBlur={() => handleMouseUp()}
                 ></div>
               ))}
             </div>

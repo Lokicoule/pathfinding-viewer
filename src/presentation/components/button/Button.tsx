@@ -26,8 +26,8 @@ const Button: ButtonComponent = ({
           onClick={onClick}
           className={`
           disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed
-           px-4 py-2 rounded-t-sm 
-           bg-gradient-to-r from-rose-100 to-teal-100 bg-no-repeat bg-bottom bg-[length:100%_6px] transition-[background-size] duration-300 ease-in-out hover:bg-[length:100%_100%] hover:text-white ${
+           px-4 py-2 rounded-t-sm  font-semibold hover:text-gray-600
+           bg-no-repeat bg-bottom bg-[length:100%_6px] transition-[background-size] duration-300 ease-in-out hover:bg-[length:100%_100%]  ${
              className || ""
            }`}
         >

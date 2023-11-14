@@ -6,6 +6,7 @@ import { ClearPathAndExploredNodesCommandHandler } from "../application/interact
 import { ClearWallsCommandHandler } from "../application/interaction/command-handlers/ClearWallsCommandHandler";
 import { NodeInteractionCommandHandler } from "../application/interaction/command-handlers/NodeInteractionCommandHandler";
 import { ResetGridCommandHandler } from "../application/interaction/command-handlers/ResetGridCommandHandler";
+import { UpdateSpeedCommandHandler } from "../application/interaction/command-handlers/UpdateSpeedCommandHandler";
 import { MazeAnimationCommandHandler } from "../application/maze/command-handlers/MazeAnimationCommandHandler";
 import { MazeRunnerCommandHandler } from "../application/maze/command-handlers/MazeRunnerCommandHandler";
 import { MazeCompletionSaga } from "../application/maze/sagas/MazeCompletionSaga";
@@ -22,6 +23,7 @@ import { PathfindingRunnerCommand } from "../domain/commands/PathfindingRunnerCo
 import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { StartAlgorithmCommand } from "../domain/commands/StartAlgorithmCommand";
 import { StopAlgorithmCommand } from "../domain/commands/StopAlgorithmCommand";
+import { UpdateSpeedCommand } from "../domain/commands/UpdateSpeedCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../infrastructure/stores/GridStore";
@@ -119,6 +121,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       StopAlgorithmCommand.name,
       new StopAlgorithmCommandHandler(this.stores.experienceStore)
+    );
+    this.mediator.registerCommandHandler(
+      UpdateSpeedCommand.name,
+      new UpdateSpeedCommandHandler(this.stores.experienceStore)
     );
   }
 }

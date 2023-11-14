@@ -3,13 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-image: linear-gradient(
-    to bottom,
-    #fcdab7,
-    #1e5f74,
-    #133b5c,
-    #1d2d50
-  );
+  background-image: linear-gradient(to top, #fcdab7, #1e5f74, #133b5c, #1d2d50);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -53,11 +47,7 @@ label {
   bottom: 0;
   left: 0;
   background: white;
-  opacity: 0.6;
+  opacity: 0.5;
   filter: blur(10em);
   z-index: -1;
-}
-
-.gradient-underline-animation {
-  @apply bg-gradient-to-r from-rose-100 to-teal-100 bg-no-repeat bg-bottom bg-[length:100%_6px] hover:bg-[length:100%_100%] transition-[background-size] duration-300 ease-in-out hover:text-white;
 }

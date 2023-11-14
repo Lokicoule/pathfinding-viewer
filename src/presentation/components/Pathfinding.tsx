@@ -32,14 +32,11 @@ const Pathfinding: PathfindingComponent = () => {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="pathfinding-algorithm" className="text-lg font-semibold">
-        Pathfinding Algorithm
-      </label>
+      <p className="text-lg font-semibold">Pathfinding Algorithm</p>
       <div className="flex flex-row gap-4">
         <select
           disabled={isAlgorithmRunning}
           onChange={handleSelectChange}
-          name="pathfinding-algorithm"
           className="p-2"
         >
           {Array.from(PATHFINDING_ALGORITHMS).map(([key, value]) => (

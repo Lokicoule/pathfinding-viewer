@@ -8,21 +8,21 @@ class AnimationController {
     return new AnimationController();
   }
 
-  startAnimation() {
+  public startAnimation() {
     this.abortController = new AbortController();
   }
 
-  abortAnimation() {
+  public abortAnimation() {
     if (this.abortController) {
       this.abortController.abort();
     }
   }
 
-  isAnimationAborted() {
+  public isAnimationAborted() {
     return this.abortController?.signal.aborted || false;
   }
 
-  createTimeout(callback: () => void, delay: number): void {
+  public createTimeout(callback: () => void, delay: number): void {
     const timeout = setTimeout(() => {
       if (this.isAnimationAborted()) {
         this.clearAllTimeouts();
@@ -34,16 +34,16 @@ class AnimationController {
     this.timeouts.push(timeout);
   }
 
+  public stopAnimation() {
+    this.clearAllTimeouts();
+    this.abortAnimation();
+  }
+
   private clearAllTimeouts() {
     this.timeouts.forEach((timeout) => {
       clearTimeout(timeout);
     });
     this.timeouts = [];
-  }
-
-  stopAnimation() {
-    this.clearAllTimeouts();
-    this.abortAnimation();
   }
 }
 

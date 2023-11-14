@@ -46,9 +46,8 @@ export class MazeAnimationCommandHandler
           ) {
             this.gridStore.setNodeAs(node.getVector(), node.getType());
           }
-
           if (i === wallsInOrder.length - 1) resolve();
-        }, 10 * i);
+        }, 10 * i * this.experienceStore.getSpeed().getValue());
       }
     });
   }

@@ -59,7 +59,7 @@ export class PathfindingAnimationCommandHandler
             this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
 
           if (i === visitedNodesInOrder.length - 1) resolve();
-        }, 20 * i);
+        }, 20 * i * this.experienceStore.getSpeed().getValue());
       }
     });
   }
@@ -80,7 +80,7 @@ export class PathfindingAnimationCommandHandler
           lastNode = node;
 
           if (i === shortestPath.length - 1) resolve();
-        }, 50 * i);
+        }, 50 * i * this.experienceStore.getSpeed().getValue());
       }
     });
   }
