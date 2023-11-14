@@ -1,5 +1,5 @@
 import { Children, cloneElement } from "react";
-import { concat } from "../../utils/string";
+import { concat } from "../../../utils/string";
 
 type TooltipProps = React.HTMLAttributes<HTMLDivElement> & {
   text: string;

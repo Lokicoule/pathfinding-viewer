@@ -1,5 +1,5 @@
-import { ALGORITHMS } from "../constants/algorithmConstants";
-import { useAlgorithm } from "../hooks/useAlgorithm";
+import { ALGORITHMS } from "../../../constants/algorithmConstants";
+import { useAlgorithm } from "../../../hooks/useAlgorithm";
 
 type AlgorithmComponent = React.FC;
 

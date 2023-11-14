@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { PathfindingRunnerCommand } from "../../domain/commands/PathfindingRunnerCommand";
+import { PathfindingRunnerCommand } from "../../../../domain/commands/PathfindingRunnerCommand";
 import {
   PathfindingAlgorithmType,
   mapStringToPathfindingAlgorithm,
-} from "../../domain/types/PathfindingAlgorithmType";
-import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import { useAlgorithm } from "../hooks/useAlgorithm";
-import { PATHFINDING_ALGORITHMS } from "../constants/pathfindingConstants";
+} from "../../../../domain/types/PathfindingAlgorithmType";
+import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
+import { useAlgorithm } from "../../../hooks/useAlgorithm";
+import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
 
 type PathfindingComponent = React.FC;
 

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { MazeRunnerCommand } from "../../domain/commands/MazeRunnerCommand";
+import { MazeRunnerCommand } from "../../../../domain/commands/MazeRunnerCommand";
 import {
   MazeAlgorithmType,
   mapStringToMazeAlgorithm,
-} from "../../domain/types/MazeAlgorithmType";
-import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import { MAZE_ALGORITHMS } from "../constants/mazeConstants";
-import { useAlgorithm } from "../hooks/useAlgorithm";
+} from "../../../../domain/types/MazeAlgorithmType";
+import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
+import { MAZE_ALGORITHMS } from "../../../constants/mazeConstants";
+import { useAlgorithm } from "../../../hooks/useAlgorithm";
 
 type MazeComponent = React.FC;
 

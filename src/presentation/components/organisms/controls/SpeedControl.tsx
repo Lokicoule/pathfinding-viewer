@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { UpdateSpeedCommand } from "../../domain/commands/UpdateSpeedCommand";
-import { Speed } from "../../domain/valueObjects/Speed";
-import { useCommand } from "../adapters/mediator/hooks";
-import { useAlgorithm } from "../hooks/useAlgorithm";
-import { useSpeed } from "../hooks/useSpeed";
+import { UpdateSpeedCommand } from "../../../../domain/commands/UpdateSpeedCommand";
+import { Speed } from "../../../../domain/valueObjects/Speed";
+import { useCommand } from "../../../adapters/mediator/hooks";
+import { useAlgorithm } from "../../../hooks/useAlgorithm";
+import { useSpeed } from "../../../hooks/useSpeed";
 
 type SpeedControlComponent = React.FC<React.HTMLAttributes<HTMLInputElement>>;
 

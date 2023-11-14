@@ -1,6 +1,6 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
 import { MediatorProvider } from "../adapters/mediator/MediatorProvider";
-import GridCard from "../components/GridCard";
+import GridCard from "../components/templates/GridCard";
 
 import "./App.css";
 

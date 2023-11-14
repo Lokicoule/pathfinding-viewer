@@ -1,19 +1,19 @@
-import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCommand";
-import { Node } from "../../domain/entities/Node";
-import { NODE_PIXEL_SIZE } from "../../shared/constants";
-import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import { useAlgorithm } from "../hooks/useAlgorithm";
-import { useGrid } from "../hooks/useGrid";
-import useStateMap from "../hooks/useStateMap";
-import { concat } from "../utils/string";
-import Algorithm from "./Algorithm";
-import AnimationPlayer from "./AnimationPlayer";
-import Controls from "./Controls";
-import { Legend } from "./Legend";
-import Maze from "./Maze";
-import Pathfinding from "./Pathfinding";
-import SpeedControl from "./SpeedControl";
-import Card from "./card/Card";
+import { NodeInteractionCommand } from "../../../domain/commands/NodeInteractionCommand";
+import { Node } from "../../../domain/entities/Node";
+import { NODE_PIXEL_SIZE } from "../../../shared/constants";
+import { useCommand } from "../../adapters/mediator/hooks/useCommand";
+import { useAlgorithm } from "../../hooks/useAlgorithm";
+import { useGrid } from "../../hooks/useGrid";
+import useStateMap from "../../hooks/useStateMap";
+import { concat } from "../../utils/string";
+import Algorithm from "../organisms/algorithm/Algorithm";
+import AnimationPlayer from "../organisms/animation/AnimationPlayer";
+import Controls from "../organisms/controls/Controls";
+import { Legend } from "../organisms/legend/Legend";
+import Maze from "../organisms/controls/Maze";
+import Pathfinding from "../organisms/controls/Pathfinding";
+import SpeedControl from "../organisms/controls/SpeedControl";
+import Card from "../molecules/card/Card";
 
 type GridCardComponent = React.FC;
 

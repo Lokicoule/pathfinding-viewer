@@ -1,13 +1,13 @@
-import { PauseCommand } from "../../domain/commands/playback/PauseCommand";
-import { ResumeCommand } from "../../domain/commands/playback/ResumeCommand";
-import { StopCommand } from "../../domain/commands/playback/StopCommand";
-import { useCommand } from "../adapters/mediator/hooks";
-import { usePlayback } from "../hooks/usePlayback";
-import Button from "./button/Button";
-import PauseIcon from "./icons/PauseIcon";
-import PlayIcon from "./icons/PlayIcon";
-import StopIcon from "./icons/StopIcon";
-import Tooltip from "./tooltip/Tooltip";
+import { PauseCommand } from "../../../../domain/commands/playback/PauseCommand";
+import { ResumeCommand } from "../../../../domain/commands/playback/ResumeCommand";
+import { StopCommand } from "../../../../domain/commands/playback/StopCommand";
+import { useCommand } from "../../../adapters/mediator/hooks";
+import { usePlayback } from "../../../hooks/usePlayback";
+import Button from "../../atoms/button/Button";
+import PauseIcon from "../../atoms/icons/PauseIcon";
+import PlayIcon from "../../atoms/icons/PlayIcon";
+import StopIcon from "../../atoms/icons/StopIcon";
+import Tooltip from "../../atoms/tooltip/Tooltip";
 
 type AnimationPlayerComponent = React.FC;
 

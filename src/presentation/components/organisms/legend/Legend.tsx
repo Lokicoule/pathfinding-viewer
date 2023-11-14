@@ -1,4 +1,4 @@
-import { NODE_PIXEL_SIZE } from "../../shared/constants";
+import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
 
 export type LegendComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
 
