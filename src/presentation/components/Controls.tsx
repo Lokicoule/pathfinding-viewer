@@ -3,7 +3,7 @@ import { ClearWallsCommand } from "../../domain/commands/ClearWallsCommand";
 import { ResetGridCommand } from "../../domain/commands/ResetGridCommand";
 
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
-import { useAlgorithmIsRunning } from "../hooks/useAlgorithmIsRunning";
+import { useAlgorithm } from "../hooks/useAlgorithm";
 import { concat } from "../utils/string";
 import Button from "./button/Button";
 
@@ -11,7 +11,7 @@ type ControlsComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
 
 const Controls: ControlsComponent = ({ className, ...props }) => {
   const sendCommand = useCommand();
-  const isAlgorithmRunning = useAlgorithmIsRunning();
+  const { isAlgorithmRunning } = useAlgorithm();
 
   const resetActionMediator = (action: string) => {
     switch (action) {

@@ -13,6 +13,10 @@ import { MazeCompletionSaga } from "../application/maze/sagas/MazeCompletionSaga
 import { PathfindingAnimationCommandHandler } from "../application/pathfinding/command-handlers/PathfindingAnimationCommandHandler";
 import { PathfindingRunnerCommandHandler } from "../application/pathfinding/command-handlers/PathfindingRunnerCommandHandler";
 import { PathfindingCompletionSaga } from "../application/pathfinding/sagas/PathfindingCompletionSaga";
+import { PauseCommandHandler } from "../application/playback/command-handlers/PauseCommandHandler";
+import { PlayCommandHandler } from "../application/playback/command-handlers/PlayCommandHandler";
+import { ResumeCommandHandler } from "../application/playback/command-handlers/ResumeCommandHandler";
+import { StopCommandHandler } from "../application/playback/command-handlers/StopCommandHandler";
 import { ClearPathAndExploredNodesCommand } from "../domain/commands/ClearPathAndExploredNodesCommand";
 import { ClearWallsCommand } from "../domain/commands/ClearWallsCommand";
 import { MazeAnimationCommand } from "../domain/commands/MazeAnimationCommand";
@@ -24,17 +28,24 @@ import { ResetGridCommand } from "../domain/commands/ResetGridCommand";
 import { StartAlgorithmCommand } from "../domain/commands/StartAlgorithmCommand";
 import { StopAlgorithmCommand } from "../domain/commands/StopAlgorithmCommand";
 import { UpdateSpeedCommand } from "../domain/commands/UpdateSpeedCommand";
+import { PauseCommand } from "../domain/commands/playback/PauseCommand";
+import { PlayCommand } from "../domain/commands/playback/PlayCommand";
+import { ResumeCommand } from "../domain/commands/playback/ResumeCommand";
+import { StopCommand } from "../domain/commands/playback/StopCommand";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../infrastructure/stores/GridStore";
+import { PlaybackStore } from "../infrastructure/stores/PlaybackStore";
 
 class Stores {
   public readonly gridStore: GridStore;
   public readonly experienceStore: ExperienceStore;
+  public readonly playbackStore: PlaybackStore;
 
   constructor(numCols: number, numRows: number) {
     this.gridStore = new GridStore(numCols, numRows);
     this.experienceStore = new ExperienceStore();
+    this.playbackStore = new PlaybackStore();
   }
 }
 
@@ -99,7 +110,8 @@ export class CompositionRoot {
       new PathfindingAnimationCommandHandler(
         this.mediator,
         this.stores.experienceStore,
-        this.stores.gridStore
+        this.stores.gridStore,
+        this.stores.playbackStore
       )
     );
     this.mediator.registerCommandHandler(
@@ -107,7 +119,8 @@ export class CompositionRoot {
       new MazeAnimationCommandHandler(
         this.mediator,
         this.stores.experienceStore,
-        this.stores.gridStore
+        this.stores.gridStore,
+        this.stores.playbackStore
       )
     );
     this.mediator.registerCommandHandler(
@@ -125,6 +138,23 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       UpdateSpeedCommand.name,
       new UpdateSpeedCommandHandler(this.stores.experienceStore)
+    );
+
+    this.mediator.registerCommandHandler(
+      PlayCommand.name,
+      new PlayCommandHandler(this.stores.playbackStore)
+    );
+    this.mediator.registerCommandHandler(
+      PauseCommand.name,
+      new PauseCommandHandler(this.stores.playbackStore)
+    );
+    this.mediator.registerCommandHandler(
+      StopCommand.name,
+      new StopCommandHandler(this.stores.playbackStore)
+    );
+    this.mediator.registerCommandHandler(
+      ResumeCommand.name,
+      new ResumeCommandHandler(this.stores.playbackStore)
     );
   }
 }

@@ -7,33 +7,31 @@ import { AnimationController } from "../../../infrastructure/controllers/Animati
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
+import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
 
 export class PathfindingAnimationCommandHandler
   implements CommandHandler<PathfindingAnimationCommand>
 {
-  private animationController: AnimationController;
+  private explorationAnimationController: AnimationController;
+  private pathAnimationController: AnimationController;
 
   constructor(
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
-    private readonly gridStore: GridStore
+    private readonly gridStore: GridStore,
+    playbackStore: PlaybackStore
   ) {
-    this.animationController = AnimationController.create();
-    this.experienceStore.subscribe(() => {
-      if (!this.experienceStore.isAlgorithmRunning()) {
-        this.animationController.abortAnimation();
-      }
-    });
+    this.explorationAnimationController =
+      AnimationController.create(playbackStore);
+    this.pathAnimationController = AnimationController.create(playbackStore);
   }
 
   execute(command: PathfindingAnimationCommand): void {
-    this.animationController.startAnimation();
-
     const shortestPath = this.getShortestPath(command.endNode);
 
     this.animateExploration(command.path)
-      .then(() => this.animateShortestPath(shortestPath))
-      .then(() => this.handleAnimationCompleted());
+      .finally(() => this.animateShortestPath(shortestPath))
+      .finally(() => this.handleAnimationCompleted());
   }
 
   private getShortestPath(endNode: Node): Node[] {
@@ -52,7 +50,7 @@ export class PathfindingAnimationCommandHandler
   private animateExploration(visitedNodesInOrder: Node[]): Promise<void> {
     return new Promise((resolve) => {
       for (let i = 0; i < visitedNodesInOrder.length; i++) {
-        this.animationController.createTimeout(() => {
+        this.explorationAnimationController.createTimeout(() => {
           const node = visitedNodesInOrder[i];
 
           if (!node.isStart() && !node.isEnd())
@@ -65,11 +63,12 @@ export class PathfindingAnimationCommandHandler
   }
 
   private animateShortestPath(shortestPath: Node[]): Promise<void> {
+    console.log(shortestPath);
     return new Promise((resolve) => {
       let lastNode = shortestPath[0];
 
       for (let i = 1; i < shortestPath.length; i++) {
-        this.animationController.createTimeout(() => {
+        this.pathAnimationController.createTimeout(() => {
           const node = shortestPath[i];
           this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
 
@@ -86,8 +85,6 @@ export class PathfindingAnimationCommandHandler
   }
 
   private handleAnimationCompleted() {
-    this.animationController.stopAnimation();
-
     setTimeout(
       () =>
         this.mediator.sendEvent(

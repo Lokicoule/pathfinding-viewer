@@ -7,29 +7,23 @@ import { AnimationController } from "../../../infrastructure/controllers/Animati
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
+import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
 
 export class MazeAnimationCommandHandler
   implements CommandHandler<MazeAnimationCommand>
 {
   private animationController: AnimationController;
-
   constructor(
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
-    private readonly gridStore: GridStore
+    private readonly gridStore: GridStore,
+    playbackStore: PlaybackStore
   ) {
-    this.animationController = AnimationController.create();
-    this.experienceStore.subscribe(() => {
-      if (!this.experienceStore.isAlgorithmRunning()) {
-        this.animationController.abortAnimation();
-      }
-    });
+    this.animationController = AnimationController.create(playbackStore);
   }
 
   execute(command: MazeAnimationCommand): void {
-    this.animationController.startAnimation();
-
-    this.animateWallsBuilding(command.wallsInOrder).then(() =>
+    this.animateWallsBuilding(command.wallsInOrder).finally(() =>
       this.handleAnimationCompleted()
     );
   }
@@ -53,8 +47,6 @@ export class MazeAnimationCommandHandler
   }
 
   private handleAnimationCompleted(): void {
-    this.animationController.stopAnimation();
-
     setTimeout(() => {
       this.mediator.sendEvent(
         MazeAnimationCompletedEvent.name,
