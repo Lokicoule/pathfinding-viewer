@@ -1,29 +1,24 @@
 import { NodeInteractionCommand } from "../../domain/commands/NodeInteractionCommand";
-import { PauseCommand } from "../../domain/commands/playback/PauseCommand";
-import { ResumeCommand } from "../../domain/commands/playback/ResumeCommand";
-import { StopCommand } from "../../domain/commands/playback/StopCommand";
 import { Node } from "../../domain/entities/Node";
 import { NODE_PIXEL_SIZE } from "../../shared/constants";
 import { useCommand } from "../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../hooks/useAlgorithm";
 import { useGrid } from "../hooks/useGrid";
-import { usePlayback } from "../hooks/usePlayback";
 import useStateMap from "../hooks/useStateMap";
 import { concat } from "../utils/string";
 import Algorithm from "./Algorithm";
+import AnimationPlayer from "./AnimationPlayer";
 import Controls from "./Controls";
 import { Legend } from "./Legend";
 import Maze from "./Maze";
 import Pathfinding from "./Pathfinding";
 import SpeedControl from "./SpeedControl";
-import Button from "./button/Button";
 import Card from "./card/Card";
 
 type GridCardComponent = React.FC;
 
 const GridCard: GridCardComponent = () => {
   const grid = useGrid();
-  const { playback } = usePlayback();
   const { isAlgorithmRunning } = useAlgorithm();
 
   const sendCommand = useCommand();
@@ -90,28 +85,7 @@ const GridCard: GridCardComponent = () => {
       <Card.Body>
         <div className="flex justify-between items-center">
           <SpeedControl />
-          <div className="flex justify-center items-center gap-10">
-            <Button
-              disabled={playback.isStopped()}
-              onClick={() => sendCommand(PauseCommand.name, new PauseCommand())}
-            >
-              Pause
-            </Button>
-            <Button
-              disabled={playback.isStopped()}
-              onClick={() => sendCommand(StopCommand.name, new StopCommand())}
-            >
-              Stop
-            </Button>
-            <Button
-              disabled={!playback.isPaused()}
-              onClick={() =>
-                sendCommand(ResumeCommand.name, new ResumeCommand())
-              }
-            >
-              Resume
-            </Button>
-          </div>
+          <AnimationPlayer />
           <Legend />
         </div>
         <div className="mt-4">
