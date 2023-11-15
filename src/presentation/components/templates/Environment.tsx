@@ -18,17 +18,17 @@ const Environment: EnvironmentComponent = () => {
             <div className="flex flex-row justify-start items-center space-x-10">
               <Maze />
               <Pathfinding />
+              <AnimationSpeed />
             </div>
           </div>
         </div>
       </Card.Header>
-      <Card.Body>
+      <Card.Body className="space-y-4">
         <div className="flex justify-between items-center">
           <GridControls />
-          <Legend />
         </div>
         <NodeGrid />
-        <AnimationSpeed />
+        <Legend />
       </Card.Body>
       <Card.Footer className="flex flex-col justify-center items-center space-y-4">
         <Algorithm />
