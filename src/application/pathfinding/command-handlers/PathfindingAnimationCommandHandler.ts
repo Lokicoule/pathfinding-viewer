@@ -19,7 +19,7 @@ export class PathfindingAnimationCommandHandler
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
-    playbackStore: PlaybackStore
+    private readonly playbackStore: PlaybackStore
   ) {
     this.explorationAnimationManager = AnimationManager.create(playbackStore);
     this.pathAnimationManager = AnimationManager.create(playbackStore);
@@ -30,7 +30,7 @@ export class PathfindingAnimationCommandHandler
 
     this.animateExploration(command.path)
       .then(() => this.animateShortestPath(shortestPath))
-      .then(() => this.handleAnimationCompleted());
+      .finally(() => this.handleAnimationCompleted());
   }
 
   private getShortestPath(endNode: Node): Node[] {
@@ -62,7 +62,6 @@ export class PathfindingAnimationCommandHandler
   }
 
   private animateShortestPath(shortestPath: Node[]): Promise<void> {
-    console.log(shortestPath);
     return new Promise((resolve) => {
       let lastNode = shortestPath[0];
 
@@ -78,8 +77,12 @@ export class PathfindingAnimationCommandHandler
           lastNode = node;
 
           if (i === shortestPath.length - 1) resolve();
-        }, 50 * i * this.experienceStore.getSpeed().getValue());
+        }, 50 * i);
       }
+
+      // Fix: If the animation is stopped during the exploration phase, the shortest path animation will not be stopped
+      if (this.playbackStore.isStopped())
+        this.playbackStore.setPlayback("STOP");
     });
   }
 
