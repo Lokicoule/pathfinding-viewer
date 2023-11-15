@@ -26,14 +26,14 @@ export class PathfindingAnimationCommandHandler
   }
 
   execute(command: PathfindingAnimationCommand): void {
-    const shortestPath = this.getShortestPath(command.endNode);
+    const shortestPath = this.getPath(command.endNode);
 
     this.animateExploration(command.path)
-      .then(() => this.animateShortestPath(shortestPath))
+      .then(() => this.animatePath(shortestPath))
       .finally(() => this.handleAnimationCompleted());
   }
 
-  private getShortestPath(endNode: Node): Node[] {
+  private getPath(endNode: Node): Node[] {
     const shortestPath: Node[] = [];
     let currentNode: Node | undefined = endNode;
 
@@ -61,7 +61,7 @@ export class PathfindingAnimationCommandHandler
     });
   }
 
-  private animateShortestPath(shortestPath: Node[]): Promise<void> {
+  private animatePath(shortestPath: Node[]): Promise<void> {
     return new Promise((resolve) => {
       let lastNode = shortestPath[0];
 
@@ -80,7 +80,7 @@ export class PathfindingAnimationCommandHandler
         }, 50 * i);
       }
 
-      // Fix: If the animation is stopped during the exploration phase, the shortest path animation will not be stopped
+      // Fix: If the animation is stopped during the exploration phase, the path animation will not be stopped
       if (this.playbackStore.isStopped())
         this.playbackStore.setPlayback("STOP");
     });
