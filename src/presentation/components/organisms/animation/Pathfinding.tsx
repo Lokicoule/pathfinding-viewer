@@ -31,8 +31,6 @@ const Pathfinding: PathfindingComponent = () => {
     setAlgorithm(mapStringToPathfindingAlgorithm(event.target.value));
   };
 
-  console.log("Pathfinding", playback);
-
   return (
     <div className="flex flex-col">
       <p className="text-lg font-semibold text-white">Pathfinding Algorithm</p>

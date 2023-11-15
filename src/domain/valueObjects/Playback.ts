@@ -8,7 +8,6 @@ export class Playback {
   }
 
   public isPlaying(): boolean {
-    console.log("Playback.isPlaying()", this.value);
     return this.value === "PLAY";
   }
 
