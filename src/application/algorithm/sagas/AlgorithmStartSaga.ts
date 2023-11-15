@@ -1,7 +1,6 @@
 import { MazeRunnerCommand } from "../../../domain/commands/MazeRunnerCommand";
 import { PathfindingRunnerCommand } from "../../../domain/commands/PathfindingRunnerCommand";
 import { StartAlgorithmCommand } from "../../../domain/commands/StartAlgorithmCommand";
-import { PlayCommand } from "../../../domain/commands/playback/PlayCommand";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
 
 export class AlgorithmStartSaga {
@@ -22,6 +21,5 @@ export class AlgorithmStartSaga {
       StartAlgorithmCommand.name,
       new StartAlgorithmCommand(command.algorithm)
     );
-    this.mediator.sendCommand(PlayCommand.name, new PlayCommand());
   };
 }

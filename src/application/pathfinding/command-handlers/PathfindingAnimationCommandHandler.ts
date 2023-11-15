@@ -87,13 +87,15 @@ export class PathfindingAnimationCommandHandler
   }
 
   private handleAnimationCompleted() {
-    setTimeout(
-      () =>
-        this.mediator.sendEvent(
-          PathfindingAnimationCompletedEvent.name,
-          new PathfindingAnimationCompletedEvent()
-        ),
-      2000
-    );
+    setTimeout(() => {
+      if (!this.playbackStore.isStopped()) {
+        this.playbackStore.setPlayback("STOP");
+      }
+
+      this.mediator.sendEvent(
+        PathfindingAnimationCompletedEvent.name,
+        new PathfindingAnimationCompletedEvent()
+      );
+    }, 2000);
   }
 }

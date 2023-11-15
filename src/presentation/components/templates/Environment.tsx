@@ -1,9 +1,8 @@
 import Card from "../molecules/card/Card";
 import Algorithm from "../organisms/algorithm/Algorithm";
-import AnimationPlayer from "../organisms/animation/AnimationPlayer";
-import Maze from "../organisms/controls/Maze";
-import Pathfinding from "../organisms/controls/Pathfinding";
-import SpeedControl from "../organisms/controls/SpeedControl";
+import AnimationSpeed from "../organisms/animation/AnimationSpeed";
+import Maze from "../organisms/animation/Maze";
+import Pathfinding from "../organisms/animation/Pathfinding";
 import GridControls from "../organisms/grid/GridControls";
 import { Legend } from "../organisms/grid/GridLegend";
 import NodeGrid from "../organisms/grid/NodeGrid";
@@ -21,18 +20,17 @@ const Environment: EnvironmentComponent = () => {
               <Pathfinding />
             </div>
           </div>
-          <GridControls />
         </div>
       </Card.Header>
       <Card.Body>
         <div className="flex justify-between items-center">
-          <SpeedControl />
-          <AnimationPlayer />
+          <GridControls />
           <Legend />
         </div>
         <NodeGrid />
+        <AnimationSpeed />
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer className="flex flex-col justify-center items-center space-y-4">
         <Algorithm />
       </Card.Footer>
     </Card>

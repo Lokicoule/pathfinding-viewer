@@ -32,10 +32,9 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
 
   return (
     <div className={concat("flex flex-col gap-2", className)} {...props}>
-      <span className="text-lg font-semibold">Controls</span>
       <div className="flex flex-row">
         <Button
-          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9]"
+          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] text-white"
           disabled={isAlgorithmRunning}
           variant="underline"
           onClick={() => resetActionMediator("RESET_GRID")}
@@ -43,7 +42,7 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
           Reset Grid
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb]"
+          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white"
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() => resetActionMediator("CLEAR_WALLS")}
@@ -51,7 +50,7 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
           Clear Walls
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#e7efeb] to-teal-100"
+          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white"
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() =>

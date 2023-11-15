@@ -42,7 +42,7 @@ const NodeGrid: NodeGridComponent = () => {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       {grid.getNodes().map((row, rowIndex) => (
         <div key={rowIndex} className="flex">
           {row.map((node) => (

@@ -1,12 +1,13 @@
-import { StopCommand } from "../../../domain/commands/playback/StopCommand";
+import { Command } from "../../../domain/interfaces/Command";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
 
-export class StopCommandHandler implements CommandHandler<StopCommand> {
+export class StopCommandHandler<T extends Command>
+  implements CommandHandler<T>
+{
   constructor(private readonly playbackStore: PlaybackStore) {}
 
   execute(): void {
-    console.log("StopCommandHandler.execute()");
     this.playbackStore.setPlayback("STOP");
   }
 }

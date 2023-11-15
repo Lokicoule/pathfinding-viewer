@@ -5,9 +5,14 @@ import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useSpeed } from "../../../hooks/useSpeed";
 
-type SpeedControlComponent = React.FC<React.HTMLAttributes<HTMLInputElement>>;
+type AnimationSpeedControlComponent = React.FC<
+  React.HTMLAttributes<HTMLInputElement>
+>;
 
-const SpeedControl: SpeedControlComponent = ({ className, ...props }) => {
+const AnimationSpeedControl: AnimationSpeedControlComponent = ({
+  className,
+  ...props
+}) => {
   const sendCommand = useCommand();
   const { speed } = useSpeed();
   const { isAlgorithmRunning } = useAlgorithm();
@@ -27,7 +32,7 @@ const SpeedControl: SpeedControlComponent = ({ className, ...props }) => {
 
   return (
     <div className={`flex justify-center items-center gap-2 ${className}`}>
-      <p className="font-bold">Speed: </p>
+      <p className="font-bold text-white">Speed: </p>
       <input
         disabled={isAlgorithmRunning}
         className={`w-40 h-2 appearance-none rounded-full outline-none cursor-pointer transition-all duration-300 ease-in-out  bg-gradient-to-r from-rose-100 to-teal-100 hover:from-rose-200 hover:to-teal-200 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed`}
@@ -44,4 +49,4 @@ const SpeedControl: SpeedControlComponent = ({ className, ...props }) => {
   );
 };
 
-export default SpeedControl;
+export default AnimationSpeedControl;

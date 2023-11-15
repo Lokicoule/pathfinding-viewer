@@ -16,7 +16,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             height: `${NODE_PIXEL_SIZE}px`,
           }}
         ></div>
-        <p className="font-bold">Start</p>
+        <p className="font-bold text-white">Start</p>
       </div>
       <div className="flex justify-center items-center gap-2">
         <div
@@ -26,7 +26,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             height: `${NODE_PIXEL_SIZE}px`,
           }}
         ></div>
-        <p className="font-bold">End</p>
+        <p className="font-bold  text-white">End</p>
       </div>
       <div className="flex justify-center items-center gap-2">
         <div
@@ -36,7 +36,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             height: `${NODE_PIXEL_SIZE}px`,
           }}
         ></div>
-        <p className="font-bold">Empty</p>
+        <p className="font-bold text-white">Empty</p>
       </div>
       <div className="flex justify-center items-center gap-2">
         <div
@@ -46,7 +46,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             height: `${NODE_PIXEL_SIZE}px`,
           }}
         ></div>
-        <p className="font-bold">Wall</p>
+        <p className="font-bold text-white">Wall</p>
       </div>
       <div className="flex justify-center items-center gap-2">
         <div
@@ -57,7 +57,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             animationIterationCount: "infinite",
           }}
         ></div>
-        <p className="font-bold">Explored</p>
+        <p className="font-bold text-white">Explored</p>
       </div>
       <div className="flex justify-center items-center gap-2">
         <div
@@ -68,7 +68,7 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
             animationIterationCount: "infinite",
           }}
         ></div>
-        <p className="font-bold">Path</p>
+        <p className="font-bold text-white">Path</p>
       </div>
     </div>
   );

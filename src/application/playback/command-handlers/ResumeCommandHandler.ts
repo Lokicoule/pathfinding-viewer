@@ -1,12 +1,13 @@
-import { ResumeCommand } from "../../../domain/commands/playback/ResumeCommand";
+import { Command } from "../../../domain/interfaces/Command";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
 
-export class ResumeCommandHandler implements CommandHandler<ResumeCommand> {
+export class ResumeCommandHandler<T extends Command>
+  implements CommandHandler<T>
+{
   constructor(private readonly playbackStore: PlaybackStore) {}
 
   execute(): void {
-    console.log("ResumeCommandHandler.execute()");
     this.playbackStore.setPlayback("RESUME");
   }
 }

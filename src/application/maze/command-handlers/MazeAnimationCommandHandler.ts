@@ -17,7 +17,7 @@ export class MazeAnimationCommandHandler
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
-    playbackStore: PlaybackStore
+    private readonly playbackStore: PlaybackStore
   ) {
     this.animationManager = AnimationManager.create(playbackStore);
   }
@@ -48,10 +48,14 @@ export class MazeAnimationCommandHandler
 
   private handleAnimationCompleted(): void {
     setTimeout(() => {
+      if (!this.playbackStore.isStopped()) {
+        this.playbackStore.setPlayback("STOP");
+      }
+
       this.mediator.sendEvent(
         MazeAnimationCompletedEvent.name,
         new MazeAnimationCompletedEvent()
       );
-    }, 800);
+    }, 400);
   }
 }

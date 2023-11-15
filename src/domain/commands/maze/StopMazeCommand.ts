@@ -1,7 +1,7 @@
 import { Command } from "../../interfaces/Command";
 
-export class PauseCommand extends Command {
+export class StopMazeCommand extends Command {
   constructor() {
-    super("PauseCommand");
+    super("StopMazeCommand");
   }
 }
