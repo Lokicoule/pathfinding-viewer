@@ -1,4 +1,5 @@
 import { MazeAnimationCommand } from "../../../domain/commands/MazeAnimationCommand";
+import { StopMazeCommand } from "../../../domain/commands/maze/StopMazeCommand";
 import { Node } from "../../../domain/entities/Node";
 import { NodeType } from "../../../domain/enums/NodeType";
 import { MazeAnimationCompletedEvent } from "../../../domain/events/MazeAnimationCompletedEvent";
@@ -48,9 +49,7 @@ export class MazeAnimationCommandHandler
 
   private handleAnimationCompleted(): void {
     setTimeout(() => {
-      if (!this.playbackStore.isStopped()) {
-        this.playbackStore.setPlayback("STOP");
-      }
+      this.mediator.sendCommand(StopMazeCommand.name, new StopMazeCommand());
 
       this.mediator.sendEvent(
         MazeAnimationCompletedEvent.name,

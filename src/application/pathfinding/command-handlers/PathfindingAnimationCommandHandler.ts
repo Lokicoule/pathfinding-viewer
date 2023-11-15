@@ -1,4 +1,5 @@
 import { PathfindingAnimationCommand } from "../../../domain/commands/PathfindingAnimationCommand";
+import { StopPathfindingCommand } from "../../../domain/commands/pathfinding/StopPathfindingCommand";
 import { Node } from "../../../domain/entities/Node";
 import { NodeType } from "../../../domain/enums/NodeType";
 import { PathfindingAnimationCompletedEvent } from "../../../domain/events/PathfindingAnimationCompletedEvent";
@@ -82,15 +83,19 @@ export class PathfindingAnimationCommandHandler
 
       // Fix: If the animation is stopped during the exploration phase, the path animation will not be stopped
       if (this.playbackStore.isStopped())
-        this.playbackStore.setPlayback("STOP");
+        this.mediator.sendCommand(
+          StopPathfindingCommand.name,
+          new StopPathfindingCommand()
+        );
     });
   }
 
   private handleAnimationCompleted() {
     setTimeout(() => {
-      if (!this.playbackStore.isStopped()) {
-        this.playbackStore.setPlayback("STOP");
-      }
+      this.mediator.sendCommand(
+        StopPathfindingCommand.name,
+        new StopPathfindingCommand()
+      );
 
       this.mediator.sendEvent(
         PathfindingAnimationCompletedEvent.name,
