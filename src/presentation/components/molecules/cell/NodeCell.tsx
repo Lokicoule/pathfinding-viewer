@@ -3,6 +3,8 @@ import { Node } from "../../../../domain/entities/Node";
 import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
 import { concat } from "../../../utils/string";
 
+import "./NodeCell.css";
+
 type NodeCellProps = {
   node: Node;
   isSelected: boolean;
@@ -63,7 +65,7 @@ const NodeCell: React.FC<NodeCellProps> = ({
       }
       onMouseUp={() => handleMouseUp()}
       onBlur={() => handleMouseUp()}
-    ></div>
+    />
   );
 };
 
