@@ -32,7 +32,7 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
 
   return (
     <div className={concat("flex flex-col gap-2", className)} {...props}>
-      <span className="text-lg font-semibold">GridControls</span>
+      <span className="text-lg font-semibold">Controls</span>
       <div className="flex flex-row">
         <Button
           className="bg-gradient-to-r from-rose-100 to-[#f3e9e9]"
