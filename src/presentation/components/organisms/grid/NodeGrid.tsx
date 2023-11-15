@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
 import { Node } from "../../../../domain/entities/Node";
 import { useCommand } from "../../../adapters/mediator/hooks";
@@ -15,23 +16,23 @@ const NodeGrid: NodeGridComponent = () => {
   const sendCommand = useCommand();
   const nodes = useStateMap<string, Node>();
 
-  const handleNodeClick = (node: Node) => {
+  const handleNodeClick = useCallback((node: Node) => {
     sendCommand(NodeInteractionCommand.name, new NodeInteractionCommand(node));
-  };
+  }, []);
 
-  const handleMouseDown = (node: Node) => {
+  const handleMouseDown = useCallback((node: Node) => {
     nodes.addEntry(node.id, node);
-  };
+  }, []);
 
-  const handleMouseEnter = (node: Node) => {
+  const handleMouseEnter = useCallback((node: Node) => {
     if (nodes.Map.size > 0 && !nodes.Map.has(node.id)) {
       nodes.addEntry(node.id, node);
     } else if (nodes.Map.size > 0 && nodes.Map.has(node.id)) {
       nodes.deleteEntry(node.id);
     }
-  };
+  }, []);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     Array.from(nodes.Map.values()).forEach((node) => {
       sendCommand(
         NodeInteractionCommand.name,
@@ -39,7 +40,7 @@ const NodeGrid: NodeGridComponent = () => {
       );
     });
     nodes.clearMap();
-  };
+  }, []);
 
   return (
     <div className="mt-4">

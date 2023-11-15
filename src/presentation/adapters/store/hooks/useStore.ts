@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { Store, StoreState } from "../../../../infrastructure/store/Store";
 
-export const useStore = <T extends StoreState>(store: Store<StoreState>): T => {
+export const useStore = <T extends StoreState>(store: Store<T>): T => {
   const subscribe = (callback: () => void) => {
     return store.subscribe(callback);
   };
