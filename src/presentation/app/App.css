@@ -1,31 +1,3 @@
-.container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-}
-
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0.1rem;
-  background-color: #333;
-  color: #fff;
-}
-
-.header > * {
-  margin: 0 0.5rem;
-}
-
-.grid {
-  display: grid;
-  justify-content: center;
-}
-
-.row {
-  display: flex;
-}
-
 .cell {
   border: 1px solid #fafafa;
   cursor: pointer;

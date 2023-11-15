@@ -1,16 +1,16 @@
 import Card from "../molecules/card/Card";
 import Algorithm from "../organisms/algorithm/Algorithm";
 import AnimationPlayer from "../organisms/animation/AnimationPlayer";
-import GridControls from "../organisms/controls/GridControls";
 import Maze from "../organisms/controls/Maze";
 import Pathfinding from "../organisms/controls/Pathfinding";
 import SpeedControl from "../organisms/controls/SpeedControl";
+import GridControls from "../organisms/grid/GridControls";
+import { Legend } from "../organisms/grid/GridLegend";
 import NodeGrid from "../organisms/grid/NodeGrid";
-import { Legend } from "../organisms/legend/Legend";
 
-type GridCardComponent = React.FC;
+type EnvironmentComponent = React.FC;
 
-const GridCard: GridCardComponent = () => {
+const Environment: EnvironmentComponent = () => {
   return (
     <Card isBlurred className="border-none h-full w-full">
       <Card.Header>
@@ -39,4 +39,4 @@ const GridCard: GridCardComponent = () => {
   );
 };
 
-export default GridCard;
+export default Environment;

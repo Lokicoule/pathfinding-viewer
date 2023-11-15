@@ -4,7 +4,7 @@ import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useGrid } from "../../../hooks/useGrid";
 import useStateMap from "../../../hooks/useStateMap";
-import NodeCell from "../../molecules/NodeCell";
+import NodeCell from "../../molecules/cell/NodeCell";
 
 type NodeGridComponent = React.FC;
 
@@ -42,9 +42,9 @@ const NodeGrid: NodeGridComponent = () => {
   };
 
   return (
-    <div className="mt-4">
+    <div>
       {grid.getNodes().map((row, rowIndex) => (
-        <div key={rowIndex} className="row">
+        <div key={rowIndex} className="flex">
           {row.map((node) => (
             <NodeCell
               key={node.id}

@@ -1,7 +1,7 @@
 import React from "react";
-import { Node } from "../../../domain/entities/Node";
-import { NODE_PIXEL_SIZE } from "../../../shared/constants";
-import { concat } from "../../utils/string";
+import { Node } from "../../../../domain/entities/Node";
+import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
+import { concat } from "../../../utils/string";
 
 type NodeCellProps = {
   node: Node;
