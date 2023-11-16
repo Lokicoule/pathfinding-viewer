@@ -25,6 +25,8 @@ const NodeCell: React.FC<NodeCellProps> = React.memo(
     handleMouseEnter,
     handleMouseUp,
   }) => {
+    const [isActivated, setIsActivated] = React.useState(false);
+
     useEffect(() => {
       console.log("Node component rendered");
     });
@@ -48,16 +50,25 @@ const NodeCell: React.FC<NodeCellProps> = React.memo(
       }
     };
 
+    const handleClick = (node: Node) => {
+      if (node.isStart() || node.isEnd()) setIsActivated(true);
+      handleNodeClick(node);
+    };
+
     return (
       <div
         key={node.id}
-        className={concat("cell", cellState(node))}
+        className={concat(
+          "cell",
+          cellState(node),
+          isActivated ? "activated" : ""
+        )}
         style={{
           width: `${NODE_PIXEL_SIZE}px`,
           height: `${NODE_PIXEL_SIZE}px`,
           pointerEvents: isAlgorithmRunning ? "none" : "auto",
         }}
-        onClick={() => handleNodeClick(node)}
+        onClick={() => handleClick(node)}
         onMouseDown={
           !node.isStart() && !node.isEnd()
             ? () => handleMouseDown(node)

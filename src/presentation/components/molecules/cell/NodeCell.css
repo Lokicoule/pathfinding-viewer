@@ -11,8 +11,16 @@
   background-color: #9ad0ec;
 }
 
+.cell.start.selected {
+  opacity: 0.7;
+}
+
 .cell.end {
   background-color: #f05454;
+}
+
+.cell.end.selected {
+  opacity: 0.7;
 }
 
 .cell.empty {
