@@ -1,8 +1,8 @@
 import { Node } from "../../domain/entities/Node";
 import { NodeHistory } from "../../domain/entities/NodeHistory";
-import { AlgorithmType } from "../../domain/types/AlgorithmType";
 import { MazeAlgorithmType } from "../../domain/types/MazeAlgorithmType";
 import { PathfindingAlgorithmType } from "../../domain/types/PathfindingAlgorithmType";
+import { Algorithm } from "../../domain/valueObjects/Algorithm";
 import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
 import { Speed } from "../../domain/valueObjects/Speed";
 import { Store } from "../store/Store";
@@ -10,7 +10,7 @@ import { Store } from "../store/Store";
 export type ExperienceStoreState = {
   nodeHistory: NodeHistory;
   currentMementoIndex: number;
-  algorithm: AlgorithmType;
+  algorithm: Algorithm;
   isAlgorithmRunning: boolean;
   speed: Speed;
 };
@@ -20,7 +20,7 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     super({
       nodeHistory: new NodeHistory(),
       currentMementoIndex: -1,
-      algorithm: undefined,
+      algorithm: Algorithm.create(),
       isAlgorithmRunning: false,
       speed: Speed.create(Speed.FAST),
     });
@@ -58,17 +58,12 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
     this.setState(this.state);
   }
 
-  public setAlgorithm(
-    algorithm: MazeAlgorithmType | PathfindingAlgorithmType | undefined
-  ) {
-    this.state.algorithm = algorithm;
+  public setAlgorithm(algorithm: MazeAlgorithmType | PathfindingAlgorithmType) {
+    this.state.algorithm = Algorithm.create(algorithm);
     this.setState(this.state);
   }
 
-  public getAlgorithm():
-    | MazeAlgorithmType
-    | PathfindingAlgorithmType
-    | undefined {
+  public getAlgorithm() {
     return this.state.algorithm;
   }
 
@@ -79,8 +74,6 @@ export class ExperienceStore extends Store<ExperienceStoreState> {
   public reset() {
     this.state.nodeHistory = new NodeHistory();
     this.state.currentMementoIndex = -1;
-    this.stopAlgorithm();
-    this.setAlgorithm(undefined);
   }
 
   public setSpeed(speed: Speed) {

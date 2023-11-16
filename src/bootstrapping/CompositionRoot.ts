@@ -1,3 +1,4 @@
+import { SetAlgorithmCommandHandler } from "../application/algorithm/command-handlers/SetAlgorithmCommandHandler";
 import { StartAlgorithmCommandHandler } from "../application/algorithm/command-handlers/StartAlgorithmCommandHandler";
 import { StopAlgorithmCommandHandler } from "../application/algorithm/command-handlers/StopAlgorithmCommandHandler";
 import { AlgorithmStartSaga } from "../application/algorithm/sagas/AlgorithmStartSaga";
@@ -18,6 +19,7 @@ import { MazeAnimationCommand } from "../domain/commands/MazeAnimationCommand";
 import { MazeRunnerCommand } from "../domain/commands/MazeRunnerCommand";
 import { PathfindingAnimationCommand } from "../domain/commands/PathfindingAnimationCommand";
 import { PathfindingRunnerCommand } from "../domain/commands/PathfindingRunnerCommand";
+import { SetAlgorithmCommand } from "../domain/commands/SetAlgorithmCommand";
 import { StartAlgorithmCommand } from "../domain/commands/StartAlgorithmCommand";
 import { StopAlgorithmCommand } from "../domain/commands/StopAlgorithmCommand";
 import { UpdateSpeedCommand } from "../domain/commands/UpdateSpeedCommand";
@@ -93,6 +95,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       UpdateSpeedCommand.name,
       new UpdateSpeedCommandHandler(this.stores.experienceStore)
+    );
+    this.mediator.registerCommandHandler(
+      SetAlgorithmCommand.name,
+      new SetAlgorithmCommandHandler(this.stores.experienceStore)
     );
   }
 }

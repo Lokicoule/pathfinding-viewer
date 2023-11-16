@@ -91,12 +91,12 @@ export class PathfindingAnimationCommandHandler
   }
 
   private handleAnimationCompleted() {
-    setTimeout(() => {
-      this.mediator.sendCommand(
-        StopPathfindingCommand.name,
-        new StopPathfindingCommand()
-      );
+    this.mediator.sendCommand(
+      StopPathfindingCommand.name,
+      new StopPathfindingCommand()
+    );
 
+    setTimeout(() => {
       this.mediator.sendEvent(
         PathfindingAnimationCompletedEvent.name,
         new PathfindingAnimationCompletedEvent()

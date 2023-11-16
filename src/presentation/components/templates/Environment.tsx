@@ -1,6 +1,6 @@
 import Card from "../molecules/card/Card";
 import Algorithm from "../organisms/algorithm/Algorithm";
-import AnimationSpeed from "../organisms/animation/AnimationSpeed";
+import AnimationControls from "../organisms/animation/AnimationControls";
 import Maze from "../organisms/animation/Maze";
 import Pathfinding from "../organisms/animation/Pathfinding";
 import GridControls from "../organisms/grid/GridControls";
@@ -18,14 +18,15 @@ const Environment: EnvironmentComponent = () => {
             <div className="flex flex-row justify-start items-center space-x-10">
               <Maze />
               <Pathfinding />
-              <AnimationSpeed />
             </div>
+            <div>Description</div>
           </div>
         </div>
       </Card.Header>
       <Card.Body className="space-y-4">
         <div className="flex justify-between items-center">
           <GridControls />
+          <AnimationControls />
         </div>
         <NodeGrid />
         <Legend />

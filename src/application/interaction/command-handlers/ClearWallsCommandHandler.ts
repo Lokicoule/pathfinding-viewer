@@ -15,6 +15,7 @@ export class ClearWallsCommandHandler
   execute(): void {
     this.gridStore.clear(NodeType.Wall);
 
+    console.log("Clearing walls...");
     this.experienceStore.reset();
   }
 }

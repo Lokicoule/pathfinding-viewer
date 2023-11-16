@@ -11,7 +11,7 @@ const Algorithm: AlgorithmComponent = () => {
       <div className="flex justify-start gap-2">
         <p className="font-bold">Algorithm: </p>
         {algorithm ? (
-          <p className="font-bold">{ALGORITHMS.get(algorithm)}</p>
+          <p className="font-bold">{ALGORITHMS.get(algorithm.value)}</p>
         ) : null}
       </div>
       <div className="flex justify-start gap-2 font-bold">

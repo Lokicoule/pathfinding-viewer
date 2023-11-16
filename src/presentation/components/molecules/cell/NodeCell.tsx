@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { Node } from "../../../../domain/entities/Node";
 import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
 import { concat } from "../../../utils/string";
@@ -15,7 +15,7 @@ type NodeCellProps = {
   handleMouseUp: () => void;
 };
 
-const NodeCell: React.FC<NodeCellProps> = React.memo(
+const NodeCell: React.FC<NodeCellProps> = memo(
   ({
     node,
     isAlgorithmRunning,
@@ -25,10 +25,10 @@ const NodeCell: React.FC<NodeCellProps> = React.memo(
     handleMouseEnter,
     handleMouseUp,
   }) => {
-    const [isActivated, setIsActivated] = React.useState(false);
+    const [isActivated, setIsActivated] = useState(false);
 
     useEffect(() => {
-      console.log("Node component rendered");
+      console.log("NodeCell rendered");
     });
 
     const cellState = (node: Node) => {

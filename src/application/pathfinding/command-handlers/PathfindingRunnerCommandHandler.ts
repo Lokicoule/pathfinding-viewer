@@ -31,6 +31,8 @@ export class PathfindingRunnerCommandHandler
       this.gridStore.getEndNode().getVector().y
     );
 
+    this.gridStore.setGrid(grid.copy());
+
     const path = algorithm.create(grid, startNode, endNode).run();
 
     this.mediator.sendEvent(
