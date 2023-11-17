@@ -1,8 +1,8 @@
 import Card from "../molecules/card/Card";
 import Algorithm from "../organisms/algorithm/Algorithm";
 import AnimationControls from "../organisms/animation/AnimationControls";
-import Maze from "../organisms/animation/Maze";
-import Pathfinding from "../organisms/animation/Pathfinding";
+import MazeAlgorithmSelector from "../molecules/algorithm/MazeAlgorithmSelector";
+import PathfindingAlgorithmSelector from "../molecules/algorithm/PathfindingAlgorithmSelector";
 import GridControls from "../organisms/grid/GridControls";
 import { Legend } from "../organisms/grid/GridLegend";
 import NodeGrid from "../organisms/grid/NodeGrid";
@@ -14,8 +14,8 @@ const Environment: EnvironmentComponent = () => {
     <Card isBlurred className="rounded-b-lg">
       <Card.Body className="space-y-4 flex flex-col">
         <div className="flex justify-between items-center flex-wrap">
-          <Maze />
-          <Pathfinding />
+          <MazeAlgorithmSelector />
+          <PathfindingAlgorithmSelector />
           <AnimationControls />
           <GridControls />
         </div>
