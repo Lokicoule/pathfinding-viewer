@@ -11,7 +11,7 @@ type EnvironmentComponent = React.FC;
 
 const Environment: EnvironmentComponent = () => {
   return (
-    <Card isBlurred className="rounded-b-lg">
+    <Card isBlurred className="rounded-lg">
       <Card.Body className="space-y-4 flex flex-col">
         <div className="flex justify-between items-center flex-wrap">
           <MazeAlgorithmSelector />

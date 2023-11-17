@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-image: linear-gradient(to top, #fcdab7, #1e5f74, #133b5c, #1d2d50);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: black;
 }
 
 label {
@@ -35,8 +33,4 @@ label {
 
 .tooltip-container:hover .tooltip {
   @apply visible z-10;
-}
-
-.ml-sidebar {
-  margin-left: 14.58rem;
 }

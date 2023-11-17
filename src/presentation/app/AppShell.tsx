@@ -1,14 +1,13 @@
 import Environment from "../components/templates/Environment";
+import Layout from "../components/templates/Layout";
 
 type AppShellComponent = React.FC;
 
 const AppShell: AppShellComponent = () => {
   return (
-    <main className="container mx-auto min-h-screen flex flex-row align-center justify-between">
-      <div className="flex flex-col justify-center items-center">
-        <Environment />
-      </div>
-    </main>
+    <Layout>
+      <Environment />
+    </Layout>
   );
 };
 
