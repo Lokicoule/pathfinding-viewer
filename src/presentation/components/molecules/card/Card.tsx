@@ -50,7 +50,7 @@ const CardFooter: CardSectionComponent = ({
 const Card: CardComponent = ({ isBlurred, children, ...props }) => {
   return (
     <div
-      className={`relative rounded-b-lg shadow-lg overflow-hidden ${
+      className={`relative shadow-lg overflow-hidden ${
         isBlurred ? "blur-bg" : ""
       } ${props.className || ""}`}
     >

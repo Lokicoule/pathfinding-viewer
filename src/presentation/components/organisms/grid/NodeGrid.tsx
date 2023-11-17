@@ -25,6 +25,7 @@ const NodeGrid: NodeGridComponent = () => {
   }, []);
 
   const handleMouseEnter = useCallback((node: Node) => {
+    console.log(nodes.Map.size);
     if (nodes.Map.size > 0 && !nodes.Map.has(node.id)) {
       nodes.addEntry(node.id, node);
     } else if (nodes.Map.size > 0 && nodes.Map.has(node.id)) {
@@ -44,7 +45,7 @@ const NodeGrid: NodeGridComponent = () => {
 
   return (
     <div className="mt-4">
-      {grid.getNodes().map((row, rowIndex) => (
+      {grid.nodes.map((row, rowIndex) => (
         <div key={rowIndex} className="flex">
           {row.map((node) => (
             <NodeCell

@@ -3,7 +3,7 @@ import { UpdateSpeedCommand } from "../../../../domain/commands/UpdateSpeedComma
 import { Speed } from "../../../../domain/valueObjects/Speed";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import { useSpeed } from "../../../hooks/useSpeed";
+import { useAnimation } from "../../../hooks/useAnimation";
 
 type AnimationSpeedControlComponent = React.FC<
   React.HTMLAttributes<HTMLInputElement>
@@ -14,7 +14,7 @@ const AnimationSpeedControl: AnimationSpeedControlComponent = ({
   ...props
 }) => {
   const sendCommand = useCommand();
-  const { speed } = useSpeed();
+  const { speed } = useAnimation();
   const { isAlgorithmRunning } = useAlgorithm();
 
   const [tempSpeed, setTempSpeed] = useState(Speed.reverse(speed.getValue()));

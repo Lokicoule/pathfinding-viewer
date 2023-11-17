@@ -1,9 +1,5 @@
-import { useState } from "react";
 import { SetAlgorithmCommand } from "../../../../domain/commands/SetAlgorithmCommand";
-import {
-  PathfindingAlgorithmType,
-  mapStringToPathfindingAlgorithm,
-} from "../../../../domain/types/PathfindingAlgorithmType";
+import { mapStringToPathfindingAlgorithm } from "../../../../domain/types/PathfindingAlgorithmType";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
@@ -11,19 +7,20 @@ import { useAlgorithm } from "../../../hooks/useAlgorithm";
 type PathfindingComponent = React.FC;
 
 const Pathfinding: PathfindingComponent = () => {
-  const { isAlgorithmRunning } = useAlgorithm();
-  const [algorithm, setAlgorithm] = useState<PathfindingAlgorithmType>(
-    PATHFINDING_ALGORITHMS.keys().next().value
-  );
   const sendCommand = useCommand();
+  const { isAlgorithmRunning } = useAlgorithm();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setAlgorithm(mapStringToPathfindingAlgorithm(event.target.value));
-    sendCommand(SetAlgorithmCommand.name, new SetAlgorithmCommand(algorithm));
+    sendCommand(
+      SetAlgorithmCommand.name,
+      new SetAlgorithmCommand(
+        mapStringToPathfindingAlgorithm(event.target.value)
+      )
+    );
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full justify-center items-center">
       <p className="text-lg font-semibold text-white">Pathfinding Algorithm</p>
       <div className="flex flex-row gap-4">
         <select

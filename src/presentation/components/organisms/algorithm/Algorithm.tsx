@@ -7,7 +7,7 @@ const Algorithm: AlgorithmComponent = () => {
   const { algorithm, isAlgorithmRunning } = useAlgorithm();
 
   return (
-    <div className="flex justify-between w-full text-white">
+    <div className="flex flex-wrap justify-between w-full text-white">
       <div className="flex justify-start gap-2">
         <p className="font-bold">Algorithm: </p>
         {algorithm ? (

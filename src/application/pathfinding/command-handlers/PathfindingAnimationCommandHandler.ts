@@ -6,6 +6,7 @@ import { PathfindingAnimationCompletedEvent } from "../../../domain/events/Pathf
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { AnimationManager } from "../../../infrastructure/animation/AnimationManager";
 import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { AnimationStore } from "../../../infrastructure/stores/AnimationStore";
 import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
 import { GridStore } from "../../../infrastructure/stores/GridStore";
 import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
@@ -20,7 +21,8 @@ export class PathfindingAnimationCommandHandler
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
-    private readonly playbackStore: PlaybackStore
+    private readonly playbackStore: PlaybackStore,
+    private readonly animationStore: AnimationStore
   ) {
     this.explorationAnimationManager = AnimationManager.create(playbackStore);
     this.pathAnimationManager = AnimationManager.create(playbackStore);
@@ -29,9 +31,20 @@ export class PathfindingAnimationCommandHandler
   execute(command: PathfindingAnimationCommand): void {
     const shortestPath = this.getPath(command.endNode);
 
-    this.animateExploration(command.path)
-      .then(() => this.animatePath(shortestPath))
-      .finally(() => this.handleAnimationCompleted());
+    if (this.animationStore.isActivated()) {
+      this.animateExploration(command.path)
+        .then(() => this.animatePath(shortestPath))
+        .finally(() => this.handleAnimationCompleted());
+    } else {
+      for (const node of command.path) {
+        this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+      }
+      for (const node of shortestPath) {
+        this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
+      }
+
+      this.handleAnimationCompleted();
+    }
   }
 
   private getPath(endNode: Node): Node[] {

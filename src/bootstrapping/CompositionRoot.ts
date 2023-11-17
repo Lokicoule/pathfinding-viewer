@@ -3,6 +3,7 @@ import { StartAlgorithmCommandHandler } from "../application/algorithm/command-h
 import { StopAlgorithmCommandHandler } from "../application/algorithm/command-handlers/StopAlgorithmCommandHandler";
 import { AlgorithmStartSaga } from "../application/algorithm/sagas/AlgorithmStartSaga";
 import { AlgorithmStopSaga } from "../application/algorithm/sagas/AlgorithmStopSaga";
+import { ToggleAnimationCommandHandler } from "../application/animation/command-handlers/ToggleAnimationCommandHandler";
 import { UpdateSpeedCommandHandler } from "../application/interaction/command-handlers/UpdateSpeedCommandHandler";
 import { GridInteractionSaga } from "../application/interaction/sagas/GridInteractionSaga";
 import { MazeAnimationCommandHandler } from "../application/maze/command-handlers/MazeAnimationCommandHandler";
@@ -23,6 +24,7 @@ import { SetAlgorithmCommand } from "../domain/commands/SetAlgorithmCommand";
 import { StartAlgorithmCommand } from "../domain/commands/StartAlgorithmCommand";
 import { StopAlgorithmCommand } from "../domain/commands/StopAlgorithmCommand";
 import { UpdateSpeedCommand } from "../domain/commands/UpdateSpeedCommand";
+import { ToggleAnimationCommand } from "../domain/commands/animation/ToggleAnimation";
 import { Mediator } from "../infrastructure/mediator/Mediator";
 import { GlobalState } from "./GlobalState";
 
@@ -68,7 +70,8 @@ export class CompositionRoot {
         this.mediator,
         this.stores.experienceStore,
         this.stores.gridStore,
-        this.stores.pathfindingPlaybackStore
+        this.stores.pathfindingPlaybackStore,
+        this.stores.animationStore
       )
     );
     this.mediator.registerCommandHandler(
@@ -77,7 +80,8 @@ export class CompositionRoot {
         this.mediator,
         this.stores.experienceStore,
         this.stores.gridStore,
-        this.stores.mazePlaybackStore
+        this.stores.mazePlaybackStore,
+        this.stores.animationStore
       )
     );
     this.mediator.registerCommandHandler(
@@ -99,6 +103,10 @@ export class CompositionRoot {
     this.mediator.registerCommandHandler(
       SetAlgorithmCommand.name,
       new SetAlgorithmCommandHandler(this.stores.experienceStore)
+    );
+    this.mediator.registerCommandHandler(
+      ToggleAnimationCommand.name,
+      new ToggleAnimationCommandHandler(this.stores.animationStore)
     );
   }
 }

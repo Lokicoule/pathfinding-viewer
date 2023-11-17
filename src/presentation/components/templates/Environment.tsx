@@ -11,22 +11,13 @@ type EnvironmentComponent = React.FC;
 
 const Environment: EnvironmentComponent = () => {
   return (
-    <Card isBlurred className="border-none h-full w-full">
-      <Card.Header>
-        <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-start items-center space-x-10">
-              <Maze />
-              <Pathfinding />
-            </div>
-            <div>Description</div>
-          </div>
-        </div>
-      </Card.Header>
-      <Card.Body className="space-y-4">
-        <div className="flex justify-between items-center">
-          <GridControls />
+    <Card isBlurred className="rounded-b-lg">
+      <Card.Body className="space-y-4 flex flex-col">
+        <div className="flex justify-between items-center flex-wrap">
+          <Maze />
+          <Pathfinding />
           <AnimationControls />
+          <GridControls />
         </div>
         <NodeGrid />
         <Legend />

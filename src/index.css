@@ -36,3 +36,7 @@ label {
 .tooltip-container:hover .tooltip {
   @apply visible z-10;
 }
+
+.ml-sidebar {
+  margin-left: 14.58rem;
+}
