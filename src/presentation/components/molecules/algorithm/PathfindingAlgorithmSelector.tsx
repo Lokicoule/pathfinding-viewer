@@ -1,11 +1,9 @@
-import { mapStringToPathfindingAlgorithm } from "../../../../domain/types/PathfindingAlgorithmType";
 import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
 import AlgorithmSelector from "./AlgorithmSelector";
 
 const PathfindingAlgorithmSelector = () => (
   <AlgorithmSelector
-    algorithmType="Pathfinding Algorithm"
-    mapStringToAlgorithm={mapStringToPathfindingAlgorithm}
+    title="Pathfinding Vizualizer"
     algorithms={PATHFINDING_ALGORITHMS}
   />
 );

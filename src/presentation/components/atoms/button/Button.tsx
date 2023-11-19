@@ -1,4 +1,4 @@
-type ButtonVariant = "default" | "underline";
+type ButtonVariant = "default" | "underline" | "leftline";
 
 type ButtonProps = React.PropsWithChildren<
   {
@@ -34,13 +34,23 @@ const Button: ButtonComponent = ({
           {children}
         </button>
       );
-    default:
+    case "leftline":
       return (
         <button
           {...props}
           onClick={onClick}
-          className={`px-4 py-2 rounded-lg text-white ${className || ""}`}
+          className={`
+          rounded-sm  font-semibold hover:text-[#3b5360]
+           bg-no-repeat bg-right bg-[length:100%_0px] transition-[background-size] duration-300 ease-in-out hover:bg-[length:100%_100%]  ${
+             className || ""
+           }`}
         >
+          {children}
+        </button>
+      );
+    default:
+      return (
+        <button {...props} onClick={onClick} className={`${className}`}>
           {children}
         </button>
       );

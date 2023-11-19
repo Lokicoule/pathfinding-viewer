@@ -44,7 +44,7 @@ const NodeGrid: NodeGridComponent = () => {
   }, []);
 
   return (
-    <div className="mt-4">
+    <div className="my-4">
       {grid.nodes.map((row, rowIndex) => (
         <div key={rowIndex} className="flex">
           {row.map((node) => (

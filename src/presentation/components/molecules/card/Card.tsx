@@ -21,7 +21,7 @@ const CardHeader: CardSectionComponent = ({
   ...props
 }) => {
   return (
-    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+    <div className={`${className}`} {...props}>
       {children}
     </div>
   );
@@ -29,7 +29,7 @@ const CardHeader: CardSectionComponent = ({
 
 const CardBody: CardSectionComponent = ({ children, className, ...props }) => {
   return (
-    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+    <div className={`${className} flex-grow`} {...props}>
       {children}
     </div>
   );
@@ -41,7 +41,7 @@ const CardFooter: CardSectionComponent = ({
   ...props
 }) => {
   return (
-    <div className={`px-4 py-5 sm:p-6 ${className}`} {...props}>
+    <div className={`${className}`} {...props}>
       {children}
     </div>
   );
@@ -50,11 +50,11 @@ const CardFooter: CardSectionComponent = ({
 const Card: CardComponent = ({ isBlurred, children, ...props }) => {
   return (
     <div
-      className={`relative shadow-lg overflow-hidden ${
+      className={`relative shadow-lg overflow-hidden flex flex-col ${
         isBlurred ? "blur-bg" : ""
       } ${props.className || ""}`}
     >
-      <div className="relative">{children}</div>
+      <div className="relative flex flex-col">{children}</div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ export type LegendComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
 export const Legend: LegendComponent = ({ className, ...props }) => {
   return (
     <div
-      className={`flex flex-wrap justify-center items-center gap-10 ${className}`}
+      className={`flex flex-wrap justify-end items-center gap-10 ${className}`}
       {...props}
     >
       <div className="flex justify-center items-center gap-2">

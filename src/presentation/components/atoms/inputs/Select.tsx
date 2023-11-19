@@ -1,54 +1,91 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-type SelectProps = {
-  options: string[];
-  placeholder?: string;
-  disabled?: boolean;
+type Option = {
+  value: string;
+  label: string;
+  default?: boolean;
 };
 
-const Select: React.FC<SelectProps> = ({
-  options,
-  placeholder = "",
-  disabled,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+type SelectProps = {
+  options: Option[];
+  onOptionSelect: (option: Option) => void;
+};
 
-  const toggleOpen = () => setIsOpen(!isOpen);
+const withOpenClose = (Component: React.FC<SelectProps>) => {
+  return (props: SelectProps) => {
+    const [isOpen, setIsOpen] = useState(false);
 
-  const handleOptionClick = (option: string) => {
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
+    return (
+      <div onBlur={handleClose}>
+        <button onClick={handleOpen}>Toggle</button>
+        {isOpen && <Component {...props} />}
+      </div>
+    );
+  };
+};
+
+const Select: React.FC<SelectProps> = ({ options, onOptionSelect }) => {
+  const [selectedOption, setSelectedOption] = useState<Option | null>(
+    options.find((option) => option.default) || options[0]
+  );
+
+  const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
-    setIsOpen(false);
+    onOptionSelect(option);
   };
 
   return (
-    <div className="relative w-[30rem]" onClick={() => setIsOpen(false)}>
+    <div className="relative">
       <button
-        disabled={disabled}
-        onClick={toggleOpen}
-        className={`flex w-full items-center justify-between rounded bg-white p-2 ring-1 ring-gray-300 ${
-          isOpen && "ring-blue-600"
-        }`}
+        type="button"
+        className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+        aria-haspopup="listbox"
+        aria-expanded="true"
       >
-        <span>{selectedOption || placeholder}</span>
-        <i className="fas fa-chevron-down text-xl"></i>
+        {selectedOption && (
+          <span className="flex items-center">
+            <span className="ml-3 block truncate">{selectedOption.label}</span>
+          </span>
+        )}
       </button>
-
-      {isOpen && (
-        <ul className="z-2 absolute mt-1 w-full rounded bg-gray-50 ring-1 ring-gray-300">
-          {options.map((option) => (
-            <li
-              key={option}
-              className="cursor-pointer select-none p-2 hover:bg-gray-200"
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+        role="listbox"
+      >
+        {options.map((option, index) => (
+          <li
+            key={index}
+            className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
+            role="option"
+            onClick={() => handleOptionClick(option)}
+          >
+            <div className="flex items-center">
+              <span className="font-normal ml-3 block">{option.label}</span>
+            </div>
+            {selectedOption === option && (
+              <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default Select;
+export default withOpenClose(Select);

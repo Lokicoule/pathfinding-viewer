@@ -1,21 +1,37 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  DELTA_SENSITIVITY,
-  SIDEBAR_MAX_WIDTH,
-  SIDEBAR_MIN_WIDTH,
-  SIDEBAR_WIDTH,
-} from "../../../../shared/constants";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { DELTA_SENSITIVITY, SIDEBAR_WIDTH } from "../../../../shared/constants";
 
 type ResizableSidebarProps = {
   initialWidth: number;
+  minWidth?: number;
+  maxWidth?: number;
   className?: string;
   children: React.ReactNode;
   side?: "left" | "right";
 };
 type ResizableSidebarComponent = React.FC<ResizableSidebarProps>;
 
+const ResizeHandle: React.FC<
+  React.PropsWithChildren<{
+    onMouseDown: (e: React.MouseEvent) => void;
+    side: "left" | "right";
+  }>
+> = ({ onMouseDown, side, children }) => (
+  <>
+    {side === "left" && children}
+    <div
+      className={`w-1 h-full bg-gray-500 opacity-0 hover:opacity-50 flex-grow-0 flex-shrink-0 flex-basis-3 cursor-ew-resize resize-handle
+      ${side === "left" ? "flex-start" : "flex-end"}`}
+      onMouseDown={onMouseDown}
+    />
+    {side === "right" && children}
+  </>
+);
+
 const ResizableSidebar: ResizableSidebarComponent = ({
   initialWidth = SIDEBAR_WIDTH,
+  minWidth = 0,
+  maxWidth = Infinity,
   className,
   children,
   side = "left",
@@ -41,18 +57,12 @@ const ResizableSidebar: ResizableSidebarComponent = ({
 
         setSidebarWidth((prevWidth) =>
           side === "left"
-            ? Math.max(
-                SIDEBAR_MIN_WIDTH,
-                Math.min(SIDEBAR_MAX_WIDTH, prevWidth + deltaX)
-              )
-            : Math.max(
-                SIDEBAR_MIN_WIDTH,
-                Math.min(SIDEBAR_MAX_WIDTH, prevWidth - deltaX)
-              )
+            ? Math.max(minWidth, Math.min(maxWidth, prevWidth + deltaX))
+            : Math.max(minWidth, Math.min(maxWidth, prevWidth - deltaX))
         );
       }
     },
-    [isResizing, startX, side]
+    [isResizing, side, startX, minWidth, maxWidth]
   );
 
   useEffect(() => {
@@ -70,15 +80,10 @@ const ResizableSidebar: ResizableSidebarComponent = ({
       ref={sidebarRef}
       className={`flex ${className}`}
       style={{ width: sidebarWidth }}
-      onMouseDown={startResizing}
     >
-      {side === "right" ? (
-        <div className="resize-handle w-1 h-full cursor-ew-resize bg-gray-500 opacity-0 hover:opacity-100 resize-x" />
-      ) : null}
-      {children}
-      {side === "left" ? (
-        <div className="resize-handle w-1 h-full cursor-ew-resize bg-gray-500 opacity-0 hover:opacity-100 resize-x" />
-      ) : null}
+      <ResizeHandle onMouseDown={startResizing} side={side}>
+        {children}
+      </ResizeHandle>
     </div>
   );
 };

@@ -4,12 +4,12 @@ import { ResetGridCommand } from "../../../../domain/commands/ResetGridCommand";
 
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import { concat } from "../../../utils/string";
 import Button from "../../atoms/button/Button";
+import AnimationControls from "../animation/AnimationControls";
 
-type GridControlsComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
+type GridControlsComponent = React.FC;
 
-const GridControls: GridControlsComponent = ({ className, ...props }) => {
+const GridControls: GridControlsComponent = () => {
   const sendCommand = useCommand();
   const { isAlgorithmRunning } = useAlgorithm();
 
@@ -31,10 +31,12 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
   };
 
   return (
-    <div className={concat("flex flex-col gap-2", className)} {...props}>
+    <div className="flex flex-row justify-between items-center my-4">
+      <AnimationControls />
+
       <div className="flex flex-row">
         <Button
-          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] text-white"
+          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
           disabled={isAlgorithmRunning}
           variant="underline"
           onClick={() => resetActionMediator("RESET_GRID")}
@@ -42,7 +44,7 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
           Reset Grid
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white hidden md:block"
+          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden md:block "
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() => resetActionMediator("CLEAR_WALLS")}
@@ -50,7 +52,7 @@ const GridControls: GridControlsComponent = ({ className, ...props }) => {
           Clear Walls
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white hidden md:block"
+          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden md:block"
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() =>

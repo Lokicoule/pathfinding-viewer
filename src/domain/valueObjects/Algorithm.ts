@@ -5,26 +5,32 @@ import { PathfindingAlgorithmType } from "../types/PathfindingAlgorithmType";
 export class Algorithm {
   private constructor(public readonly value: AlgorithmType) {}
 
-  public static create(
-    value: AlgorithmType = "MAZE_RECURSIVE_DIVISION"
-  ): Algorithm {
+  public static create(value: AlgorithmType = "MAZE_PRIMS"): Algorithm {
     return new Algorithm(value);
   }
 
   public isMazeAlgorithm(): boolean {
-    return (
-      this.value === "MAZE_DFS" ||
-      this.value === "MAZE_PRIMS" ||
-      this.value === "MAZE_RECURSIVE_DIVISION"
-    );
+    return Algorithm.isMazeAlgorithm(this.value);
   }
 
   public isPathfindingAlgorithm(): boolean {
+    return Algorithm.isPathfindingAlgorithm(this.value);
+  }
+
+  public static isMazeAlgorithm(value: AlgorithmType): boolean {
     return (
-      this.value === "PATHFINDING_A_STAR" ||
-      this.value === "PATHFINDING_BFS" ||
-      this.value === "PATHFINDING_DFS" ||
-      this.value === "PATHFINDING_DIJKSTRA"
+      value === "MAZE_DFS" ||
+      value === "MAZE_PRIMS" ||
+      value === "MAZE_RECURSIVE_DIVISION"
+    );
+  }
+
+  public static isPathfindingAlgorithm(value: AlgorithmType): boolean {
+    return (
+      value === "PATHFINDING_A_STAR" ||
+      value === "PATHFINDING_BFS" ||
+      value === "PATHFINDING_DFS" ||
+      value === "PATHFINDING_DIJKSTRA"
     );
   }
 
