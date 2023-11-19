@@ -37,10 +37,12 @@ export class PathfindingAnimationCommandHandler
         .finally(() => this.handleAnimationCompleted());
     } else {
       for (const node of command.path) {
-        this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+        if (!node.isStart() && !node.isEnd())
+          this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
       }
       for (const node of shortestPath) {
-        this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
+        if (!node.isStart() && !node.isEnd())
+          this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
       }
 
       this.handleAnimationCompleted();

@@ -1,7 +1,6 @@
 import { MazeAnimationCommand } from "../../../domain/commands/MazeAnimationCommand";
 import { StopMazeCommand } from "../../../domain/commands/maze/StopMazeCommand";
 import { Node } from "../../../domain/entities/Node";
-import { NodeType } from "../../../domain/enums/NodeType";
 import { MazeAnimationCompletedEvent } from "../../../domain/events/MazeAnimationCompletedEvent";
 import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
 import { AnimationManager } from "../../../infrastructure/animation/AnimationManager";
@@ -32,10 +31,7 @@ export class MazeAnimationCommandHandler
       );
     } else {
       for (const node of command.wallsInOrder) {
-        if (
-          node.getType() !== NodeType.Start &&
-          node.getType() !== NodeType.End
-        ) {
+        if (!node.isStart() && !node.isEnd()) {
           this.gridStore.setNodeAs(node.getVector(), node.getType());
         }
       }
@@ -49,10 +45,7 @@ export class MazeAnimationCommandHandler
         this.animationManager.createTimeout(() => {
           const node = wallsInOrder[i];
 
-          if (
-            node.getType() !== NodeType.Start &&
-            node.getType() !== NodeType.End
-          ) {
+          if (!node.isStart() && !node.isEnd()) {
             this.gridStore.setNodeAs(node.getVector(), node.getType());
           }
 
