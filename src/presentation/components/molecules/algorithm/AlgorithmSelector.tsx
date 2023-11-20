@@ -10,12 +10,14 @@ import Card from "../card/Card";
 type AlgorithmSelectorProps = {
   algorithms: AlgorithmViewModel[];
   title: string;
+  className?: React.HTMLAttributes<HTMLDivElement>["className"];
 };
 
 type AlgorithmSelectorComponent = React.FC<AlgorithmSelectorProps>;
 
 const AlgorithmSelector: AlgorithmSelectorComponent = ({
   algorithms,
+  className,
   title,
 }: AlgorithmSelectorProps): React.ReactElement => {
   const sendCommand = useCommand();
@@ -49,7 +51,7 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
   };
 
   return (
-    <Card isBlurred className="rounded-lg w-full sm:h-1/2 overflow-y-auto">
+    <Card isBlurred className={className}>
       <Card.Header className="flex flex-col space-y-4 px-4 py-5 sm:p-6 ">
         <h1 className="text-lg font-semibold text-white text-center font-primary">
           {title}
@@ -81,14 +83,14 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
         <button
           disabled={isAlgorithmRunning}
           onClick={handlePlayClick}
-          className={`w-full text-center text-white bg-neutral-200 bg-opacity-50 text-neutral-700 hover:bg-opacity-30
+          className={`w-full text-center text-white bg-[#184d67] bg-opacity-70 text-neutral-700 hover:bg-opacity-30
           shadow-lg font-medium rounded-lg text-sm px-5 py-2.5 
 transition duration-300 ease-in-out font-primary
 `}
         >
           {Algorithm.isPathfindingAlgorithm(localAlgorithm.type)
-            ? "Visualize Pathfinding"
-            : "Generate Maze"}
+            ? "Visualize"
+            : "Generate"}
         </button>
       </Card.Footer>
     </Card>

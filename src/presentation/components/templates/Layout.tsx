@@ -39,7 +39,7 @@ const Layout: LayoutComponent = ({ children }) => {
             className="flex sm:h-full z-10"
           >
             <div className="w-full flex mx-auto pl-4 py-4">
-              <div className="w-full flex flex-col items-center  md:justify-between space-y-2">
+              <div className="w-full flex flex-col items-center  md:justify-center space-y-3">
                 <MazeAlgorithmSelector />
                 <PathfindingAlgorithmSelector />
               </div>
