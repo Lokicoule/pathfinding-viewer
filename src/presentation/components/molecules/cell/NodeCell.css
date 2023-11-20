@@ -28,7 +28,8 @@
 }
 
 .cell.wall {
-  background-color: #3b5360;
+  background-color: #1b2430;
+  opacity: 0.8;
 }
 
 .cell.bounding {

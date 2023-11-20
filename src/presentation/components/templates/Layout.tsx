@@ -60,7 +60,7 @@ const Layout: LayoutComponent = ({ children }) => {
             className="flex w-80 h-full z-10 hidden md:flex"
           >
             <div className="w-full flex mx-auto pr-4 py-4">
-              <div className="w-full flex flex-col items-center space-y-2">
+              <div className="w-full flex flex-col items-center  md:justify-center space-y-3">
                 <UserGuide />
                 <AlgorithmDescriptor />
               </div>

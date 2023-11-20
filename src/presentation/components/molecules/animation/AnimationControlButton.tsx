@@ -29,8 +29,12 @@ const AnimationControlButton: React.FC<AnimationControlButtonProps> = ({
 
   return isVisible ? (
     <Tooltip text={tooltipText}>
-      <Button disabled={isDisabled} onClick={sendPlaybackCommand} className="disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:hidden">
-        <IconComponent className="w-10 h-10 text-gray-800 hover:text-white cursor-pointer bg-gradient-to-r from-rose-100 to-teal-100 hover:from-rose-200 hover:to-teal-200 rounded-full " />
+      <Button
+        disabled={isDisabled}
+        onClick={sendPlaybackCommand}
+        className="disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:hidden"
+      >
+        <IconComponent className="w-10 h-10 text-[#313b48] hover:text-white cursor-pointer bg-gradient-to-r from-rose-100 to-teal-100 hover:from-rose-200 hover:to-teal-200 rounded-full " />
       </Button>
     </Tooltip>
   ) : null;

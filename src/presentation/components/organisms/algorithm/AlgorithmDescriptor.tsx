@@ -14,7 +14,7 @@ export const AlgorithmDescriptor = () => {
   return (
     <Card
       isBlurred
-      className="rounded-lg w-full bg-opacity-50 overflow-y-auto h-1/2"
+      className="rounded-lg w-full bg-opacity-20 overflow-y-auto bg-[#184d67]"
     >
       <Card.Header className="flex flex-col space-y-4 px-4 py-5 sm:p-6 ">
         <h1 className="text-lg font-semibold text-white text-center underline uppercase">

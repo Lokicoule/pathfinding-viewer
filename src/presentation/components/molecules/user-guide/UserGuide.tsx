@@ -4,7 +4,10 @@ type UserGuideComponent = React.FC;
 
 const UserGuide: UserGuideComponent = () => {
   return (
-    <Card isBlurred className="rounded-lg w-full px-0 overflow-y-auto h-1/2">
+    <Card
+      isBlurred
+      className="rounded-lg w-full overflow-y-auto bg-opacity-40 overflow-y-auto bg-[#184d67]"
+    >
       <Card.Body className="flex flex-col space-y-4 px-4 py-5 sm:p-6 ">
         <div className="flex flex-col space-y-2 justify-between text-white">
           <h2 className="text-md underline">Placing Walls:</h2>
