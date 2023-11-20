@@ -2,8 +2,8 @@ import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
 } from "../../../shared/constants";
-import MazeAlgorithmSelector from "../molecules/algorithm/MazeAlgorithmSelector";
-import PathfindingAlgorithmSelector from "../molecules/algorithm/PathfindingAlgorithmSelector";
+import MazeAlgorithmSelector from "../organisms/algorithm/MazeAlgorithmSelector";
+import PathfindingAlgorithmSelector from "../organisms/algorithm/PathfindingAlgorithmSelector";
 import ResizableSidebar from "../molecules/layout/ResizableSidebar";
 import UserGuide from "../molecules/user-guide/UserGuide";
 import { AlgorithmDescriptor } from "../organisms/algorithm/AlgorithmDescriptor";

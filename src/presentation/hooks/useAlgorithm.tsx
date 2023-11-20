@@ -1,6 +1,6 @@
-import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelector";
 import { compositionRoot } from "../../bootstrapping/bootstrap";
 import { ExperienceStoreState } from "../../infrastructure/stores/ExperienceStore";
+import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelector";
 
 export const useAlgorithm = () => {
   return useStoreWithSelector<
