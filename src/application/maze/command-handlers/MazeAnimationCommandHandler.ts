@@ -17,7 +17,7 @@ export class MazeAnimationCommandHandler
     private readonly mediator: Mediator,
     private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
-    private readonly playbackStore: PlaybackStore,
+    playbackStore: PlaybackStore,
     private readonly animationStore: AnimationStore
   ) {
     this.animationManager = AnimationManager.create(playbackStore);
@@ -39,19 +39,19 @@ export class MazeAnimationCommandHandler
   }
 
   private animateWallsBuilding(wallsInOrder: Node[]): Promise<void> {
-    return new Promise((resolve) => {
-      for (let i = 0; i < wallsInOrder.length; i++) {
+    const promises: Promise<void>[] = wallsInOrder.map((node, i) => {
+      return new Promise<void>((resolve) => {
         this.animationManager.createTimeout(() => {
-          const node = wallsInOrder[i];
-
           if (!node.isStart() && !node.isEnd()) {
             this.gridStore.setNodeAs(node.getVector(), node.getType());
           }
 
-          if (i === wallsInOrder.length - 1) resolve();
+          resolve();
         }, 10 * i * this.experienceStore.getSpeed().getValue());
-      }
+      });
     });
+
+    return Promise.all(promises).then(() => {});
   }
 
   private handleAnimationCompleted(): void {

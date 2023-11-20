@@ -29,18 +29,18 @@ export class PathfindingAnimationCommandHandler
   }
 
   execute(command: PathfindingAnimationCommand): void {
-    const shortestPath = this.getPath(command.endNode);
+    const path = this.getPath(command.endNode);
 
     if (this.animationStore.isActivated()) {
       this.animateExploration(command.path)
-        .then(() => this.animatePath(shortestPath))
+        .then(() => this.animatePath(path))
         .finally(() => this.handleAnimationCompleted());
     } else {
       for (const node of command.path) {
         if (!node.isStart() && !node.isEnd())
           this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
       }
-      for (const node of shortestPath) {
+      for (const node of path) {
         if (!node.isStart() && !node.isEnd())
           this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
       }
@@ -50,41 +50,43 @@ export class PathfindingAnimationCommandHandler
   }
 
   private getPath(endNode: Node): Node[] {
-    const shortestPath: Node[] = [];
+    const path: Node[] = [];
     let currentNode: Node | undefined = endNode;
 
     while (currentNode && !currentNode.isStart()) {
-      shortestPath.unshift(currentNode);
+      path.unshift(currentNode);
 
       currentNode = currentNode.getPreviousNode();
     }
 
-    return shortestPath;
+    return path;
   }
 
-  private animateExploration(visitedNodesInOrder: Node[]): Promise<void> {
-    return new Promise((resolve) => {
-      for (let i = 0; i < visitedNodesInOrder.length; i++) {
+  private async animateExploration(visitedNodesInOrder: Node[]): Promise<void> {
+    const promises: Promise<void>[] = visitedNodesInOrder.map((node, i) => {
+      return new Promise<void>((resolve) => {
         this.explorationAnimationManager.createTimeout(() => {
-          const node = visitedNodesInOrder[i];
-
-          if (!node.isStart() && !node.isEnd())
+          if (!node.isStart() && !node.isEnd()) {
             this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+          }
 
-          if (i === visitedNodesInOrder.length - 1) resolve();
+          resolve();
         }, 20 * i * this.experienceStore.getSpeed().getValue());
-      }
+      });
     });
+
+    return Promise.all(promises).then(() => {});
   }
 
-  private animatePath(shortestPath: Node[]): Promise<void> {
-    return new Promise((resolve) => {
-      let lastNode = shortestPath[0];
+  private async animatePath(path: Node[]): Promise<void> {
+    let lastNode = path.shift();
 
-      for (let i = 1; i < shortestPath.length; i++) {
+    const promises = path.map((node, i) => {
+      return new Promise<void>((resolve) => {
         this.pathAnimationManager.createTimeout(() => {
-          const node = shortestPath[i];
-          this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
+          if (lastNode) {
+            this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
+          }
 
           if (!node.isStart() && !node.isEnd()) {
             this.gridStore.setNodeAs(node.getVector(), NodeType.Highlighted);
@@ -92,19 +94,22 @@ export class PathfindingAnimationCommandHandler
 
           lastNode = node;
 
-          if (i === shortestPath.length - 1) resolve();
-        }, 50 * i);
-      }
+          resolve();
+        }, 50 * (i + 1));
+      });
+    });
 
-      // Fix: If the animation is stopped during the exploration phase, the path animation will not be stopped
-      if (this.playbackStore.isStopped())
+    return Promise.all(promises).then(() => {
+      if (this.playbackStore.isStopped()) {
         this.mediator.sendCommand(new StopPathfindingCommand());
+      }
     });
   }
 
   private handleAnimationCompleted() {
+    console.log("Animation completed");
     setTimeout(() => {
       this.mediator.sendEvent(new PathfindingAnimationCompletedEvent());
-    }, 2000);
+    }, 1900);
   }
 }

@@ -20,7 +20,6 @@ export class MazeRunnerCommandHandler
 
     const grid = this.gridStore
       .getGrid()
-      .copy()
       .initialize(
         initState,
         this.gridStore.getStartNode().getVector(),
