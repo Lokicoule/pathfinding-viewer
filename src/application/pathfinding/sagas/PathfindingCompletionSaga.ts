@@ -1,6 +1,6 @@
-import { PathfindingAnimationCommand } from "../../../domain/commands/PathfindingAnimationCommand";
-import { PathfindingRunnerCompletedEvent } from "../../../domain/events/PathfindingRunnerCompletedEvent";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
+import { PathfindingRunnerCompletedEvent } from "@domain/events/PathfindingRunnerCompletedEvent";
+import { Mediator } from "@infra/mediator/Mediator";
 
 export class PathfindingCompletionSaga {
   private constructor(private readonly mediator: Mediator) {

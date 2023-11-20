@@ -1,6 +1,6 @@
-import { Event } from "../../domain/interfaces/Event";
-import { EventHandler } from "../../domain/interfaces/EventHandler";
-import { Callback } from "../../domain/types/Callback";
+import { Event } from "@domain/interfaces/Event";
+import { EventHandler } from "@domain/interfaces/EventHandler";
+import { Callback } from "@domain/types/Callback";
 import { PubSub } from "./PubSub";
 
 export class EventBus extends PubSub<string, EventHandler<Event> | Callback> {

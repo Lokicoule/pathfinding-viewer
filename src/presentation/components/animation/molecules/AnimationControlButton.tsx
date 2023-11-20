@@ -1,4 +1,4 @@
-import { PlaybackCommandBuilder } from "../../../../domain/builders/PlaybackCommandBuilder";
+import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
 import Button from "../../ui/atoms/buttons/Button";

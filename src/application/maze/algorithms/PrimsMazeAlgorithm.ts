@@ -1,5 +1,5 @@
-import { Node } from "../../../domain/entities/Node";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { Node } from "@domain/entities/Node";
+import { Algorithm } from "@domain/interfaces/Algorithm";
 import { MazeAlgorithm } from "./MazeAlgorithm";
 
 export class PrimsMazeAlgorithm extends MazeAlgorithm {

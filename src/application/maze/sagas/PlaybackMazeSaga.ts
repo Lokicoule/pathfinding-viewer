@@ -1,13 +1,13 @@
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
-import { PlayMazeCommand } from "../../../domain/commands/maze/PlayMazeCommand";
-import { PauseMazeCommand } from "../../../domain/commands/maze/PauseMazeCommand";
-import { StopMazeCommand } from "../../../domain/commands/maze/StopMazeCommand";
-import { ResumeMazeCommand } from "../../../domain/commands/maze/ResumeMazeCommand";
+import { Mediator } from "@infra/mediator/Mediator";
+import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
+import { PauseMazeCommand } from "@domain/commands/maze/PauseMazeCommand";
+import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
+import { ResumeMazeCommand } from "@domain/commands/maze/ResumeMazeCommand";
 import { PlayCommandHandler } from "../../playback/command-handlers/PlayCommandHandler";
 import { PauseCommandHandler } from "../../playback/command-handlers/PauseCommandHandler";
 import { StopCommandHandler } from "../../playback/command-handlers/StopCommandHandler";
 import { ResumeCommandHandler } from "../../playback/command-handlers/ResumeCommandHandler";
-import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
+import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
 export class PlaybackMazeSaga {
   private constructor(

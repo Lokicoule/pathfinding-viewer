@@ -1,4 +1,4 @@
-import { AlgorithmType } from "../../domain/types/AlgorithmType";
+import { AlgorithmType } from "@domain/types/AlgorithmType";
 import { AlgorithmViewModel } from "../viewModels/AlgorithmViewModel";
 
 export const getInitialAlgorithm = (

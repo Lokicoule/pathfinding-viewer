@@ -1,7 +1,7 @@
-import { Grid } from "../../../domain/entities/Grid";
-import { Node } from "../../../domain/entities/Node";
-import { Queue } from "../../../infrastructure/datastructures/Queue";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { Grid } from "@domain/entities/Grid";
+import { Node } from "@domain/entities/Node";
+import { Queue } from "@infra/datastructures/Queue";
+import { Algorithm } from "@domain/interfaces/Algorithm";
 import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
 export class BreadthFirstSearchPathfindingAlgorithm extends PathfindingAlgorithm {

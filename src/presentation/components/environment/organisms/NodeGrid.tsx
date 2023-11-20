@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { NodeInteractionCommand } from "../../../../domain/commands/NodeInteractionCommand";
-import { Node } from "../../../../domain/entities/Node";
+import { NodeInteractionCommand } from "@domain/commands/NodeInteractionCommand";
+import { Node } from "@domain/entities/Node";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useGrid } from "../../../hooks/useGrid";

@@ -1,7 +1,7 @@
-import { MazeRunnerCommand } from "../../../domain/commands/MazeRunnerCommand";
-import { PathfindingRunnerCommand } from "../../../domain/commands/PathfindingRunnerCommand";
-import { StartAlgorithmCommand } from "../../../domain/commands/StartAlgorithmCommand";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
+import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
+import { StartAlgorithmCommand } from "@domain/commands/StartAlgorithmCommand";
+import { Mediator } from "@infra/mediator/Mediator";
 
 export class AlgorithmStartSaga {
   private constructor(private readonly mediator: Mediator) {

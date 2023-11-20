@@ -1,10 +1,10 @@
-import { Node } from "../../domain/entities/Node";
-import { NodeHistory } from "../../domain/entities/NodeHistory";
-import { MazeAlgorithmType } from "../../domain/types/MazeAlgorithmType";
-import { PathfindingAlgorithmType } from "../../domain/types/PathfindingAlgorithmType";
-import { Algorithm } from "../../domain/valueObjects/Algorithm";
-import { NodeMemento } from "../../domain/valueObjects/NodeMemento";
-import { Speed } from "../../domain/valueObjects/Speed";
+import { Node } from "@domain/entities/Node";
+import { NodeHistory } from "@domain/entities/NodeHistory";
+import { MazeAlgorithmType } from "@domain/types/MazeAlgorithmType";
+import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";
+import { Algorithm } from "@domain/valueObjects/Algorithm";
+import { NodeMemento } from "@domain/valueObjects/NodeMemento";
+import { Speed } from "@domain/valueObjects/Speed";
 import { Store } from "../store/Store";
 
 export type ExperienceStoreState = {

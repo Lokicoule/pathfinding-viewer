@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SetAlgorithmCommand } from "../../../../domain/commands/SetAlgorithmCommand";
+import { SetAlgorithmCommand } from "@domain/commands/SetAlgorithmCommand";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";

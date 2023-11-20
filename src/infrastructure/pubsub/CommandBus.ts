@@ -1,6 +1,6 @@
-import { Command } from "../../domain/interfaces/Command";
-import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { Callback } from "../../domain/types/Callback";
+import { Command } from "@domain/interfaces/Command";
+import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { Callback } from "@domain/types/Callback";
 import { PubSub } from "./PubSub";
 
 export class CommandBus extends PubSub<

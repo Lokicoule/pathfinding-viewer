@@ -1,7 +1,7 @@
-import { Grid } from "../../../domain/entities/Grid";
-import { Node } from "../../../domain/entities/Node";
-import { PriorityQueue } from "../../../infrastructure/datastructures/PriorityQueue";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { Grid } from "@domain/entities/Grid";
+import { Node } from "@domain/entities/Node";
+import { PriorityQueue } from "@infra/datastructures/PriorityQueue";
+import { Algorithm } from "@domain/interfaces/Algorithm";
 import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
 export class AStarPathfindingAlgorithm extends PathfindingAlgorithm {

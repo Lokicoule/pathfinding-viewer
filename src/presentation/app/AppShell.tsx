@@ -1,11 +1,9 @@
-import UserGuide from "../components/molecules/user-guide/UserGuide";
-import { AlgorithmDescriptor } from "../components/organisms/algorithm/AlgorithmDescriptor";
-import MazeAlgorithmSelector from "../components/organisms/algorithm/MazeAlgorithmSelector";
-import PathfindingAlgorithmSelector from "../components/organisms/algorithm/PathfindingAlgorithmSelector";
-import RightSidebar from "../components/organisms/layout/RightSidebar";
-import SideBar from "../components/organisms/layout/Sidebar";
-import Environment from "../components/templates/Environment";
-import Layout from "../components/templates/Layout";
+import UserGuide from "../components/environment/organisms/UserGuide";
+import { AlgorithmDescriptor } from "../components/algorithm/organisms/AlgorithmDescriptor";
+import MazeAlgorithmSelector from "../components/algorithm/organisms/MazeAlgorithmSelector";
+import PathfindingAlgorithmSelector from "../components/algorithm/organisms/PathfindingAlgorithmSelector";
+import Environment from "../components/environment/templates/Environment";
+import Layout from "../components/layout/templates/Layout";
 
 type AppShellComponent = React.FC;
 

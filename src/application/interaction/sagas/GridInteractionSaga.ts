@@ -1,9 +1,9 @@
 import { GlobalState } from "../../../bootstrapping/GlobalState";
-import { ClearPathAndExploredNodesCommand } from "../../../domain/commands/ClearPathAndExploredNodesCommand";
-import { ClearWallsCommand } from "../../../domain/commands/ClearWallsCommand";
-import { NodeInteractionCommand } from "../../../domain/commands/NodeInteractionCommand";
-import { ResetGridCommand } from "../../../domain/commands/ResetGridCommand";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { ClearPathAndExploredNodesCommand } from "@domain/commands/ClearPathAndExploredNodesCommand";
+import { ClearWallsCommand } from "@domain/commands/ClearWallsCommand";
+import { NodeInteractionCommand } from "@domain/commands/NodeInteractionCommand";
+import { ResetGridCommand } from "@domain/commands/ResetGridCommand";
+import { Mediator } from "@infra/mediator/Mediator";
 import { ClearPathAndExploredNodesCommandHandler } from "../command-handlers/ClearPathAndExploredNodesCommandHandler";
 import { ClearWallsCommandHandler } from "../command-handlers/ClearWallsCommandHandler";
 import { NodeInteractionCommandHandler } from "../command-handlers/NodeInteractionCommandHandler";

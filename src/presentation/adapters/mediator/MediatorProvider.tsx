@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { Mediator } from "@infra/mediator/Mediator";
 
 type MediatorProviderProps = {
   mediator: Mediator;

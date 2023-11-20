@@ -1,5 +1,5 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { GridStoreState } from "../../infrastructure/stores/GridStore";
+import { GridStoreState } from "@infra/stores/GridStore";
 import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelector";
 
 export const useGrid = () => {

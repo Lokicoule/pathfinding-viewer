@@ -1,15 +1,15 @@
-import { PathfindingAnimationCommand } from "../../../domain/commands/PathfindingAnimationCommand";
-import { StopPathfindingCommand } from "../../../domain/commands/pathfinding/StopPathfindingCommand";
-import { Node } from "../../../domain/entities/Node";
-import { NodeType } from "../../../domain/enums/NodeType";
-import { PathfindingAnimationCompletedEvent } from "../../../domain/events/PathfindingAnimationCompletedEvent";
-import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
-import { AnimationManager } from "../../../infrastructure/animation/AnimationManager";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
-import { AnimationStore } from "../../../infrastructure/stores/AnimationStore";
-import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
-import { GridStore } from "../../../infrastructure/stores/GridStore";
-import { PlaybackStore } from "../../../infrastructure/stores/PlaybackStore";
+import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
+import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
+import { Node } from "@domain/entities/Node";
+import { NodeType } from "@domain/enums/NodeType";
+import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
+import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { AnimationManager } from "@infra/animation/AnimationManager";
+import { Mediator } from "@infra/mediator/Mediator";
+import { AnimationStore } from "@infra/stores/AnimationStore";
+import { ExperienceStore } from "@infra/stores/ExperienceStore";
+import { GridStore } from "@infra/stores/GridStore";
+import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
 export class PathfindingAnimationCommandHandler
   implements CommandHandler<PathfindingAnimationCommand>

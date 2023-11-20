@@ -1,7 +1,7 @@
-import { AnimationStore } from "../infrastructure/stores/AnimationStore";
-import { ExperienceStore } from "../infrastructure/stores/ExperienceStore";
-import { GridStore } from "../infrastructure/stores/GridStore";
-import { PlaybackStore } from "../infrastructure/stores/PlaybackStore";
+import { AnimationStore } from "@infra/stores/AnimationStore";
+import { ExperienceStore } from "@infra/stores/ExperienceStore";
+import { GridStore } from "@infra/stores/GridStore";
+import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
 export class GlobalState {
   public readonly gridStore: GridStore;

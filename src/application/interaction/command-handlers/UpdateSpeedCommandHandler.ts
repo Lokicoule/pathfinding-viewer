@@ -1,6 +1,6 @@
-import { UpdateSpeedCommand } from "../../../domain/commands/UpdateSpeedCommand";
-import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
-import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
+import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
+import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { ExperienceStore } from "@infra/stores/ExperienceStore";
 
 export class UpdateSpeedCommandHandler
   implements CommandHandler<UpdateSpeedCommand>

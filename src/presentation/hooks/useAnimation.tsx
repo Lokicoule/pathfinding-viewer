@@ -1,6 +1,6 @@
 import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelector";
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { AnimationStoreState } from "../../infrastructure/stores/AnimationStore";
+import { AnimationStoreState } from "@infra/stores/AnimationStore";
 
 export const useAnimation = () => {
   return useStoreWithSelector<

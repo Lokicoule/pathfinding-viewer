@@ -1,8 +1,8 @@
-import { ClearWallsCommand } from "../../../domain/commands/ClearWallsCommand";
-import { NodeType } from "../../../domain/enums/NodeType";
-import { CommandHandler } from "../../../domain/interfaces/CommandHandler";
-import { ExperienceStore } from "../../../infrastructure/stores/ExperienceStore";
-import { GridStore } from "../../../infrastructure/stores/GridStore";
+import { ClearWallsCommand } from "@domain/commands/ClearWallsCommand";
+import { NodeType } from "@domain/enums/NodeType";
+import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { ExperienceStore } from "@infra/stores/ExperienceStore";
+import { GridStore } from "@infra/stores/GridStore";
 
 export class ClearWallsCommandHandler
   implements CommandHandler<ClearWallsCommand>

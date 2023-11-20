@@ -1,7 +1,7 @@
-import { PlaybackCommandBuilder } from "../../../../domain/builders/PlaybackCommandBuilder";
-import { SetAlgorithmCommand } from "../../../../domain/commands/SetAlgorithmCommand";
-import { AlgorithmType } from "../../../../domain/types/AlgorithmType";
-import { Algorithm } from "../../../../domain/valueObjects/Algorithm";
+import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
+import { SetAlgorithmCommand } from "@domain/commands/SetAlgorithmCommand";
+import { AlgorithmType } from "@domain/types/AlgorithmType";
+import { Algorithm } from "@domain/valueObjects/Algorithm";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
 import Button from "../../ui/atoms/buttons/Button";

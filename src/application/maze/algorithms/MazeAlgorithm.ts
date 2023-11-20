@@ -1,5 +1,5 @@
-import { Node } from "../../../domain/entities/Node";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
+import { Node } from "@domain/entities/Node";
+import { Algorithm } from "@domain/interfaces/Algorithm";
 
 export abstract class MazeAlgorithm implements Algorithm {
   protected path: Node[] = [];

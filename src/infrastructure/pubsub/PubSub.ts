@@ -1,8 +1,8 @@
-import { Command } from "../../domain/interfaces/Command";
-import { CommandHandler } from "../../domain/interfaces/CommandHandler";
-import { Event } from "../../domain/interfaces/Event";
-import { EventHandler } from "../../domain/interfaces/EventHandler";
-import { Callback } from "../../domain/types/Callback";
+import { Command } from "@domain/interfaces/Command";
+import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { Event } from "@domain/interfaces/Event";
+import { EventHandler } from "@domain/interfaces/EventHandler";
+import { Callback } from "@domain/types/Callback";
 
 export abstract class PubSub<
   Channel,

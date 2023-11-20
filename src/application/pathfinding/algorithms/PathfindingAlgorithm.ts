@@ -1,7 +1,7 @@
-import { Grid } from "../../../domain/entities/Grid";
-import { Node } from "../../../domain/entities/Node";
-import { Algorithm } from "../../../domain/interfaces/Algorithm";
-import { Queue } from "../../../infrastructure/datastructures/Queue";
+import { Grid } from "@domain/entities/Grid";
+import { Node } from "@domain/entities/Node";
+import { Algorithm } from "@domain/interfaces/Algorithm";
+import { Queue } from "@infra/datastructures/Queue";
 
 export abstract class PathfindingAlgorithm implements Algorithm {
   protected queue: Queue<Node>;

@@ -1,7 +1,7 @@
-import { StopAlgorithmCommand } from "../../../domain/commands/StopAlgorithmCommand";
-import { MazeAnimationCompletedEvent } from "../../../domain/events/MazeAnimationCompletedEvent";
-import { PathfindingAnimationCompletedEvent } from "../../../domain/events/PathfindingAnimationCompletedEvent";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { StopAlgorithmCommand } from "@domain/commands/StopAlgorithmCommand";
+import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
+import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
+import { Mediator } from "@infra/mediator/Mediator";
 
 export class AlgorithmStopSaga {
   private constructor(private readonly mediator: Mediator) {

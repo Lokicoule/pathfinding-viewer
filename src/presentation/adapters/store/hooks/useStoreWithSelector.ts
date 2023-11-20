@@ -1,4 +1,4 @@
-import { Store, StoreState } from "../../../../infrastructure/store/Store";
+import { Store, StoreState } from "../@infra/store/Store";
 import { useStore } from "./useStore";
 
 export const useStoreWithSelector = <T extends StoreState, R>(

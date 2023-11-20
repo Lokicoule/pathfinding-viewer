@@ -1,6 +1,6 @@
-import { MazeRunnerCommand } from "../../../domain/commands/MazeRunnerCommand";
-import { PlayMazeCommand } from "../../../domain/commands/maze/PlayMazeCommand";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
+import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
+import { Mediator } from "@infra/mediator/Mediator";
 
 export class StartMazeSaga {
   private constructor(private readonly mediator: Mediator) {

@@ -1,6 +1,6 @@
-import { MazeAnimationCommand } from "../../../domain/commands/MazeAnimationCommand";
-import { MazeRunnerCompletedEvent } from "../../../domain/events/MazeRunnerCompletedEvent";
-import { Mediator } from "../../../infrastructure/mediator/Mediator";
+import { MazeAnimationCommand } from "@domain/commands/MazeAnimationCommand";
+import { MazeRunnerCompletedEvent } from "@domain/events/MazeRunnerCompletedEvent";
+import { Mediator } from "@infra/mediator/Mediator";
 
 export class MazeCompletionSaga {
   private constructor(private readonly mediator: Mediator) {

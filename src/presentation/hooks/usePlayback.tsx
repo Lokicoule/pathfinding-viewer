@@ -1,6 +1,6 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { Playback } from "../../domain/valueObjects/Playback";
-import { PlaybackStoreState } from "../../infrastructure/stores/PlaybackStore";
+import { Playback } from "@domain/valueObjects/Playback";
+import { PlaybackStoreState } from "@infra/stores/PlaybackStore";
 import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelector";
 
 export const useMazePlayback = () => {
