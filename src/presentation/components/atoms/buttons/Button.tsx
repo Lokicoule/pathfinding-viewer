@@ -36,7 +36,7 @@ const getButtonClass = (variant: ButtonVariant) => {
   }
 };
 
-const buildButtonClass = (
+const factory = (
   variant: ButtonVariant,
   disabled: boolean,
   className?: string
@@ -53,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  const buttonClass = buildButtonClass(variant, disabled, className);
+  const buttonClass = factory(variant, disabled, className);
 
   return (
     <button className={buttonClass} disabled={disabled} {...props}>
