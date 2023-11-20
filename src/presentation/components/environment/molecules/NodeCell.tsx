@@ -61,7 +61,8 @@ const NodeCell: React.FC<NodeCellProps> = memo(
         className={concat(
           "cell",
           cellState(node),
-          isActivated ? "activated" : ""
+          isActivated ? "activated" : "",
+          !isAlgorithmRunning ? "cursor-cell" : ""
         )}
         style={{
           width: `${NODE_PIXEL_SIZE}px`,

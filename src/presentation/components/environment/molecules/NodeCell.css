@@ -1,6 +1,5 @@
 .cell {
   border: 1px solid #fafafa;
-  cursor: pointer;
 }
 
 .cell:hover {
