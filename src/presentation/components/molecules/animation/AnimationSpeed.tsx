@@ -4,6 +4,7 @@ import { Speed } from "../../../../domain/valueObjects/Speed";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useAnimation } from "../../../hooks/useAnimation";
+import Tooltip from "../../atoms/tooltip/Tooltip";
 
 type AnimationSpeedControlComponent = React.FC<
   React.HTMLAttributes<HTMLInputElement>
@@ -30,21 +31,27 @@ const AnimationSpeedControl: AnimationSpeedControlComponent = ({
     );
   };
 
+  const speedLabel =
+    tempSpeed >= Math.floor((Speed.FAST + Speed.SLOW) / 1.15) ? "Fast" : "Slow";
+
   return (
-    <div className={`flex justify-center items-center gap-2 ${className}`}>
-      <p className="text-sm text-white">Speed: </p>
-      <input
-        disabled={isAlgorithmRunning}
-        className={`w-40 h-2 appearance-none rounded-full outline-none cursor-pointer transition-all duration-300 ease-in-out  bg-gradient-to-r from-rose-100 to-teal-100 hover:from-rose-200 hover:to-teal-200 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed`}
-        type="range"
-        min={Speed.FAST}
-        max={Speed.SLOW}
-        value={tempSpeed}
-        onChange={handleSpeedChange}
-        onMouseUp={handleSpeedSet}
-        onBlur={handleSpeedSet}
-        {...props}
-      />
+    <div
+      className={`flex flex-col justify-center items-center gap-2 ${className}`}
+    >
+      <Tooltip text={`Animation Speed (${speedLabel})`}>
+        <input
+          disabled={isAlgorithmRunning}
+          className={`w-40 h-2 appearance-none rounded-full outline-none cursor-pointer transition-all duration-300 ease-in-out  bg-gradient-to-r from-rose-100 to-teal-100 hover:from-rose-200 hover:to-teal-200 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed`}
+          type="range"
+          min={Speed.FAST}
+          max={Speed.SLOW}
+          value={tempSpeed}
+          onChange={handleSpeedChange}
+          onMouseUp={handleSpeedSet}
+          onBlur={handleSpeedSet}
+          {...props}
+        />
+      </Tooltip>
     </div>
   );
 };

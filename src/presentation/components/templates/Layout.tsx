@@ -1,7 +1,6 @@
 import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
-  SIDEBAR_WIDTH,
 } from "../../../shared/constants";
 import MazeAlgorithmSelector from "../molecules/algorithm/MazeAlgorithmSelector";
 import PathfindingAlgorithmSelector from "../molecules/algorithm/PathfindingAlgorithmSelector";
