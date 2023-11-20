@@ -1,18 +1,46 @@
-type TooltipProps = React.PropsWithChildren<{
-  text: string;
-}>;
-type TooltipComponent = React.FC<TooltipProps>;
+import React, {
+  ComponentPropsWithRef,
+  MouseEventHandler,
+  useRef,
+  useState,
+} from "react";
 
-const Tooltip: TooltipComponent = ({ text, children }) => {
+type TooltipProps = {
+  text: string;
+};
+
+type TooltipComponent = React.FC<TooltipProps & ComponentPropsWithRef<"div">>;
+
+const Tooltip: TooltipComponent = ({ children, text, ...rest }) => {
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState<EventTarget | null>(null);
+  const ref = useRef(null);
+
+  const handleMouseEnter: MouseEventHandler<HTMLDivElement> = (event) => {
+    setTarget(event.currentTarget);
+    setShow(true);
+  };
+
+  const handleMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
+    setShow(false);
+  };
+
   return (
-    <div className="group flex relative">
+    <div
+      ref={ref}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative inline-block"
+      {...rest}
+    >
       {children}
-      <span
-        className="group-hover:opacity-100 transition-opacity bg-gray-800 px-4 py-2 text-sm text-gray-100 rounded-md absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto w-max whitespace-nowrap"
-      >
-        {text}
-      </span>
+      {show && target && (
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 z-10">
+          <div className="max-w-xs bg-gray-700 text-white text-xs rounded p-2 bg-opacity-90 shadow-md relative">
+            <div className="whitespace-nowrap">{text}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

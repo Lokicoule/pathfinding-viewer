@@ -47,14 +47,6 @@ label {
   z-index: -1;
 }
 
-.tooltip {
-  @apply invisible absolute bg-gray-800 text-white text-xs rounded px-2 py-1 transition-all duration-100 ease-in-out translate-y-2 -translate-x-1/2;
-}
-
-.tooltip-container:hover .tooltip {
-  @apply visible z-10;
-}
-
 .sidebar-resizer {
   cursor: col-resize;
   resize: horizontal;
