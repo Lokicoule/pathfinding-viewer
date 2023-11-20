@@ -1,6 +1,6 @@
 import { Grid } from "@domain/entities/Grid";
 import { Node } from "@domain/entities/Node";
-import { PriorityQueue } from "@infra/datastructures/PriorityQueue";
+import { PriorityQueue } from "@infra/datastructures";
 import { Algorithm } from "@domain/interfaces/Algorithm";
 import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 

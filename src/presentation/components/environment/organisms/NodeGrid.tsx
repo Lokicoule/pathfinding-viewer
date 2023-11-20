@@ -1,11 +1,11 @@
-import { useCallback } from "react";
 import { NodeInteractionCommand } from "@domain/commands/NodeInteractionCommand";
 import { Node } from "@domain/entities/Node";
+import { useCallback } from "react";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useGrid } from "../../../hooks/useGrid";
 import useStateMap from "../../../hooks/useStateMap";
-import NodeCell from "../molecules/NodeCell";
+import { NodeCell } from "../molecules";
 
 type NodeGridComponent = React.FC;
 

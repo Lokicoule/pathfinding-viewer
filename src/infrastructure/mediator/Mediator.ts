@@ -3,8 +3,7 @@ import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { Event } from "@domain/interfaces/Event";
 import { EventHandler } from "@domain/interfaces/EventHandler";
 import { Callback } from "@domain/types/Callback";
-import { CommandBus } from "../pubsub/CommandBus";
-import { EventBus } from "../pubsub/EventBus";
+import { CommandBus, EventBus } from "../pubsub";
 
 export class Mediator {
   private commandBus: CommandBus = new CommandBus();

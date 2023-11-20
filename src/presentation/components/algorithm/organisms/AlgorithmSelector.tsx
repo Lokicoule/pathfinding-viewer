@@ -3,8 +3,7 @@ import { SetAlgorithmCommand } from "@domain/commands/SetAlgorithmCommand";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";
-import AlgorithmToggleButtonList from "../molecules/AlgorithmToggleButtonList";
-import PlayAlgorithmButton from "../molecules/PlayAlgorithmButton";
+import { AlgorithmToggleButtonList, PlayAlgorithmButton } from "../molecules";
 import Card from "../../ui/molecules/card/Card";
 import { getInitialAlgorithm } from "../../../utils/algorithm";
 

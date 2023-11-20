@@ -1,6 +1,6 @@
 import { useAlgorithm } from "../../../hooks";
 import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";
-import ToggleButton from "../../ui/atoms/buttons/ToggleButton";
+import { ToggleButton } from "../../ui";
 
 type AlgorithmToggleButtonListProps = {
   algorithms: AlgorithmViewModel[];

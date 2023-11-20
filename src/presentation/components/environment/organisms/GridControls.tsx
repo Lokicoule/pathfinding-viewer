@@ -1,11 +1,10 @@
 import { ClearPathAndExploredNodesCommand } from "@domain/commands/ClearPathAndExploredNodesCommand";
 import { ClearWallsCommand } from "@domain/commands/ClearWallsCommand";
 import { ResetGridCommand } from "@domain/commands/ResetGridCommand";
-
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import Button from "../../ui/atoms/buttons/Button";
-import AnimationControls from "../../animation/organisms/AnimationControls";
+import { AnimationControls } from "../../animation";
+import { Button } from "../../ui";
 
 type GridControlsComponent = React.FC;
 

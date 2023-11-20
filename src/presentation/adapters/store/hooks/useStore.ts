@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { Store, StoreState } from "../@infra/store/Store";
+import { Store, StoreState } from "@infra/store";
 
 export const useStore = <T extends StoreState>(store: Store<T>): T => {
   const subscribe = (callback: () => void) => {

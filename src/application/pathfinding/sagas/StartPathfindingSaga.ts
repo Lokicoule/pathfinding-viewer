@@ -1,6 +1,6 @@
 import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
 import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfindingCommand";
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 
 export class StartPathfindingSaga {
   private constructor(private readonly mediator: Mediator) {

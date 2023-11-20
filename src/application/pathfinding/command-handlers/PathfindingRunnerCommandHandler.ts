@@ -3,7 +3,7 @@ import { NodeType } from "@domain/enums/NodeType";
 import { PathfindingRunnerCompletedEvent } from "@domain/events/PathfindingRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores/GridStore";
 
 export class PathfindingRunnerCommandHandler

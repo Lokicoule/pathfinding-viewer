@@ -1,6 +1,6 @@
 import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
 import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 
 export class StopMazeSaga {
   private constructor(private readonly mediator: Mediator) {

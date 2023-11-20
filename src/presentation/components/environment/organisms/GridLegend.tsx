@@ -1,8 +1,9 @@
 import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
 
-export type LegendComponent = React.FC<React.HTMLAttributes<HTMLDivElement>>;
+type GridLegendProps = React.HTMLAttributes<HTMLDivElement>;
+export type GridLegendComponent = React.FC<GridLegendProps>;
 
-export const Legend: LegendComponent = ({ className, ...props }) => {
+const GridLegend: GridLegendComponent = ({ className, ...props }) => {
   return (
     <div
       className={`flex flex-wrap justify-end items-center gap-10 ${className}`}
@@ -73,3 +74,5 @@ export const Legend: LegendComponent = ({ className, ...props }) => {
     </div>
   );
 };
+
+export default GridLegend;

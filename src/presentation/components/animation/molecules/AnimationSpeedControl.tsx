@@ -1,10 +1,11 @@
 import { useState } from "react";
+
 import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
 import { Speed } from "@domain/valueObjects/Speed";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useAnimation } from "../../../hooks/useAnimation";
-import Tooltip from "../../ui/atoms/tooltip/Tooltip";
+import { Tooltip } from "../../ui";
 
 type AnimationSpeedControlComponent = React.FC<
   React.HTMLAttributes<HTMLInputElement>

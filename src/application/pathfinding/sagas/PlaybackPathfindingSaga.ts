@@ -1,4 +1,4 @@
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfindingCommand";
 import { PausePathfindingCommand } from "@domain/commands/pathfinding/PausePathfindingCommand";
 import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";

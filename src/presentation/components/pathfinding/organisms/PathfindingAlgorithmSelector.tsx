@@ -1,5 +1,5 @@
 import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
-import AlgorithmSelector from "./AlgorithmSelector";
+import { AlgorithmSelector } from "../../algorithm";
 
 const PathfindingAlgorithmSelector = () => (
   <AlgorithmSelector

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DELTA_SENSITIVITY, SIDEBAR_WIDTH } from "../../../../shared/constants";
 
 type ResizableSidebarProps = {

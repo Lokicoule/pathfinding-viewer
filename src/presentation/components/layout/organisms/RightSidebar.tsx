@@ -2,8 +2,7 @@ import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
 } from "../../../../shared/constants";
-import ResizableSidebar from "../molecules/ResizableSidebar";
-import SidebarContent from "../molecules/SidebarContent";
+import { ResizableSidebar, SidebarContent } from "../molecules";
 
 type RightSidebarProps = React.PropsWithChildren;
 type RightSidebarComponent = React.FC<RightSidebarProps>;

@@ -1,10 +1,9 @@
 import { MazeAnimationCommand } from "@domain/commands/MazeAnimationCommand";
-import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
 import { Node } from "@domain/entities/Node";
 import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { AnimationManager } from "@infra/animation/AnimationManager";
-import { Mediator } from "@infra/mediator/Mediator";
+import { AnimationManager } from "@infra/animation";
+import { Mediator } from "@infra/mediator";
 import { AnimationStore } from "@infra/stores/AnimationStore";
 import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
@@ -56,8 +55,6 @@ export class MazeAnimationCommandHandler
   }
 
   private handleAnimationCompleted(): void {
-    this.mediator.sendCommand(StopMazeCommand.name, new StopMazeCommand());
-
     setTimeout(() => {
       this.mediator.sendEvent(
         MazeAnimationCompletedEvent.name,

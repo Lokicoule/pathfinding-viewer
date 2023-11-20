@@ -1,5 +1,5 @@
 import { MAZE_ALGORITHMS } from "../../../constants/mazeConstants";
-import AlgorithmSelector from "./AlgorithmSelector";
+import { AlgorithmSelector } from "../../algorithm";
 
 const MazeAlgorithmSelector = () => (
   <AlgorithmSelector

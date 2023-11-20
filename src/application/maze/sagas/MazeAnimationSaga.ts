@@ -1,4 +1,4 @@
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
 import { PauseMazeCommand } from "@domain/commands/maze/PauseMazeCommand";
 import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
@@ -9,7 +9,7 @@ import { StopCommandHandler } from "../../playback/command-handlers/StopCommandH
 import { ResumeCommandHandler } from "../../playback/command-handlers/ResumeCommandHandler";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
-export class PlaybackMazeSaga {
+export class MazeAnimationSaga {
   private constructor(
     private readonly mediator: Mediator,
     private readonly store: PlaybackStore
@@ -29,7 +29,7 @@ export class PlaybackMazeSaga {
   public static register(
     mediator: Mediator,
     store: PlaybackStore
-  ): PlaybackMazeSaga {
-    return new PlaybackMazeSaga(mediator, store);
+  ): MazeAnimationSaga {
+    return new MazeAnimationSaga(mediator, store);
   }
 }

@@ -4,8 +4,8 @@ import { Node } from "@domain/entities/Node";
 import { NodeType } from "@domain/enums/NodeType";
 import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { AnimationManager } from "@infra/animation/AnimationManager";
-import { Mediator } from "@infra/mediator/Mediator";
+import { AnimationManager } from "@infra/animation";
+import { Mediator } from "@infra/mediator";
 import { AnimationStore } from "@infra/stores/AnimationStore";
 import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
@@ -106,11 +106,6 @@ export class PathfindingAnimationCommandHandler
   }
 
   private handleAnimationCompleted() {
-    this.mediator.sendCommand(
-      StopPathfindingCommand.name,
-      new StopPathfindingCommand()
-    );
-
     setTimeout(() => {
       this.mediator.sendEvent(
         PathfindingAnimationCompletedEvent.name,

@@ -3,7 +3,7 @@ import { NodeType } from "@domain/enums/NodeType";
 import { MazeRunnerCompletedEvent } from "@domain/events/MazeRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { MazeAlgorithmType } from "@domain/types/MazeAlgorithmType";
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores/GridStore";
 
 export class MazeRunnerCommandHandler

@@ -1,21 +1,29 @@
-import { SetAlgorithmCommandHandler } from "@app/algorithm/command-handlers/SetAlgorithmCommandHandler";
-import { StartAlgorithmCommandHandler } from "@app/algorithm/command-handlers/StartAlgorithmCommandHandler";
-import { StopAlgorithmCommandHandler } from "@app/algorithm/command-handlers/StopAlgorithmCommandHandler";
-import { AlgorithmStartSaga } from "@app/algorithm/sagas/AlgorithmStartSaga";
-import { AlgorithmStopSaga } from "@app/algorithm/sagas/AlgorithmStopSaga";
-import { ToggleAnimationCommandHandler } from "@app/animation/command-handlers/ToggleAnimationCommandHandler";
-import { UpdateSpeedCommandHandler } from "@app/interaction/command-handlers/UpdateSpeedCommandHandler";
-import { GridInteractionSaga } from "@app/interaction/sagas/GridInteractionSaga";
-import { MazeAnimationCommandHandler } from "@app/maze/command-handlers/MazeAnimationCommandHandler";
-import { MazeRunnerCommandHandler } from "@app/maze/command-handlers/MazeRunnerCommandHandler";
-import { MazeCompletionSaga } from "@app/maze/sagas/MazeCompletionSaga";
-import { PlaybackMazeSaga } from "@app/maze/sagas/PlaybackMazeSaga";
-import { StartMazeSaga } from "@app/maze/sagas/StartMazeSaga";
-import { PathfindingAnimationCommandHandler } from "@app/pathfinding/command-handlers/PathfindingAnimationCommandHandler";
-import { PathfindingRunnerCommandHandler } from "@app/pathfinding/command-handlers/PathfindingRunnerCommandHandler";
-import { PathfindingCompletionSaga } from "@app/pathfinding/sagas/PathfindingCompletionSaga";
-import { PlaybackPathfindingSaga } from "@app/pathfinding/sagas/PlaybackPathfindingSaga";
-import { StartPathfindingSaga } from "@app/pathfinding/sagas/StartPathfindingSaga";
+import { UpdateSpeedCommandHandler } from "@/application/animation";
+import { MazeAnimationSaga } from "@/application/maze";
+import { StopPathfindingSaga } from "@/application/pathfinding";
+import {
+  AlgorithmStartSaga,
+  AlgorithmStopSaga,
+  SetAlgorithmCommandHandler,
+  StartAlgorithmCommandHandler,
+  StopAlgorithmCommandHandler,
+} from "@app/algorithm";
+import { ToggleAnimationCommandHandler } from "@app/animation";
+import { GridInteractionSaga } from "@app/interaction";
+import {
+  MazeAnimationCommandHandler,
+  MazeCompletionSaga,
+  MazeRunnerCommandHandler,
+  StartMazeSaga,
+  StopMazeSaga,
+} from "@app/maze";
+import {
+  PathfindingAnimationCommandHandler,
+  PathfindingCompletionSaga,
+  PathfindingRunnerCommandHandler,
+  PlaybackPathfindingSaga,
+  StartPathfindingSaga,
+} from "@app/pathfinding";
 import { MazeAnimationCommand } from "@domain/commands/MazeAnimationCommand";
 import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
 import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
@@ -25,7 +33,7 @@ import { StartAlgorithmCommand } from "@domain/commands/StartAlgorithmCommand";
 import { StopAlgorithmCommand } from "@domain/commands/StopAlgorithmCommand";
 import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
 import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimation";
-import { Mediator } from "@infra/mediator/Mediator";
+import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
 
 export class CompositionRoot {
@@ -44,14 +52,16 @@ export class CompositionRoot {
 
   public initialize() {
     StartPathfindingSaga.register(this.mediator);
+    StopPathfindingSaga.register(this.mediator);
     PathfindingCompletionSaga.register(this.mediator);
     PlaybackPathfindingSaga.register(
       this.mediator,
       this.stores.pathfindingPlaybackStore
     );
     StartMazeSaga.register(this.mediator);
+    StopMazeSaga.register(this.mediator);
     MazeCompletionSaga.register(this.mediator);
-    PlaybackMazeSaga.register(this.mediator, this.stores.mazePlaybackStore);
+    MazeAnimationSaga.register(this.mediator, this.stores.mazePlaybackStore);
     AlgorithmStartSaga.register(this.mediator);
     AlgorithmStopSaga.register(this.mediator);
     GridInteractionSaga.register(this.mediator, this.stores);

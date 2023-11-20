@@ -1,9 +1,9 @@
-import UserGuide from "../components/environment/organisms/UserGuide";
-import { AlgorithmDescriptor } from "../components/algorithm/organisms/AlgorithmDescriptor";
-import MazeAlgorithmSelector from "../components/algorithm/organisms/MazeAlgorithmSelector";
-import PathfindingAlgorithmSelector from "../components/algorithm/organisms/PathfindingAlgorithmSelector";
-import Environment from "../components/environment/templates/Environment";
-import Layout from "../components/layout/templates/Layout";
+import { AlgorithmDescriptor } from "../components/algorithm";
+import { Environment } from "../components/environment";
+import { UserGuide } from "../components/environment/organisms";
+import { Layout } from "../components/layout";
+import { MazeAlgorithmSelector } from "../components/maze";
+import { PathfindingAlgorithmSelector } from "../components/pathfinding";
 
 type AppShellComponent = React.FC;
 

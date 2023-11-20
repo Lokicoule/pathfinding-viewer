@@ -1,8 +1,7 @@
 import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
-import Button from "../../ui/atoms/buttons/Button";
-import Tooltip from "../../ui/atoms/tooltip/Tooltip";
+import { Button, Tooltip } from "../../ui";
 
 type AnimationControlButtonProps = {
   action: "play" | "pause" | "stop" | "resume";
