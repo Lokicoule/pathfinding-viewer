@@ -20,7 +20,7 @@ const Layout: LayoutComponent = ({ children }) => {
         <header className="flex flex-col items-center px-4 pt-4 pb-1">
           <div className="flex">
             <h1
-              className="text-white text-2xl font-semibold cursor-pointer font-primary"
+              className="text-white text-center text-2xl font-semibold cursor-pointer font-primary"
               onClick={refresh}
             >
               Pathfinding & Maze Generation Visualizer
