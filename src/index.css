@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Allerta Stencil";
+  font-display: swap;
+  src: url("/fonts/allerta-stencil/AllertaStencil-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-display: swap;
+  src: url("/fonts/inter/Inter-Regular.ttf");
+}
+
+@layer base {
+  html {
+    @apply font-secondary;
+  }
+}
+
 body {
   background-image: linear-gradient(to top, #fcdab7, #1e5f74, #133b5c, #1d2d50);
   background-repeat: no-repeat;

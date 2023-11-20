@@ -44,7 +44,7 @@ const GridControls: GridControlsComponent = () => {
           Reset Grid
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden md:block "
+          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden lg:block "
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() => resetActionMediator("CLEAR_WALLS")}
@@ -52,7 +52,7 @@ const GridControls: GridControlsComponent = () => {
           Clear Walls
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden md:block"
+          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden lg:block"
           variant="underline"
           disabled={isAlgorithmRunning}
           onClick={() =>

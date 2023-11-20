@@ -18,10 +18,10 @@ const Layout: LayoutComponent = ({ children }) => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-1 flex flex-col sm:overflow-hidden">
-        <header className="flex flex-col items-center p-2">
+        <header className="flex flex-col items-center px-4 pt-4 pb-1">
           <div className="flex">
             <h1
-              className="text-white text-2xl font-semibold cursor-pointer"
+              className="text-white text-2xl font-semibold cursor-pointer font-primary"
               onClick={refresh}
             >
               Pathfinding & Maze Generation Visualizer
@@ -30,10 +30,10 @@ const Layout: LayoutComponent = ({ children }) => {
         </header>
         <div className="flex flex-wrap sm:flex-nowrap sm:h-full space-x-1 justify-center">
           <ResizableSidebar
-            initialWidth={SIDEBAR_WIDTH}
+            initialWidth={SIDEBAR_MIN_WIDTH}
             minWidth={SIDEBAR_MIN_WIDTH}
             maxWidth={SIDEBAR_MAX_WIDTH}
-            className="flex w-80 sm:h-full z-10"
+            className="flex sm:h-full z-10"
           >
             <div className="w-full flex mx-auto pl-4 py-4">
               <div className="w-full flex flex-col items-center  md:justify-between space-y-2">
@@ -51,7 +51,7 @@ const Layout: LayoutComponent = ({ children }) => {
           </div>
           <ResizableSidebar
             side="right"
-            initialWidth={SIDEBAR_WIDTH}
+            initialWidth={SIDEBAR_MAX_WIDTH}
             minWidth={SIDEBAR_MIN_WIDTH}
             maxWidth={SIDEBAR_MAX_WIDTH}
             className="flex w-80 h-full z-10 hidden md:flex"
