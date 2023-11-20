@@ -1,22 +1,26 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 function useStateMap<K, V>(initialMap = new Map<K, V>()) {
-  const map = useRef<Map<K, V>>(initialMap);
+  const [map, setMap] = useState<Map<K, V>>(initialMap);
 
   const addEntry = (key: K, value: V) => {
-    map.current.set(key, value);
+    setMap((prevMap) => new Map(prevMap).set(key, value));
   };
 
   const deleteEntry = (key: K) => {
-    map.current.delete(key);
+    setMap((prevMap) => {
+      const newMap = new Map(prevMap);
+      newMap.delete(key);
+      return newMap;
+    });
   };
 
   const clearMap = () => {
-    map.current.clear();
+    setMap(new Map());
   };
 
   return {
-    Map: map.current,
+    Map: map,
     addEntry,
     deleteEntry,
     clearMap,

@@ -49,7 +49,7 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
   };
 
   return (
-    <Card isBlurred className="rounded-lg w-full h-1/2 overflow-y-auto">
+    <Card isBlurred className="rounded-lg w-full sm:h-1/2 overflow-y-auto">
       <Card.Header className="flex flex-col space-y-4 px-4 py-5 sm:p-6 ">
         <h1 className="text-lg font-semibold text-white text-center">
           {title}

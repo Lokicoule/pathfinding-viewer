@@ -17,8 +17,8 @@ const Layout: LayoutComponent = ({ children }) => {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex justify-between items-center p-4">
+      <div className="flex-1 flex flex-col sm:overflow-hidden">
+        <header className="flex flex-col items-center p-2">
           <div className="flex">
             <h1
               className="text-white text-2xl font-semibold cursor-pointer"
@@ -28,15 +28,15 @@ const Layout: LayoutComponent = ({ children }) => {
             </h1>
           </div>
         </header>
-        <div className="flex h-full space-x-1">
+        <div className="flex flex-wrap sm:flex-nowrap sm:h-full space-x-1 justify-center">
           <ResizableSidebar
             initialWidth={SIDEBAR_WIDTH}
             minWidth={SIDEBAR_MIN_WIDTH}
             maxWidth={SIDEBAR_MAX_WIDTH}
-            className="flex w-80 h-full z-10"
+            className="flex w-80 sm:h-full z-10"
           >
             <div className="w-full flex mx-auto pl-4 py-4">
-              <div className="w-full flex flex-col items-center justify-between space-y-2">
+              <div className="w-full flex flex-col items-center  md:justify-between space-y-2">
                 <MazeAlgorithmSelector />
                 <PathfindingAlgorithmSelector />
               </div>
