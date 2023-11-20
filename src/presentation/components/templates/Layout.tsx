@@ -2,7 +2,6 @@ import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
 } from "../../../shared/constants";
-import { GithubIcon } from "../atoms/icons";
 import MazeAlgorithmSelector from "../molecules/algorithm/MazeAlgorithmSelector";
 import PathfindingAlgorithmSelector from "../molecules/algorithm/PathfindingAlgorithmSelector";
 import ResizableSidebar from "../molecules/layout/ResizableSidebar";
