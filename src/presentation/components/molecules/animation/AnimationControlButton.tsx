@@ -1,7 +1,7 @@
 import { PlaybackCommandBuilder } from "../../../../domain/builders/PlaybackCommandBuilder";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
-import Button from "../../atoms/button/Button";
+import Button from "../../atoms/buttons/Button";
 import Tooltip from "../../atoms/tooltip/Tooltip";
 
 type AnimationControlButtonProps = {
@@ -30,6 +30,7 @@ const AnimationControlButton: React.FC<AnimationControlButtonProps> = ({
   return isVisible ? (
     <Tooltip text={tooltipText}>
       <Button
+        variant="base"
         disabled={isDisabled}
         onClick={sendPlaybackCommand}
         className="disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:hidden"

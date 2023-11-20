@@ -5,7 +5,9 @@ import { Algorithm } from "../../../../domain/valueObjects/Algorithm";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";
+import ToggleButton from "../../atoms/buttons/ToggleButton";
 import Card from "../card/Card";
+import Button from "../../atoms/buttons/Button";
 
 type AlgorithmSelectorProps = {
   algorithms: AlgorithmViewModel[];
@@ -60,38 +62,23 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
       <Card.Body className="flex flex-col py-2">
         <div className="flex flex-col space-y-2 justify-between">
           {algorithms.map((algorithm) => (
-            <button
-              disabled={isAlgorithmRunning}
+            <ToggleButton
               key={algorithm.type}
+              isActive={algorithm.type === localAlgorithm.type}
+              disabled={isAlgorithmRunning}
               onClick={() => handleSetClick(algorithm)}
-              type="button"
-              className={`text-white hover:text-white border border-white hover:bg-neutral-100 hover:bg-opacity-30
-            font-medium text-sm py-2.5 text-center border-opacity-25
-           ${
-             localAlgorithm.type === algorithm.type
-               ? "bg-neutral-100 bg-opacity-50 text-neutral-700 rounded-sm"
-               : "mx-2 "
-           }
-           `}
             >
               {algorithm.name}
-            </button>
+            </ToggleButton>
           ))}
         </div>
       </Card.Body>
       <Card.Footer className="p-6">
-        <button
-          disabled={isAlgorithmRunning}
-          onClick={handlePlayClick}
-          className={`w-full text-center text-white bg-[#184d67] bg-opacity-70 text-neutral-700 hover:bg-opacity-30
-          shadow-lg font-medium rounded-lg text-sm px-5 py-2.5 
-transition duration-300 ease-in-out font-primary
-`}
-        >
+        <Button disabled={isAlgorithmRunning} onClick={handlePlayClick}>
           {Algorithm.isPathfindingAlgorithm(localAlgorithm.type)
             ? "Visualize"
             : "Generate"}
-        </button>
+        </Button>
       </Card.Footer>
     </Card>
   );

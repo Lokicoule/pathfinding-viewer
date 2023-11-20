@@ -4,7 +4,7 @@ import { ResetGridCommand } from "../../../../domain/commands/ResetGridCommand";
 
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import Button from "../../atoms/button/Button";
+import Button from "../../atoms/buttons/Button";
 import AnimationControls from "../animation/AnimationControls";
 
 type GridControlsComponent = React.FC;
@@ -36,24 +36,24 @@ const GridControls: GridControlsComponent = () => {
 
       <div className="flex flex-row">
         <Button
-          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] text-white text-sm text-white font-primary disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
-          disabled={isAlgorithmRunning}
           variant="underline"
+          className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] disabled:cursor-not-allowed"
+          disabled={isAlgorithmRunning}
           onClick={() => resetActionMediator("RESET_GRID")}
         >
           Reset Grid
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] text-white text-sm text-white font-primary disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden lg:block "
           variant="underline"
+          className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] disabled:cursor-not-allowed hidden lg:block "
           disabled={isAlgorithmRunning}
           onClick={() => resetActionMediator("CLEAR_WALLS")}
         >
           Clear Walls
         </Button>
         <Button
-          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 text-white text-sm text-white font-primary disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden lg:block"
           variant="underline"
+          className="bg-gradient-to-r from-[#e7efeb] to-teal-100 disabled:cursor-not-allowed hidden lg:block"
           disabled={isAlgorithmRunning}
           onClick={() =>
             resetActionMediator("CLEAR_PATHFINDING_AND_EXPLORED_NODES")
