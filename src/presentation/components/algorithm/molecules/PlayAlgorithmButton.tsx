@@ -15,12 +15,8 @@ const PlayAlgorithmButton: React.FC<PlayAlgorithmButtonProps> = ({ type }) => {
   const { isAlgorithmRunning } = useAlgorithm();
 
   const handlePlayClick = () => {
-    const command = PlaybackCommandBuilder.build(
-      "play",
-      Algorithm.create(type)
-    );
-    sendCommand(SetAlgorithmCommand.name, new SetAlgorithmCommand(type));
-    sendCommand(command.name, command);
+    sendCommand(new SetAlgorithmCommand(type));
+    sendCommand(PlaybackCommandBuilder.build("play", Algorithm.create(type)));
   };
 
   return (

@@ -17,9 +17,6 @@ export class AlgorithmStartSaga {
   }
 
   private run = (command: MazeRunnerCommand | PathfindingRunnerCommand) => {
-    this.mediator.sendCommand(
-      StartAlgorithmCommand.name,
-      new StartAlgorithmCommand(command.algorithm)
-    );
+    this.mediator.sendCommand(new StartAlgorithmCommand(command.algorithm));
   };
 }

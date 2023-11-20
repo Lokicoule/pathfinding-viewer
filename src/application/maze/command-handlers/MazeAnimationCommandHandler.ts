@@ -56,10 +56,7 @@ export class MazeAnimationCommandHandler
 
   private handleAnimationCompleted(): void {
     setTimeout(() => {
-      this.mediator.sendEvent(
-        MazeAnimationCompletedEvent.name,
-        new MazeAnimationCompletedEvent()
-      );
+      this.mediator.sendEvent(new MazeAnimationCompletedEvent());
     }, 400);
   }
 }

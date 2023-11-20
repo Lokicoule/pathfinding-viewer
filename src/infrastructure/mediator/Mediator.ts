@@ -23,14 +23,11 @@ export class Mediator {
     return this.eventBus.subscribeEvent(eventName, handler);
   }
 
-  public sendCommand<TCommand extends Command>(
-    commandName: string,
-    command: TCommand
-  ) {
-    this.commandBus.publishCommand(commandName, command);
+  public sendCommand<TCommand extends Command>(command: TCommand) {
+    this.commandBus.publishCommand(command.type, command);
   }
 
-  public sendEvent<TEvent extends Event>(eventName: string, event: TEvent) {
-    this.eventBus.publishEvent(eventName, event);
+  public sendEvent<TEvent extends Event>(event: TEvent) {
+    this.eventBus.publishEvent(event.type, event);
   }
 }

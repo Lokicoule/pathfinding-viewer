@@ -16,9 +16,6 @@ export class MazeCompletionSaga {
   }
 
   private run = (event: MazeRunnerCompletedEvent) => {
-    this.mediator.sendCommand(
-      MazeAnimationCommand.name,
-      new MazeAnimationCommand(event.path)
-    );
+    this.mediator.sendCommand(new MazeAnimationCommand(event.path));
   };
 }

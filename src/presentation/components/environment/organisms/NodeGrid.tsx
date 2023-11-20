@@ -17,7 +17,7 @@ const NodeGrid: NodeGridComponent = () => {
   const nodes = useStateMap<string, Node>();
 
   const handleNodeClick = useCallback((node: Node) => {
-    sendCommand(NodeInteractionCommand.name, new NodeInteractionCommand(node));
+    sendCommand(new NodeInteractionCommand(node));
   }, []);
 
   const handleMouseDown = useCallback((node: Node) => {
@@ -35,10 +35,7 @@ const NodeGrid: NodeGridComponent = () => {
 
   const handleMouseUp = useCallback(() => {
     Array.from(nodes.Map.values()).forEach((node) => {
-      sendCommand(
-        NodeInteractionCommand.name,
-        new NodeInteractionCommand(node)
-      );
+      sendCommand(new NodeInteractionCommand(node));
     });
     nodes.clearMap();
   }, []);

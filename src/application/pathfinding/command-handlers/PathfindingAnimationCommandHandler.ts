@@ -98,19 +98,13 @@ export class PathfindingAnimationCommandHandler
 
       // Fix: If the animation is stopped during the exploration phase, the path animation will not be stopped
       if (this.playbackStore.isStopped())
-        this.mediator.sendCommand(
-          StopPathfindingCommand.name,
-          new StopPathfindingCommand()
-        );
+        this.mediator.sendCommand(new StopPathfindingCommand());
     });
   }
 
   private handleAnimationCompleted() {
     setTimeout(() => {
-      this.mediator.sendEvent(
-        PathfindingAnimationCompletedEvent.name,
-        new PathfindingAnimationCompletedEvent()
-      );
+      this.mediator.sendEvent(new PathfindingAnimationCompletedEvent());
     }, 2000);
   }
 }

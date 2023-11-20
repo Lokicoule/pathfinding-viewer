@@ -1,3 +1,3 @@
 export abstract class Event {
-  constructor(public readonly name: string) {}
+  constructor(public readonly type: string) {}
 }

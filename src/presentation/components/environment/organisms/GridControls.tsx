@@ -15,16 +15,13 @@ const GridControls: GridControlsComponent = () => {
   const resetActionMediator = (action: string) => {
     switch (action) {
       case "RESET_GRID":
-        sendCommand(ResetGridCommand.name, new ResetGridCommand());
+        sendCommand(new ResetGridCommand());
         break;
       case "CLEAR_WALLS":
-        sendCommand(ClearWallsCommand.name, new ClearWallsCommand());
+        sendCommand(new ClearWallsCommand());
         break;
       case "CLEAR_PATHFINDING_AND_EXPLORED_NODES":
-        sendCommand(
-          ClearPathAndExploredNodesCommand.name,
-          new ClearPathAndExploredNodesCommand()
-        );
+        sendCommand(new ClearPathAndExploredNodesCommand());
         break;
     }
   };

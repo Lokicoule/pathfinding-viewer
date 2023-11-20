@@ -26,10 +26,7 @@ const AnimationSpeedControl: AnimationSpeedControlComponent = ({
   };
 
   const handleSpeedSet = () => {
-    sendCommand(
-      UpdateSpeedCommand.name,
-      new UpdateSpeedCommand(Speed.create(Speed.reverse(tempSpeed)))
-    );
+    sendCommand(new UpdateSpeedCommand(Speed.create(Speed.reverse(tempSpeed))));
   };
 
   const speedLabel =

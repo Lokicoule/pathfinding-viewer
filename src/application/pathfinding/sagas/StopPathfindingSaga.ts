@@ -16,9 +16,6 @@ export class StopPathfindingSaga {
   }
 
   private run = () => {
-    this.mediator.sendCommand(
-      StopPathfindingCommand.name,
-      new StopPathfindingCommand()
-    );
+    this.mediator.sendCommand(new StopPathfindingCommand());
   };
 }

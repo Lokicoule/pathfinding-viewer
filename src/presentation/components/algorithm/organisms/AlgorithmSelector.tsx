@@ -28,10 +28,7 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
 
   const handleSetClick = (algorithm: AlgorithmViewModel) => {
     setLocalAlgorithm(algorithm);
-    sendCommand(
-      SetAlgorithmCommand.name,
-      new SetAlgorithmCommand(algorithm.type)
-    );
+    sendCommand(new SetAlgorithmCommand(algorithm.type));
   };
 
   return (

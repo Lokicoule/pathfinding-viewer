@@ -22,8 +22,7 @@ const AnimationControlButton: React.FC<AnimationControlButtonProps> = ({
   const { algorithm } = useAlgorithm();
 
   const sendPlaybackCommand = () => {
-    const command = PlaybackCommandBuilder.build(action, algorithm);
-    sendCommand(command.name, command);
+    sendCommand(PlaybackCommandBuilder.build(action, algorithm));
   };
 
   return isVisible ? (

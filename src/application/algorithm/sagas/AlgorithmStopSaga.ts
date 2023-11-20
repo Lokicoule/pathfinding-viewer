@@ -20,9 +20,6 @@ export class AlgorithmStopSaga {
   }
 
   private run = () => {
-    this.mediator.sendCommand(
-      StopAlgorithmCommand.name,
-      new StopAlgorithmCommand()
-    );
+    this.mediator.sendCommand(new StopAlgorithmCommand());
   };
 }

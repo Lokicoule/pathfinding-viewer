@@ -16,6 +16,6 @@ export class StopMazeSaga {
   }
 
   private run = () => {
-    this.mediator.sendCommand(StopMazeCommand.name, new StopMazeCommand());
+    this.mediator.sendCommand(new StopMazeCommand());
   };
 }

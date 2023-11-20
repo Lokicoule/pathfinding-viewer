@@ -35,10 +35,7 @@ export class PathfindingRunnerCommandHandler
 
     const path = algorithm.create(grid, startNode, endNode).run();
 
-    this.mediator.sendEvent(
-      PathfindingRunnerCompletedEvent.name,
-      new PathfindingRunnerCompletedEvent(endNode, path)
-    );
+    this.mediator.sendEvent(new PathfindingRunnerCompletedEvent(endNode, path));
   }
 
   private async algorithmFactory(algorithmType: PathfindingAlgorithmType) {

@@ -34,10 +34,7 @@ export class MazeRunnerCommandHandler
 
     const walls = algorithm.create(grid.getNodes(), startNode, endNode).run();
 
-    this.mediator.sendEvent(
-      MazeRunnerCompletedEvent.name,
-      new MazeRunnerCompletedEvent(walls)
-    );
+    this.mediator.sendEvent(new MazeRunnerCompletedEvent(walls));
   }
 
   private async algorithmFactory(algorithmType: MazeAlgorithmType) {

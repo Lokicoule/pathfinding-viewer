@@ -16,8 +16,7 @@ const AnimationControls: AnimationControlsComponent = () => {
   const sendPlaybackCommand = (
     action: "play" | "pause" | "stop" | "resume"
   ) => {
-    const command = PlaybackCommandBuilder.build(action, algorithm);
-    sendCommand(command.name, command);
+    sendCommand(PlaybackCommandBuilder.build(action, algorithm));
   };
 
   return (
@@ -29,10 +28,7 @@ const AnimationControls: AnimationControlsComponent = () => {
           checked={isActivated}
           id="checkboxAnimation"
           onChange={() => {
-            sendCommand(
-              ToggleAnimationCommand.name,
-              new ToggleAnimationCommand()
-            );
+            sendCommand(new ToggleAnimationCommand());
             if (playback.isPlaying || playback.isResumed) {
               sendPlaybackCommand("pause");
             }

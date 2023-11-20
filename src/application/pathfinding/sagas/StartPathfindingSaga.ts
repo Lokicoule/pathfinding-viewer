@@ -16,9 +16,6 @@ export class StartPathfindingSaga {
   }
 
   private run = (command: PlayPathfindingCommand) => {
-    this.mediator.sendCommand(
-      PathfindingRunnerCommand.name,
-      new PathfindingRunnerCommand(command.algorithm)
-    );
+    this.mediator.sendCommand(new PathfindingRunnerCommand(command.algorithm));
   };
 }
