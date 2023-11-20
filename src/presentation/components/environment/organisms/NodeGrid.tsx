@@ -5,7 +5,7 @@ import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useGrid } from "../../../hooks/useGrid";
 import useStateMap from "../../../hooks/useStateMap";
-import NodeCell from "../../molecules/cell/NodeCell";
+import NodeCell from "../molecules/NodeCell";
 
 type NodeGridComponent = React.FC;
 

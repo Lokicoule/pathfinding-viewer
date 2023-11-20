@@ -4,7 +4,7 @@ import { Speed } from "../../../../domain/valueObjects/Speed";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useAnimation } from "../../../hooks/useAnimation";
-import Tooltip from "../../atoms/tooltip/Tooltip";
+import Tooltip from "../../ui/atoms/tooltip/Tooltip";
 
 type AnimationSpeedControlComponent = React.FC<
   React.HTMLAttributes<HTMLInputElement>

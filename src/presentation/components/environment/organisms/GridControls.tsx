@@ -4,8 +4,8 @@ import { ResetGridCommand } from "../../../../domain/commands/ResetGridCommand";
 
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import Button from "../../atoms/buttons/Button";
-import AnimationControls from "../animation/AnimationControls";
+import Button from "../../ui/atoms/buttons/Button";
+import AnimationControls from "../../animation/organisms/AnimationControls";
 
 type GridControlsComponent = React.FC;
 

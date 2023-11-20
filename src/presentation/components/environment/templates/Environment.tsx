@@ -1,7 +1,7 @@
-import Card from "../molecules/card/Card";
-import GridControls from "../organisms/grid/GridControls";
-import { Legend } from "../organisms/grid/GridLegend";
-import NodeGrid from "../organisms/grid/NodeGrid";
+import Card from "../../ui/molecules/card/Card";
+import GridControls from "../organisms/GridControls";
+import { Legend } from "../organisms/GridLegend";
+import NodeGrid from "../organisms/NodeGrid";
 
 type EnvironmentComponent = React.FC;
 

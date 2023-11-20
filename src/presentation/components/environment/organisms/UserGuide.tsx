@@ -1,4 +1,4 @@
-import Card from "../../molecules/card/Card";
+import Card from "../../ui/molecules/card/Card";
 
 type UserGuideComponent = React.FC;
 

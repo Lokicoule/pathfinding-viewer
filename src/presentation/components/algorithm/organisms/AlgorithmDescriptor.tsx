@@ -1,7 +1,7 @@
 import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
 import { MAZE_ALGORITHMS } from "../../../constants/mazeConstants";
 import { useAlgorithm } from "../../../hooks";
-import Card from "../../molecules/card/Card";
+import Card from "../../ui/molecules/card/Card";
 
 export const AlgorithmDescriptor = () => {
   const { algorithm } = useAlgorithm();

@@ -4,7 +4,7 @@ import { AlgorithmType } from "../../../../domain/types/AlgorithmType";
 import { Algorithm } from "../../../../domain/valueObjects/Algorithm";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
-import Button from "../../atoms/buttons/Button";
+import Button from "../../ui/atoms/buttons/Button";
 
 type PlayAlgorithmButtonProps = {
   type: AlgorithmType;

@@ -2,9 +2,9 @@ import { PlaybackCommandBuilder } from "../../../../domain/builders/PlaybackComm
 import { ToggleAnimationCommand } from "../../../../domain/commands/animation/ToggleAnimation";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm, useAnimation, usePlayback } from "../../../hooks";
-import { PauseIcon, PlayIcon, StopIcon } from "../../atoms/icons";
-import AnimationControlButton from "../../molecules/animation/AnimationControlButton";
-import AnimationSpeedControl from "../../molecules/animation/AnimationSpeed";
+import { PauseIcon, PlayIcon, StopIcon } from "../../ui/atoms/icons";
+import AnimationControlButton from "../molecules/AnimationControlButton";
+import AnimationSpeedControl from "../molecules/AnimationSpeed";
 
 type AnimationControlsComponent = React.FC;
 

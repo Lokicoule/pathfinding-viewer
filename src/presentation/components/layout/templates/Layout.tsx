@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "../organisms/layout/Header";
-import MainContent from "../organisms/layout/MainContent";
-import RightSidebar from "../organisms/layout/RightSidebar";
-import SideBar from "../organisms/layout/Sidebar";
+import Header from "../organisms/Header";
+import MainContent from "../organisms/MainContent";
+import RightSidebar from "../organisms/RightSidebar";
+import SideBar from "../organisms/Sidebar";
 
 type LayoutProps = React.PropsWithChildren<{
   sidebar?: React.ReactNode;
