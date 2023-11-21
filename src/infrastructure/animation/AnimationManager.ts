@@ -6,8 +6,10 @@ class AnimationManager {
     number,
     { callback: () => void; delay: number; created: number }
   > = new Map();
-  private pausedTimeouts: { callback: () => void; remainingTime: number }[] =
-    [];
+  private pausedTimeouts: {
+    callback: () => void;
+    delay: number;
+  }[] = [];
 
   private constructor(playbackStore: PlaybackStore) {
     playbackStore.subscribe(() => {
@@ -58,10 +60,13 @@ class AnimationManager {
   }
 
   private pauseAnimation() {
+    const now = Date.now();
     this.timeouts.forEach((timeout, id) => {
-      const elapsed = Date.now() - timeout.created;
-      const remainingTime = timeout.delay - elapsed;
-      this.pausedTimeouts.push({ callback: timeout.callback, remainingTime });
+      const remainingDelay = timeout.delay - (now - timeout.created);
+      this.pausedTimeouts.push({
+        callback: timeout.callback,
+        delay: remainingDelay > 0 ? remainingDelay : 0,
+      });
       clearTimeout(id);
     });
     this.timeouts.clear();
@@ -69,11 +74,7 @@ class AnimationManager {
 
   private resumeAnimation() {
     this.pausedTimeouts.forEach((pausedTimeout) => {
-      this.createTimeout(
-        pausedTimeout.callback,
-        pausedTimeout.remainingTime,
-        Date.now() - pausedTimeout.remainingTime
-      );
+      this.createTimeout(pausedTimeout.callback, pausedTimeout.delay);
     });
     this.pausedTimeouts = [];
   }
