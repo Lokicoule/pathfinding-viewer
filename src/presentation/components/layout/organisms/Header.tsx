@@ -4,7 +4,7 @@ const Header: HeaderComponent = () => (
   <header className="flex flex-col items-center px-4 pt-4 pb-1">
     <div className="flex justify-center items-center w-full">
       <h1 className="text-white text-center text-2xl font-semibold font-primary cursor-default">
-        Pathfinding & Maze Generation Visualizer
+        Maze Generation & Pathfinding Visualizer
       </h1>
       <span className="text-white font-primary ml-2 mt-2 text-center text-xs ">
         by{" "}
