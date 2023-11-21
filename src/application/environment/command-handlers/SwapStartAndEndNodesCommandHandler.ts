@@ -1,4 +1,4 @@
-import { SwapStartAndEndNodesCommand } from "@domain/commands/environment/SwapStartAndEndNodesCommand";
+import { SwapStartAndEndNodesCommand } from "@/domain/environment/commands/SwapStartAndEndNodesCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores/GridStore";
 

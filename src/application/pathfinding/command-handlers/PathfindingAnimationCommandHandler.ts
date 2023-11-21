@@ -1,13 +1,13 @@
-import { PathfindingAnimationCommand } from "@domain/commands/pathfinding/PathfindingAnimationCommand";
-import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
-import { Node } from "@domain/entities/Node";
-import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
+import { Node } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import {
+  PathfindingAnimationCommand,
+  PathfindingAnimationCompletedEvent,
+  StopPathfindingCommand,
+} from "@domain/pathfinding";
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
-import { AnimationStore } from "@infra/stores/AnimationStore";
-import { GridStore } from "@infra/stores/GridStore";
-import { PlaybackStore } from "@infra/stores/PlaybackStore";
+import { AnimationStore, GridStore, PlaybackStore } from "@infra/stores";
 
 export class PathfindingAnimationCommandHandler
   implements CommandHandler<PathfindingAnimationCommand>

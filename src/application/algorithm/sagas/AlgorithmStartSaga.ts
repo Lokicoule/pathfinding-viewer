@@ -1,6 +1,6 @@
-import { StartAlgorithmCommand } from "@domain/commands/algorithm/StartAlgorithmCommand";
-import { MazeRunnerCommand } from "@domain/commands/maze/MazeRunnerCommand";
-import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
+import { StartAlgorithmCommand } from "@domain/algorithm";
+import { MazeRunnerCommand } from "@domain/maze";
+import { PathfindingRunnerCommand } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 
 export class AlgorithmStartSaga {

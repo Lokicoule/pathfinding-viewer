@@ -1,6 +1,8 @@
-import { ClearPathAndExploredNodesCommand } from "@domain/commands/environment/ClearPathAndExploredNodesCommand";
-import { ClearWallsCommand } from "@domain/commands/environment/ClearWallsCommand";
-import { ResetGridCommand } from "@domain/commands/environment/ResetGridCommand";
+import {
+  ClearPathAndExploredNodesCommand,
+  ClearWallsCommand,
+  ResetGridCommand,
+} from "@domain/environment";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { AnimationControls } from "../../animation";

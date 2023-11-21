@@ -1,6 +1,6 @@
-import { ClearPathAndExploredNodesCommand } from "@domain/commands/environment/ClearPathAndExploredNodesCommand";
-import { ClearWallsCommand } from "@domain/commands/environment/ClearWallsCommand";
-import { ResetGridCommand } from "@domain/commands/environment/ResetGridCommand";
+import { ClearPathAndExploredNodesCommand } from "@/domain/environment/commands/ClearPathAndExploredNodesCommand";
+import { ClearWallsCommand } from "@/domain/environment/commands/ClearWallsCommand";
+import { ResetGridCommand } from "@/domain/environment/commands/ResetGridCommand";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "../../../bootstrapping/GlobalState";
 import {

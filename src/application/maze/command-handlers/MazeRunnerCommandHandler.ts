@@ -1,10 +1,12 @@
-import { MazeRunnerCommand } from "@domain/commands/maze/MazeRunnerCommand";
-import { NodeType } from "@domain/types/NodeType";
-import { MazeRunnerCompletedEvent } from "@domain/events/MazeRunnerCompletedEvent";
+import { NodeType } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { MazeAlgorithmType } from "@domain/types/MazeAlgorithmType";
+import {
+  MazeAlgorithmType,
+  MazeRunnerCommand,
+  MazeRunnerCompletedEvent,
+} from "@domain/maze";
 import { Mediator } from "@infra/mediator";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class MazeRunnerCommandHandler
   implements CommandHandler<MazeRunnerCommand>

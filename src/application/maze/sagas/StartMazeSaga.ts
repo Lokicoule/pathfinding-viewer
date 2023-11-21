@@ -1,5 +1,4 @@
-import { MazeRunnerCommand } from "@domain/commands/maze/MazeRunnerCommand";
-import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
+import { MazeRunnerCommand, PlayMazeCommand } from "@domain/maze";
 import { Mediator } from "@infra/mediator";
 
 export class StartMazeSaga {

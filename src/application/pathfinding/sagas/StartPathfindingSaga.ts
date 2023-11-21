@@ -1,5 +1,7 @@
-import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
-import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfindingCommand";
+import {
+  PathfindingRunnerCommand,
+  PlayPathfindingCommand,
+} from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 
 export class StartPathfindingSaga {

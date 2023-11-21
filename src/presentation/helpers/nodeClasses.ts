@@ -1,4 +1,4 @@
-import { Node } from "@domain/entities";
+import { Node } from "@/domain/environment/entities";
 
 export const generateNodeClasses = (
   node: Node,
@@ -10,7 +10,11 @@ export const generateNodeClasses = (
   const baseClasses = "cell cursor-cell";
 
   if (optimistic) {
-    return `${baseClasses} ${generateOptimisticClass(node)}`;
+    return `${baseClasses} ${generateOptimisticNonClickedClass(node)}`;
+  } else if (isOptimisticStart || isOptimisticEnd) {
+    return `${baseClasses} ${generateOptimisticClickedClass(
+      isOptimisticStart
+    )}`;
   } else {
     return `${baseClasses} ${generateNodeClass(
       node,
@@ -21,8 +25,12 @@ export const generateNodeClasses = (
   }
 };
 
-const generateOptimisticClass = (node: Node): string => {
+const generateOptimisticNonClickedClass = (node: Node): string => {
   return node.isNotType("Wall") ? "wall" : "empty";
+};
+
+const generateOptimisticClickedClass = (isOptimisticStart: boolean): string => {
+  return isOptimisticStart ? "start" : "end";
 };
 
 const generateNodeClass = (

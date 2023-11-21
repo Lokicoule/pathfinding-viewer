@@ -1,5 +1,3 @@
-import React from "react";
-
 type PlayIconProps = React.SVGProps<SVGSVGElement>;
 type PlayIconComponent = React.FC<PlayIconProps>;
 

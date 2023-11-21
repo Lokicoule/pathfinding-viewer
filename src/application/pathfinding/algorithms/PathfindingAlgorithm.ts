@@ -1,9 +1,8 @@
-import { Grid } from "@domain/entities/Grid";
-import { Node } from "@domain/entities/Node";
-import { Algorithm } from "@domain/interfaces/Algorithm";
+import { AlgorithmRunner } from "@domain/algorithm";
+import { Grid, Node } from "@domain/environment";
 import { Queue } from "@infra/datastructures";
 
-export abstract class PathfindingAlgorithm implements Algorithm {
+export abstract class PathfindingAlgorithm implements AlgorithmRunner {
   protected queue: Queue<Node>;
   protected readonly grid: Grid;
   protected readonly startNode: Node;

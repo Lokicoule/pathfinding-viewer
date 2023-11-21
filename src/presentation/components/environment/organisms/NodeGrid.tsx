@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-import { AddWallsCommand } from "@domain/commands/environment/AddWallsCommand";
-import { RemoveWallsCommand } from "@domain/commands/environment/RemoveWallsCommand";
-import { SetEndNodeCommand } from "@domain/commands/environment/SetEndNodeCommand";
-import { SetStartNodeCommand } from "@domain/commands/environment/SetStartNodeCommand";
-import { SwapStartAndEndNodesCommand } from "@domain/commands/environment/SwapStartAndEndNodesCommand";
 import { generateNodeClasses } from "@/presentation/helpers/nodeClasses";
 import { NODE_PIXEL_SIZE } from "@/shared/constants";
-import { Node } from "@domain/entities/Node";
+import {
+  AddWallsCommand,
+  Node,
+  RemoveWallsCommand,
+  SetEndNodeCommand,
+  SetStartNodeCommand,
+  SwapStartAndEndNodesCommand,
+} from "@domain/environment";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useGrid } from "../../../hooks/useGrid";

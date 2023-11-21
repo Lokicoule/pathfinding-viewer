@@ -1,5 +1,4 @@
-import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
-import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
+import { MazeAnimationCompletedEvent, StopMazeCommand } from "@domain/maze";
 import { Mediator } from "@infra/mediator";
 
 export class StopMazeSaga {

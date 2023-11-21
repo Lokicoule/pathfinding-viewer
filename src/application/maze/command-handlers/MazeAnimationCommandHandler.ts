@@ -1,12 +1,12 @@
-import { MazeAnimationCommand } from "@domain/commands/maze/MazeAnimationCommand";
-import { Node } from "@domain/entities/Node";
-import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
+import { Node } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import {
+  MazeAnimationCommand,
+  MazeAnimationCompletedEvent,
+} from "@domain/maze";
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
-import { AnimationStore } from "@infra/stores/AnimationStore";
-import { GridStore } from "@infra/stores/GridStore";
-import { PlaybackStore } from "@infra/stores/PlaybackStore";
+import { AnimationStore, GridStore, PlaybackStore } from "@infra/stores";
 
 export class MazeAnimationCommandHandler
   implements CommandHandler<MazeAnimationCommand>

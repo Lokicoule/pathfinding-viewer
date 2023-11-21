@@ -1,4 +1,4 @@
-import { Playback, PlaybackValue } from "@domain/valueObjects/Playback";
+import { Playback, PlaybackValue } from "@domain/animation";
 import { Store } from "../store/Store";
 
 export type PlaybackStoreState = {

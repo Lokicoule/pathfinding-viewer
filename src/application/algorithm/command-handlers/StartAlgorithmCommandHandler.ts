@@ -1,6 +1,6 @@
-import { StartAlgorithmCommand } from "@domain/commands/algorithm";
+import { StartAlgorithmCommand } from "@domain/algorithm";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
+import { AlgorithmStore } from "@infra/stores";
 
 export class StartAlgorithmCommandHandler
   implements CommandHandler<StartAlgorithmCommand>

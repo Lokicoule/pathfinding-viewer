@@ -1,4 +1,4 @@
-import { SetAlgorithmCommand } from "@domain/commands/algorithm";
+import { SetAlgorithmCommand } from "@domain/algorithm";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { UpdateSpeedCommand } from "@domain/commands/animation/UpdateSpeedCommand";
-import { Speed } from "@domain/valueObjects/Speed";
+import { Speed, UpdateSpeedCommand } from "@domain/animation";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { useAnimation } from "../../../hooks/useAnimation";

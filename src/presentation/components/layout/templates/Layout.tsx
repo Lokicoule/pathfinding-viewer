@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../organisms/Header";
 import MainContent from "../organisms/MainContent";
 import RightSidebar from "../organisms/RightSidebar";

@@ -1,7 +1,5 @@
-import { Grid } from "@domain/entities/Grid";
-import { Node } from "@domain/entities/Node";
+import { Grid, Node } from "@domain/environment";
 import { Queue } from "@infra/datastructures";
-import { Algorithm } from "@domain/interfaces/Algorithm";
 import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 
 export class BreadthFirstSearchPathfindingAlgorithm extends PathfindingAlgorithm {
@@ -9,7 +7,11 @@ export class BreadthFirstSearchPathfindingAlgorithm extends PathfindingAlgorithm
     super(grid, startNode, endNode);
   }
 
-  public static create(grid: Grid, startNode: Node, endNode: Node): Algorithm {
+  public static create(
+    grid: Grid,
+    startNode: Node,
+    endNode: Node
+  ): BreadthFirstSearchPathfindingAlgorithm {
     return new BreadthFirstSearchPathfindingAlgorithm(grid, startNode, endNode);
   }
 

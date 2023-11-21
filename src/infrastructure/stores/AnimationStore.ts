@@ -1,4 +1,4 @@
-import { Speed } from "@domain/valueObjects/Speed";
+import { Speed } from "@domain/animation";
 import { Store } from "../store/Store";
 
 export type AnimationStoreState = {

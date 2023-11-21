@@ -1,9 +1,11 @@
-import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
-import { PathfindingRunnerCompletedEvent } from "@domain/events/PathfindingRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";
+import {
+  PathfindingAlgorithmType,
+  PathfindingRunnerCommand,
+  PathfindingRunnerCompletedEvent,
+} from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class PathfindingRunnerCommandHandler
   implements CommandHandler<PathfindingRunnerCommand>

@@ -1,20 +1,4 @@
-import { UpdateSpeedCommandHandler } from "@app/animation";
-import { GridInteractionSaga, NodeInteractionSaga } from "@app/environment";
-import { MazeAnimationSaga } from "@app/maze";
-import { StopPathfindingSaga } from "@app/pathfinding";
-import {
-  StartAlgorithmCommand,
-  StopAlgorithmCommand,
-} from "@domain/commands/algorithm";
-import {
-  ToggleAnimationCommand,
-  UpdateSpeedCommand,
-} from "@domain/commands/animation";
-import { MazeAnimationCommand, MazeRunnerCommand } from "@domain/commands/maze";
-import {
-  PathfindingAnimationCommand,
-  PathfindingRunnerCommand,
-} from "@domain/commands/pathfinding";
+import { SetAlgorithmCommand } from "@/domain/algorithm/commands";
 import {
   AlgorithmStartSaga,
   AlgorithmStopSaga,
@@ -22,9 +6,14 @@ import {
   StartAlgorithmCommandHandler,
   StopAlgorithmCommandHandler,
 } from "@app/algorithm";
-import { ToggleAnimationCommandHandler } from "@app/animation";
+import {
+  ToggleAnimationCommandHandler,
+  UpdateSpeedCommandHandler,
+} from "@app/animation";
+import { GridInteractionSaga, NodeInteractionSaga } from "@app/environment";
 import {
   MazeAnimationCommandHandler,
+  MazeAnimationSaga,
   MazeCompletionSaga,
   MazeRunnerCommandHandler,
   StartMazeSaga,
@@ -32,12 +21,19 @@ import {
 } from "@app/maze";
 import {
   PathfindingAnimationCommandHandler,
+  PathfindingAnimationSaga,
   PathfindingCompletionSaga,
   PathfindingRunnerCommandHandler,
-  PathfindingAnimationSaga,
   StartPathfindingSaga,
+  StopPathfindingSaga,
 } from "@app/pathfinding";
-import { SetAlgorithmCommand } from "@domain/commands/algorithm";
+import { StartAlgorithmCommand, StopAlgorithmCommand } from "@domain/algorithm";
+import { ToggleAnimationCommand, UpdateSpeedCommand } from "@domain/animation";
+import { MazeAnimationCommand, MazeRunnerCommand } from "@domain/maze";
+import {
+  PathfindingAnimationCommand,
+  PathfindingRunnerCommand,
+} from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
 

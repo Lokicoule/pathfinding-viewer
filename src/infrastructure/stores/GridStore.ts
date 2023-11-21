@@ -1,8 +1,5 @@
-import { Grid } from "@domain/entities/Grid";
-import { Node } from "@domain/entities/Node";
-import { NodeType } from "@domain/types/NodeType";
+import { Grid, Node, NodeType, Vector } from "@domain/environment";
 import { Result } from "@domain/types/Result";
-import { Vector } from "@domain/valueObjects/Vector";
 import { Store } from "../store/Store";
 
 export type GridStoreState = {

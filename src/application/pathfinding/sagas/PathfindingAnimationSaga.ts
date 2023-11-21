@@ -1,13 +1,17 @@
+import {
+  PauseCommandHandler,
+  PlayCommandHandler,
+  ResumeCommandHandler,
+  StopCommandHandler,
+} from "@app/animation";
+import {
+  PausePathfindingCommand,
+  PlayPathfindingCommand,
+  ResumePathfindingCommand,
+  StopPathfindingCommand,
+} from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
-import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfindingCommand";
-import { PausePathfindingCommand } from "@domain/commands/pathfinding/PausePathfindingCommand";
-import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
-import { ResumePathfindingCommand } from "@domain/commands/pathfinding/ResumePathfindingCommand";
-import { PlayCommandHandler } from "../../animation/command-handlers/PlayCommandHandler";
-import { PauseCommandHandler } from "../../animation/command-handlers/PauseCommandHandler";
-import { StopCommandHandler } from "../../animation/command-handlers/StopCommandHandler";
-import { ResumeCommandHandler } from "../../animation/command-handlers/ResumeCommandHandler";
-import { PlaybackStore } from "@infra/stores/PlaybackStore";
+import { PlaybackStore } from "@infra/stores";
 
 export class PathfindingAnimationSaga {
   private constructor(

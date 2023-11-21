@@ -1,5 +1,3 @@
-import React from "react";
-
 type StopIconProps = React.SVGProps<SVGSVGElement>;
 type StopIconComponent = React.FC<StopIconProps>;
 

@@ -3,13 +3,15 @@ import {
   PlayCommandHandler,
   ResumeCommandHandler,
   StopCommandHandler,
-} from "@app/animation/command-handlers/";
-import { PauseMazeCommand } from "@domain/commands/maze/PauseMazeCommand";
-import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
-import { ResumeMazeCommand } from "@domain/commands/maze/ResumeMazeCommand";
-import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
+} from "@app/animation";
+import {
+  PauseMazeCommand,
+  PlayMazeCommand,
+  ResumeMazeCommand,
+  StopMazeCommand,
+} from "@domain/maze";
 import { Mediator } from "@infra/mediator";
-import { PlaybackStore } from "@infra/stores/PlaybackStore";
+import { PlaybackStore } from "@infra/stores";
 
 export class MazeAnimationSaga {
   private constructor(

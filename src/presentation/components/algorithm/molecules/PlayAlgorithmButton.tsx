@@ -1,7 +1,9 @@
-import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
-import { SetAlgorithmCommand } from "@domain/commands/algorithm";
-import { AlgorithmType } from "@domain/types/AlgorithmType";
-import { Algorithm } from "@domain/valueObjects/Algorithm";
+import {
+  Algorithm,
+  AlgorithmType,
+  SetAlgorithmCommand,
+} from "@domain/algorithm";
+import { AnimationCommandBuilder } from "@domain/animation";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
 import { Button } from "../../ui";

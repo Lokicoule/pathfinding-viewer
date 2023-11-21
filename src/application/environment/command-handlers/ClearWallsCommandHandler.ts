@@ -1,4 +1,4 @@
-import { ClearWallsCommand } from "@domain/commands/environment/ClearWallsCommand";
+import { ClearWallsCommand } from "@/domain/environment/commands/ClearWallsCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores/GridStore";
 

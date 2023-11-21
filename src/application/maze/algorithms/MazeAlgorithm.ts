@@ -1,7 +1,7 @@
-import { Node } from "@domain/entities/Node";
-import { Algorithm } from "@domain/interfaces/Algorithm";
+import { AlgorithmRunner } from "@domain/algorithm";
+import { Node } from "@domain/environment";
 
-export abstract class MazeAlgorithm implements Algorithm {
+export abstract class MazeAlgorithm implements AlgorithmRunner {
   protected path: Node[] = [];
   protected readonly grid: Node[][];
   protected readonly startNode: Node;

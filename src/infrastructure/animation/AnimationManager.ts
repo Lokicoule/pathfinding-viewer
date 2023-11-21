@@ -1,4 +1,4 @@
-import { PlaybackStore } from "../stores/PlaybackStore";
+import { PlaybackStore } from "@infra/stores";
 
 class AnimationManager {
   private abortController: AbortController | null = null;

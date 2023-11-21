@@ -1,4 +1,4 @@
-import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
+import { AnimationCommandBuilder } from "@domain/animation";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
 import { Button, Tooltip } from "../../ui";

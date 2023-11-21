@@ -1,6 +1,6 @@
-import { StopAlgorithmCommand } from "@domain/commands/algorithm/StopAlgorithmCommand";
-import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
-import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
+import { StopAlgorithmCommand } from "@domain/algorithm";
+import { MazeAnimationCompletedEvent } from "@domain/maze";
+import { PathfindingAnimationCompletedEvent } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 
 export class AlgorithmStopSaga {

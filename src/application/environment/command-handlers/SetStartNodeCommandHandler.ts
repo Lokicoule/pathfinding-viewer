@@ -1,4 +1,4 @@
-import { SetStartNodeCommand } from "@domain/commands/environment/SetStartNodeCommand";
+import { SetStartNodeCommand } from "@/domain/environment/commands/SetStartNodeCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores/GridStore";
 

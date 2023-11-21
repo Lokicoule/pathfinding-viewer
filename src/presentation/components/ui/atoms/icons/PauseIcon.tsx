@@ -1,5 +1,3 @@
-import React from "react";
-
 type PauseIconProps = React.SVGProps<SVGSVGElement>;
 type PauseIconComponent = React.FC<PauseIconProps>;
 

@@ -1,5 +1,4 @@
-import { Node } from "@domain/entities/Node";
-import { Algorithm } from "@domain/interfaces/Algorithm";
+import { Node } from "@domain/environment";
 import { MazeAlgorithm } from "./MazeAlgorithm";
 
 export class PrimsMazeAlgorithm extends MazeAlgorithm {
@@ -7,11 +6,7 @@ export class PrimsMazeAlgorithm extends MazeAlgorithm {
     super(grid, startNode, endNode);
   }
 
-  public static create(
-    grid: Node[][],
-    startNode: Node,
-    endNode: Node
-  ): Algorithm {
+  public static create(grid: Node[][], startNode: Node, endNode: Node) {
     return new PrimsMazeAlgorithm(grid, startNode, endNode);
   }
 

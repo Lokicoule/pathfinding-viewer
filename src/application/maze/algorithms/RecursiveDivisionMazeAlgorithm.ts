@@ -1,4 +1,4 @@
-import { Node } from "@domain/entities/Node";
+import { Node } from "@domain/environment";
 import { MazeAlgorithm } from "./MazeAlgorithm";
 
 enum Direction {

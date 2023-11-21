@@ -1,5 +1,7 @@
-import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
-import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimationCommand";
+import {
+  AnimationCommandBuilder,
+  ToggleAnimationCommand,
+} from "@domain/animation";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm, useAnimation, usePlayback } from "../../../hooks";
 import { PauseIcon, PlayIcon, StopIcon } from "../../ui/atoms/icons";

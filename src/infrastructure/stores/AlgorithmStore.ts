@@ -1,6 +1,6 @@
-import { MazeAlgorithmType } from "@domain/types/MazeAlgorithmType";
-import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";
-import { Algorithm } from "@domain/valueObjects/Algorithm";
+import { Algorithm } from "@domain/algorithm";
+import { MazeAlgorithmType } from "@domain/maze";
+import { PathfindingAlgorithmType } from "@domain/pathfinding";
 import { Store } from "../store/Store";
 
 export type AlgorithmStoreState = {

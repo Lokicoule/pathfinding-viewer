@@ -1,5 +1,7 @@
-import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
-import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
+import {
+  PathfindingAnimationCompletedEvent,
+  StopPathfindingCommand,
+} from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 
 export class StopPathfindingSaga {
