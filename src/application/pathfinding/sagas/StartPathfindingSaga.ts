@@ -1,4 +1,4 @@
-import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
+import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
 import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfindingCommand";
 import { Mediator } from "@infra/mediator";
 

@@ -1,4 +1,4 @@
-import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
+import { MazeRunnerCommand } from "@domain/commands/maze/MazeRunnerCommand";
 import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
 import { Mediator } from "@infra/mediator";
 

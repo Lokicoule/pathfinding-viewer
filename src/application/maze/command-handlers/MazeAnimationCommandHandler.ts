@@ -1,11 +1,10 @@
-import { MazeAnimationCommand } from "@domain/commands/MazeAnimationCommand";
+import { MazeAnimationCommand } from "@domain/commands/maze/MazeAnimationCommand";
 import { Node } from "@domain/entities/Node";
 import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore } from "@infra/stores/AnimationStore";
-import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
@@ -15,7 +14,6 @@ export class MazeAnimationCommandHandler
   private animationManager: AnimationManager;
   constructor(
     private readonly mediator: Mediator,
-    private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
     playbackStore: PlaybackStore,
     private readonly animationStore: AnimationStore
@@ -47,7 +45,7 @@ export class MazeAnimationCommandHandler
           }
 
           resolve();
-        }, 10 * i * this.experienceStore.getSpeed().getValue());
+        }, 10 * i * this.animationStore.getSpeed().getValue());
       });
     });
 

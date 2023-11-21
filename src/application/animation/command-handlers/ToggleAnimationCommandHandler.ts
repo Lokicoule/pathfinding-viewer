@@ -1,4 +1,4 @@
-import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimation";
+import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimationCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { AnimationStore } from "@infra/stores/AnimationStore";
 

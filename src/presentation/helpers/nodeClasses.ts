@@ -1,4 +1,4 @@
-import { Node } from "@/domain/entities";
+import { Node } from "@domain/entities";
 
 export const generateNodeClasses = (
   node: Node,

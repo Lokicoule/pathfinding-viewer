@@ -1,4 +1,4 @@
-import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
+import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
 import { PathfindingRunnerCompletedEvent } from "@domain/events/PathfindingRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";

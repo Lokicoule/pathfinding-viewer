@@ -1,6 +1,6 @@
-import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
-import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
-import { StartAlgorithmCommand } from "@domain/commands/StartAlgorithmCommand";
+import { StartAlgorithmCommand } from "@domain/commands/algorithm/StartAlgorithmCommand";
+import { MazeRunnerCommand } from "@domain/commands/maze/MazeRunnerCommand";
+import { PathfindingRunnerCommand } from "@domain/commands/pathfinding/PathfindingRunnerCommand";
 import { Mediator } from "@infra/mediator";
 
 export class AlgorithmStartSaga {
@@ -16,7 +16,7 @@ export class AlgorithmStartSaga {
     return new AlgorithmStartSaga(mediator);
   }
 
-  private run = (command: MazeRunnerCommand | PathfindingRunnerCommand) => {
-    this.mediator.sendCommand(new StartAlgorithmCommand(command.algorithm));
+  private run = () => {
+    this.mediator.sendCommand(new StartAlgorithmCommand());
   };
 }

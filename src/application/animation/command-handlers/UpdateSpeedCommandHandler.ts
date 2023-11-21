@@ -1,13 +1,13 @@
-import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
+import { AnimationStore } from "@/infrastructure/stores";
+import { UpdateSpeedCommand } from "@domain/commands/animation/UpdateSpeedCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { ExperienceStore } from "@infra/stores/ExperienceStore";
 
 export class UpdateSpeedCommandHandler
   implements CommandHandler<UpdateSpeedCommand>
 {
-  constructor(private readonly experienceStore: ExperienceStore) {}
+  constructor(private readonly animationStore: AnimationStore) {}
 
   execute(command: UpdateSpeedCommand): void {
-    this.experienceStore.setSpeed(command.speed);
+    this.animationStore.setSpeed(command.speed);
   }
 }

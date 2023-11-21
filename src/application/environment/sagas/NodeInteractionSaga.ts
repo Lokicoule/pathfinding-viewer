@@ -1,8 +1,8 @@
-import { AddWallsCommand } from "@/domain/commands/grid/AddWallsCommand";
-import { RemoveWallsCommand } from "@/domain/commands/grid/RemoveWallsCommand";
-import { SetEndNodeCommand } from "@/domain/commands/grid/SetEndNodeCommand";
-import { SetStartNodeCommand } from "@/domain/commands/grid/SetStartNodeCommand";
-import { SwapStartAndEndNodesCommand } from "@/domain/commands/grid/SwapStartAndEndNodesCommand";
+import { AddWallsCommand } from "@domain/commands/environment/AddWallsCommand";
+import { RemoveWallsCommand } from "@domain/commands/environment/RemoveWallsCommand";
+import { SetEndNodeCommand } from "@domain/commands/environment/SetEndNodeCommand";
+import { SetStartNodeCommand } from "@domain/commands/environment/SetStartNodeCommand";
+import { SwapStartAndEndNodesCommand } from "@domain/commands/environment/SwapStartAndEndNodesCommand";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "../../../bootstrapping/GlobalState";
 import {

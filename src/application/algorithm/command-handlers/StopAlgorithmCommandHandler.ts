@@ -1,13 +1,13 @@
-import { StopAlgorithmCommand } from "@domain/commands/StopAlgorithmCommand";
+import { StopAlgorithmCommand } from "@domain/commands/algorithm";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { ExperienceStore } from "@infra/stores/ExperienceStore";
+import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
 
 export class StopAlgorithmCommandHandler
   implements CommandHandler<StopAlgorithmCommand>
 {
-  constructor(private readonly experienceStore: ExperienceStore) {}
+  constructor(private readonly algorithmStore: AlgorithmStore) {}
 
   execute(): void {
-    this.experienceStore.stopAlgorithm();
+    this.algorithmStore.stopAlgorithm();
   }
 }

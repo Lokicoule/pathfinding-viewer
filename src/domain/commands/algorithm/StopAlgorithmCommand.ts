@@ -1,4 +1,4 @@
-import { Command } from "../interfaces/Command";
+import { Command } from "../../interfaces/Command";
 
 export class StopAlgorithmCommand extends Command {
   constructor() {

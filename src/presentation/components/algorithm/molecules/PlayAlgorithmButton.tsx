@@ -1,5 +1,5 @@
 import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
-import { SetAlgorithmCommand } from "@domain/commands/SetAlgorithmCommand";
+import { SetAlgorithmCommand } from "@domain/commands/algorithm";
 import { AlgorithmType } from "@domain/types/AlgorithmType";
 import { Algorithm } from "@domain/valueObjects/Algorithm";
 import { useCommand } from "../../../adapters/mediator/hooks";

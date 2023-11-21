@@ -1,4 +1,4 @@
-import { SetEndNodeCommand } from "@/domain/commands/grid/SetEndNodeCommand";
+import { SetEndNodeCommand } from "@domain/commands/environment/SetEndNodeCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores/GridStore";
 
@@ -8,11 +8,6 @@ export class SetEndNodeCommandHandler
   constructor(private readonly gridStore: GridStore) {}
 
   execute({ endNode, targetNode }: SetEndNodeCommand): void {
-    console.log("SetEndNodeCommandHandler.execute", {
-      endNode,
-      targetNode,
-    });
-
     if (this.gridStore.getEndNode().equalsVector(endNode.getVector())) {
       this.gridStore.setEndNode(targetNode.getVector());
     } else {

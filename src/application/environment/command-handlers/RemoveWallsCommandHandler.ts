@@ -1,4 +1,4 @@
-import { RemoveWallsCommand } from "@domain/commands/grid/RemoveWallsCommand";
+import { RemoveWallsCommand } from "@domain/commands/environment/RemoveWallsCommand";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores/GridStore";
 

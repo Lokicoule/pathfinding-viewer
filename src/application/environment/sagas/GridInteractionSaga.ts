@@ -1,6 +1,6 @@
-import { ClearPathAndExploredNodesCommand } from "@domain/commands/ClearPathAndExploredNodesCommand";
-import { ClearWallsCommand } from "@domain/commands/ClearWallsCommand";
-import { ResetGridCommand } from "@domain/commands/ResetGridCommand";
+import { ClearPathAndExploredNodesCommand } from "@domain/commands/environment/ClearPathAndExploredNodesCommand";
+import { ClearWallsCommand } from "@domain/commands/environment/ClearWallsCommand";
+import { ResetGridCommand } from "@domain/commands/environment/ResetGridCommand";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "../../../bootstrapping/GlobalState";
 import {
@@ -26,7 +26,7 @@ export class GridInteractionSaga {
     commandHandlers.forEach(({ command, handler }) => {
       this.mediator.registerCommandHandler(
         command,
-        new handler(this.stores.experienceStore, this.stores.gridStore)
+        new handler(this.stores.gridStore)
       );
     });
   }

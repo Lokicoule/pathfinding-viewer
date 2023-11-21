@@ -1,4 +1,4 @@
-import { StopAlgorithmCommand } from "@domain/commands/StopAlgorithmCommand";
+import { StopAlgorithmCommand } from "@domain/commands/algorithm/StopAlgorithmCommand";
 import { MazeAnimationCompletedEvent } from "@domain/events/MazeAnimationCompletedEvent";
 import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
 import { Mediator } from "@infra/mediator";

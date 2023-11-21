@@ -1,13 +1,13 @@
-import { StartAlgorithmCommand } from "@domain/commands/StartAlgorithmCommand";
+import { StartAlgorithmCommand } from "@domain/commands/algorithm";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { ExperienceStore } from "@infra/stores/ExperienceStore";
+import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
 
 export class StartAlgorithmCommandHandler
   implements CommandHandler<StartAlgorithmCommand>
 {
-  constructor(private readonly experienceStore: ExperienceStore) {}
+  constructor(private readonly algorithmStore: AlgorithmStore) {}
 
   execute(): void {
-    this.experienceStore.startAlgorithm();
+    this.algorithmStore.startAlgorithm();
   }
 }

@@ -1,4 +1,4 @@
-import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
+import { PathfindingAnimationCommand } from "@domain/commands/pathfinding/PathfindingAnimationCommand";
 import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
 import { Node } from "@domain/entities/Node";
 import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
@@ -6,7 +6,6 @@ import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore } from "@infra/stores/AnimationStore";
-import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
@@ -18,7 +17,6 @@ export class PathfindingAnimationCommandHandler
 
   constructor(
     private readonly mediator: Mediator,
-    private readonly experienceStore: ExperienceStore,
     private readonly gridStore: GridStore,
     private readonly playbackStore: PlaybackStore,
     private readonly animationStore: AnimationStore
@@ -74,7 +72,7 @@ export class PathfindingAnimationCommandHandler
           }
 
           resolve();
-        }, 20 * i * this.experienceStore.getSpeed().getValue());
+        }, 20 * i * this.animationStore.getSpeed().getValue());
       });
     });
 

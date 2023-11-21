@@ -1,8 +1,20 @@
-import { UpdateSpeedCommandHandler } from "@/application/animation";
-import { GridInteractionSaga } from "@/application/environment";
-import { NodeInteractionSaga } from "@/application/environment/sagas";
-import { MazeAnimationSaga } from "@/application/maze";
-import { StopPathfindingSaga } from "@/application/pathfinding";
+import { UpdateSpeedCommandHandler } from "@app/animation";
+import { GridInteractionSaga, NodeInteractionSaga } from "@app/environment";
+import { MazeAnimationSaga } from "@app/maze";
+import { StopPathfindingSaga } from "@app/pathfinding";
+import {
+  StartAlgorithmCommand,
+  StopAlgorithmCommand,
+} from "@domain/commands/algorithm";
+import {
+  ToggleAnimationCommand,
+  UpdateSpeedCommand,
+} from "@domain/commands/animation";
+import { MazeAnimationCommand, MazeRunnerCommand } from "@domain/commands/maze";
+import {
+  PathfindingAnimationCommand,
+  PathfindingRunnerCommand,
+} from "@domain/commands/pathfinding";
 import {
   AlgorithmStartSaga,
   AlgorithmStopSaga,
@@ -25,15 +37,7 @@ import {
   PlaybackPathfindingSaga,
   StartPathfindingSaga,
 } from "@app/pathfinding";
-import { MazeAnimationCommand } from "@domain/commands/MazeAnimationCommand";
-import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
-import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
-import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
-import { SetAlgorithmCommand } from "@domain/commands/SetAlgorithmCommand";
-import { StartAlgorithmCommand } from "@domain/commands/StartAlgorithmCommand";
-import { StopAlgorithmCommand } from "@domain/commands/StopAlgorithmCommand";
-import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
-import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimation";
+import { SetAlgorithmCommand } from "@domain/commands/algorithm";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
 
@@ -79,7 +83,6 @@ export class CompositionRoot {
       PathfindingAnimationCommand.name,
       new PathfindingAnimationCommandHandler(
         this.mediator,
-        this.stores.experienceStore,
         this.stores.gridStore,
         this.stores.pathfindingPlaybackStore,
         this.stores.animationStore
@@ -89,7 +92,6 @@ export class CompositionRoot {
       MazeAnimationCommand.name,
       new MazeAnimationCommandHandler(
         this.mediator,
-        this.stores.experienceStore,
         this.stores.gridStore,
         this.stores.mazePlaybackStore,
         this.stores.animationStore
@@ -101,19 +103,19 @@ export class CompositionRoot {
     );
     this.mediator.registerCommandHandler(
       StartAlgorithmCommand.name,
-      new StartAlgorithmCommandHandler(this.stores.experienceStore)
+      new StartAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
       StopAlgorithmCommand.name,
-      new StopAlgorithmCommandHandler(this.stores.experienceStore)
+      new StopAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
       UpdateSpeedCommand.name,
-      new UpdateSpeedCommandHandler(this.stores.experienceStore)
+      new UpdateSpeedCommandHandler(this.stores.animationStore)
     );
     this.mediator.registerCommandHandler(
       SetAlgorithmCommand.name,
-      new SetAlgorithmCommandHandler(this.stores.experienceStore)
+      new SetAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
       ToggleAnimationCommand.name,
