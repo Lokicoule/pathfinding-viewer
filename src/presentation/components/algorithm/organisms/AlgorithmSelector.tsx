@@ -5,7 +5,7 @@ import { useAlgorithm } from "../../../hooks/useAlgorithm";
 import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";
 import { AlgorithmToggleButtonList, PlayAlgorithmButton } from "../molecules";
 import Card from "../../ui/molecules/card/Card";
-import { getInitialAlgorithm } from "../../../utils/algorithm";
+import { getInitialAlgorithm } from "../../../helpers/algorithm";
 
 type AlgorithmSelectorProps = {
   algorithms: AlgorithmViewModel[];
