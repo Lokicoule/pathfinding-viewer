@@ -21,9 +21,9 @@ export class DepthFirstSearchMazeAlgorithm extends MazeAlgorithm {
   private backtrack(node: Node): void {
     this.path.push(node);
 
-    if (!node.isStart() && !node.isEnd()) {
-      node.setExplored();
-      this.path.push(node.copy(), node.copy().setEmpty());
+    if (node.isNotType("Start", "End")) {
+      node.setType("Explored");
+      this.path.push(node.copy(), node.copy().setType("Empty"));
     }
 
     const neighbors = this.getUnvisitedNeighbors(node);
@@ -43,8 +43,8 @@ export class DepthFirstSearchMazeAlgorithm extends MazeAlgorithm {
   }
 
   private resetNodeIfAllNeighborsExplored(node: Node, neighbors: Node[]): void {
-    if (neighbors.length === 0 && !node.isStart() && !node.isEnd()) {
-      node.setWall();
+    if (neighbors.length === 0 && node.isNotType("Start", "End")) {
+      node.setType("Wall");
     }
   }
 
@@ -59,23 +59,23 @@ export class DepthFirstSearchMazeAlgorithm extends MazeAlgorithm {
 
       if (
         this.isValidPosition(newRow, newCol) &&
-        !this.grid[newRow][newCol].isExplored() &&
+        !this.grid[newRow][newCol].isType("Explored") &&
         (this.isMidNodeWall(newRow, newCol, node) ||
           this.grid[(node.getVector().y + newRow) / 2][
             (node.getVector().x + newCol) / 2
-          ].isEnd())
+          ].isType("End"))
       ) {
         neighbors.push(this.grid[newRow][newCol]);
       }
     }
 
-    return neighbors.filter((neighbor) => !neighbor.isExplored());
+    return neighbors.filter((neighbor) => !neighbor.isType("Explored"));
   }
 
   private isMidNodeWall(row: number, col: number, node: Node): boolean {
     const midRow = (node.getVector().y + row) / 2;
     const midCol = (node.getVector().x + col) / 2;
 
-    return this.grid[midRow][midCol].isWall();
+    return this.grid[midRow][midCol].isType("Wall");
   }
 }

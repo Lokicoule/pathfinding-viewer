@@ -30,7 +30,7 @@ export class MazeAnimationCommandHandler
       );
     } else {
       for (const node of command.wallsInOrder) {
-        if (!node.isStart() && !node.isEnd()) {
+        if (node.isNotType("Start", "End")) {
           this.gridStore.setNodeAs(node.getVector(), node.getType());
         }
       }
@@ -42,7 +42,7 @@ export class MazeAnimationCommandHandler
     const promises: Promise<void>[] = wallsInOrder.map((node, i) => {
       return new Promise<void>((resolve) => {
         this.animationManager.createTimeout(() => {
-          if (!node.isStart() && !node.isEnd()) {
+          if (node.isNotType("Start", "End")) {
             this.gridStore.setNodeAs(node.getVector(), node.getType());
           }
 

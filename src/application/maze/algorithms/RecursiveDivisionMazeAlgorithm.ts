@@ -72,12 +72,8 @@ export class RecursiveDivisionMazeAlgorithm extends MazeAlgorithm {
     const hole = this.getRandomNumber(colStart, colEnd, (num) => num % 2 === 1);
 
     for (let i = colStart; i <= colEnd; i++) {
-      if (
-        i !== hole &&
-        !this.grid[row][i].isStart() &&
-        !this.grid[row][i].isEnd()
-      ) {
-        this.grid[row][i].setWall();
+      if (i !== hole && this.grid[row][i].isNotType("Start", "End")) {
+        this.grid[row][i].setType("Wall");
         this.path.push(this.grid[row][i]);
       }
     }
@@ -91,12 +87,8 @@ export class RecursiveDivisionMazeAlgorithm extends MazeAlgorithm {
     const hole = this.getRandomNumber(rowStart, rowEnd, (num) => num % 2 === 1);
 
     for (let i = rowStart; i <= rowEnd; i++) {
-      if (
-        i !== hole &&
-        !this.grid[i][col].isStart() &&
-        !this.grid[i][col].isEnd()
-      ) {
-        this.grid[i][col].setWall();
+      if (i !== hole && this.grid[i][col].isNotType("Start", "End")) {
+        this.grid[i][col].setType("Wall");
         this.path.push(this.grid[i][col]);
       }
     }

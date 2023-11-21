@@ -1,5 +1,4 @@
 import { NodeInteractionCommand } from "@domain/commands/NodeInteractionCommand";
-import { NodeType } from "@domain/enums/NodeType";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
@@ -19,11 +18,14 @@ export class NodeInteractionCommandHandler
 
     this.experienceStore.setLastInteractedNode(command.node);
 
-    if (lastInteractedNode?.isStart() && !previousLastInteractedNode?.isEnd()) {
+    if (
+      lastInteractedNode?.isType("Start") &&
+      !previousLastInteractedNode?.isType("End")
+    ) {
       this.handleStartNodeInteraction(command);
     } else if (
-      lastInteractedNode?.isEnd() &&
-      !previousLastInteractedNode?.isStart()
+      lastInteractedNode?.isType("End") &&
+      !previousLastInteractedNode?.isType("Start")
     ) {
       this.handleEndNodeInteraction(command);
     } else {
@@ -32,11 +34,10 @@ export class NodeInteractionCommandHandler
   }
 
   private handleStartNodeInteraction(command: NodeInteractionCommand) {
-    if (!command.node.isStart() && !command.node.isEnd()) {
+    if (command.node.isNotType("Start", "End")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || [NodeType.Start, NodeType.End].includes(node.getType()))
-        return;
+      if (!node || node.isNotType("Start", "End")) return;
 
       const setStartNodeResult = this.gridStore.setStartNode(
         command.node.getVector()
@@ -47,17 +48,16 @@ export class NodeInteractionCommandHandler
           `SetStartNodeCommandHandler - setStartNode: ${setStartNodeResult.error}`
         );
       }
-    } else if (command.node.isEnd()) {
+    } else if (command.node.isType("End")) {
       this.swapStartAndEndNodes();
     }
   }
 
   private handleEndNodeInteraction(command: NodeInteractionCommand) {
-    if (!command.node.isEnd() && !command.node.isStart()) {
+    if (command.node.isNotType("Start", "End")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || [NodeType.Start, NodeType.End].includes(node.getType()))
-        return;
+      if (!node || node.isNotType("Start", "End")) return;
 
       const setEndNodeResult = this.gridStore.setEndNode(
         command.node.getVector()
@@ -68,41 +68,31 @@ export class NodeInteractionCommandHandler
           `SetEndNodeCommandHandler - setEndNode: ${setEndNodeResult.error}`
         );
       }
-    } else if (command.node.isStart()) {
+    } else if (command.node.isType("Start")) {
       this.swapStartAndEndNodes();
     }
   }
 
   private handleOtherNodeInteraction(command: NodeInteractionCommand) {
-    if (command.node.isWall()) {
+    if (command.node.isType("Wall")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || node.getType() !== NodeType.Wall) return;
+      if (!node || node.isType("Wall")) return;
 
       const result = this.gridStore.setNodeAs(
         command.node.getVector(),
-        command.node.getPreviousType() === NodeType.Wall
-          ? NodeType.Empty
-          : command.node.getPreviousType()
+        command.node.isType("Wall") ? "Empty" : command.node.getPreviousType()
       );
 
       if (!result.success) {
         console.error("RemoveWallCommandHandler", result.error);
       }
-    } else if (
-      command.node.isEmpty() ||
-      command.node.isPath() ||
-      command.node.isExplored()
-    ) {
+    } else if (command.node.isOneOf("Empty", "Path", "Explored")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || [NodeType.Start, NodeType.End].includes(node.getType()))
-        return;
+      if (!node || node.isNotType("Start", "End")) return;
 
-      const result = this.gridStore.setNodeAs(
-        command.node.getVector(),
-        NodeType.Wall
-      );
+      const result = this.gridStore.setNodeAs(command.node.getVector(), "Wall");
 
       if (!result.success) {
         console.error(`AddWallCommandHandler - ${result.error}`);

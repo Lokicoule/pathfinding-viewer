@@ -31,11 +31,11 @@ export abstract class MazeAlgorithm implements Algorithm {
       for (let col = startCol; col <= endCol; col++) {
         const currentNode = this.grid[row][col];
 
-        if (!currentNode.isStart() && !currentNode.isEnd()) {
-          currentNode.setEmpty();
+        if (currentNode.isNotType("Start", "End")) {
+          currentNode.setType("Empty");
           this.path.push(
-            currentNode.copy().setExplored(),
-            currentNode.copy().setEmpty()
+            currentNode.copy().setType("Explored"),
+            currentNode.copy().setType("Empty")
           );
         }
       }
@@ -70,7 +70,7 @@ export abstract class MazeAlgorithm implements Algorithm {
   }
 
   private ensurePathToEndNode(): void {
-    if (!this.path.filter((node) => node.isEnd()).length) {
+    if (!this.path.filter((node) => node.isType("End")).length) {
       const closestNode = this.getClosestNodeTo(this.endNode);
       this.digPath(closestNode, this.endNode);
     }

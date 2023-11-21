@@ -27,7 +27,7 @@ export abstract class PathfindingAlgorithm implements Algorithm {
   protected getUnvisitedNeighbors(node: Node): Node[] {
     return this.grid
       .getNeighbors(node)
-      .filter((neighbor) => !neighbor.isExplored());
+      .filter((neighbor) => !neighbor.isType("Explored"));
   }
 
   protected calculateDistance(node1: Node, node2: Node): number {

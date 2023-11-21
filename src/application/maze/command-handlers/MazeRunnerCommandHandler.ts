@@ -59,9 +59,9 @@ export class MazeRunnerCommandHandler
     switch (algorithm) {
       case "MAZE_DFS":
       case "MAZE_PRIMS":
-        return NodeType.Wall;
+        return "Wall";
       case "MAZE_RECURSIVE_DIVISION":
-        return NodeType.Empty;
+        return "Empty";
       default:
         throw new Error(`${algorithm} is not a valid algorithm`);
     }

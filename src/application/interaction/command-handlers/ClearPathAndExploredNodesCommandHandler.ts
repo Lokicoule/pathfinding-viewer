@@ -1,5 +1,4 @@
 import { ClearPathAndExploredNodesCommand } from "@domain/commands/ClearPathAndExploredNodesCommand";
-import { NodeType } from "@domain/enums/NodeType";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { ExperienceStore } from "@infra/stores/ExperienceStore";
 import { GridStore } from "@infra/stores/GridStore";
@@ -13,11 +12,7 @@ export class ClearPathAndExploredNodesCommandHandler
   ) {}
 
   execute(): void {
-    this.gridStore.clear(
-      NodeType.Path,
-      NodeType.Explored,
-      NodeType.Highlighted
-    );
+    this.gridStore.clear("Path", "Explored", "Highlighted");
 
     this.experienceStore.reset();
   }

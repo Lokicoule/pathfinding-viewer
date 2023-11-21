@@ -1,82 +1,74 @@
-import { memo, useEffect, useState } from "react";
+import { useAlgorithm } from "@/presentation/hooks";
+import { NODE_PIXEL_SIZE } from "@/shared/constants";
 import { Node } from "@domain/entities/Node";
-import { NODE_PIXEL_SIZE } from "../../../../shared/constants";
-import { concat } from "../../../utils/string";
+import React, { useEffect } from "react";
 
 import "./NodeCell.css";
 
 type NodeCellProps = {
   node: Node;
-  isSelected: boolean;
-  isAlgorithmRunning: boolean;
   handleNodeClick: (node: Node) => void;
   handleMouseDown: (node: Node) => void;
   handleMouseEnter: (node: Node) => void;
   handleMouseUp: () => void;
 };
 
-const NodeCell: React.FC<NodeCellProps> = memo(
+const cellState = (node: Node, isAlgorithmRunning: boolean) => {
+  /* if (isNodeInBatch) {
+    if (!node.isWall()) {
+      return "wall";
+    } else if (node.isWall()) {
+      return "empty";
+    }
+  } else  */ if (node.isOneOf("Start", "Highlighted")) {
+    return "start";
+  } else if (node.isType("End")) {
+    return "end";
+  } else if (node.isType("Empty")) {
+    return `empty ${isAlgorithmRunning ? "bounding" : ""}`;
+  } else if (node.isType("Explored")) {
+    return `explored ${isAlgorithmRunning ? "exploring" : ""}`;
+  } else if (node.isType("Path")) {
+    return `path ${isAlgorithmRunning ? "pathing" : ""}`;
+  } else if (node.isType("Wall")) {
+    return `wall ${isAlgorithmRunning ? "bounding" : ""}`;
+  } else {
+    return "";
+  }
+};
+
+const NodeCell: React.FC<NodeCellProps> = React.memo(
   ({
     node,
-    isAlgorithmRunning,
-    isSelected,
     handleNodeClick,
     handleMouseDown,
     handleMouseEnter,
     handleMouseUp,
   }) => {
-    const [isActivated, setIsActivated] = useState(false);
+    const { isAlgorithmRunning } = useAlgorithm();
 
     useEffect(() => {
-      console.log("NodeCell rendered");
+      console.log(
+        "NodeCell rendered" /* , node.getVector().x, node.getVector().y */
+      );
     });
-
-    const cellState = (node: Node) => {
-      if (node.isStart() || node.isHighlighted()) {
-        return "start";
-      } else if (node.isEnd()) {
-        return "end";
-      } else if (
-        (node.isWall() && !isSelected) ||
-        (isSelected && !node.isWall())
-      ) {
-        return concat("wall", isAlgorithmRunning ? "bounding" : "");
-      } else if (node.isEmpty() || (isSelected && node.isWall())) {
-        return concat("empty", isAlgorithmRunning ? "bounding" : "");
-      } else if (node.isExplored()) {
-        return concat("explored", isAlgorithmRunning ? "exploring" : "");
-      } else if (node.isPath()) {
-        return concat("path", isAlgorithmRunning ? "pathing" : "");
-      }
-    };
-
-    const handleClick = (node: Node) => {
-      if (node.isStart() || node.isEnd()) setIsActivated(true);
-      handleNodeClick(node);
-    };
 
     return (
       <div
-        key={node.id}
-        className={concat(
-          "cell",
-          cellState(node),
-          isActivated ? "activated" : "",
-          !isAlgorithmRunning ? "cursor-cell" : ""
-        )}
+        className={`cell ${cellState(node, isAlgorithmRunning)} 
+        ${!isAlgorithmRunning ? "cursor-cell" : "pointer-events-none"}`}
         style={{
           width: `${NODE_PIXEL_SIZE}px`,
           height: `${NODE_PIXEL_SIZE}px`,
-          pointerEvents: isAlgorithmRunning ? "none" : "auto",
         }}
-        onClick={() => handleClick(node)}
+        onClick={() => handleNodeClick(node)}
         onMouseDown={
-          !node.isStart() && !node.isEnd()
+          node.isNotType("Start", "End")
             ? () => handleMouseDown(node)
             : undefined
         }
         onMouseEnter={
-          !node.isStart() && !node.isEnd()
+          node.isNotType("Start", "End")
             ? () => handleMouseEnter(node)
             : undefined
         }

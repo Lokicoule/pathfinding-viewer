@@ -22,9 +22,9 @@ export class PrimsMazeAlgorithm extends MazeAlgorithm {
       const currentNode = openNodes[openNodes.length - 1];
       this.path.push(currentNode);
 
-      if (!currentNode.isStart() && !currentNode.isEnd()) {
-        currentNode.setExplored();
-        this.path.push(currentNode.copy().setEmpty());
+      if (currentNode.isNotType("Start", "End")) {
+        currentNode.setType("Explored");
+        this.path.push(currentNode.copy().setType("Wall"));
       }
 
       const neighbors = this.getUnvisitedNeighbors(currentNode);
@@ -52,10 +52,10 @@ export class PrimsMazeAlgorithm extends MazeAlgorithm {
 
       if (
         this.isValidPosition(newRow, newCol) &&
-        !this.grid[newRow][newCol].isExplored() &&
+        !this.grid[newRow][newCol].isType("Explored") &&
         this.grid[(node.getVector().y + newRow) / 2][
           (node.getVector().x + newCol) / 2
-        ].isWall()
+        ].isType("Wall")
       ) {
         neighbors.push(this.grid[newRow][newCol]);
       }
@@ -69,8 +69,8 @@ export class PrimsMazeAlgorithm extends MazeAlgorithm {
     const midCol = (nodeA.getVector().x + nodeB.getVector().x) / 2;
     const midNode = this.grid[midRow][midCol];
 
-    if (!midNode.isStart() && !midNode.isEnd()) {
-      midNode.setEmpty();
+    if (midNode.isNotType("Start", "End")) {
+      midNode.setType("Empty");
     }
 
     this.path.push(midNode);

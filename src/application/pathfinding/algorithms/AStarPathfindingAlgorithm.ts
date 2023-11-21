@@ -23,14 +23,14 @@ export class AStarPathfindingAlgorithm extends PathfindingAlgorithm {
     while (!priorityQueue.isEmpty()) {
       const currentNode = priorityQueue.dequeue();
 
-      if (currentNode && !currentNode.isExplored() && !currentNode.isWall()) {
-        if (!currentNode.isStart() && !currentNode.isEnd()) {
-          currentNode.setExplored();
+      if (currentNode && currentNode.isNotType("Explored", "Wall")) {
+        if (currentNode.isNotType("Start", "End")) {
+          currentNode.setType("Explored");
         }
 
         this.queue.enqueue(currentNode);
 
-        if (currentNode.isEnd()) {
+        if (currentNode.isType("End")) {
           return;
         }
 

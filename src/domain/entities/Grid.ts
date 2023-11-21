@@ -17,7 +17,7 @@ export class Grid {
       for (let j = 0; j < this.width; j++) {
         this.nodes[i].push(
           Node.create({
-            type: NodeType.Empty,
+            type: "Empty",
             vector: { x: j, y: i },
           })
         );
@@ -67,13 +67,13 @@ export class Grid {
       throw new Error("Invalid position");
     }
 
-    const node = this.getNode(vector.x, vector.y);
+    this.nodes[vector.y][vector.x].setType(type);
 
-    this.nodes[vector.y][vector.x] = Node.create({
+    /* this.nodes[vector.y][vector.x] = Node.create({
       type,
       vector,
       previousType: node.getType(),
-    });
+    }); */
   }
 
   public initialize(type: NodeType, start?: Vector, end?: Vector): Grid {
@@ -92,9 +92,8 @@ export class Grid {
       }
     }
 
-    if (start && this.isValidPosition(start))
-      this.setNodeAs(start, NodeType.Start);
-    if (end && this.isValidPosition(end)) this.setNodeAs(end, NodeType.End);
+    if (start && this.isValidPosition(start)) this.setNodeAs(start, "Start");
+    if (end && this.isValidPosition(end)) this.setNodeAs(end, "End");
 
     return this;
   }
@@ -131,7 +130,7 @@ export class Grid {
     for (let i = 0; i < this.nodes.length; i++) {
       for (let j = 0; j < this.nodes[i].length; j++) {
         if (nodeTypes.includes(this.nodes[i][j].getType())) {
-          this.nodes[i][j].setEmpty();
+          this.nodes[i][j].setType("Empty");
         }
       }
     }

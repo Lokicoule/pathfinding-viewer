@@ -1,7 +1,6 @@
 import { PathfindingAnimationCommand } from "@domain/commands/PathfindingAnimationCommand";
 import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
 import { Node } from "@domain/entities/Node";
-import { NodeType } from "@domain/enums/NodeType";
 import { PathfindingAnimationCompletedEvent } from "@domain/events/PathfindingAnimationCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { AnimationManager } from "@infra/animation";
@@ -37,12 +36,14 @@ export class PathfindingAnimationCommandHandler
         .finally(() => this.handleAnimationCompleted());
     } else {
       for (const node of command.path) {
-        if (!node.isStart() && !node.isEnd())
-          this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+        if (node.isNotType("Start", "End")) {
+          this.gridStore.setNodeAs(node.getVector(), "Explored");
+        }
       }
       for (const node of path) {
-        if (!node.isStart() && !node.isEnd())
-          this.gridStore.setNodeAs(node.getVector(), NodeType.Path);
+        if (node.isNotType("Start", "End")) {
+          this.gridStore.setNodeAs(node.getVector(), "Path");
+        }
       }
 
       this.handleAnimationCompleted();
@@ -53,7 +54,7 @@ export class PathfindingAnimationCommandHandler
     const path: Node[] = [];
     let currentNode: Node | undefined = endNode;
 
-    while (currentNode && !currentNode.isStart()) {
+    while (currentNode && !currentNode.isType("Start")) {
       path.unshift(currentNode);
 
       currentNode = currentNode.getPreviousNode();
@@ -68,8 +69,8 @@ export class PathfindingAnimationCommandHandler
     const promises: Promise<void>[] = visitedNodesInOrder.map((node, i) => {
       return new Promise<void>((resolve) => {
         this.explorationAnimationManager.createTimeout(() => {
-          if (!node.isStart() && !node.isEnd()) {
-            this.gridStore.setNodeAs(node.getVector(), NodeType.Explored);
+          if (!node.isType("Start") && !node.isType("End")) {
+            this.gridStore.setNodeAs(node.getVector(), "Explored");
           }
 
           resolve();
@@ -87,11 +88,11 @@ export class PathfindingAnimationCommandHandler
       return new Promise<void>((resolve) => {
         this.pathAnimationManager.createTimeout(() => {
           if (lastNode) {
-            this.gridStore.setNodeAs(lastNode.getVector(), NodeType.Path);
+            this.gridStore.setNodeAs(lastNode.getVector(), "Path");
           }
 
-          if (!node.isStart() && !node.isEnd()) {
-            this.gridStore.setNodeAs(node.getVector(), NodeType.Highlighted);
+          if (!node.isType("Start") && !node.isType("End")) {
+            this.gridStore.setNodeAs(node.getVector(), "Highlighted");
           }
 
           lastNode = node;

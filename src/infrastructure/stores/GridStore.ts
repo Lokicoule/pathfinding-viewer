@@ -17,16 +17,16 @@ export class GridStore extends Store<GridStoreState> {
       grid: Grid.create(width, height),
       startNode: Node.create({
         vector: { x: 1, y: 1 },
-        type: NodeType.Start,
+        type: "Start",
       }),
       endNode: Node.create({
-        type: NodeType.End,
+        type: "End",
         vector: { x: width - 2, y: height - 2 },
       }),
     });
 
     this.state.grid.initialize(
-      NodeType.Empty,
+      "Empty",
       this.state.startNode.getVector(),
       this.state.endNode.getVector()
     );
@@ -38,7 +38,7 @@ export class GridStore extends Store<GridStoreState> {
 
   public setGrid(grid: Grid): void {
     this.state.grid = grid;
-    super.setState(this.state);
+    //super.setState(this.state);
   }
 
   public getNode(vector: Vector): Node | undefined {
@@ -54,16 +54,16 @@ export class GridStore extends Store<GridStoreState> {
 
   public setStartNode(vector: Vector): Result {
     const rollback = this.getNode(vector);
-    const validation = this.setNodeAs(vector, NodeType.Start);
+    const validation = this.setNodeAs(vector, "Start");
 
     if (validation.success) {
       const validationEmpty = this.setNodeAs(
         this.state.startNode.getVector(),
-        NodeType.Empty
+        "Empty"
       );
 
       if (!validationEmpty.success && rollback) {
-        this.setNodeAs(rollback.getVector(), NodeType.Start);
+        this.setNodeAs(rollback.getVector(), "Start");
         return validationEmpty;
       }
 
@@ -82,16 +82,16 @@ export class GridStore extends Store<GridStoreState> {
   public setEndNode(vector: Vector): Result {
     const rollback = this.getNode(vector);
 
-    const validation = this.setNodeAs(vector, NodeType.End);
+    const validation = this.setNodeAs(vector, "End");
 
     if (validation.success) {
       const emptyValidation = this.setNodeAs(
         this.state.endNode.getVector(),
-        NodeType.Empty
+        "Empty"
       );
 
       if (!emptyValidation.success && rollback) {
-        this.setNodeAs(rollback.getVector(), NodeType.End);
+        this.setNodeAs(rollback.getVector(), "End");
         return emptyValidation;
       }
 
@@ -109,7 +109,7 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.grid.setNodeAs(vector, type);
 
-      super.setState(this.state);
+      //super.setState(this.state);
       return { success: true };
     }
 
@@ -123,7 +123,7 @@ export class GridStore extends Store<GridStoreState> {
     if (validationA.success && validationB.success) {
       this.state.grid.swapNodes(vectorA, vectorB);
 
-      super.setState(this.state);
+      //super.setState(this.state);
       return { success: true };
     }
 
@@ -150,7 +150,7 @@ export class GridStore extends Store<GridStoreState> {
       this.state.startNode = endNode;
       this.state.endNode = startNode;
 
-      super.setState(this.state);
+      // super.setState(this.state);
       return { success: true };
     }
 
@@ -159,7 +159,7 @@ export class GridStore extends Store<GridStoreState> {
 
   public reset(): void {
     this.state.grid.initialize(
-      NodeType.Empty,
+      "Empty",
       new Vector(1, 1),
       new Vector(this.state.grid.width - 2, this.state.grid.height - 2)
     );

@@ -22,18 +22,18 @@ export class DijkstraPathfindingAlgorithm extends PathfindingAlgorithm {
     while (unvisitedNodes.length > 0) {
       const closestNode = unvisitedNodes.shift();
 
-      if (closestNode && !closestNode.isWall()) {
+      if (closestNode && !closestNode.isType("Wall")) {
         if (closestNode.getDistance() === Infinity) {
           return;
         }
 
-        if (!closestNode.isStart() && !closestNode.isEnd()) {
-          closestNode.setExplored();
+        if (closestNode.isNotType("Start", "End")) {
+          closestNode.setType("Explored");
         }
 
         this.queue.enqueue(closestNode);
 
-        if (closestNode.isEnd()) {
+        if (closestNode.isType("End")) {
           return;
         }
 

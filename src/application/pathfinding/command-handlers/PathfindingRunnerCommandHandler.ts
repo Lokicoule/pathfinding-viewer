@@ -1,5 +1,4 @@
 import { PathfindingRunnerCommand } from "@domain/commands/PathfindingRunnerCommand";
-import { NodeType } from "@domain/enums/NodeType";
 import { PathfindingRunnerCompletedEvent } from "@domain/events/PathfindingRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { PathfindingAlgorithmType } from "@domain/types/PathfindingAlgorithmType";
@@ -20,7 +19,7 @@ export class PathfindingRunnerCommandHandler
     const grid = this.gridStore
       .getGrid()
       .copy()
-      .clear(NodeType.Path, NodeType.Explored, NodeType.Highlighted);
+      .clear("Path", "Explored", "Highlighted");
 
     const startNode = grid.getNode(
       this.gridStore.getStartNode().getVector().x,
