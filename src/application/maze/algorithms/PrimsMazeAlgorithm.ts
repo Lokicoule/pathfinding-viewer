@@ -24,7 +24,7 @@ export class PrimsMazeAlgorithm extends MazeAlgorithm {
 
       if (currentNode.isNotType("Start", "End")) {
         currentNode.setType("Explored");
-        this.path.push(currentNode.copy().setType("Wall"));
+        this.path.push(currentNode.copy().setType("Empty"));
       }
 
       const neighbors = this.getUnvisitedNeighbors(currentNode);

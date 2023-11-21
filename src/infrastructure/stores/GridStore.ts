@@ -38,7 +38,7 @@ export class GridStore extends Store<GridStoreState> {
 
   public setGrid(grid: Grid): void {
     this.state.grid = grid;
-    //super.setState(this.state);
+    super.setState(this.state);
   }
 
   public getNode(vector: Vector): Node | undefined {
@@ -109,7 +109,7 @@ export class GridStore extends Store<GridStoreState> {
     if (validation.success) {
       this.state.grid.setNodeAs(vector, type);
 
-      //super.setState(this.state);
+      super.setState(this.state);
       return { success: true };
     }
 
@@ -123,7 +123,7 @@ export class GridStore extends Store<GridStoreState> {
     if (validationA.success && validationB.success) {
       this.state.grid.swapNodes(vectorA, vectorB);
 
-      //super.setState(this.state);
+      super.setState(this.state);
       return { success: true };
     }
 
@@ -150,7 +150,7 @@ export class GridStore extends Store<GridStoreState> {
       this.state.startNode = endNode;
       this.state.endNode = startNode;
 
-      // super.setState(this.state);
+      super.setState(this.state);
       return { success: true };
     }
 

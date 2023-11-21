@@ -69,7 +69,7 @@ export class PathfindingAnimationCommandHandler
     const promises: Promise<void>[] = visitedNodesInOrder.map((node, i) => {
       return new Promise<void>((resolve) => {
         this.explorationAnimationManager.createTimeout(() => {
-          if (!node.isType("Start") && !node.isType("End")) {
+          if (node.isNotType("Start", "End")) {
             this.gridStore.setNodeAs(node.getVector(), "Explored");
           }
 
@@ -91,7 +91,7 @@ export class PathfindingAnimationCommandHandler
             this.gridStore.setNodeAs(lastNode.getVector(), "Path");
           }
 
-          if (!node.isType("Start") && !node.isType("End")) {
+          if (node.isNotType("Start", "End")) {
             this.gridStore.setNodeAs(node.getVector(), "Highlighted");
           }
 
@@ -110,7 +110,6 @@ export class PathfindingAnimationCommandHandler
   }
 
   private handleAnimationCompleted() {
-    console.log("Animation completed");
     setTimeout(() => {
       this.mediator.sendEvent(new PathfindingAnimationCompletedEvent());
     }, 1900);
