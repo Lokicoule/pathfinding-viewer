@@ -1,5 +1,5 @@
 import { MazeRunnerCommand } from "@domain/commands/MazeRunnerCommand";
-import { NodeType } from "@domain/enums/NodeType";
+import { NodeType } from "@/domain/types/NodeType";
 import { MazeRunnerCompletedEvent } from "@domain/events/MazeRunnerCompletedEvent";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { MazeAlgorithmType } from "@domain/types/MazeAlgorithmType";

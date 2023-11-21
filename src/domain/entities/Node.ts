@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { NodeType } from "../enums/NodeType";
+import { NodeType } from "../types/NodeType";
 import { Vector } from "../valueObjects/Vector";
 
 type NodeState = {
@@ -118,5 +118,9 @@ export class Node {
 
   public equals(node: Node): boolean {
     return this.id === node.id;
+  }
+
+  public equalsVector(vector: Vector): boolean {
+    return Vector.equals(this.state.vector, vector);
   }
 }

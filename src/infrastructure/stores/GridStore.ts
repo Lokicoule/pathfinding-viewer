@@ -1,6 +1,6 @@
 import { Grid } from "@domain/entities/Grid";
 import { Node } from "@domain/entities/Node";
-import { NodeType } from "@domain/enums/NodeType";
+import { NodeType } from "@/domain/types/NodeType";
 import { Result } from "@domain/types/Result";
 import { Vector } from "@domain/valueObjects/Vector";
 import { Store } from "../store/Store";
@@ -188,6 +188,22 @@ export class GridStore extends Store<GridStoreState> {
 
   public clear(...nodeTypes: NodeType[]): void {
     this.state.grid.clear(...nodeTypes);
+
+    super.setState(this.state);
+  }
+
+  public addWalls(nodes: Node[]): void {
+    nodes.forEach((node) => {
+      this.state.grid.setNodeAs(node.getVector(), "Wall");
+    });
+
+    super.setState(this.state);
+  }
+
+  public removeWalls(nodes: Node[]): void {
+    nodes.forEach((node) => {
+      this.state.grid.setNodeAs(node.getVector(), "Empty");
+    });
 
     super.setState(this.state);
   }

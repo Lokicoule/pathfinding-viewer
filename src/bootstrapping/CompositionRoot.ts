@@ -35,6 +35,7 @@ import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
 import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimation";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
+import { NodeInteractionSaga } from "@/application/environment/sagas/NodeInteractionSaga";
 
 export class CompositionRoot {
   private constructor(
@@ -65,7 +66,7 @@ export class CompositionRoot {
     AlgorithmStartSaga.register(this.mediator);
     AlgorithmStopSaga.register(this.mediator);
     GridInteractionSaga.register(this.mediator, this.stores);
-
+    NodeInteractionSaga.register(this.mediator, this.stores);
     this.registerMediatorHandlers();
   }
 

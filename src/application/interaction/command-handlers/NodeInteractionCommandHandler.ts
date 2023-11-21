@@ -13,31 +13,29 @@ export class NodeInteractionCommandHandler
 
   public execute(command: NodeInteractionCommand) {
     const lastInteractedNode = this.experienceStore.getLastInteractedNode();
-    const previousLastInteractedNode =
-      this.experienceStore.getPreviousLastInteractedNode();
+    const previousNode = this.experienceStore.getPreviousLastInteractedNode();
 
-    this.experienceStore.setLastInteractedNode(command.node);
-
-    if (
-      lastInteractedNode?.isType("Start") &&
-      !previousLastInteractedNode?.isType("End")
-    ) {
+    if (lastInteractedNode?.isType("Start") && previousNode?.isNotType("End")) {
+      console.log("Start");
       this.handleStartNodeInteraction(command);
     } else if (
       lastInteractedNode?.isType("End") &&
-      !previousLastInteractedNode?.isType("Start")
+      previousNode?.isNotType("Start")
     ) {
+      console.log("End");
       this.handleEndNodeInteraction(command);
     } else {
       this.handleOtherNodeInteraction(command);
     }
+
+    this.experienceStore.setLastInteractedNode(command.node);
   }
 
   private handleStartNodeInteraction(command: NodeInteractionCommand) {
     if (command.node.isNotType("Start", "End")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || node.isNotType("Start", "End")) return;
+      if (!node || node.isOneOf("Start", "End")) return;
 
       const setStartNodeResult = this.gridStore.setStartNode(
         command.node.getVector()
@@ -57,7 +55,7 @@ export class NodeInteractionCommandHandler
     if (command.node.isNotType("Start", "End")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || node.isNotType("Start", "End")) return;
+      if (!node || node.isOneOf("Start", "End")) return;
 
       const setEndNodeResult = this.gridStore.setEndNode(
         command.node.getVector()
@@ -77,11 +75,13 @@ export class NodeInteractionCommandHandler
     if (command.node.isType("Wall")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || node.isType("Wall")) return;
+      if (!node || node.isNotType("Wall")) return;
 
       const result = this.gridStore.setNodeAs(
         command.node.getVector(),
-        command.node.isType("Wall") ? "Empty" : command.node.getPreviousType()
+        command.node.getPreviousType() === "Wall"
+          ? "Empty"
+          : command.node.getPreviousType()
       );
 
       if (!result.success) {
@@ -90,7 +90,7 @@ export class NodeInteractionCommandHandler
     } else if (command.node.isOneOf("Empty", "Path", "Explored")) {
       const node = this.gridStore.getNode(command.node.getVector());
 
-      if (!node || node.isNotType("Start", "End")) return;
+      if (!node || node.isOneOf("Start", "End")) return;
 
       const result = this.gridStore.setNodeAs(command.node.getVector(), "Wall");
 

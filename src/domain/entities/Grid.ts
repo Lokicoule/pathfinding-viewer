@@ -1,4 +1,4 @@
-import { NodeType } from "../enums/NodeType";
+import { NodeType } from "../types/NodeType";
 import { Vector } from "../valueObjects/Vector";
 import { Node } from "./Node";
 
@@ -67,13 +67,13 @@ export class Grid {
       throw new Error("Invalid position");
     }
 
-    this.nodes[vector.y][vector.x].setType(type);
+    const node = this.getNode(vector.x, vector.y);
 
-    /* this.nodes[vector.y][vector.x] = Node.create({
+    this.nodes[vector.y][vector.x] = Node.create({
       type,
       vector,
       previousType: node.getType(),
-    }); */
+    });
   }
 
   public initialize(type: NodeType, start?: Vector, end?: Vector): Grid {
