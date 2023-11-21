@@ -1,4 +1,6 @@
 import { UpdateSpeedCommandHandler } from "@/application/animation";
+import { GridInteractionSaga } from "@/application/environment";
+import { NodeInteractionSaga } from "@/application/environment/sagas";
 import { MazeAnimationSaga } from "@/application/maze";
 import { StopPathfindingSaga } from "@/application/pathfinding";
 import {
@@ -9,7 +11,6 @@ import {
   StopAlgorithmCommandHandler,
 } from "@app/algorithm";
 import { ToggleAnimationCommandHandler } from "@app/animation";
-import { GridInteractionSaga } from "@app/interaction";
 import {
   MazeAnimationCommandHandler,
   MazeCompletionSaga,
@@ -35,7 +36,6 @@ import { UpdateSpeedCommand } from "@domain/commands/UpdateSpeedCommand";
 import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimation";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
-import { NodeInteractionSaga } from "@/application/environment/sagas/NodeInteractionSaga";
 
 export class CompositionRoot {
   private constructor(

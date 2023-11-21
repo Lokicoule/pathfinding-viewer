@@ -1,15 +1,17 @@
 import { AddWallsCommand } from "@/domain/commands/grid/AddWallsCommand";
 import { RemoveWallsCommand } from "@/domain/commands/grid/RemoveWallsCommand";
+import { SetEndNodeCommand } from "@/domain/commands/grid/SetEndNodeCommand";
+import { SetStartNodeCommand } from "@/domain/commands/grid/SetStartNodeCommand";
 import { SwapStartAndEndNodesCommand } from "@/domain/commands/grid/SwapStartAndEndNodesCommand";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "../../../bootstrapping/GlobalState";
-import { AddWallsCommandHandler } from "../command-handlers/AddWallsCommandHandler";
-import { RemoveWallsCommandHandler } from "../command-handlers/RemoveWallsCommandHandler";
-import { SwapStartAndEndNodesCommandHandler } from "../command-handlers/SwapStartAndEndNodesCommandHandler";
-import { SetStartNodeCommand } from "@/domain/commands/grid/SetStartNodeCommand";
-import { SetStartNodeCommandHandler } from "../command-handlers/SetStartNodeCommandHandler";
-import { SetEndNodeCommand } from "@/domain/commands/grid/SetEndNodeCommand";
-import { SetEndNodeCommandHandler } from "../command-handlers/SetEndNodeCommandHandler";
+import {
+  AddWallsCommandHandler,
+  RemoveWallsCommandHandler,
+  SetEndNodeCommandHandler,
+  SetStartNodeCommandHandler,
+  SwapStartAndEndNodesCommandHandler,
+} from "../command-handlers/";
 
 export class NodeInteractionSaga {
   private constructor(
