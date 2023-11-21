@@ -1,7 +1,4 @@
-import Header from "../organisms/Header";
-import MainContent from "../organisms/MainContent";
-import RightSidebar from "../organisms/RightSidebar";
-import SideBar from "../organisms/Sidebar";
+import { Header, MainContent, RightSidebar, Sidebar } from "../organisms";
 
 type LayoutProps = React.PropsWithChildren<{
   sidebar?: React.ReactNode;
@@ -14,7 +11,7 @@ const Layout: LayoutComponent = ({ sidebar, rightSidebar, children }) => (
     <div className="flex-1 flex flex-col sm:overflow-hidden">
       <Header />
       <div className="flex flex-wrap sm:flex-nowrap sm:h-full space-x-1 justify-center">
-        <SideBar>{sidebar}</SideBar>
+        <Sidebar>{sidebar}</Sidebar>
         <div className="flex flex-col w-full overflow-x-hidden overflow-y-auto">
           <MainContent>{children}</MainContent>
         </div>

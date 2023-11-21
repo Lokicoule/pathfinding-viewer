@@ -1,5 +1,5 @@
 import { compositionRoot } from "../../bootstrapping/bootstrap";
-import { MediatorProvider } from "../adapters/mediator";
+import { MediatorProvider } from "@ui/adapters/mediator";
 import AppShell from "./AppShell";
 
 type AppRootComponent = React.FC;

@@ -1,7 +1,7 @@
-import { PATHFINDING_ALGORITHMS } from "../../../constants/pathfindingConstants";
-import { MAZE_ALGORITHMS } from "../../../constants/mazeConstants";
-import { useAlgorithm } from "../../../hooks";
-import { Card } from "../../ui";
+import { Card } from "@ui/components/ui";
+import { MAZE_ALGORITHMS } from "@ui/constants/mazeConstants";
+import { PATHFINDING_ALGORITHMS } from "@ui/constants/pathfindingConstants";
+import { useAlgorithm } from "@ui/hooks";
 
 const AlgorithmDescriptor = () => {
   const { algorithm } = useAlgorithm();

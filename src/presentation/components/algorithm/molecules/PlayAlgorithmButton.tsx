@@ -4,9 +4,9 @@ import {
   SetAlgorithmCommand,
 } from "@domain/algorithm";
 import { AnimationCommandBuilder } from "@domain/animation";
-import { useCommand } from "../../../adapters/mediator/hooks";
-import { useAlgorithm } from "../../../hooks";
-import { Button } from "../../ui";
+import { useCommand } from "@ui/adapters/mediator/hooks";
+import { Button } from "@ui/components/ui";
+import { useAlgorithm } from "@ui/hooks";
 
 type PlayAlgorithmButtonProps = {
   type: AlgorithmType;

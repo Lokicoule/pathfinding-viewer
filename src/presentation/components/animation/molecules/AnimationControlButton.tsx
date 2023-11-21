@@ -1,7 +1,7 @@
 import { AnimationCommandBuilder } from "@domain/animation";
-import { useCommand } from "../../../adapters/mediator/hooks";
-import { useAlgorithm } from "../../../hooks";
-import { Button, Tooltip } from "../../ui";
+import { useCommand } from "@ui/adapters/mediator/hooks";
+import { useAlgorithm } from "@ui/hooks";
+import { Button, Tooltip } from "@ui/components/ui";
 
 type AnimationControlButtonProps = {
   action: "play" | "pause" | "stop" | "resume";

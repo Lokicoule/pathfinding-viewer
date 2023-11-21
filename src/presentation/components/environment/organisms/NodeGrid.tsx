@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { generateNodeClasses } from "@/presentation/helpers/nodeClasses";
 import { NODE_PIXEL_SIZE } from "@/shared/constants";
 import {
   AddWallsCommand,
@@ -10,9 +9,9 @@ import {
   SetStartNodeCommand,
   SwapStartAndEndNodesCommand,
 } from "@domain/environment";
-import { useCommand } from "../../../adapters/mediator/hooks";
-import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import { useGrid } from "../../../hooks/useGrid";
+import { useCommand } from "@ui/adapters/mediator/hooks";
+import { generateNodeClasses } from "@ui/helpers/nodeClasses";
+import { useAlgorithm, useGrid } from "@ui/hooks";
 
 import "./NodeGrid.css";
 

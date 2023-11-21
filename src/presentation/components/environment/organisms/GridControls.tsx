@@ -3,10 +3,10 @@ import {
   ClearWallsCommand,
   ResetGridCommand,
 } from "@domain/environment";
-import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
-import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import { AnimationControls } from "../../animation";
-import { Button } from "../../ui";
+import { useCommand } from "@ui/adapters/mediator/hooks/useCommand";
+import { useAlgorithm } from "@ui/hooks/useAlgorithm";
+import { AnimationControls } from "@ui/components/animation";
+import { Button } from "@ui/components/ui";
 
 type GridControlsComponent = React.FC;
 

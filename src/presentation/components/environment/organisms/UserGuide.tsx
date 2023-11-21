@@ -1,4 +1,4 @@
-import { Card } from "../../ui";
+import { Card } from "@ui/components/ui";
 
 type UserGuideComponent = React.FC;
 

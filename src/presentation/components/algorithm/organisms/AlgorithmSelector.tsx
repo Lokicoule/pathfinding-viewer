@@ -1,11 +1,12 @@
 import { useState } from "react";
+
 import { SetAlgorithmCommand } from "@domain/algorithm";
-import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
-import { useAlgorithm } from "../../../hooks/useAlgorithm";
-import { AlgorithmViewModel } from "../../../viewModels/AlgorithmViewModel";
+import { useCommand } from "@ui/adapters/mediator/hooks";
+import { Card } from "@ui/components/ui";
+import { getInitialAlgorithm } from "@ui/helpers/algorithm";
+import { useAlgorithm } from "@ui/hooks";
+import { AlgorithmViewModel } from "@ui/viewModels/AlgorithmViewModel";
 import { AlgorithmToggleButtonList, PlayAlgorithmButton } from "../molecules";
-import Card from "../../ui/molecules/card/Card";
-import { getInitialAlgorithm } from "../../../helpers/algorithm";
 
 type AlgorithmSelectorProps = {
   algorithms: AlgorithmViewModel[];

@@ -1,4 +1,4 @@
-import { Card } from "../../ui";
+import { Card } from "@ui/components/ui";
 import { GridControls, GridLegend, NodeGrid } from "../organisms";
 
 type EnvironmentComponent = React.FC;
