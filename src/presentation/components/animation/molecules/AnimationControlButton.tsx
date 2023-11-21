@@ -1,4 +1,4 @@
-import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
+import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
 import { useCommand } from "../../../adapters/mediator/hooks";
 import { useAlgorithm } from "../../../hooks";
 import { Button, Tooltip } from "../../ui";
@@ -22,7 +22,7 @@ const AnimationControlButton: React.FC<AnimationControlButtonProps> = ({
   const { algorithm } = useAlgorithm();
 
   const sendPlaybackCommand = () => {
-    sendCommand(PlaybackCommandBuilder.build(action, algorithm));
+    sendCommand(AnimationCommandBuilder.build(action, algorithm));
   };
 
   return isVisible ? (

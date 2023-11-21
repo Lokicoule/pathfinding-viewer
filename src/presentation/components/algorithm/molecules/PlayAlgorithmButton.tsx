@@ -1,4 +1,4 @@
-import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
+import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
 import { SetAlgorithmCommand } from "@domain/commands/algorithm";
 import { AlgorithmType } from "@domain/types/AlgorithmType";
 import { Algorithm } from "@domain/valueObjects/Algorithm";
@@ -16,7 +16,7 @@ const PlayAlgorithmButton: React.FC<PlayAlgorithmButtonProps> = ({ type }) => {
 
   const handlePlayClick = () => {
     sendCommand(new SetAlgorithmCommand(type));
-    sendCommand(PlaybackCommandBuilder.build("play", Algorithm.create(type)));
+    sendCommand(AnimationCommandBuilder.build("play", Algorithm.create(type)));
   };
 
   return (

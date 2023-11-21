@@ -34,7 +34,7 @@ import {
   PathfindingAnimationCommandHandler,
   PathfindingCompletionSaga,
   PathfindingRunnerCommandHandler,
-  PlaybackPathfindingSaga,
+  PathfindingAnimationSaga,
   StartPathfindingSaga,
 } from "@app/pathfinding";
 import { SetAlgorithmCommand } from "@domain/commands/algorithm";
@@ -59,7 +59,7 @@ export class CompositionRoot {
     StartPathfindingSaga.register(this.mediator);
     StopPathfindingSaga.register(this.mediator);
     PathfindingCompletionSaga.register(this.mediator);
-    PlaybackPathfindingSaga.register(
+    PathfindingAnimationSaga.register(
       this.mediator,
       this.stores.pathfindingPlaybackStore
     );

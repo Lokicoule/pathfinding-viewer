@@ -11,7 +11,7 @@ import { Algorithm } from "../valueObjects/Algorithm";
 
 type CommandTypes = "pause" | "resume" | "play" | "stop";
 
-export class PlaybackCommandBuilder {
+export class AnimationCommandBuilder {
   static build(type: CommandTypes, algorithm: Algorithm): Command {
     switch (type) {
       case "pause":

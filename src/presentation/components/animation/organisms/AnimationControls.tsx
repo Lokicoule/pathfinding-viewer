@@ -1,4 +1,4 @@
-import { PlaybackCommandBuilder } from "@domain/builders/PlaybackCommandBuilder";
+import { AnimationCommandBuilder } from "@/domain/builders/AnimationCommandBuilder";
 import { ToggleAnimationCommand } from "@domain/commands/animation/ToggleAnimationCommand";
 import { useCommand } from "../../../adapters/mediator/hooks/useCommand";
 import { useAlgorithm, useAnimation, usePlayback } from "../../../hooks";
@@ -16,7 +16,7 @@ const AnimationControls: AnimationControlsComponent = () => {
   const sendPlaybackCommand = (
     action: "play" | "pause" | "stop" | "resume"
   ) => {
-    sendCommand(PlaybackCommandBuilder.build(action, algorithm));
+    sendCommand(AnimationCommandBuilder.build(action, algorithm));
   };
 
   return (

@@ -1,1 +1,1 @@
-export * from "./PlaybackCommandBuilder";
+export * from "./AnimationCommandBuilder";

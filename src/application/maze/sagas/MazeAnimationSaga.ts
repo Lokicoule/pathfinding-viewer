@@ -1,12 +1,14 @@
-import { Mediator } from "@infra/mediator";
-import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
+import {
+  PauseCommandHandler,
+  PlayCommandHandler,
+  ResumeCommandHandler,
+  StopCommandHandler,
+} from "@app/animation/command-handlers/";
 import { PauseMazeCommand } from "@domain/commands/maze/PauseMazeCommand";
-import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
+import { PlayMazeCommand } from "@domain/commands/maze/PlayMazeCommand";
 import { ResumeMazeCommand } from "@domain/commands/maze/ResumeMazeCommand";
-import { PlayCommandHandler } from "../../playback/command-handlers/PlayCommandHandler";
-import { PauseCommandHandler } from "../../playback/command-handlers/PauseCommandHandler";
-import { StopCommandHandler } from "../../playback/command-handlers/StopCommandHandler";
-import { ResumeCommandHandler } from "../../playback/command-handlers/ResumeCommandHandler";
+import { StopMazeCommand } from "@domain/commands/maze/StopMazeCommand";
+import { Mediator } from "@infra/mediator";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
 export class MazeAnimationSaga {

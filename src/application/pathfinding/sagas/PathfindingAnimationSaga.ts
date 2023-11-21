@@ -3,13 +3,13 @@ import { PlayPathfindingCommand } from "@domain/commands/pathfinding/PlayPathfin
 import { PausePathfindingCommand } from "@domain/commands/pathfinding/PausePathfindingCommand";
 import { StopPathfindingCommand } from "@domain/commands/pathfinding/StopPathfindingCommand";
 import { ResumePathfindingCommand } from "@domain/commands/pathfinding/ResumePathfindingCommand";
-import { PlayCommandHandler } from "../../playback/command-handlers/PlayCommandHandler";
-import { PauseCommandHandler } from "../../playback/command-handlers/PauseCommandHandler";
-import { StopCommandHandler } from "../../playback/command-handlers/StopCommandHandler";
-import { ResumeCommandHandler } from "../../playback/command-handlers/ResumeCommandHandler";
+import { PlayCommandHandler } from "../../animation/command-handlers/PlayCommandHandler";
+import { PauseCommandHandler } from "../../animation/command-handlers/PauseCommandHandler";
+import { StopCommandHandler } from "../../animation/command-handlers/StopCommandHandler";
+import { ResumeCommandHandler } from "../../animation/command-handlers/ResumeCommandHandler";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
-export class PlaybackPathfindingSaga {
+export class PathfindingAnimationSaga {
   private constructor(
     private readonly mediator: Mediator,
     private readonly store: PlaybackStore
@@ -29,7 +29,7 @@ export class PlaybackPathfindingSaga {
   public static register(
     mediator: Mediator,
     store: PlaybackStore
-  ): PlaybackPathfindingSaga {
-    return new PlaybackPathfindingSaga(mediator, store);
+  ): PathfindingAnimationSaga {
+    return new PathfindingAnimationSaga(mediator, store);
   }
 }
