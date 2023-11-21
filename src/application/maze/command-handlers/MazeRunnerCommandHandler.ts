@@ -26,8 +26,8 @@ export class MazeRunnerCommandHandler
         this.gridStore.getEndNode().getVector()
       );
 
-    const startNode = this.gridStore.getStartNode().copy();
-    const endNode = this.gridStore.getEndNode().copy();
+    const startNode = this.gridStore.getStartNode();
+    const endNode = this.gridStore.getEndNode();
 
     this.gridStore.setGrid(grid.copy());
 

@@ -188,7 +188,6 @@ export class GridStore extends Store<GridStoreState> {
 
   public clear(...nodeTypes: NodeType[]): void {
     this.state.grid.clear(...nodeTypes);
-    console.log("Clearing walls...", "GridStore");
 
     super.setState(this.state);
   }
