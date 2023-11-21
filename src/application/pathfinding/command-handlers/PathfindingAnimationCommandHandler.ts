@@ -62,7 +62,9 @@ export class PathfindingAnimationCommandHandler
     return path;
   }
 
-  private async animateExploration(visitedNodesInOrder: Node[]): Promise<void> {
+  private async animateExploration(
+    visitedNodesInOrder: Node[]
+  ): Promise<void[]> {
     const promises: Promise<void>[] = visitedNodesInOrder.map((node, i) => {
       return new Promise<void>((resolve) => {
         this.explorationAnimationManager.createTimeout(() => {
@@ -75,10 +77,10 @@ export class PathfindingAnimationCommandHandler
       });
     });
 
-    return Promise.all(promises).then(() => {});
+    return Promise.all(promises);
   }
 
-  private async animatePath(path: Node[]): Promise<void> {
+  private async animatePath(path: Node[]): Promise<void[]> {
     let lastNode = path.shift();
 
     const promises = path.map((node, i) => {
@@ -99,11 +101,11 @@ export class PathfindingAnimationCommandHandler
       });
     });
 
-    return Promise.all(promises).then(() => {
-      if (this.playbackStore.isStopped()) {
-        this.mediator.sendCommand(new StopPathfindingCommand());
-      }
-    });
+    if (this.playbackStore.isStopped()) {
+      this.mediator.sendCommand(new StopPathfindingCommand());
+    }
+
+    return Promise.all(promises);
   }
 
   private handleAnimationCompleted() {

@@ -38,7 +38,7 @@ export class MazeAnimationCommandHandler
     }
   }
 
-  private animateWallsBuilding(wallsInOrder: Node[]): Promise<void> {
+  private animateWallsBuilding(wallsInOrder: Node[]): Promise<void[]> {
     const promises: Promise<void>[] = wallsInOrder.map((node, i) => {
       return new Promise<void>((resolve) => {
         this.animationManager.createTimeout(() => {
@@ -51,7 +51,7 @@ export class MazeAnimationCommandHandler
       });
     });
 
-    return Promise.all(promises).then(() => {});
+    return Promise.all(promises);
   }
 
   private handleAnimationCompleted(): void {
