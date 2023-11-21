@@ -17,14 +17,14 @@ export class Node {
   private g: number = Infinity;
   private h: number = 0;
 
-  private constructor(state: NodeState) {
-    this.id = uuid();
+  private constructor(state: NodeState, id: string = uuid()) {
+    this.id = id;
     this.state = state;
     this.previousType = state.previousType ?? NodeType.Empty;
   }
 
-  public static create(state: NodeState): Node {
-    return new Node(state);
+  public static create(state: NodeState, id?: string): Node {
+    return new Node(state, id);
   }
 
   public getType(): NodeType {
@@ -142,11 +142,14 @@ export class Node {
   }
 
   public copy(): Node {
-    const node = Node.create({
-      type: this.state.type,
-      vector: this.state.vector,
-      previousType: this.previousType,
-    });
+    const node = Node.create(
+      {
+        type: this.state.type,
+        vector: this.state.vector,
+        previousType: this.previousType,
+      },
+      this.id
+    );
 
     node.setG(this.g);
     node.setH(this.h);
