@@ -3,7 +3,7 @@ import { Mediator } from "@infra/mediator";
 
 export class StopMazeSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [MazeAnimationCompletedEvent.name];
+    const runsOn = [MazeAnimationCompletedEvent.type];
 
     runsOn.forEach((eventName: string) => {
       this.mediator.registerEventHandler(eventName, this.run);

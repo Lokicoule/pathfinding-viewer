@@ -6,7 +6,7 @@ import { Mediator } from "@infra/mediator";
 
 export class StartPathfindingSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [PlayPathfindingCommand.name];
+    const runsOn = [PlayPathfindingCommand.type];
 
     runsOn.forEach((eventName: string) => {
       this.mediator.registerCommandHandler(eventName, this.run);

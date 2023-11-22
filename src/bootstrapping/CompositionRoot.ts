@@ -72,11 +72,11 @@ export class CompositionRoot {
 
   private registerMediatorHandlers() {
     this.mediator.registerCommandHandler(
-      PathfindingRunnerCommand.name,
+      PathfindingRunnerCommand.type,
       new PathfindingRunnerCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
-      PathfindingAnimationCommand.name,
+      PathfindingAnimationCommand.type,
       new PathfindingAnimationCommandHandler(
         this.mediator,
         this.stores.gridStore,
@@ -85,7 +85,7 @@ export class CompositionRoot {
       )
     );
     this.mediator.registerCommandHandler(
-      MazeAnimationCommand.name,
+      MazeAnimationCommand.type,
       new MazeAnimationCommandHandler(
         this.mediator,
         this.stores.gridStore,
@@ -94,27 +94,27 @@ export class CompositionRoot {
       )
     );
     this.mediator.registerCommandHandler(
-      MazeRunnerCommand.name,
+      MazeRunnerCommand.type,
       new MazeRunnerCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
-      StartAlgorithmCommand.name,
+      StartAlgorithmCommand.type,
       new StartAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
-      StopAlgorithmCommand.name,
+      StopAlgorithmCommand.type,
       new StopAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
-      UpdateSpeedCommand.name,
+      UpdateSpeedCommand.type,
       new UpdateSpeedCommandHandler(this.stores.animationStore)
     );
     this.mediator.registerCommandHandler(
-      SetAlgorithmCommand.name,
+      SetAlgorithmCommand.type,
       new SetAlgorithmCommandHandler(this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
-      ToggleAnimationCommand.name,
+      ToggleAnimationCommand.type,
       new ToggleAnimationCommandHandler(this.stores.animationStore)
     );
   }

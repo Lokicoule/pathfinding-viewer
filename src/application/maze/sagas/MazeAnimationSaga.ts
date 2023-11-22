@@ -19,10 +19,10 @@ export class MazeAnimationSaga {
     private readonly store: PlaybackStore
   ) {
     const commandHandlers = [
-      { command: PlayMazeCommand.name, handler: PlayCommandHandler },
-      { command: PauseMazeCommand.name, handler: PauseCommandHandler },
-      { command: StopMazeCommand.name, handler: StopCommandHandler },
-      { command: ResumeMazeCommand.name, handler: ResumeCommandHandler },
+      { command: PlayMazeCommand.type, handler: PlayCommandHandler },
+      { command: PauseMazeCommand.type, handler: PauseCommandHandler },
+      { command: StopMazeCommand.type, handler: StopCommandHandler },
+      { command: ResumeMazeCommand.type, handler: ResumeCommandHandler },
     ];
 
     commandHandlers.forEach(({ command, handler }) => {

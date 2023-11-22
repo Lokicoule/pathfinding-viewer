@@ -6,8 +6,8 @@ import { Mediator } from "@infra/mediator";
 export class AlgorithmStopSaga {
   private constructor(private readonly mediator: Mediator) {
     const runsOn = [
-      MazeAnimationCompletedEvent.name,
-      PathfindingAnimationCompletedEvent.name,
+      MazeAnimationCompletedEvent.type,
+      PathfindingAnimationCompletedEvent.type,
     ];
 
     runsOn.forEach((eventName: string) => {

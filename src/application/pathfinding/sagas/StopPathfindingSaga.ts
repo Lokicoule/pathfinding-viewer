@@ -6,7 +6,7 @@ import { Mediator } from "@infra/mediator";
 
 export class StopPathfindingSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [PathfindingAnimationCompletedEvent.name];
+    const runsOn = [PathfindingAnimationCompletedEvent.type];
 
     runsOn.forEach((eventName: string) => {
       this.mediator.registerEventHandler(eventName, this.run);

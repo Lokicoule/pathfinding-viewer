@@ -20,20 +20,20 @@ export class NodeInteractionSaga {
   ) {
     const commandHandlers = [
       {
-        command: AddWallsCommand.name,
+        command: AddWallsCommand.type,
         handler: AddWallsCommandHandler,
       },
-      { command: RemoveWallsCommand.name, handler: RemoveWallsCommandHandler },
+      { command: RemoveWallsCommand.type, handler: RemoveWallsCommandHandler },
       {
-        command: SwapStartAndEndNodesCommand.name,
+        command: SwapStartAndEndNodesCommand.type,
         handler: SwapStartAndEndNodesCommandHandler,
       },
       {
-        command: SetStartNodeCommand.name,
+        command: SetStartNodeCommand.type,
         handler: SetStartNodeCommandHandler,
       },
       {
-        command: SetEndNodeCommand.name,
+        command: SetEndNodeCommand.type,
         handler: SetEndNodeCommandHandler,
       },
     ];

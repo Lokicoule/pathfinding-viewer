@@ -3,7 +3,7 @@ import { Mediator } from "@infra/mediator";
 
 export class StartMazeSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [PlayMazeCommand.name];
+    const runsOn = [PlayMazeCommand.type];
 
     runsOn.forEach((eventName: string) => {
       this.mediator.registerCommandHandler(eventName, this.run);

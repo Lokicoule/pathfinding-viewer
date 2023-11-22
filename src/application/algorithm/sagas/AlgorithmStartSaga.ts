@@ -5,7 +5,7 @@ import { Mediator } from "@infra/mediator";
 
 export class AlgorithmStartSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [MazeRunnerCommand.name, PathfindingRunnerCommand.name];
+    const runsOn = [MazeRunnerCommand.type, PathfindingRunnerCommand.type];
 
     runsOn.forEach((eventName: string) => {
       this.mediator.registerCommandHandler(eventName, this.run);

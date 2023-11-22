@@ -15,10 +15,10 @@ export class GridInteractionSaga {
     private readonly stores: GlobalState
   ) {
     const commandHandlers = [
-      { command: ResetGridCommand.name, handler: ResetGridCommandHandler },
-      { command: ClearWallsCommand.name, handler: ClearWallsCommandHandler },
+      { command: ResetGridCommand.type, handler: ResetGridCommandHandler },
+      { command: ClearWallsCommand.type, handler: ClearWallsCommandHandler },
       {
-        command: ClearPathAndExploredNodesCommand.name,
+        command: ClearPathAndExploredNodesCommand.type,
         handler: ClearPathAndExploredNodesCommandHandler,
       },
     ];

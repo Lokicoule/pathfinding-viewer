@@ -19,10 +19,10 @@ export class PathfindingAnimationSaga {
     private readonly store: PlaybackStore
   ) {
     const commandHandlers = [
-      { command: PlayPathfindingCommand.name, handler: PlayCommandHandler },
-      { command: PausePathfindingCommand.name, handler: PauseCommandHandler },
-      { command: StopPathfindingCommand.name, handler: StopCommandHandler },
-      { command: ResumePathfindingCommand.name, handler: ResumeCommandHandler },
+      { command: PlayPathfindingCommand.type, handler: PlayCommandHandler },
+      { command: PausePathfindingCommand.type, handler: PauseCommandHandler },
+      { command: StopPathfindingCommand.type, handler: StopCommandHandler },
+      { command: ResumePathfindingCommand.type, handler: ResumeCommandHandler },
     ];
 
     commandHandlers.forEach(({ command, handler }) => {
