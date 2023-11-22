@@ -105,7 +105,7 @@ const NodeGrid: NodeGridComponent = () => {
       (node) => node.isNotType("Wall", "Start", "End")
     );
     const optimisticEmpty = Array.from(batchedNodesMap.values()).filter(
-      (node) => node.isNotType("Empty", "Start", "End")
+      (node) => node.isType("Wall")
     );
 
     if (optimisticWalls.length > 0) {
