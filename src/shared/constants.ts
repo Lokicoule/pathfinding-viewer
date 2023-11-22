@@ -1,25 +1,4 @@
-const SMALL_SCREEN_NODE_PIXEL_SIZE = 15;
-const MEDIUM_SCREEN_NODE_PIXEL_SIZE = 20;
-const LARGE_SCREEN_NODE_PIXEL_SIZE = 30;
-
-const SMALL_SCREEN_GRID_WIDTH = 90;
-const MEDIUM_SCREEN_GRID_WIDTH = 70;
-const LARGE_SCREEN_GRID_WIDTH = 70;
-
-const screenWidth = window.innerWidth;
-
-export const NODE_PIXEL_SIZE =
-  screenWidth < 600
-    ? SMALL_SCREEN_NODE_PIXEL_SIZE
-    : screenWidth < 900
-    ? MEDIUM_SCREEN_NODE_PIXEL_SIZE
-    : LARGE_SCREEN_NODE_PIXEL_SIZE;
-export const GRID_WIDTH =
-  screenWidth < 600
-    ? SMALL_SCREEN_GRID_WIDTH
-    : screenWidth < 900
-    ? MEDIUM_SCREEN_GRID_WIDTH
-    : LARGE_SCREEN_GRID_WIDTH;
+export const NODE_PIXEL_SIZE = 30;
 
 export const SIDEBAR_WIDTH = 380;
 export const DELTA_SENSITIVITY = 0.25;
