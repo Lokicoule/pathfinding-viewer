@@ -1,6 +1,6 @@
-import { AddWallsCommand } from "@/domain/environment/commands/AddWallsCommand";
+import { AddWallsCommand } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class AddWallsCommandHandler implements CommandHandler<AddWallsCommand> {
   constructor(private readonly gridStore: GridStore) {}

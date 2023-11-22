@@ -1,6 +1,6 @@
-import { ClearPathAndExploredNodesCommand } from "@/domain/environment/commands/ClearPathAndExploredNodesCommand";
+import { ClearPathAndExploredNodesCommand } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class ClearPathAndExploredNodesCommandHandler
   implements CommandHandler<ClearPathAndExploredNodesCommand>

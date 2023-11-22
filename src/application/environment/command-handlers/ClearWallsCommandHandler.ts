@@ -1,6 +1,6 @@
-import { ClearWallsCommand } from "@/domain/environment/commands/ClearWallsCommand";
+import { ClearWallsCommand } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class ClearWallsCommandHandler
   implements CommandHandler<ClearWallsCommand>

@@ -1,6 +1,6 @@
-import { ResetGridCommand } from "@/domain/environment/commands/ResetGridCommand";
+import { ResetGridCommand } from "@domain/environment";
 import { CommandHandler } from "@domain/interfaces/CommandHandler";
-import { GridStore } from "@infra/stores/GridStore";
+import { GridStore } from "@infra/stores";
 
 export class ResetGridCommandHandler
   implements CommandHandler<ResetGridCommand>
