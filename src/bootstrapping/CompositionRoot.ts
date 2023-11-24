@@ -1,11 +1,9 @@
+import { GetAlgorithmQueryHandler } from "@/application/algorithm/query-handlers/GetAlgorithmQueryHandler";
+import { LockEnvironmentSaga } from "@/application/environment/sagas/LockEnvironmentSaga";
+import { UnlockEnvironmentSaga } from "@/application/environment/sagas/UnlockEnvironmentSaga";
 import { SetAlgorithmCommand } from "@/domain/algorithm/commands";
-import {
-  AlgorithmStartSaga,
-  AlgorithmStopSaga,
-  SetAlgorithmCommandHandler,
-  StartAlgorithmCommandHandler,
-  StopAlgorithmCommandHandler,
-} from "@app/algorithm";
+import { GetAlgorithmQuery } from "@/domain/algorithm/queries/GetAlgorithmQuery";
+import { SetAlgorithmCommandHandler } from "@app/algorithm";
 import {
   ToggleAnimationCommandHandler,
   UpdateSpeedCommandHandler,
@@ -27,7 +25,6 @@ import {
   StartPathfindingSaga,
   StopPathfindingSaga,
 } from "@app/pathfinding";
-import { StartAlgorithmCommand, StopAlgorithmCommand } from "@domain/algorithm";
 import { ToggleAnimationCommand, UpdateSpeedCommand } from "@domain/animation";
 import { MazeAnimationCommand, MazeRunnerCommand } from "@domain/maze";
 import {
@@ -36,6 +33,8 @@ import {
 } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 import { GlobalState } from "./GlobalState";
+import { IsEnvironmentLockedQuery } from "@/domain/environment/queries/IsEnvironmentLockedQuery";
+import { IsEnvironmentLockedQueryHandler } from "@/application/environment/query-handlers";
 
 export class CompositionRoot {
   private constructor(
@@ -63,8 +62,8 @@ export class CompositionRoot {
     StopMazeSaga.register(this.mediator);
     MazeCompletionSaga.register(this.mediator);
     MazeAnimationSaga.register(this.mediator, this.stores.mazePlaybackStore);
-    AlgorithmStartSaga.register(this.mediator);
-    AlgorithmStopSaga.register(this.mediator);
+    LockEnvironmentSaga.register(this.mediator, this.stores.environmentStore);
+    UnlockEnvironmentSaga.register(this.mediator, this.stores.environmentStore);
     GridInteractionSaga.register(this.mediator, this.stores);
     NodeInteractionSaga.register(this.mediator, this.stores);
     this.registerMediatorHandlers();
@@ -98,24 +97,25 @@ export class CompositionRoot {
       new MazeRunnerCommandHandler(this.mediator, this.stores.gridStore)
     );
     this.mediator.registerCommandHandler(
-      StartAlgorithmCommand.type,
-      new StartAlgorithmCommandHandler(this.stores.algorithmStore)
-    );
-    this.mediator.registerCommandHandler(
-      StopAlgorithmCommand.type,
-      new StopAlgorithmCommandHandler(this.stores.algorithmStore)
-    );
-    this.mediator.registerCommandHandler(
       UpdateSpeedCommand.type,
       new UpdateSpeedCommandHandler(this.stores.animationStore)
     );
     this.mediator.registerCommandHandler(
       SetAlgorithmCommand.type,
-      new SetAlgorithmCommandHandler(this.stores.algorithmStore)
+      new SetAlgorithmCommandHandler(this.mediator, this.stores.algorithmStore)
     );
     this.mediator.registerCommandHandler(
       ToggleAnimationCommand.type,
       new ToggleAnimationCommandHandler(this.stores.animationStore)
+    );
+
+    this.mediator.registerQueryHandler(
+      GetAlgorithmQuery.type,
+      new GetAlgorithmQueryHandler(this.stores.algorithmStore)
+    );
+    this.mediator.registerQueryHandler(
+      IsEnvironmentLockedQuery.type,
+      new IsEnvironmentLockedQueryHandler(this.stores.environmentStore)
     );
   }
 }

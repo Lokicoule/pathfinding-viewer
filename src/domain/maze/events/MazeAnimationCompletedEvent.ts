@@ -1,6 +1,6 @@
-import { Event } from "../../interfaces/Event";
+import { EventBase } from "@/infrastructure/mediator";
 
-export class MazeAnimationCompletedEvent extends Event {
+export class MazeAnimationCompletedEvent extends EventBase {
   public static readonly type = "MazeAnimationCompletedEvent";
 
   constructor() {

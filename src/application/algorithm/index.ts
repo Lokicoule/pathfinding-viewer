@@ -1,2 +1,2 @@
 export * from "./command-handlers";
-export * from "./sagas";
+export * from "./query-handlers";

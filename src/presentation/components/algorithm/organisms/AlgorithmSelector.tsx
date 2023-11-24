@@ -3,8 +3,7 @@ import { useState } from "react";
 import { SetAlgorithmCommand } from "@domain/algorithm";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { Card } from "@ui/components/ui";
-import { getInitialAlgorithm } from "@ui/helpers/algorithm";
-import { useAlgorithm } from "@ui/hooks";
+import { useGetInitialAlgorithm } from "@ui/hooks";
 import { AlgorithmViewModel } from "@ui/viewModels/AlgorithmViewModel";
 import { AlgorithmToggleButtonList, PlayAlgorithmButton } from "../molecules";
 
@@ -22,9 +21,9 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
   title,
 }: AlgorithmSelectorProps): React.ReactElement => {
   const sendCommand = useCommand();
-  const { algorithm } = useAlgorithm();
+  /* const [{ error, loading, result }] = useGetInitialAlgorithm(algorithms); */
   const [localAlgorithm, setLocalAlgorithm] = useState<AlgorithmViewModel>(
-    getInitialAlgorithm(algorithms, algorithm.value)
+    algorithms[algorithms.length - 1]
   );
 
   const handleSetClick = (algorithm: AlgorithmViewModel) => {

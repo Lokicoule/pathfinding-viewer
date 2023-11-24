@@ -1,10 +1,13 @@
 import { Node } from "@/domain/environment/entities";
-import { Command } from "@domain/interfaces/Command";
+import { CommandBaseWithPayload } from "@/infrastructure/mediator";
 
-export class RemoveWallsCommand extends Command {
+type RemoveWallsCommandPayload = {
+  nodes: Node[];
+};
+export class RemoveWallsCommand extends CommandBaseWithPayload<RemoveWallsCommandPayload> {
   public static readonly type = "RemoveWallsCommand";
 
-  constructor(public readonly nodes: Node[]) {
-    super(RemoveWallsCommand.type);
+  constructor(nodes: Node[]) {
+    super(RemoveWallsCommand.type, { nodes });
   }
 }

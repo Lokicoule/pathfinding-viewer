@@ -1,16 +1,13 @@
 import { Node } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import {
   MazeAnimationCommand,
   MazeAnimationCompletedEvent,
 } from "@domain/maze";
 import { AnimationManager } from "@infra/animation";
-import { Mediator } from "@infra/mediator";
+import { CommandHandler, Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore, PlaybackStore } from "@infra/stores";
 
-export class MazeAnimationCommandHandler
-  implements CommandHandler<MazeAnimationCommand>
-{
+export class MazeAnimationCommandHandler implements CommandHandler {
   private animationManager: AnimationManager;
   constructor(
     private readonly mediator: Mediator,
@@ -21,13 +18,13 @@ export class MazeAnimationCommandHandler
     this.animationManager = AnimationManager.create(playbackStore);
   }
 
-  execute(command: MazeAnimationCommand): void {
+  execute({ payload }: MazeAnimationCommand): void {
     if (this.animationStore.isActivated()) {
-      this.animateWallsBuilding(command.wallsInOrder).finally(() =>
+      this.animateWallsBuilding(payload.nodes).finally(() =>
         this.handleAnimationCompleted()
       );
     } else {
-      for (const node of command.wallsInOrder) {
+      for (const node of payload.nodes) {
         if (node.isNotType("Start", "End")) {
           this.gridStore.setNodeAs(node.getVector(), node.getType());
         }

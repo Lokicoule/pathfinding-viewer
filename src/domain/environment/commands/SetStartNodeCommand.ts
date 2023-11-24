@@ -1,13 +1,15 @@
 import { Node } from "@/domain/environment/entities";
-import { Command } from "@domain/interfaces/Command";
+import { CommandBaseWithPayload } from "@/infrastructure/mediator";
 
-export class SetStartNodeCommand extends Command {
+type SetStartNodeCommandPayload = {
+  startNode: Node;
+  targetNode: Node;
+};
+
+export class SetStartNodeCommand extends CommandBaseWithPayload<SetStartNodeCommandPayload> {
   public static readonly type = "SetStartNodeCommand";
 
-  constructor(
-    public readonly startNode: Node,
-    public readonly targetNode: Node
-  ) {
-    super(SetStartNodeCommand.type);
+  constructor(startNode: Node, targetNode: Node) {
+    super(SetStartNodeCommand.type, { startNode, targetNode });
   }
 }

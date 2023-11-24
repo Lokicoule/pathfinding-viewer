@@ -1,3 +1,4 @@
+import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import {
   Algorithm,
   AlgorithmType,
@@ -6,7 +7,6 @@ import {
 import { AnimationCommandBuilder } from "@domain/animation";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { Button } from "@ui/components/ui";
-import { useAlgorithm } from "@ui/hooks";
 
 type PlayAlgorithmButtonProps = {
   type: AlgorithmType;
@@ -14,7 +14,7 @@ type PlayAlgorithmButtonProps = {
 
 const PlayAlgorithmButton: React.FC<PlayAlgorithmButtonProps> = ({ type }) => {
   const sendCommand = useCommand();
-  const { isAlgorithmRunning } = useAlgorithm();
+  const { isEnvironmentLocked } = useIsEnvironmentLocked();
 
   const handlePlayClick = () => {
     sendCommand(new SetAlgorithmCommand(type));
@@ -22,7 +22,7 @@ const PlayAlgorithmButton: React.FC<PlayAlgorithmButtonProps> = ({ type }) => {
   };
 
   return (
-    <Button disabled={isAlgorithmRunning} onClick={() => handlePlayClick()}>
+    <Button disabled={isEnvironmentLocked} onClick={() => handlePlayClick()}>
       {Algorithm.isPathfindingAlgorithm(type) ? "Visualize" : "Generate"}
     </Button>
   );

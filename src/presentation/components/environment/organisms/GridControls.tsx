@@ -1,10 +1,10 @@
+import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import {
   ClearPathAndExploredNodesCommand,
   ClearWallsCommand,
   ResetGridCommand,
 } from "@domain/environment";
 import { useCommand } from "@ui/adapters/mediator/hooks/useCommand";
-import { useAlgorithm } from "@ui/hooks/useAlgorithm";
 import { AnimationControls } from "@ui/components/animation";
 import { Button } from "@ui/components/ui";
 
@@ -12,7 +12,7 @@ type GridControlsComponent = React.FC;
 
 const GridControls: GridControlsComponent = () => {
   const sendCommand = useCommand();
-  const { isAlgorithmRunning } = useAlgorithm();
+  const { isEnvironmentLocked } = useIsEnvironmentLocked();
 
   const resetActionMediator = (action: string) => {
     switch (action) {
@@ -36,7 +36,7 @@ const GridControls: GridControlsComponent = () => {
         <Button
           variant="underline"
           className="bg-gradient-to-r from-rose-100 to-[#f3e9e9] disabled:cursor-not-allowed"
-          disabled={isAlgorithmRunning}
+          disabled={isEnvironmentLocked}
           onClick={() => resetActionMediator("RESET_GRID")}
         >
           Reset Grid
@@ -44,7 +44,7 @@ const GridControls: GridControlsComponent = () => {
         <Button
           variant="underline"
           className="bg-gradient-to-r from-[#f3e9e9] to-[#e7efeb] disabled:cursor-not-allowed hidden lg:block "
-          disabled={isAlgorithmRunning}
+          disabled={isEnvironmentLocked}
           onClick={() => resetActionMediator("CLEAR_WALLS")}
         >
           Clear Walls
@@ -52,7 +52,7 @@ const GridControls: GridControlsComponent = () => {
         <Button
           variant="underline"
           className="bg-gradient-to-r from-[#e7efeb] to-teal-100 disabled:cursor-not-allowed hidden lg:block"
-          disabled={isAlgorithmRunning}
+          disabled={isEnvironmentLocked}
           onClick={() =>
             resetActionMediator("CLEAR_PATHFINDING_AND_EXPLORED_NODES")
           }

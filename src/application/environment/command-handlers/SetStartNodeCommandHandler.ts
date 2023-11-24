@@ -1,13 +1,11 @@
+import { CommandHandler } from "@/infrastructure/mediator";
 import { SetStartNodeCommand } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores";
 
-export class SetStartNodeCommandHandler
-  implements CommandHandler<SetStartNodeCommand>
-{
+export class SetStartNodeCommandHandler implements CommandHandler {
   constructor(private readonly gridStore: GridStore) {}
 
-  execute({ startNode, targetNode }: SetStartNodeCommand): void {
+  execute({ payload: { startNode, targetNode } }: SetStartNodeCommand): void {
     if (this.gridStore.getStartNode().equalsVector(startNode.getVector())) {
       this.gridStore.setStartNode(targetNode.getVector());
     } else {

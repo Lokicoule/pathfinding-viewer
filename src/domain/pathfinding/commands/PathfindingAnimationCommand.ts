@@ -1,10 +1,14 @@
 import { Node } from "@domain/environment";
-import { Command } from "../../interfaces/Command";
+import { CommandBaseWithPayload } from "@infra/mediator";
 
-export class PathfindingAnimationCommand extends Command {
+type PathfindingAnimationCommandPayload = {
+  endNode: Node;
+  path: Node[];
+};
+export class PathfindingAnimationCommand extends CommandBaseWithPayload<PathfindingAnimationCommandPayload> {
   public static readonly type = "PathfindingAnimationCommand";
 
-  constructor(public readonly endNode: Node, public readonly path: Node[]) {
-    super(PathfindingAnimationCommand.type);
+  constructor(endNode: Node, path: Node[]) {
+    super(PathfindingAnimationCommand.type, { endNode, path });
   }
 }

@@ -1,17 +1,14 @@
 import { Node } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import {
   PathfindingAnimationCommand,
   PathfindingAnimationCompletedEvent,
   StopPathfindingCommand,
 } from "@domain/pathfinding";
 import { AnimationManager } from "@infra/animation";
-import { Mediator } from "@infra/mediator";
+import { CommandHandler, Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore, PlaybackStore } from "@infra/stores";
 
-export class PathfindingAnimationCommandHandler
-  implements CommandHandler<PathfindingAnimationCommand>
-{
+export class PathfindingAnimationCommandHandler implements CommandHandler {
   private explorationAnimationManager: AnimationManager;
   private pathAnimationManager: AnimationManager;
 
@@ -25,15 +22,15 @@ export class PathfindingAnimationCommandHandler
     this.pathAnimationManager = AnimationManager.create(playbackStore);
   }
 
-  execute(command: PathfindingAnimationCommand): void {
-    const path = this.getPath(command.endNode);
+  execute({ payload }: PathfindingAnimationCommand): void {
+    const path = this.getPath(payload.endNode);
 
     if (this.animationStore.isActivated()) {
-      this.animateExploration(command.path)
+      this.animateExploration(payload.path)
         .then(() => this.animatePath(path))
         .finally(() => this.handleAnimationCompleted());
     } else {
-      for (const node of command.path) {
+      for (const node of payload.path) {
         if (node.isNotType("Start", "End")) {
           this.gridStore.setNodeAs(node.getVector(), "Explored");
         }

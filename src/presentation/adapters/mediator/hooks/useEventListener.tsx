@@ -1,9 +1,18 @@
-import { Callback } from "@domain/types/Callback";
+import { useEffect } from "react";
 import { useMediator } from "./useMediator";
+import { Callback } from "@/infrastructure/mediator";
 
-export const useEventListener = () => {
+export const useEventListener = (
+  eventName: string,
+  handler: Callback<unknown>
+) => {
   const mediator = useMediator();
 
-  return (eventName: string, handler: Callback) =>
-    mediator.registerEventHandler(eventName, handler);
+  useEffect(() => {
+    const unsubscribe = mediator.registerEventHandler(eventName, handler);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [eventName, handler, mediator]);
 };

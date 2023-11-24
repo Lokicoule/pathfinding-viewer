@@ -1,10 +1,7 @@
-import { Command } from "@domain/interfaces/Command";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { CommandHandler } from "@/infrastructure/mediator";
 import { PlaybackStore } from "@infra/stores/PlaybackStore";
 
-export class PauseCommandHandler<T extends Command>
-  implements CommandHandler<T>
-{
+export class PauseCommandHandler implements CommandHandler {
   constructor(private readonly playbackStore: PlaybackStore) {}
 
   execute(): void {

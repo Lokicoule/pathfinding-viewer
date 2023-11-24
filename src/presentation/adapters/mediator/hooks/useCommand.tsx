@@ -1,4 +1,4 @@
-import { Command } from "@domain/interfaces/Command";
+import { Command } from "@/infrastructure/mediator";
 import { useMediator } from "./useMediator";
 
 export function useCommand() {

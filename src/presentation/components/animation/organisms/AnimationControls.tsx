@@ -3,8 +3,8 @@ import {
   ToggleAnimationCommand,
 } from "@domain/animation";
 import { useCommand } from "@ui/adapters/mediator/hooks";
-import { useAlgorithm, useAnimation, usePlayback } from "@ui/hooks";
 import { PauseIcon, PlayIcon, StopIcon } from "@ui/components/ui";
+import { useAlgorithm, useAnimation, usePlayback } from "@ui/hooks";
 import { AnimationControlButton, AnimationSpeedControl } from "../molecules";
 
 type AnimationControlsComponent = React.FC;
@@ -18,6 +18,7 @@ const AnimationControls: AnimationControlsComponent = () => {
   const sendPlaybackCommand = (
     action: "play" | "pause" | "stop" | "resume"
   ) => {
+    if (!algorithm) return;
     sendCommand(AnimationCommandBuilder.build(action, algorithm));
   };
 
