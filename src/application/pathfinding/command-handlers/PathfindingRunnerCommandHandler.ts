@@ -1,42 +1,46 @@
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import {
   PathfindingAlgorithmType,
   PathfindingRunnerCommand,
   PathfindingRunnerCompletedEvent,
 } from "@domain/pathfinding";
-import { Mediator } from "@infra/mediator";
+import { CommandHandler, Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
 
-export class PathfindingRunnerCommandHandler
-  implements CommandHandler<PathfindingRunnerCommand>
-{
+export class PathfindingRunnerCommandHandler implements CommandHandler {
   constructor(
     private readonly mediator: Mediator,
     private readonly gridStore: GridStore
   ) {}
 
-  async execute(command: PathfindingRunnerCommand): Promise<void> {
-    const algorithm = await this.algorithmFactory(command.algorithm);
+  async execute({ payload }: PathfindingRunnerCommand): Promise<void> {
+    try {
+      console.log("Running pathfinding algorithm");
+      const algorithm = await this.algorithmFactory(payload.algorithm);
 
-    const grid = this.gridStore
-      .getGrid()
-      .copy()
-      .clear("Path", "Explored", "Highlighted");
+      const grid = this.gridStore
+        .getGrid()
+        .copy()
+        .clear("Path", "Explored", "Highlighted");
 
-    const startNode = grid.getNode(
-      this.gridStore.getStartNode().getVector().x,
-      this.gridStore.getStartNode().getVector().y
-    );
-    const endNode = grid.getNode(
-      this.gridStore.getEndNode().getVector().x,
-      this.gridStore.getEndNode().getVector().y
-    );
+      const startNode = grid.getNode(
+        this.gridStore.getStartNode().getVector().x,
+        this.gridStore.getStartNode().getVector().y
+      );
+      const endNode = grid.getNode(
+        this.gridStore.getEndNode().getVector().x,
+        this.gridStore.getEndNode().getVector().y
+      );
 
-    this.gridStore.setGrid(grid.copy());
+      this.gridStore.setGrid(grid.copy());
 
-    const path = algorithm.create(grid, startNode, endNode).run();
+      const path = algorithm.create(grid, startNode, endNode).run();
 
-    this.mediator.sendEvent(new PathfindingRunnerCompletedEvent(endNode, path));
+      this.mediator.sendEvent(
+        new PathfindingRunnerCompletedEvent(endNode, path)
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   private async algorithmFactory(algorithmType: PathfindingAlgorithmType) {

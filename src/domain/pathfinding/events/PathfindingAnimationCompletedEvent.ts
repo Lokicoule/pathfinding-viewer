@@ -1,6 +1,6 @@
-import { Event } from "../../interfaces/Event";
+import { EventBase } from "@/infrastructure/mediator";
 
-export class PathfindingAnimationCompletedEvent extends Event {
+export class PathfindingAnimationCompletedEvent extends EventBase {
   public static readonly type = "PathfindingAnimationCompletedEvent";
 
   constructor() {

@@ -1,10 +1,7 @@
-import { ClearWallsCommand } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { CommandHandler } from "@/infrastructure/mediator";
 import { GridStore } from "@infra/stores";
 
-export class ClearWallsCommandHandler
-  implements CommandHandler<ClearWallsCommand>
-{
+export class ClearWallsCommandHandler implements CommandHandler {
   constructor(private readonly gridStore: GridStore) {}
 
   execute(): void {

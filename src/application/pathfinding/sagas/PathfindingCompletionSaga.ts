@@ -17,9 +17,9 @@ export class PathfindingCompletionSaga {
     return new PathfindingCompletionSaga(mediator);
   }
 
-  private run = (event: PathfindingRunnerCompletedEvent) => {
+  private run = ({ payload }: PathfindingRunnerCompletedEvent) => {
     this.mediator.sendCommand(
-      new PathfindingAnimationCommand(event.endNode, event.path)
+      new PathfindingAnimationCommand(payload.endNode, payload.path)
     );
   };
 }

@@ -1,6 +1,6 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBase } from "@/infrastructure/mediator";
 
-export class PauseMazeCommand extends Command {
+export class PauseMazeCommand extends CommandBase {
   public static readonly type = "PauseMazeCommand";
 
   constructor() {

@@ -1,10 +1,56 @@
+import { useAlgorithm } from "@/presentation/hooks";
 import { Card, LinkIcon } from "@ui/components/ui";
 import { MAZE_ALGORITHMS } from "@ui/constants/mazeConstants";
 import { PATHFINDING_ALGORITHMS } from "@ui/constants/pathfindingConstants";
-import { useAlgorithm } from "@ui/hooks";
 
 const AlgorithmDescriptor = () => {
-  const { algorithm } = useAlgorithm();
+  const { error, loading, algorithm } = useAlgorithm();
+
+  if (error) {
+    return (
+      <Card
+        isBlurred
+        className="rounded-lg w-full bg-opacity-20 overflow-y-auto bg-[#184d67]"
+      >
+        <Card.Header className="flex justify-center px-4 py-5 sm:p-6">
+          <h1 className="text-lg font-semibold text-white text-center font-primary">
+            Error
+          </h1>
+        </Card.Header>
+        <Card.Body className="flex flex-col space-y-5 px-6 pb-6">
+          <div className="flex flex-col space-y-4">
+            <div className="flex flex-col w-full justify-start space-y-6">
+              <p className="text-white text-justify">{error.message}</p>
+            </div>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  }
+
+  if (loading || !algorithm) {
+    return (
+      <Card
+        isBlurred
+        className="rounded-lg w-full bg-opacity-20 overflow-y-auto bg-[#184d67]"
+      >
+        <Card.Header className="flex justify-center px-4 py-5 sm:p-6">
+          <h1 className="text-lg font-semibold text-white text-center font-primary">
+            Loading
+          </h1>
+        </Card.Header>
+        <Card.Body className="flex flex-col space-y-5 px-6 pb-6">
+          <div className="flex flex-col space-y-4">
+            <div className="flex flex-col w-full justify-start space-y-6">
+              <p className="text-white text-justify">
+                Loading algorithm description...
+              </p>
+            </div>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   const vm = algorithm.isMazeAlgorithm()
     ? MAZE_ALGORITHMS

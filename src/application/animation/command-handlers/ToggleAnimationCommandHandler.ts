@@ -1,10 +1,7 @@
-import { ToggleAnimationCommand } from "@/domain/animation/commands/ToggleAnimationCommand";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { CommandHandler } from "@/infrastructure/mediator";
 import { AnimationStore } from "@infra/stores/AnimationStore";
 
-export class ToggleAnimationCommandHandler
-  implements CommandHandler<ToggleAnimationCommand>
-{
+export class ToggleAnimationCommandHandler implements CommandHandler {
   constructor(private readonly animationStore: AnimationStore) {}
 
   execute(): void {

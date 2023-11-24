@@ -1,11 +1,11 @@
+import { CommandHandler } from "@/infrastructure/mediator/contracts/CommandHandler";
 import { AddWallsCommand } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import { GridStore } from "@infra/stores";
 
-export class AddWallsCommandHandler implements CommandHandler<AddWallsCommand> {
+export class AddWallsCommandHandler implements CommandHandler {
   constructor(private readonly gridStore: GridStore) {}
 
-  execute({ nodes }: AddWallsCommand): void {
-    this.gridStore.addWalls(nodes);
+  execute({ payload }: AddWallsCommand) {
+    this.gridStore.addWalls(payload.nodes);
   }
 }

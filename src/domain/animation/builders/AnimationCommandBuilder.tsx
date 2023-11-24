@@ -11,7 +11,7 @@ import {
   StopPathfindingCommand,
 } from "@domain/pathfinding";
 import { Algorithm } from "../../algorithm/valueObjects/Algorithm";
-import { Command } from "../../interfaces/Command";
+import { Command } from "@/infrastructure/mediator";
 
 type CommandTypes = "pause" | "resume" | "play" | "stop";
 

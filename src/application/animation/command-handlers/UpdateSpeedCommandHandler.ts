@@ -1,10 +1,8 @@
 import { AnimationStore } from "@/infrastructure/stores";
 import { UpdateSpeedCommand } from "@/domain/animation/commands/UpdateSpeedCommand";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
+import { CommandHandler } from "@/infrastructure/mediator";
 
-export class UpdateSpeedCommandHandler
-  implements CommandHandler<UpdateSpeedCommand>
-{
+export class UpdateSpeedCommandHandler implements CommandHandler {
   constructor(private readonly animationStore: AnimationStore) {}
 
   execute(command: UpdateSpeedCommand): void {

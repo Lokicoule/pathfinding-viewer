@@ -17,7 +17,8 @@ export class StartPathfindingSaga {
     return new StartPathfindingSaga(mediator);
   }
 
-  private run = (command: PlayPathfindingCommand) => {
-    this.mediator.sendCommand(new PathfindingRunnerCommand(command.algorithm));
+  private run = ({ payload }: PlayPathfindingCommand) => {
+    console.log("StartPathfindingSaga", payload);
+    this.mediator.sendCommand(new PathfindingRunnerCommand(payload.algorithm));
   };
 }

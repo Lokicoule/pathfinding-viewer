@@ -1,10 +1,13 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBaseWithPayload } from "@/infrastructure/mediator";
 import { MazeAlgorithmType } from "../types/MazeAlgorithmType";
 
-export class PlayMazeCommand extends Command {
+type PlayMazeCommandPayload = {
+  algorithm: MazeAlgorithmType;
+};
+export class PlayMazeCommand extends CommandBaseWithPayload<PlayMazeCommandPayload> {
   public static readonly type = "PlayMazeCommand";
 
-  constructor(public readonly algorithm: MazeAlgorithmType) {
-    super(PlayMazeCommand.type);
+  constructor(algorithm: MazeAlgorithmType) {
+    super(PlayMazeCommand.type, { algorithm });
   }
 }

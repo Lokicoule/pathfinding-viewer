@@ -1,6 +1,6 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBase } from "@/infrastructure/mediator";
 
-export class PausePathfindingCommand extends Command {
+export class PausePathfindingCommand extends CommandBase {
   public static readonly type = "PausePathfindingCommand";
 
   constructor() {

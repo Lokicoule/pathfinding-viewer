@@ -6,3 +6,5 @@ export * from "./ResetGridCommand";
 export * from "./SetEndNodeCommand";
 export * from "./SetStartNodeCommand";
 export * from "./SwapStartAndEndNodesCommand";
+export * from "./LockEnvironmentCommand";
+export * from "./UnlockEnvironmentCommand";

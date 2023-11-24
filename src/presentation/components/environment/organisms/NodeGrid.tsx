@@ -11,15 +11,16 @@ import {
 } from "@domain/environment";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { generateNodeClasses } from "@ui/helpers/nodeClasses";
-import { useAlgorithm, useGrid } from "@ui/hooks";
+import { useGrid } from "@ui/hooks";
 
+import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import "./NodeGrid.css";
 
 type NodeGridComponent = React.FC;
 
 const NodeGrid: NodeGridComponent = () => {
   const grid = useGrid();
-  const { isAlgorithmRunning } = useAlgorithm();
+  const { isEnvironmentLocked } = useIsEnvironmentLocked();
   const [startNode, setStartNode] = useState<Node | null>(null);
   const [endNode, setEndNode] = useState<Node | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -125,7 +126,7 @@ const NodeGrid: NodeGridComponent = () => {
   return (
     <div
       className={`my-4 ${startNode || endNode ? "cursor-move opacity-70" : ""}
-    ${isAlgorithmRunning ? "pointer-events-none" : "cursor-cell"}`}
+    ${isEnvironmentLocked ? "pointer-events-none" : "cursor-cell"}`}
     >
       {grid.nodes.map((row, rowIndex) => (
         <div key={rowIndex} className="flex">
@@ -135,7 +136,7 @@ const NodeGrid: NodeGridComponent = () => {
               className={`${generateNodeClasses(
                 node,
                 batchedNodesMap.has(node.id),
-                isAlgorithmRunning,
+                isEnvironmentLocked,
                 !!startNode && !!targetNode?.equals(node),
                 !!endNode && !!targetNode?.equals(node)
               )}`}

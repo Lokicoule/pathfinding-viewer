@@ -1,6 +1,6 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBase } from "@/infrastructure/mediator";
 
-export class ClearWallsCommand extends Command {
+export class ClearWallsCommand extends CommandBase {
   public static readonly type = "ClearWallsCommand";
 
   constructor() {

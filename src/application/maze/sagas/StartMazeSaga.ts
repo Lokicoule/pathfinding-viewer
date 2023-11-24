@@ -15,6 +15,6 @@ export class StartMazeSaga {
   }
 
   private run = (command: PlayMazeCommand) => {
-    this.mediator.sendCommand(new MazeRunnerCommand(command.algorithm));
+    this.mediator.sendCommand(new MazeRunnerCommand(command.payload.algorithm));
   };
 }

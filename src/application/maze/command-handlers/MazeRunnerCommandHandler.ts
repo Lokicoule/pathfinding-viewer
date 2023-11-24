@@ -1,24 +1,22 @@
 import { NodeType } from "@domain/environment";
-import { CommandHandler } from "@domain/interfaces/CommandHandler";
 import {
   MazeAlgorithmType,
   MazeRunnerCommand,
   MazeRunnerCompletedEvent,
 } from "@domain/maze";
-import { Mediator } from "@infra/mediator";
+import { CommandHandler, Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
 
-export class MazeRunnerCommandHandler
-  implements CommandHandler<MazeRunnerCommand>
-{
+export class MazeRunnerCommandHandler implements CommandHandler {
   constructor(
     private readonly mediator: Mediator,
     private readonly gridStore: GridStore
   ) {}
 
   async execute(command: MazeRunnerCommand): Promise<void> {
-    const algorithm = await this.algorithmFactory(command.algorithm);
-    const initState = this.nodeTypeFactory(command.algorithm);
+    console.log("Running maze algorithm");
+    const algorithm = await this.algorithmFactory(command.payload.algorithm);
+    const initState = this.nodeTypeFactory(command.payload.algorithm);
 
     const grid = this.gridStore
       .getGrid()

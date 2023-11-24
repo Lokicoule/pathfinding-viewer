@@ -1,10 +1,14 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBaseWithPayload } from "@/infrastructure/mediator";
 import { AlgorithmType } from "../types/AlgorithmType";
 
-export class SetAlgorithmCommand extends Command {
+type SetAlgorithmCommandPayload = {
+  algorithm: AlgorithmType;
+};
+
+export class SetAlgorithmCommand extends CommandBaseWithPayload<SetAlgorithmCommandPayload> {
   public static readonly type = "SetAlgorithmCommand";
 
-  constructor(public readonly algorithm: AlgorithmType) {
-    super(SetAlgorithmCommand.type);
+  constructor(algorithm: AlgorithmType) {
+    super(SetAlgorithmCommand.type, { algorithm });
   }
 }

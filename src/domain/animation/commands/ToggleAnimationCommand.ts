@@ -1,6 +1,6 @@
-import { Command } from "../../interfaces/Command";
+import { CommandBase } from "@/infrastructure/mediator";
 
-export class ToggleAnimationCommand extends Command {
+export class ToggleAnimationCommand extends CommandBase {
   public static readonly type = "ToggleAnimationCommand";
 
   constructor() {
