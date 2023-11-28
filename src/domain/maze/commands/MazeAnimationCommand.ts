@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { Node } from "@domain/environment";
 
 export class MazeAnimationCommand extends BaseCommand {

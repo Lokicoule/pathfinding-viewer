@@ -1,3 +1,4 @@
+import { EventContract } from "@/infrastructure/cqrs/event/contracts";
 import {
   PathfindingAnimationCommand,
   PathfindingRunnerCompletedEvent,
@@ -6,10 +7,10 @@ import { Mediator } from "@infra/mediator";
 
 export class PathfindingCompletionSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [PathfindingRunnerCompletedEvent.type];
+    const runsOn = [PathfindingRunnerCompletedEvent];
 
-    runsOn.forEach((eventName: string) => {
-      this.mediator.registerEventHandler(eventName, this.run);
+    runsOn.forEach((event: EventContract) => {
+      this.mediator.registerEventHandler(event, this.run);
     });
   }
 
@@ -17,9 +18,9 @@ export class PathfindingCompletionSaga {
     return new PathfindingCompletionSaga(mediator);
   }
 
-  private run = ({ payload }: PathfindingRunnerCompletedEvent) => {
+  private run = (event: PathfindingRunnerCompletedEvent) => {
     this.mediator.sendCommand(
-      new PathfindingAnimationCommand(payload.endNode, payload.path)
+      new PathfindingAnimationCommand(event.endNode, event.path)
     );
   };
 }

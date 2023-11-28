@@ -1,10 +1,10 @@
-import { Event } from "@/infrastructure/mediator";
+import { EventContract } from "@/infrastructure/cqrs/event/contracts";
 import { useMediator } from "./useMediator";
 
-export function useEvent<TEvent extends Event>() {
+export function useEvent() {
   const mediator = useMediator();
 
-  return (event: TEvent) => {
+  return (event: EventContract) => {
     mediator.sendEvent(event);
   };
 }

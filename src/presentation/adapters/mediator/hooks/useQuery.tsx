@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { useMediator } from "./useMediator";
-import { Query } from "@/infrastructure/mediator";
+import { QueryContract } from "@/infrastructure/cqrs/query/contracts";
 
 export type QueryResult<TResult> = {
   result: TResult | null;
@@ -8,7 +8,7 @@ export type QueryResult<TResult> = {
   error: Error | null;
 };
 
-export function useQuery<TQuery extends Query, TResult>(
+export function useQuery<TQuery extends QueryContract, TResult>(
   query: TQuery
 ): [QueryResult<TResult>, () => void] {
   const mountedRef = useRef(false);

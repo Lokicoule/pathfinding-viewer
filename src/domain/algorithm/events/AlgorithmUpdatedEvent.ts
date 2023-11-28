@@ -1,9 +1,5 @@
-import { EventBase } from "@/infrastructure/mediator";
+import { BaseEvent } from "@infra/cqrs/event/models";
 
-export class AlgorithmUpdatedEvent extends EventBase {
-  public static readonly type = "AlgorithmUpdatedEvent";
-
-  constructor() {
-    super(AlgorithmUpdatedEvent.type);
-  }
+export class AlgorithmUpdatedEvent extends BaseEvent {
+  public static readonly eventName = "event:algorithm-updated";
 }

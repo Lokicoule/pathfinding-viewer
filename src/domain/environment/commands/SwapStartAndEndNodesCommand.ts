@@ -1,5 +1,5 @@
 import { Node } from "@/domain/environment/entities";
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 
 export class SwapStartAndEndNodesCommand extends BaseCommand {
   public static readonly commandName = "command:swap-start-and-end-nodes";

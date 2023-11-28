@@ -1,5 +1,5 @@
 import { Node } from "@/domain/environment/entities";
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 
 export class RemoveWallsCommand extends BaseCommand {
   public static readonly commandName = "command:remove-walls";

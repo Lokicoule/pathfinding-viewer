@@ -11,7 +11,7 @@ export const useAlgorithm = () => {
   const [query, callback] = useQuery<GetAlgorithmQuery, Algorithm>(
     new GetAlgorithmQuery()
   );
-  useEventListener(AlgorithmUpdatedEvent.type, callback);
+  useEventListener(AlgorithmUpdatedEvent, callback);
 
   return {
     algorithm: query.result,

@@ -1,9 +1,5 @@
-import { QueryBase } from "@/infrastructure/mediator";
+import { BaseQuery } from "@/infrastructure/cqrs/query/models";
 
-export class IsEnvironmentLockedQuery extends QueryBase {
-  public static readonly type = "IsEnvironmentLockedQuery";
-
-  constructor() {
-    super(IsEnvironmentLockedQuery.type);
-  }
+export class IsEnvironmentLockedQuery extends BaseQuery {
+  public static readonly queryName = "query:is-environment-locked";
 }

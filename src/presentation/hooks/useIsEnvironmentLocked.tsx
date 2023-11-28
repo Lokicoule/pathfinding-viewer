@@ -10,8 +10,8 @@ export const useIsEnvironmentLocked = () => {
     boolean
   >(new IsEnvironmentLockedQuery());
 
-  useEventListener(EnvironmentLockedEvent.type, callback);
-  useEventListener(EnvironmentUnlockedEvent.type, callback);
+  useEventListener(EnvironmentLockedEvent, callback);
+  useEventListener(EnvironmentUnlockedEvent, callback);
 
   return { isEnvironmentLocked: result ? result : false, loading, error };
 };

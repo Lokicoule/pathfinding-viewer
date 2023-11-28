@@ -1,10 +1,10 @@
-import { ICommand } from "@/infrastructure/mediator";
+import { CommandContract } from "@infra/cqrs/command/contracts";
 import { useMediator } from "./useMediator";
 
 export function useCommand() {
   const mediator = useMediator();
 
-  return (command: ICommand) => {
+  return (command: CommandContract) => {
     mediator.sendCommand(command);
   };
 }

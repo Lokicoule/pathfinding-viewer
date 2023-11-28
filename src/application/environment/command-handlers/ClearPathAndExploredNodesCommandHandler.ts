@@ -1,9 +1,9 @@
 import { ClearPathAndExploredNodesCommand } from "@/domain/environment";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { GridStore } from "@infra/stores";
 
 export class ClearPathAndExploredNodesCommandHandler
-  implements ICommandHandler<ClearPathAndExploredNodesCommand>
+  implements CommandHandlerContract<ClearPathAndExploredNodesCommand>
 {
   constructor(private readonly gridStore: GridStore) {}
 

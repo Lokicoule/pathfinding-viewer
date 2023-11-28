@@ -1,12 +1,15 @@
-import { EventBus } from "./bus/EventBus";
-import { QueryBus } from "./bus/QueryBus";
-import { CommandBus } from "./command/CommandBus";
-import { ICommand } from "./command/contracts/Command";
-import { CommandHandlerType } from "./command/contracts/CommandHandler";
-import { Event } from "./contracts/Event";
-import { EventHandlerType } from "./contracts/EventHandler";
-import { Query } from "./contracts/Query";
-import { QueryHandler } from "./contracts/QueryHandler";
+import { CommandBus } from "../cqrs/command/CommandBus";
+import { CommandContract } from "../cqrs/command/contracts";
+import { CommandHandlerType } from "../cqrs/command/types/CommandHandlerType";
+import { EventBus } from "../cqrs/event/EventBus";
+import { EventContract } from "../cqrs/event/contracts";
+import {
+  EventHandlerType,
+  EventHandlerTypeGeneric,
+} from "../cqrs/event/types/EventHandlerType";
+import { QueryBus } from "../cqrs/query/QueryBus";
+import { QueryContract } from "../cqrs/query/contracts";
+import { QueryHandlerType } from "../cqrs/query/types/QueryHandlerType";
 
 export class Mediator {
   private commandBus: CommandBus = new CommandBus();
@@ -14,35 +17,35 @@ export class Mediator {
   private queryBus: QueryBus = new QueryBus();
 
   public registerCommandHandler(
-    command: ICommand,
+    command: CommandContract,
     handler: CommandHandlerType
   ) {
     return this.commandBus.register(command, handler);
   }
 
-  public registerEventHandler(
-    eventName: string,
-    handler: EventHandlerType<Event>
+  public registerEventHandler<EventType extends EventContract = EventContract>(
+    eventName: EventContract,
+    handler: EventHandlerTypeGeneric<EventType>
   ) {
-    return this.eventBus.subscribeEvent(eventName, handler);
+    return this.eventBus.register(eventName, handler as EventHandlerType);
   }
 
   public registerQueryHandler(
-    queryName: string,
-    handler: QueryHandler<Query, unknown>
+    queryName: QueryContract,
+    handler: QueryHandlerType
   ) {
-    return this.queryBus.subscribeQuery(queryName, handler);
+    return this.queryBus.register(queryName, handler);
   }
 
-  public sendCommand<TReturn>(command: ICommand): Promise<TReturn> {
+  public sendCommand<TReturn>(command: CommandContract): Promise<TReturn> {
     return this.commandBus.execute(command);
   }
 
-  public sendEvent(event: Event) {
-    this.eventBus.publishEvent(event.type, event);
+  public sendEvent(event: EventContract) {
+    this.eventBus.handle(event);
   }
 
-  public sendQuery<TReturn>(query: Query): Promise<TReturn> {
-    return this.queryBus.publishQuery(query.type, query);
+  public sendQuery<TReturn>(query: QueryContract): Promise<TReturn> {
+    return this.queryBus.execute(query);
   }
 }

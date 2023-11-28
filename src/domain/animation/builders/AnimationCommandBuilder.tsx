@@ -1,4 +1,4 @@
-import { ICommand } from "@/infrastructure/mediator/command/contracts/Command";
+import { CommandContract } from "@infra/cqrs/command/contracts";
 import { Algorithm } from "../../algorithm/valueObjects/Algorithm";
 import {
   PauseAnimationCommand,
@@ -10,7 +10,7 @@ import {
 type CommandTypes = "pause" | "resume" | "play" | "stop";
 
 export class AnimationCommandBuilder {
-  static build(type: CommandTypes, algorithm: Algorithm): ICommand {
+  static build(type: CommandTypes, algorithm: Algorithm): CommandContract {
     switch (type) {
       case "pause":
         return new PauseAnimationCommand();

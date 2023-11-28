@@ -1,25 +1,18 @@
 import { UnlockEnvironmentCommand } from "@/domain/environment";
+import { Saga } from "@/infrastructure/cqrs/saga/models/BaseSaga";
 import { MazeAnimationCompletedEvent } from "@domain/maze";
 import { PathfindingAnimationCompletedEvent } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 
-export class UnlockEnvironmentSaga {
-  private constructor(private readonly mediator: Mediator) {
-    const runsOn = [
-      MazeAnimationCompletedEvent.type,
-      PathfindingAnimationCompletedEvent.type,
-    ];
+export class UnlockEnvironmentSaga extends Saga {
+  private constructor(mediator: Mediator) {
+    super(mediator, () => mediator.sendCommand(new UnlockEnvironmentCommand()));
 
-    runsOn.forEach((eventName: string) => {
-      this.mediator.registerEventHandler(eventName, this.run);
-    });
+    this.registerEvent(MazeAnimationCompletedEvent);
+    this.registerEvent(PathfindingAnimationCompletedEvent);
   }
 
   public static register(mediator: Mediator): UnlockEnvironmentSaga {
     return new UnlockEnvironmentSaga(mediator);
   }
-
-  private run = () => {
-    this.mediator.sendCommand(new UnlockEnvironmentCommand());
-  };
 }

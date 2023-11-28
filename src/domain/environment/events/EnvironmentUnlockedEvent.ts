@@ -1,9 +1,5 @@
-import { EventBase } from "@/infrastructure/mediator";
+import { BaseEvent } from "@infra/cqrs/event/models";
 
-export class EnvironmentUnlockedEvent extends EventBase {
-  public static readonly type = "EnvironmentUnlockedEvent";
-
-  constructor() {
-    super(EnvironmentUnlockedEvent.type);
-  }
+export class EnvironmentUnlockedEvent extends BaseEvent {
+  public static readonly eventName = "event:environment-unlocked";
 }

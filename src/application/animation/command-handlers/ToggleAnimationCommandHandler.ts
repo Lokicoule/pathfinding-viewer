@@ -1,9 +1,9 @@
 import { ToggleAnimationCommand } from "@/domain/animation";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { AnimationStore } from "@infra/stores/AnimationStore";
 
 export class ToggleAnimationCommandHandler
-  implements ICommandHandler<ToggleAnimationCommand>
+  implements CommandHandlerContract<ToggleAnimationCommand>
 {
   constructor(private readonly animationStore: AnimationStore) {}
 

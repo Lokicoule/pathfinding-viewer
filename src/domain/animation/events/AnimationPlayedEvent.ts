@@ -1,9 +1,5 @@
-import { EventBase } from "@/infrastructure/mediator";
+import { BaseEvent } from "@infra/cqrs/event/models";
 
-export class AnimationPlayedEvent extends EventBase {
-  public static readonly type = "AnimationPlayedEvent";
-
-  constructor() {
-    super(AnimationPlayedEvent.type);
-  }
+export class AnimationPlayedEvent extends BaseEvent {
+  public static readonly eventName = "event:animation-played";
 }

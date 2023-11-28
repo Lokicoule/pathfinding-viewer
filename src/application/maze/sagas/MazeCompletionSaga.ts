@@ -3,11 +3,7 @@ import { Mediator } from "@infra/mediator";
 
 export class MazeCompletionSaga {
   private constructor(private readonly mediator: Mediator) {
-    const runsOn = [MazeRunnerCompletedEvent.type];
-
-    runsOn.forEach((eventName: string) => {
-      this.mediator.registerEventHandler(eventName, this.run);
-    });
+    this.mediator.registerEventHandler(MazeRunnerCompletedEvent, this.run);
   }
 
   public static register(mediator: Mediator): MazeCompletionSaga {

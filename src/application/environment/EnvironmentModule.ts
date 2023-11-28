@@ -71,7 +71,7 @@ export class EnvironmentModule {
       new UnlockEnvironmentCommandHandler(mediator, stores.environmentStore)
     );
     mediator.registerQueryHandler(
-      IsEnvironmentLockedQuery.type,
+      IsEnvironmentLockedQuery,
       new IsEnvironmentLockedQueryHandler(stores.environmentStore)
     );
 

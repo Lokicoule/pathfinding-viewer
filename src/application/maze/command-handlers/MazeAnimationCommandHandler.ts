@@ -6,10 +6,10 @@ import {
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore } from "@infra/stores";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 export class MazeAnimationCommandHandler
-  implements ICommandHandler<MazeAnimationCommand>
+  implements CommandHandlerContract<MazeAnimationCommand>
 {
   private animationManager: AnimationManager;
   constructor(

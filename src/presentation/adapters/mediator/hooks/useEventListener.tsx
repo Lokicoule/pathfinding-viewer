@@ -1,18 +1,19 @@
+import { EventContract } from "@/infrastructure/cqrs/event/contracts";
+import { EventHandlerType } from "@/infrastructure/cqrs/event/types/EventHandlerType";
 import { useEffect } from "react";
 import { useMediator } from "./useMediator";
-import { Callback } from "@/infrastructure/mediator";
 
 export const useEventListener = (
-  eventName: string,
-  handler: Callback<unknown>
+  event: EventContract,
+  handler: EventHandlerType
 ) => {
   const mediator = useMediator();
 
   useEffect(() => {
-    const unsubscribe = mediator.registerEventHandler(eventName, handler);
+    const unsubscribe = mediator.registerEventHandler(event, handler);
 
     return () => {
       unsubscribe();
     };
-  }, [eventName, handler, mediator]);
+  }, [event, handler, mediator]);
 };

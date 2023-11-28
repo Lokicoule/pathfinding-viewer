@@ -1,9 +1,5 @@
-import { EventBase } from "@/infrastructure/mediator";
+import { BaseEvent } from "@/infrastructure/cqrs/event/models";
 
-export class MazeAnimationCompletedEvent extends EventBase {
-  public static readonly type = "MazeAnimationCompletedEvent";
-
-  constructor() {
-    super(MazeAnimationCompletedEvent.type);
-  }
+export class MazeAnimationCompletedEvent extends BaseEvent {
+  public static readonly eventName = "event:maze-animation-completed";
 }

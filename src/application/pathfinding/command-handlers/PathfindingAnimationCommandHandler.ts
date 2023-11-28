@@ -6,11 +6,11 @@ import {
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore } from "@infra/stores";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts";
 import { StopAnimationCommand } from "@/domain/animation";
 
 export class PathfindingAnimationCommandHandler
-  implements ICommandHandler<PathfindingAnimationCommand>
+  implements CommandHandlerContract<PathfindingAnimationCommand>
 {
   private explorationAnimationManager: AnimationManager;
   private pathAnimationManager: AnimationManager;

@@ -1,5 +1,5 @@
 import { Node } from "@/domain/environment/entities";
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 
 export class SetStartNodeCommand extends BaseCommand {
   public static readonly commandName = "command:set-start-node";
