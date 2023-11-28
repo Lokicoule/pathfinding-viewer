@@ -7,6 +7,7 @@ export const useAnimation = () => {
     (state) => ({
       isActivated: state.isActivated,
       speed: state.speed,
+      playback: state.playback,
     })
   );
 };

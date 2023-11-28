@@ -1,8 +1,8 @@
-import { CommandBus } from "./bus/CommandBus";
 import { EventBus } from "./bus/EventBus";
 import { QueryBus } from "./bus/QueryBus";
-import { Command } from "./contracts/Command";
-import { CommandHandlerType } from "./contracts/CommandHandler";
+import { CommandBus } from "./command/CommandBus";
+import { ICommand } from "./command/contracts/Command";
+import { CommandHandlerType } from "./command/contracts/CommandHandler";
 import { Event } from "./contracts/Event";
 import { EventHandlerType } from "./contracts/EventHandler";
 import { Query } from "./contracts/Query";
@@ -14,10 +14,10 @@ export class Mediator {
   private queryBus: QueryBus = new QueryBus();
 
   public registerCommandHandler(
-    commandName: string,
+    command: ICommand,
     handler: CommandHandlerType
   ) {
-    return this.commandBus.subscribeCommand(commandName, handler);
+    return this.commandBus.register(command, handler);
   }
 
   public registerEventHandler(
@@ -34,8 +34,8 @@ export class Mediator {
     return this.queryBus.subscribeQuery(queryName, handler);
   }
 
-  public sendCommand<TReturn>(command: Command): Promise<TReturn> {
-    return this.commandBus.publishCommand(command.type, command);
+  public sendCommand<TReturn>(command: ICommand): Promise<TReturn> {
+    return this.commandBus.execute(command);
   }
 
   public sendEvent(event: Event) {
@@ -44,11 +44,5 @@ export class Mediator {
 
   public sendQuery<TReturn>(query: Query): Promise<TReturn> {
     return this.queryBus.publishQuery(query.type, query);
-  }
-
-  public applyMiddlewares(...middlewares: any[]) {
-    this.commandBus.applyMiddlewares(...middlewares);
-    this.eventBus.applyMiddlewares(...middlewares);
-    this.queryBus.applyMiddlewares(...middlewares);
   }
 }

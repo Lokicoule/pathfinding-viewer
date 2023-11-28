@@ -3,7 +3,6 @@ import { useState } from "react";
 import { SetAlgorithmCommand } from "@domain/algorithm";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { Card } from "@ui/components/ui";
-import { useGetInitialAlgorithm } from "@ui/hooks";
 import { AlgorithmViewModel } from "@ui/viewModels/AlgorithmViewModel";
 import { AlgorithmToggleButtonList, PlayAlgorithmButton } from "../molecules";
 

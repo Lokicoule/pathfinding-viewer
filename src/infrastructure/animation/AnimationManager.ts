@@ -1,4 +1,4 @@
-import { PlaybackStore } from "@infra/stores";
+import { AnimationStore } from "@infra/stores";
 
 class AnimationManager {
   private abortController: AbortController | null = null;
@@ -11,9 +11,9 @@ class AnimationManager {
     delay: number;
   }[] = [];
 
-  private constructor(playbackStore: PlaybackStore) {
-    playbackStore.subscribe(() => {
-      const playback = playbackStore.getPlayback();
+  private constructor(animationStore: AnimationStore) {
+    animationStore.subscribe(() => {
+      const playback = animationStore.getPlayback();
       if (playback.isPlaying()) {
         this.startAnimation();
       } else if (playback.isResumed()) {
@@ -26,8 +26,8 @@ class AnimationManager {
     });
   }
 
-  public static create(playbackStore: PlaybackStore): AnimationManager {
-    return new AnimationManager(playbackStore);
+  public static create(animationStore: AnimationStore): AnimationManager {
+    return new AnimationManager(animationStore);
   }
 
   public createTimeout(

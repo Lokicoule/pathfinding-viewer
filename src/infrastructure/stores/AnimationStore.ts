@@ -1,9 +1,10 @@
-import { Speed } from "@domain/animation";
+import { Playback, PlaybackValue, Speed } from "@domain/animation";
 import { Store } from "../store/Store";
 
 export type AnimationStoreState = {
   speed: Speed;
   isActivated: boolean;
+  playback: Playback;
 };
 
 export class AnimationStore extends Store<AnimationStoreState> {
@@ -11,6 +12,7 @@ export class AnimationStore extends Store<AnimationStoreState> {
     super({
       speed: Speed.create(Speed.FAST),
       isActivated: true,
+      playback: Playback.create("STOP"),
     });
   }
 
@@ -30,5 +32,27 @@ export class AnimationStore extends Store<AnimationStoreState> {
 
   public isActivated(): boolean {
     return this.state.isActivated;
+  }
+
+  public getPlayback(): Playback {
+    return this.state.playback;
+  }
+
+  public setPlayback(playback: PlaybackValue) {
+    this.state.playback = Playback.create(playback);
+
+    this.setState(this.state);
+  }
+
+  public isPaused(): boolean {
+    return this.state.playback.isPaused();
+  }
+
+  public isStopped(): boolean {
+    return this.state.playback.isStopped();
+  }
+
+  public isResumed(): boolean {
+    return this.state.playback.isResumed();
   }
 }

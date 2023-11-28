@@ -1,7 +1,10 @@
-import { CommandHandler } from "@/infrastructure/mediator";
+import { ClearPathAndExploredNodesCommand } from "@/domain/environment";
+import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
 import { GridStore } from "@infra/stores";
 
-export class ClearPathAndExploredNodesCommandHandler implements CommandHandler {
+export class ClearPathAndExploredNodesCommandHandler
+  implements ICommandHandler<ClearPathAndExploredNodesCommand>
+{
   constructor(private readonly gridStore: GridStore) {}
 
   execute(): void {

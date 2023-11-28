@@ -1,13 +1,13 @@
-import { CommandHandler } from "@/infrastructure/mediator";
+import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
 import { SwapStartAndEndNodesCommand } from "@domain/environment";
 import { GridStore } from "@infra/stores";
 
-export class SwapStartAndEndNodesCommandHandler implements CommandHandler {
+export class SwapStartAndEndNodesCommandHandler
+  implements ICommandHandler<SwapStartAndEndNodesCommand>
+{
   constructor(private readonly gridStore: GridStore) {}
 
-  execute({
-    payload: { startNode, endNode },
-  }: SwapStartAndEndNodesCommand): void {
+  execute({ startNode, endNode }: SwapStartAndEndNodesCommand): void {
     if (
       this.gridStore.getStartNode().equalsVector(startNode.getVector()) &&
       this.gridStore.getEndNode().equalsVector(endNode.getVector())

@@ -4,16 +4,15 @@ import {
 } from "@domain/animation";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { PauseIcon, PlayIcon, StopIcon } from "@ui/components/ui";
-import { useAlgorithm, useAnimation, usePlayback } from "@ui/hooks";
+import { useAlgorithm, useAnimation } from "@ui/hooks";
 import { AnimationControlButton, AnimationSpeedControl } from "../molecules";
 
 type AnimationControlsComponent = React.FC;
 
 const AnimationControls: AnimationControlsComponent = () => {
   const sendCommand = useCommand();
-  const playback = usePlayback();
   const { algorithm } = useAlgorithm();
-  const { isActivated } = useAnimation();
+  const { isActivated, playback } = useAnimation();
 
   const sendPlaybackCommand = (
     action: "play" | "pause" | "stop" | "resume"
@@ -32,7 +31,7 @@ const AnimationControls: AnimationControlsComponent = () => {
           id="checkboxAnimation"
           onChange={() => {
             sendCommand(new ToggleAnimationCommand());
-            if (playback.isPlaying || playback.isResumed) {
+            if (playback.isPlaying() || playback.isResumed()) {
               sendPlaybackCommand("pause");
             }
           }}
@@ -51,20 +50,22 @@ const AnimationControls: AnimationControlsComponent = () => {
         action="play"
         tooltipText="Play"
         IconComponent={PlayIcon}
-        isVisible={isActivated && playback.isStopped}
+        isVisible={isActivated && playback.isStopped()}
         isDisabled={!algorithm}
       />
       <AnimationControlButton
         action="pause"
         tooltipText="Pause"
         IconComponent={PauseIcon}
-        isVisible={isActivated && (playback.isPlaying || playback.isResumed)}
+        isVisible={
+          isActivated && (playback.isPlaying() || playback.isResumed())
+        }
       />
       <AnimationControlButton
         action="resume"
         tooltipText="Resume"
         IconComponent={PlayIcon}
-        isVisible={isActivated && playback.isPaused}
+        isVisible={isActivated && playback.isPaused()}
       />
 
       <AnimationControlButton
@@ -72,7 +73,7 @@ const AnimationControls: AnimationControlsComponent = () => {
         tooltipText="Stop"
         IconComponent={StopIcon}
         isVisible={isActivated}
-        isDisabled={playback.isStopped}
+        isDisabled={playback.isStopped()}
       />
     </div>
   );

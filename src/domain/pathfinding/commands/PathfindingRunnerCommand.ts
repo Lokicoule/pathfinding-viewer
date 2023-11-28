@@ -1,14 +1,10 @@
-import { CommandBaseWithPayload } from "@infra/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 import { PathfindingAlgorithmType } from "../types/PathfindingAlgorithmType";
 
-type PathfindingRunnerCommandPayload = {
-  algorithm: PathfindingAlgorithmType;
-};
+export class PathfindingRunnerCommand extends BaseCommand {
+  public static readonly commandName = "command:pathfinding-runner";
 
-export class PathfindingRunnerCommand extends CommandBaseWithPayload<PathfindingRunnerCommandPayload> {
-  public static readonly type = "PathfindingRunnerCommand";
-
-  constructor(algorithm: PathfindingAlgorithmType) {
-    super(PathfindingRunnerCommand.type, { algorithm });
+  constructor(public readonly algorithm: PathfindingAlgorithmType) {
+    super();
   }
 }

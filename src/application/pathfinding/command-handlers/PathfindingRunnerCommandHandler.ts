@@ -3,19 +3,22 @@ import {
   PathfindingRunnerCommand,
   PathfindingRunnerCompletedEvent,
 } from "@domain/pathfinding";
-import { CommandHandler, Mediator } from "@infra/mediator";
+import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
+import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
 
-export class PathfindingRunnerCommandHandler implements CommandHandler {
+export class PathfindingRunnerCommandHandler
+  implements ICommandHandler<PathfindingRunnerCommand>
+{
   constructor(
     private readonly mediator: Mediator,
     private readonly gridStore: GridStore
   ) {}
 
-  async execute({ payload }: PathfindingRunnerCommand): Promise<void> {
+  async execute(command: PathfindingRunnerCommand) {
     try {
       console.log("Running pathfinding algorithm");
-      const algorithm = await this.algorithmFactory(payload.algorithm);
+      const algorithm = await this.algorithmFactory(command.algorithm);
 
       const grid = this.gridStore
         .getGrid()

@@ -1,9 +1,5 @@
-import { CommandBase } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 
-export class ClearPathAndExploredNodesCommand extends CommandBase {
-  public static readonly type = "ClearPathAndExploredNodesCommand";
-
-  constructor() {
-    super(ClearPathAndExploredNodesCommand.type);
-  }
+export class ClearPathAndExploredNodesCommand extends BaseCommand {
+  public static readonly commandName = "command:clear-path-and-explored-nodes";
 }
