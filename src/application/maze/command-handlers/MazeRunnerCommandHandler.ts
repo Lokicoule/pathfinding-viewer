@@ -17,7 +17,6 @@ export class MazeRunnerCommandHandler
   ) {}
 
   async execute(command: MazeRunnerCommand): Promise<void> {
-    console.log("Running maze algorithm");
     const algorithm = await this.algorithmFactory(command.algorithm);
     const initState = this.nodeTypeFactory(command.algorithm);
 

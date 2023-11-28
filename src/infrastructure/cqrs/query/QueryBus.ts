@@ -9,7 +9,6 @@ export class QueryBus {
 
   register(query: QueryContract, handler: QueryHandlerType): Unsubscribe {
     const identifier = query.queryName;
-    console.log("register", identifier, handler);
     if (this.queries.has(identifier)) {
       throw new QueryAlreadyRegisteredException(identifier);
     }
@@ -23,7 +22,6 @@ export class QueryBus {
 
   execute<ResultType>(query: QueryContract): ResultType {
     const identifier = query.queryName;
-    console.log("execute", identifier, query);
     const handler = this.queries.get(identifier);
 
     if (!handler) {

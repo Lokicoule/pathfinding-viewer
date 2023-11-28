@@ -9,7 +9,6 @@ export class CommandBus {
 
   register(command: CommandContract, handler: CommandHandlerType): Unsubscribe {
     const identifier = command.commandName;
-    console.log("register", identifier, handler);
     if (this.commands.has(identifier)) {
       throw new CommandAlreadyRegisteredException(identifier);
     }
@@ -23,7 +22,6 @@ export class CommandBus {
 
   execute<ResultType>(command: CommandContract): ResultType {
     const identifier = command.commandName;
-    console.log("execute", identifier, command);
     const handler = this.commands.get(identifier);
 
     if (!handler) {

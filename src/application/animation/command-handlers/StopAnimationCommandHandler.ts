@@ -13,8 +13,6 @@ export class StopAnimationCommandHandler
   ) {}
 
   execute(): void {
-    console.log("StopAnimationCommandHandler.execute()");
-
     this.animationStore.setPlayback("STOP");
 
     this.mediator.sendEvent(new AnimationStoppedEvent());
