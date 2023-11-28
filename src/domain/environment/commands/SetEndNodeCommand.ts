@@ -1,5 +1,5 @@
-import { Node } from "@/domain/environment/entities";
-import { BaseCommand } from "@infra/cqrs/command/models";
+import { Node } from "@domain/environment";
+import { BaseCommand } from "@infra/cqrs";
 
 export class SetEndNodeCommand extends BaseCommand {
   public static readonly commandName = "command:set-end-node";

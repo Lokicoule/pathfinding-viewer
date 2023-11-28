@@ -1,7 +1,6 @@
-import { GetAlgorithmQuery } from "@/domain/algorithm/queries/GetAlgorithmQuery";
-import { QueryHandlerContract } from "@/infrastructure/cqrs/query/contracts";
-import { AlgorithmStore } from "@/infrastructure/stores";
-import { Algorithm } from "@domain/algorithm";
+import { Algorithm, GetAlgorithmQuery } from "@domain/algorithm";
+import { QueryHandlerContract } from "@infra/cqrs";
+import { AlgorithmStore } from "@infra/stores";
 
 export class GetAlgorithmQueryHandler
   implements QueryHandlerContract<GetAlgorithmQuery, Algorithm>

@@ -1,6 +1,6 @@
-import { AnimationPlayedEvent } from "@/domain/animation/events";
-import { LockEnvironmentCommand } from "@/domain/environment";
-import { Saga } from "@/infrastructure/cqrs/saga/models/BaseSaga";
+import { AnimationPlayedEvent } from "@domain/animation";
+import { LockEnvironmentCommand } from "@domain/environment";
+import { Saga } from "@infra/cqrs";
 import { Mediator } from "@infra/mediator";
 
 export class LockEnvironmentSaga extends Saga {

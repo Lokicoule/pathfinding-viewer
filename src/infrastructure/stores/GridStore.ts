@@ -1,5 +1,5 @@
 import { Grid, Node, NodeType, Vector } from "@domain/environment";
-import { Result } from "@domain/types/Result";
+import { Result } from "@domain/shared/types";
 import { Store } from "../store/Store";
 
 export type GridStoreState = {

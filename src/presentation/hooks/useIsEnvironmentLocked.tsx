@@ -1,6 +1,8 @@
-import { EnvironmentLockedEvent } from "@/domain/environment/events/EnvironmentLockedEvent";
-import { EnvironmentUnlockedEvent } from "@/domain/environment/events/EnvironmentUnlockedEvent";
-import { IsEnvironmentLockedQuery } from "@/domain/environment/queries/IsEnvironmentLockedQuery";
+import {
+  EnvironmentLockedEvent,
+  EnvironmentUnlockedEvent,
+  IsEnvironmentLockedQuery,
+} from "@domain/environment";
 import { useEventListener } from "../adapters/mediator/hooks";
 import { useQuery } from "../adapters/mediator/hooks/useQuery";
 

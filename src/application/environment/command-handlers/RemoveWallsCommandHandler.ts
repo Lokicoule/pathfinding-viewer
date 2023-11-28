@@ -1,4 +1,4 @@
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
+import { CommandHandlerContract } from "@infra/cqrs";
 import { RemoveWallsCommand } from "@domain/environment";
 import { GridStore } from "@infra/stores";
 

@@ -1,8 +1,7 @@
-import { AlgorithmUpdatedEvent } from "@/domain/algorithm/events/AlgorithmUpdatedEvent";
-import { Mediator } from "@/infrastructure/mediator";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
-import { SetAlgorithmCommand } from "@domain/algorithm";
-import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
+import { AlgorithmUpdatedEvent, SetAlgorithmCommand } from "@domain/algorithm";
+import { CommandHandlerContract } from "@infra/cqrs";
+import { Mediator } from "@infra/mediator";
+import { AlgorithmStore } from "@infra/stores";
 
 export class SetAlgorithmCommandHandler
   implements CommandHandlerContract<SetAlgorithmCommand>

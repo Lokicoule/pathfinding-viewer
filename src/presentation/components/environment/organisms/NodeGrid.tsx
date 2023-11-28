@@ -11,9 +11,8 @@ import {
 } from "@domain/environment";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { generateNodeClasses } from "@ui/helpers/nodeClasses";
-import { useGrid } from "@ui/hooks";
+import { useGrid, useIsEnvironmentLocked } from "@ui/hooks";
 
-import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import "./NodeGrid.css";
 
 type NodeGridComponent = React.FC;

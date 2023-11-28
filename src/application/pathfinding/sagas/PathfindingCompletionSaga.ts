@@ -1,8 +1,8 @@
-import { EventContract } from "@/infrastructure/cqrs/event/contracts";
 import {
   PathfindingAnimationCommand,
   PathfindingRunnerCompletedEvent,
 } from "@domain/pathfinding";
+import { EventContract } from "@infra/cqrs";
 import { Mediator } from "@infra/mediator";
 
 export class PathfindingCompletionSaga {

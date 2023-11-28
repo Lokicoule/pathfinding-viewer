@@ -1,5 +1,13 @@
-import { Mediator } from "@/infrastructure/mediator";
-
+import { GlobalState } from "@/bootstrapping/GlobalState";
+import {
+  PauseAnimationCommand,
+  PlayAnimationCommand,
+  ResumeAnimationCommand,
+  StopAnimationCommand,
+  ToggleAnimationCommand,
+  UpdateSpeedCommand,
+} from "@domain/animation";
+import { Mediator } from "@infra/mediator";
 import {
   PauseAnimationCommandHandler,
   PlayAnimationCommandHandler,
@@ -8,12 +16,6 @@ import {
   ToggleAnimationCommandHandler,
   UpdateSpeedCommandHandler,
 } from "./command-handlers";
-import { PlayAnimationCommand } from "@/domain/animation/commands/PlayAnimationCommand";
-import { PauseAnimationCommand } from "@/domain/animation/commands/PauseAnimationCommand";
-import { StopAnimationCommand } from "@/domain/animation/commands/StopAnimationCommand";
-import { ResumeAnimationCommand } from "@/domain/animation/commands/ResumeAnimationCommand";
-import { ToggleAnimationCommand, UpdateSpeedCommand } from "@/domain/animation";
-import { GlobalState } from "@/bootstrapping/GlobalState";
 
 export class AnimationModule {
   static register(mediator: Mediator, stores: GlobalState) {

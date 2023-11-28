@@ -1,4 +1,4 @@
-import { AlgorithmType } from "@/domain/algorithm/types/AlgorithmType";
+import { AlgorithmType } from "@domain/algorithm";
 
 export const ALGORITHMS = new Map<AlgorithmType, string>([
   ["MAZE_RECURSIVE_DIVISION", "Recursive Division (Maze)"],

@@ -1,4 +1,3 @@
-import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import {
   Algorithm,
   AlgorithmType,
@@ -7,6 +6,7 @@ import {
 import { AnimationCommandBuilder } from "@domain/animation";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { Button } from "@ui/components/ui";
+import { useIsEnvironmentLocked } from "@ui/hooks";
 
 type PlayAlgorithmButtonProps = {
   type: AlgorithmType;

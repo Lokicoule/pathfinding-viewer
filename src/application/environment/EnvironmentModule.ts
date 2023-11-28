@@ -1,32 +1,32 @@
-import { Mediator } from "@/infrastructure/mediator";
-import {
-  AddWallsCommandHandler,
-  ClearPathAndExploredNodesCommandHandler,
-  ClearWallsCommandHandler,
-  RemoveWallsCommandHandler,
-  ResetGridCommandHandler,
-  SetEndNodeCommandHandler,
-  SetStartNodeCommandHandler,
-  SwapStartAndEndNodesCommandHandler,
-  LockEnvironmentCommandHandler,
-  UnlockEnvironmentCommandHandler,
-} from "./command-handlers";
-import { IsEnvironmentLockedQueryHandler } from "./query-handlers";
-import { LockEnvironmentSaga, UnlockEnvironmentSaga } from "./sagas";
+import { GlobalState } from "@/bootstrapping/GlobalState";
 import {
   AddWallsCommand,
   ClearPathAndExploredNodesCommand,
   ClearWallsCommand,
+  IsEnvironmentLockedQuery,
+  LockEnvironmentCommand,
   RemoveWallsCommand,
   ResetGridCommand,
   SetEndNodeCommand,
   SetStartNodeCommand,
   SwapStartAndEndNodesCommand,
-  LockEnvironmentCommand,
   UnlockEnvironmentCommand,
-} from "@/domain/environment";
-import { GlobalState } from "@/bootstrapping/GlobalState";
-import { IsEnvironmentLockedQuery } from "@/domain/environment/queries/IsEnvironmentLockedQuery";
+} from "@domain/environment";
+import { Mediator } from "@infra/mediator";
+import {
+  AddWallsCommandHandler,
+  ClearPathAndExploredNodesCommandHandler,
+  ClearWallsCommandHandler,
+  LockEnvironmentCommandHandler,
+  RemoveWallsCommandHandler,
+  ResetGridCommandHandler,
+  SetEndNodeCommandHandler,
+  SetStartNodeCommandHandler,
+  SwapStartAndEndNodesCommandHandler,
+  UnlockEnvironmentCommandHandler,
+} from "./command-handlers";
+import { IsEnvironmentLockedQueryHandler } from "./query-handlers";
+import { LockEnvironmentSaga, UnlockEnvironmentSaga } from "./sagas";
 
 export class EnvironmentModule {
   static register(mediator: Mediator, stores: GlobalState) {

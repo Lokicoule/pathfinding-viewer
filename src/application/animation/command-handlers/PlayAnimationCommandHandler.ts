@@ -1,12 +1,10 @@
-import { Algorithm } from "@/domain/algorithm";
-import { PlayAnimationCommand } from "@/domain/animation/commands/PlayAnimationCommand";
-import { AnimationPlayedEvent } from "@/domain/animation/events";
-import { MazeRunnerCommand } from "@/domain/maze";
-import { PathfindingRunnerCommand } from "@/domain/pathfinding";
-import { Mediator } from "@/infrastructure/mediator";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
-
-import { AnimationStore } from "@/infrastructure/stores";
+import { Algorithm } from "@domain/algorithm";
+import { AnimationPlayedEvent, PlayAnimationCommand } from "@domain/animation";
+import { MazeRunnerCommand } from "@domain/maze";
+import { PathfindingRunnerCommand } from "@domain/pathfinding";
+import { CommandHandlerContract } from "@infra/cqrs";
+import { Mediator } from "@infra/mediator";
+import { AnimationStore } from "@infra/stores";
 
 export class PlayAnimationCommandHandler
   implements CommandHandlerContract<PlayAnimationCommand, void>

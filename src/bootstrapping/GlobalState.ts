@@ -1,5 +1,9 @@
-import { EnvironmentStore } from "@/infrastructure/stores/EnvironmentStore";
-import { AlgorithmStore, AnimationStore, GridStore } from "@infra/stores";
+import {
+  AlgorithmStore,
+  AnimationStore,
+  EnvironmentStore,
+  GridStore,
+} from "@infra/stores";
 
 export class GlobalState {
   public readonly gridStore: GridStore;

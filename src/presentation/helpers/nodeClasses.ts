@@ -1,4 +1,4 @@
-import { Node } from "@/domain/environment/entities";
+import { Node } from "@domain/environment";
 
 export const generateNodeClasses = (
   node: Node,

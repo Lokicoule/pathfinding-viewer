@@ -1,7 +1,9 @@
-import { Mediator } from "../../../mediator";
-import { EventContract } from "../../event/contracts";
+import { Mediator } from "../../mediator";
+import { EventContract } from "../event/contracts";
 
-type EventHandler = () => void;
+type EventHandler = <EventType extends EventContract>(
+  event?: EventType
+) => void;
 
 export abstract class Saga {
   constructor(
@@ -13,7 +15,7 @@ export abstract class Saga {
     this.mediator.registerEventHandler(event, this.run.bind(this));
   }
 
-  private run(): void {
-    this.handler();
+  private run(event?: EventContract): void {
+    this.handler(event);
   }
 }

@@ -3,9 +3,9 @@ import {
   PathfindingRunnerCommand,
   PathfindingRunnerCompletedEvent,
 } from "@domain/pathfinding";
+import { CommandHandlerContract } from "@infra/cqrs";
 import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 export class PathfindingRunnerCommandHandler
   implements CommandHandlerContract<PathfindingRunnerCommand>

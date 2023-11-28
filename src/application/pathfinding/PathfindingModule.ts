@@ -2,8 +2,8 @@ import { GlobalState } from "@/bootstrapping/GlobalState";
 import {
   PathfindingAnimationCommand,
   PathfindingRunnerCommand,
-} from "@/domain/pathfinding";
-import { Mediator } from "@/infrastructure/mediator";
+} from "@domain/pathfinding";
+import { Mediator } from "@infra/mediator";
 import {
   PathfindingAnimationCommandHandler,
   PathfindingRunnerCommandHandler,

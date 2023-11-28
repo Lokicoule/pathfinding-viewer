@@ -6,7 +6,7 @@ import {
 import { AnimationManager } from "@infra/animation";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore } from "@infra/stores";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
+import { CommandHandlerContract } from "@infra/cqrs";
 
 export class MazeAnimationCommandHandler
   implements CommandHandlerContract<MazeAnimationCommand>

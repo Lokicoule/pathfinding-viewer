@@ -6,7 +6,7 @@ import {
 } from "@domain/maze";
 import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
+import { CommandHandlerContract } from "@infra/cqrs";
 
 export class MazeRunnerCommandHandler
   implements CommandHandlerContract<MazeRunnerCommand>

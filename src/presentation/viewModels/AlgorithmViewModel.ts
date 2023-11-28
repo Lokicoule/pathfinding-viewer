@@ -1,5 +1,5 @@
-import { MazeAlgorithmType } from "@/domain/maze/types/MazeAlgorithmType";
-import { PathfindingAlgorithmType } from "@/domain/pathfinding/types/PathfindingAlgorithmType";
+import { MazeAlgorithmType } from "@domain/maze";
+import { PathfindingAlgorithmType } from "@domain/pathfinding";
 
 export type AlgorithmViewModel = {
   name: string;

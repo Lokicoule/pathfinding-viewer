@@ -1,4 +1,4 @@
-import { useAlgorithm } from "@/presentation/hooks";
+import { useAlgorithm } from "@ui/hooks";
 import { Card, LinkIcon } from "@ui/components/ui";
 import { MAZE_ALGORITHMS } from "@ui/constants/mazeConstants";
 import { PATHFINDING_ALGORITHMS } from "@ui/constants/pathfindingConstants";
