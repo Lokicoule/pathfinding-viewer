@@ -1,14 +1,10 @@
-import { EventBaseWithPayload } from "@/infrastructure/mediator";
+import { BaseEvent } from "@/infrastructure/cqrs/event/models";
 import { Node } from "../../environment/entities/Node";
 
-type PathfindingRunnerCompletedEventPayload = {
-  endNode: Node;
-  path: Node[];
-};
-export class PathfindingRunnerCompletedEvent extends EventBaseWithPayload<PathfindingRunnerCompletedEventPayload> {
-  public static readonly type = "PathfindingRunnerCompletedEvent";
+export class PathfindingRunnerCompletedEvent extends BaseEvent {
+  public static readonly eventName = "event:pathfinding-runner-completed";
 
-  constructor(endNode: Node, path: Node[]) {
-    super(PathfindingRunnerCompletedEvent.type, { endNode, path });
+  constructor(public readonly endNode: Node, public readonly path: Node[]) {
+    super();
   }
 }

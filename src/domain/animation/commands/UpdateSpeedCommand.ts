@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { Speed } from "../valueObjects/Speed";
 
 export class UpdateSpeedCommand extends BaseCommand {

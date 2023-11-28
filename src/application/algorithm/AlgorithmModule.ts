@@ -12,7 +12,7 @@ export class AlgorithmModule {
       new SetAlgorithmCommandHandler(mediator, stores.algorithmStore)
     );
     mediator.registerQueryHandler(
-      GetAlgorithmQuery.type,
+      GetAlgorithmQuery,
       new GetAlgorithmQueryHandler(stores.algorithmStore)
     );
   }

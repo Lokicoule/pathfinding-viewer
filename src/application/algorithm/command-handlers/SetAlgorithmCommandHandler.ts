@@ -1,11 +1,11 @@
 import { AlgorithmUpdatedEvent } from "@/domain/algorithm/events/AlgorithmUpdatedEvent";
 import { Mediator } from "@/infrastructure/mediator";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { SetAlgorithmCommand } from "@domain/algorithm";
 import { AlgorithmStore } from "@infra/stores/AlgorithmStore";
 
 export class SetAlgorithmCommandHandler
-  implements ICommandHandler<SetAlgorithmCommand>
+  implements CommandHandlerContract<SetAlgorithmCommand>
 {
   constructor(
     private readonly mediator: Mediator,

@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { AlgorithmType } from "@domain/algorithm";
 
 export class PlayAnimationCommand extends BaseCommand {

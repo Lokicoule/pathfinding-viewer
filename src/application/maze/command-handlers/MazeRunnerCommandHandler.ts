@@ -6,10 +6,10 @@ import {
 } from "@domain/maze";
 import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 export class MazeRunnerCommandHandler
-  implements ICommandHandler<MazeRunnerCommand>
+  implements CommandHandlerContract<MazeRunnerCommand>
 {
   constructor(
     private readonly mediator: Mediator,

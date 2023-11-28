@@ -1,21 +1,16 @@
 import { AnimationPlayedEvent } from "@/domain/animation/events";
 import { LockEnvironmentCommand } from "@/domain/environment";
+import { Saga } from "@/infrastructure/cqrs/saga/models/BaseSaga";
 import { Mediator } from "@infra/mediator";
 
-export class LockEnvironmentSaga {
-  private constructor(private readonly mediator: Mediator) {
-    const runsOn = [AnimationPlayedEvent.type];
+export class LockEnvironmentSaga extends Saga {
+  private constructor(mediator: Mediator) {
+    super(mediator, () => mediator.sendCommand(new LockEnvironmentCommand()));
 
-    runsOn.forEach((eventName: string) => {
-      this.mediator.registerEventHandler(eventName, this.run);
-    });
+    this.registerEvent(AnimationPlayedEvent);
   }
 
   public static register(mediator: Mediator): LockEnvironmentSaga {
     return new LockEnvironmentSaga(mediator);
   }
-
-  private run = () => {
-    this.mediator.sendCommand(new LockEnvironmentCommand());
-  };
 }

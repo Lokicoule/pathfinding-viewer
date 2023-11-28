@@ -1,9 +1,9 @@
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { SetEndNodeCommand } from "@domain/environment";
 import { GridStore } from "@infra/stores";
 
 export class SetEndNodeCommandHandler
-  implements ICommandHandler<SetEndNodeCommand>
+  implements CommandHandlerContract<SetEndNodeCommand>
 {
   constructor(private readonly gridStore: GridStore) {}
 

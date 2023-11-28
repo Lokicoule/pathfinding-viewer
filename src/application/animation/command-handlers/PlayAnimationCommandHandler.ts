@@ -4,12 +4,12 @@ import { AnimationPlayedEvent } from "@/domain/animation/events";
 import { MazeRunnerCommand } from "@/domain/maze";
 import { PathfindingRunnerCommand } from "@/domain/pathfinding";
 import { Mediator } from "@/infrastructure/mediator";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 import { AnimationStore } from "@/infrastructure/stores";
 
 export class PlayAnimationCommandHandler
-  implements ICommandHandler<PlayAnimationCommand, void>
+  implements CommandHandlerContract<PlayAnimationCommand, void>
 {
   constructor(
     private readonly mediator: Mediator,

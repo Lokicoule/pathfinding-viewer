@@ -2,10 +2,10 @@ import { LockEnvironmentCommand } from "@/domain/environment";
 import { EnvironmentLockedEvent } from "@/domain/environment/events/EnvironmentLockedEvent";
 import { Mediator } from "@/infrastructure/mediator";
 import { EnvironmentStore } from "@/infrastructure/stores/EnvironmentStore";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 export class LockEnvironmentCommandHandler
-  implements ICommandHandler<LockEnvironmentCommand>
+  implements CommandHandlerContract<LockEnvironmentCommand>
 {
   constructor(
     private readonly mediator: Mediator,

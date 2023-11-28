@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { MazeAlgorithmType } from "../types/MazeAlgorithmType";
 
 export class MazeRunnerCommand extends BaseCommand {

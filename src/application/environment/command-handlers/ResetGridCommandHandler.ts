@@ -1,9 +1,9 @@
 import { ResetGridCommand } from "@/domain/environment";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { GridStore } from "@infra/stores";
 
 export class ResetGridCommandHandler
-  implements ICommandHandler<ResetGridCommand>
+  implements CommandHandlerContract<ResetGridCommand>
 {
   constructor(private readonly gridStore: GridStore) {}
 

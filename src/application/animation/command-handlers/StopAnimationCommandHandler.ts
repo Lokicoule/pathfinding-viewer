@@ -1,11 +1,11 @@
 import { StopAnimationCommand } from "@/domain/animation/commands/StopAnimationCommand";
 import { AnimationStoppedEvent } from "@/domain/animation/events/AnimationStoppedEvent";
 import { Mediator } from "@/infrastructure/mediator";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 import { AnimationStore } from "@/infrastructure/stores";
 
 export class StopAnimationCommandHandler
-  implements ICommandHandler<StopAnimationCommand>
+  implements CommandHandlerContract<StopAnimationCommand>
 {
   constructor(
     private readonly mediator: Mediator,

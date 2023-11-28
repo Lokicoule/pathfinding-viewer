@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator/command/contracts/Command";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { AlgorithmType } from "../types/AlgorithmType";
 
 export class SetAlgorithmCommand extends BaseCommand {

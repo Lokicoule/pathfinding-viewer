@@ -5,10 +5,10 @@ import {
 } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";
 import { GridStore } from "@infra/stores";
-import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
 
 export class PathfindingRunnerCommandHandler
-  implements ICommandHandler<PathfindingRunnerCommand>
+  implements CommandHandlerContract<PathfindingRunnerCommand>
 {
   constructor(
     private readonly mediator: Mediator,

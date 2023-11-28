@@ -1,4 +1,4 @@
-import { BaseCommand } from "@/infrastructure/mediator";
+import { BaseCommand } from "@infra/cqrs/command/models";
 import { PathfindingAlgorithmType } from "../types/PathfindingAlgorithmType";
 
 export class PathfindingRunnerCommand extends BaseCommand {

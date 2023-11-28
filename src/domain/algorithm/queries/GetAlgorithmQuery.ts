@@ -1,9 +1,5 @@
-import { QueryBase } from "@/infrastructure/mediator";
+import { BaseQuery } from "@infra/cqrs/query/models";
 
-export class GetAlgorithmQuery extends QueryBase {
-  public static readonly type = "GetAlgorithmQuery";
-
-  constructor() {
-    super(GetAlgorithmQuery.type);
-  }
+export class GetAlgorithmQuery extends BaseQuery {
+  public static readonly queryName = "query:get-algorithm";
 }
