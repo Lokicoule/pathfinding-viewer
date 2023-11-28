@@ -43,16 +43,4 @@ export class AnimationStore extends Store<AnimationStoreState> {
 
     this.setState(this.state);
   }
-
-  public isPaused(): boolean {
-    return this.state.playback.isPaused();
-  }
-
-  public isStopped(): boolean {
-    return this.state.playback.isStopped();
-  }
-
-  public isResumed(): boolean {
-    return this.state.playback.isResumed();
-  }
 }

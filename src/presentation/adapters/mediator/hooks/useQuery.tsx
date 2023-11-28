@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { QueryContract } from "@infra/cqrs";
 import { useMediator } from "./useMediator";
-import { QueryContract } from "@/infrastructure/cqrs/query/contracts";
 
 export type QueryResult<TResult> = {
   result: TResult | null;

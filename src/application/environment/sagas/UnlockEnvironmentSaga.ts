@@ -1,5 +1,5 @@
-import { UnlockEnvironmentCommand } from "@/domain/environment";
-import { Saga } from "@/infrastructure/cqrs/saga/models/BaseSaga";
+import { UnlockEnvironmentCommand } from "@domain/environment";
+import { Saga } from "@infra/cqrs";
 import { MazeAnimationCompletedEvent } from "@domain/maze";
 import { PathfindingAnimationCompletedEvent } from "@domain/pathfinding";
 import { Mediator } from "@infra/mediator";

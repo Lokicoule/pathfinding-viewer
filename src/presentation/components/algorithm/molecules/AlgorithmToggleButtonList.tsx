@@ -1,5 +1,5 @@
-import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import { ToggleButton } from "@ui/components/ui";
+import { useIsEnvironmentLocked } from "@ui/hooks";
 import { AlgorithmViewModel } from "@ui/viewModels/AlgorithmViewModel";
 
 type AlgorithmToggleButtonListProps = {

@@ -1,5 +1,4 @@
-import { EventContract } from "@/infrastructure/cqrs/event/contracts";
-import { EventHandlerType } from "@/infrastructure/cqrs/event/types/EventHandlerType";
+import { EventContract, EventHandlerType } from "@infra/cqrs";
 import { useEffect } from "react";
 import { useMediator } from "./useMediator";
 

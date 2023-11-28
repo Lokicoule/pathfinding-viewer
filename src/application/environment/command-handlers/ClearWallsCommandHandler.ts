@@ -1,5 +1,5 @@
-import { ClearWallsCommand } from "@/domain/environment";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
+import { ClearWallsCommand } from "@domain/environment";
+import { CommandHandlerContract } from "@infra/cqrs";
 import { GridStore } from "@infra/stores";
 
 export class ClearWallsCommandHandler

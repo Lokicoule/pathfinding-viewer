@@ -1,4 +1,4 @@
-import { Grid, Node } from "@/domain/environment";
+import { Grid, Node } from "@domain/environment";
 import { Stack } from "@infra/datastructures";
 import { PathfindingAlgorithm } from "./PathfindingAlgorithm";
 

@@ -1,4 +1,4 @@
-import { EventContract } from "@/infrastructure/cqrs/event/contracts";
+import { EventContract } from "@infra/cqrs";
 import { useMediator } from "./useMediator";
 
 export function useEvent() {

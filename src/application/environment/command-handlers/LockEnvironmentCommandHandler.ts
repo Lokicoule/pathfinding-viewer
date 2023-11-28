@@ -1,8 +1,10 @@
-import { LockEnvironmentCommand } from "@/domain/environment";
-import { EnvironmentLockedEvent } from "@/domain/environment/events/EnvironmentLockedEvent";
-import { Mediator } from "@/infrastructure/mediator";
-import { EnvironmentStore } from "@/infrastructure/stores/EnvironmentStore";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
+import {
+  EnvironmentLockedEvent,
+  LockEnvironmentCommand,
+} from "@domain/environment";
+import { CommandHandlerContract } from "@infra/cqrs";
+import { Mediator } from "@infra/mediator";
+import { EnvironmentStore } from "@infra/stores";
 
 export class LockEnvironmentCommandHandler
   implements CommandHandlerContract<LockEnvironmentCommand>

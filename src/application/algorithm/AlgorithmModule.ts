@@ -1,7 +1,6 @@
 import { GlobalState } from "@/bootstrapping/GlobalState";
-import { SetAlgorithmCommand } from "@/domain/algorithm";
-import { GetAlgorithmQuery } from "@/domain/algorithm/queries/GetAlgorithmQuery";
-import { Mediator } from "@/infrastructure/mediator";
+import { GetAlgorithmQuery, SetAlgorithmCommand } from "@domain/algorithm";
+import { Mediator } from "@infra/mediator";
 import { SetAlgorithmCommandHandler } from "./command-handlers";
 import { GetAlgorithmQueryHandler } from "./query-handlers";
 

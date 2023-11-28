@@ -1,6 +1,6 @@
-import { ToggleAnimationCommand } from "@/domain/animation";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts/CommandHandlerContract";
-import { AnimationStore } from "@infra/stores/AnimationStore";
+import { ToggleAnimationCommand } from "@domain/animation";
+import { CommandHandlerContract } from "@infra/cqrs";
+import { AnimationStore } from "@infra/stores";
 
 export class ToggleAnimationCommandHandler
   implements CommandHandlerContract<ToggleAnimationCommand>

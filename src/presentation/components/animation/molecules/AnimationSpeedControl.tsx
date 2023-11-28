@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import { Speed, UpdateSpeedCommand } from "@domain/animation";
 import { useCommand } from "@ui/adapters/mediator/hooks";
 import { Tooltip } from "@ui/components/ui";
-import { useAnimation } from "@ui/hooks";
+import { useAnimation, useIsEnvironmentLocked } from "@ui/hooks";
 
 type AnimationSpeedControlComponent = React.FC<
   React.HTMLAttributes<HTMLInputElement>

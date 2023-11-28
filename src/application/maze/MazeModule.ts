@@ -1,6 +1,6 @@
 import { GlobalState } from "@/bootstrapping/GlobalState";
-import { MazeAnimationCommand, MazeRunnerCommand } from "@/domain/maze";
-import { Mediator } from "@/infrastructure/mediator";
+import { MazeAnimationCommand, MazeRunnerCommand } from "@domain/maze";
+import { Mediator } from "@infra/mediator";
 import {
   MazeAnimationCommandHandler,
   MazeRunnerCommandHandler,

@@ -1,4 +1,3 @@
-import { useIsEnvironmentLocked } from "@/presentation/hooks/useIsEnvironmentLocked";
 import {
   ClearPathAndExploredNodesCommand,
   ClearWallsCommand,
@@ -7,6 +6,7 @@ import {
 import { useCommand } from "@ui/adapters/mediator/hooks/useCommand";
 import { AnimationControls } from "@ui/components/animation";
 import { Button } from "@ui/components/ui";
+import { useIsEnvironmentLocked } from "@ui/hooks";
 
 type GridControlsComponent = React.FC;
 

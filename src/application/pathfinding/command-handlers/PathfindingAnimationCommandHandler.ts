@@ -1,13 +1,13 @@
+import { StopAnimationCommand } from "@domain/animation";
 import { Node } from "@domain/environment";
 import {
   PathfindingAnimationCommand,
   PathfindingAnimationCompletedEvent,
 } from "@domain/pathfinding";
 import { AnimationManager } from "@infra/animation";
+import { CommandHandlerContract } from "@infra/cqrs";
 import { Mediator } from "@infra/mediator";
 import { AnimationStore, GridStore } from "@infra/stores";
-import { CommandHandlerContract } from "@/infrastructure/cqrs/command/contracts";
-import { StopAnimationCommand } from "@/domain/animation";
 
 export class PathfindingAnimationCommandHandler
   implements CommandHandlerContract<PathfindingAnimationCommand>
@@ -99,7 +99,7 @@ export class PathfindingAnimationCommandHandler
       });
     });
 
-    if (this.animationStore.isStopped()) {
+    if (this.animationStore.getPlayback().isStopped()) {
       this.mediator.sendCommand(new StopAnimationCommand());
     }
 

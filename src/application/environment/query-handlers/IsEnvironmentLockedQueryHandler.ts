@@ -1,9 +1,9 @@
-import { IsEnvironmentLockedQuery } from "@/domain/environment/queries/IsEnvironmentLockedQuery";
-import { QueryHandler } from "@/infrastructure/mediator";
-import { EnvironmentStore } from "@/infrastructure/stores/EnvironmentStore";
+import { IsEnvironmentLockedQuery } from "@domain/environment";
+import { QueryHandlerContract } from "@infra/cqrs";
+import { EnvironmentStore } from "@infra/stores";
 
 export class IsEnvironmentLockedQueryHandler
-  implements QueryHandler<IsEnvironmentLockedQuery, boolean>
+  implements QueryHandlerContract<IsEnvironmentLockedQuery, boolean>
 {
   public constructor(private readonly environmentStore: EnvironmentStore) {}
 

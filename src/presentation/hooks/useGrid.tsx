@@ -4,6 +4,5 @@ import { useStoreWithSelector } from "../adapters/store/hooks/useStoreWithSelect
 export const useGrid = () => {
   return useStoreWithSelector(compositionRoot.stores.gridStore, (state) => ({
     nodes: state.grid.getNodes(),
-    instance: state.grid,
   }));
 };

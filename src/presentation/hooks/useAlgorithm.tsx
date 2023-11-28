@@ -1,6 +1,8 @@
-import { Algorithm } from "@/domain/algorithm";
-import { AlgorithmUpdatedEvent } from "@/domain/algorithm/events/AlgorithmUpdatedEvent";
-import { GetAlgorithmQuery } from "@/domain/algorithm/queries/GetAlgorithmQuery";
+import {
+  Algorithm,
+  AlgorithmUpdatedEvent,
+  GetAlgorithmQuery,
+} from "@domain/algorithm";
 import { useEventListener } from "../adapters/mediator/hooks";
 import { useQuery } from "../adapters/mediator/hooks/useQuery";
 
