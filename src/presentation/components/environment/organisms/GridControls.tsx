@@ -57,7 +57,7 @@ const GridControls: GridControlsComponent = () => {
             resetActionMediator("CLEAR_PATHFINDING_AND_EXPLORED_NODES")
           }
         >
-          Clear Path and Explored Nodes
+          Clear Path & Explored Nodes
         </Button>
       </div>
     </div>
