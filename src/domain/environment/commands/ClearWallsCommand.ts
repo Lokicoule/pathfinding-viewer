@@ -1,9 +1,5 @@
-import { CommandBase } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 
-export class ClearWallsCommand extends CommandBase {
-  public static readonly type = "ClearWallsCommand";
-
-  constructor() {
-    super(ClearWallsCommand.type);
-  }
+export class ClearWallsCommand extends BaseCommand {
+  public static readonly commandName = "command:clear-walls";
 }

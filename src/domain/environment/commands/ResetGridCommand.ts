@@ -1,9 +1,5 @@
-import { CommandBase } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 
-export class ResetGridCommand extends CommandBase {
-  public static readonly type = "ResetGridCommand";
-
-  constructor() {
-    super(ResetGridCommand.type);
-  }
+export class ResetGridCommand extends BaseCommand {
+  public static readonly commandName = "command:reset-grid";
 }

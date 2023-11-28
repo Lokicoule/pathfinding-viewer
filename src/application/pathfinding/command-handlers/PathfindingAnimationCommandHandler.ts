@@ -2,35 +2,37 @@ import { Node } from "@domain/environment";
 import {
   PathfindingAnimationCommand,
   PathfindingAnimationCompletedEvent,
-  StopPathfindingCommand,
 } from "@domain/pathfinding";
 import { AnimationManager } from "@infra/animation";
-import { CommandHandler, Mediator } from "@infra/mediator";
-import { AnimationStore, GridStore, PlaybackStore } from "@infra/stores";
+import { Mediator } from "@infra/mediator";
+import { AnimationStore, GridStore } from "@infra/stores";
+import { ICommandHandler } from "@/infrastructure/mediator/command/contracts/CommandHandler";
+import { StopAnimationCommand } from "@/domain/animation";
 
-export class PathfindingAnimationCommandHandler implements CommandHandler {
+export class PathfindingAnimationCommandHandler
+  implements ICommandHandler<PathfindingAnimationCommand>
+{
   private explorationAnimationManager: AnimationManager;
   private pathAnimationManager: AnimationManager;
 
   constructor(
     private readonly mediator: Mediator,
     private readonly gridStore: GridStore,
-    private readonly playbackStore: PlaybackStore,
     private readonly animationStore: AnimationStore
   ) {
-    this.explorationAnimationManager = AnimationManager.create(playbackStore);
-    this.pathAnimationManager = AnimationManager.create(playbackStore);
+    this.explorationAnimationManager = AnimationManager.create(animationStore);
+    this.pathAnimationManager = AnimationManager.create(animationStore);
   }
 
-  execute({ payload }: PathfindingAnimationCommand): void {
-    const path = this.getPath(payload.endNode);
+  execute(command: PathfindingAnimationCommand) {
+    const path = this.getPath(command.endNode);
 
     if (this.animationStore.isActivated()) {
-      this.animateExploration(payload.path)
+      this.animateExploration(command.path)
         .then(() => this.animatePath(path))
         .finally(() => this.handleAnimationCompleted());
     } else {
-      for (const node of payload.path) {
+      for (const node of command.path) {
         if (node.isNotType("Start", "End")) {
           this.gridStore.setNodeAs(node.getVector(), "Explored");
         }
@@ -97,8 +99,8 @@ export class PathfindingAnimationCommandHandler implements CommandHandler {
       });
     });
 
-    if (this.playbackStore.isStopped()) {
-      this.mediator.sendCommand(new StopPathfindingCommand());
+    if (this.animationStore.isStopped()) {
+      this.mediator.sendCommand(new StopAnimationCommand());
     }
 
     return Promise.all(promises);

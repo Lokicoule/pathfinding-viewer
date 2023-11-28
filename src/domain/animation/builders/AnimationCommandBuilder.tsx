@@ -1,39 +1,25 @@
-import {
-  PauseMazeCommand,
-  PlayMazeCommand,
-  ResumeMazeCommand,
-  StopMazeCommand,
-} from "@domain/maze";
-import {
-  PausePathfindingCommand,
-  PlayPathfindingCommand,
-  ResumePathfindingCommand,
-  StopPathfindingCommand,
-} from "@domain/pathfinding";
+import { ICommand } from "@/infrastructure/mediator/command/contracts/Command";
 import { Algorithm } from "../../algorithm/valueObjects/Algorithm";
-import { Command } from "@/infrastructure/mediator";
+import {
+  PauseAnimationCommand,
+  PlayAnimationCommand,
+  ResumeAnimationCommand,
+  StopAnimationCommand,
+} from "../commands";
 
 type CommandTypes = "pause" | "resume" | "play" | "stop";
 
 export class AnimationCommandBuilder {
-  static build(type: CommandTypes, algorithm: Algorithm): Command {
+  static build(type: CommandTypes, algorithm: Algorithm): ICommand {
     switch (type) {
       case "pause":
-        return algorithm.isMazeAlgorithm()
-          ? new PauseMazeCommand()
-          : new PausePathfindingCommand();
+        return new PauseAnimationCommand();
       case "resume":
-        return algorithm.isMazeAlgorithm()
-          ? new ResumeMazeCommand()
-          : new ResumePathfindingCommand();
+        return new ResumeAnimationCommand();
       case "play":
-        return algorithm.isMazeAlgorithm()
-          ? new PlayMazeCommand(algorithm.getMazeAlgorithm())
-          : new PlayPathfindingCommand(algorithm.getPathfindingAlgorithm());
+        return new PlayAnimationCommand(algorithm.value);
       case "stop":
-        return algorithm.isMazeAlgorithm()
-          ? new StopMazeCommand()
-          : new StopPathfindingCommand();
+        return new StopAnimationCommand();
       default:
         throw new Error(`Invalid command type: ${type}`);
     }

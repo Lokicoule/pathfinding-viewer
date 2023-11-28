@@ -1,13 +1,10 @@
-import { CommandBaseWithPayload } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 import { Node } from "@domain/environment";
 
-type MazeAnimationCommandPayload = {
-  nodes: Node[];
-};
-export class MazeAnimationCommand extends CommandBaseWithPayload<MazeAnimationCommandPayload> {
-  public static readonly type = "MazeAnimationCommand";
+export class MazeAnimationCommand extends BaseCommand {
+  public static readonly commandName = "command:maze-animation";
 
-  constructor(nodes: Node[]) {
-    super(MazeAnimationCommand.type, { nodes });
+  constructor(public readonly nodes: Node[]) {
+    super();
   }
 }

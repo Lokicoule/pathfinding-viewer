@@ -6,3 +6,5 @@ export * from "./RemoveWallsCommandHandler";
 export * from "./SetStartNodeCommandHandler";
 export * from "./SetEndNodeCommandHandler";
 export * from "./SwapStartAndEndNodesCommandHandler";
+export * from "./LockEnvironmentCommandHandler";
+export * from "./UnlockEnvironmentCommandHandler";

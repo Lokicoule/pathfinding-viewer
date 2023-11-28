@@ -1,14 +1,10 @@
 import { Node } from "@domain/environment";
-import { CommandBaseWithPayload } from "@infra/mediator";
+import { BaseCommand } from "@infra/mediator";
 
-type AddWallsCommandPayload = {
-  nodes: Node[];
-};
+export class AddWallsCommand extends BaseCommand {
+  public static readonly commandName = "command:add-walls";
 
-export class AddWallsCommand extends CommandBaseWithPayload<AddWallsCommandPayload> {
-  public static readonly type = "AddWallsCommand";
-
-  constructor(nodes: Node[]) {
-    super(AddWallsCommand.type, { nodes });
+  constructor(public readonly nodes: Node[]) {
+    super();
   }
 }

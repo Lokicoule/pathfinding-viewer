@@ -1,9 +1,5 @@
-import { CommandBase } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator";
 
-export class LockEnvironmentCommand extends CommandBase {
-  public static readonly type = "LockEnvironmentCommand";
-
-  constructor() {
-    super(LockEnvironmentCommand.type);
-  }
+export class LockEnvironmentCommand extends BaseCommand {
+  public static readonly commandName = "command:lock-environment";
 }

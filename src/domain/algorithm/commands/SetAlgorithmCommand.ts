@@ -1,14 +1,10 @@
-import { CommandBaseWithPayload } from "@/infrastructure/mediator";
+import { BaseCommand } from "@/infrastructure/mediator/command/contracts/Command";
 import { AlgorithmType } from "../types/AlgorithmType";
 
-type SetAlgorithmCommandPayload = {
-  algorithm: AlgorithmType;
-};
+export class SetAlgorithmCommand extends BaseCommand {
+  public static readonly commandName = "command:set-algorithm";
 
-export class SetAlgorithmCommand extends CommandBaseWithPayload<SetAlgorithmCommandPayload> {
-  public static readonly type = "SetAlgorithmCommand";
-
-  constructor(algorithm: AlgorithmType) {
-    super(SetAlgorithmCommand.type, { algorithm });
+  constructor(public readonly algorithm: AlgorithmType) {
+    super();
   }
 }
