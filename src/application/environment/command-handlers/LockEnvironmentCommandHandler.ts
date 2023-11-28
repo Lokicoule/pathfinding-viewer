@@ -15,11 +15,6 @@ export class LockEnvironmentCommandHandler
   execute(): void {
     this.algorithmStore.lock();
 
-    console.log(
-      "LockEnvironmentCommandHandler",
-      this.algorithmStore.isLocked()
-    );
-
     this.mediator.sendEvent(new EnvironmentLockedEvent());
   }
 }

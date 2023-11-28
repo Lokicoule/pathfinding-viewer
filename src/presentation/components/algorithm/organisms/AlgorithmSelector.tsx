@@ -20,7 +20,6 @@ const AlgorithmSelector: AlgorithmSelectorComponent = ({
   title,
 }: AlgorithmSelectorProps): React.ReactElement => {
   const sendCommand = useCommand();
-  /* const [{ error, loading, result }] = useGetInitialAlgorithm(algorithms); */
   const [localAlgorithm, setLocalAlgorithm] = useState<AlgorithmViewModel>(
     algorithms[algorithms.length - 1]
   );

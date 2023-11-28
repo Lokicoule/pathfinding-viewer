@@ -17,8 +17,6 @@ export class PlayAnimationCommandHandler
   ) {}
 
   execute(command: PlayAnimationCommand) {
-    console.log("PlayAnimationCommandHandler.execute()");
-
     const algorithm = Algorithm.create(command.algorithm);
 
     if (algorithm.isMazeAlgorithm()) {

@@ -8,7 +8,6 @@ export class EventBus {
 
   register(event: EventContract, handler: EventHandlerType): Unsubscribe {
     const identifier = event.eventName;
-    console.log("register", identifier, handler);
 
     const handlers = this.events.get(identifier);
 
@@ -25,7 +24,6 @@ export class EventBus {
 
   handle(event: EventContract): void | Promise<void> {
     const identifier = event.eventName;
-    console.log("execute", identifier, event);
     const handler = this.events.get(identifier);
 
     if (!handler) {

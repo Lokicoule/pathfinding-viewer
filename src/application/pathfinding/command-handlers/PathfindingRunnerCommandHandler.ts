@@ -16,34 +16,27 @@ export class PathfindingRunnerCommandHandler
   ) {}
 
   async execute(command: PathfindingRunnerCommand) {
-    try {
-      console.log("Running pathfinding algorithm");
-      const algorithm = await this.algorithmFactory(command.algorithm);
+    const algorithm = await this.algorithmFactory(command.algorithm);
 
-      const grid = this.gridStore
-        .getGrid()
-        .copy()
-        .clear("Path", "Explored", "Highlighted");
+    const grid = this.gridStore
+      .getGrid()
+      .copy()
+      .clear("Path", "Explored", "Highlighted");
 
-      const startNode = grid.getNode(
-        this.gridStore.getStartNode().getVector().x,
-        this.gridStore.getStartNode().getVector().y
-      );
-      const endNode = grid.getNode(
-        this.gridStore.getEndNode().getVector().x,
-        this.gridStore.getEndNode().getVector().y
-      );
+    const startNode = grid.getNode(
+      this.gridStore.getStartNode().getVector().x,
+      this.gridStore.getStartNode().getVector().y
+    );
+    const endNode = grid.getNode(
+      this.gridStore.getEndNode().getVector().x,
+      this.gridStore.getEndNode().getVector().y
+    );
 
-      this.gridStore.setGrid(grid.copy());
+    this.gridStore.setGrid(grid.copy());
 
-      const path = algorithm.create(grid, startNode, endNode).run();
+    const path = algorithm.create(grid, startNode, endNode).run();
 
-      this.mediator.sendEvent(
-        new PathfindingRunnerCompletedEvent(endNode, path)
-      );
-    } catch (e) {
-      console.log(e);
-    }
+    this.mediator.sendEvent(new PathfindingRunnerCompletedEvent(endNode, path));
   }
 
   private async algorithmFactory(algorithmType: PathfindingAlgorithmType) {
