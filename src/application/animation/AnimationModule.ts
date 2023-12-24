@@ -16,6 +16,7 @@ import {
   ToggleAnimationCommandHandler,
   UpdateSpeedCommandHandler,
 } from "./command-handlers";
+import { AnimationSaga } from "./sagas/AnimationSaga";
 
 export class AnimationModule {
   static register(mediator: Mediator, stores: GlobalState) {
@@ -29,7 +30,7 @@ export class AnimationModule {
     );
     mediator.registerCommandHandler(
       StopAnimationCommand,
-      new StopAnimationCommandHandler(mediator, stores.animationStore)
+      new StopAnimationCommandHandler(stores.animationStore)
     );
     mediator.registerCommandHandler(
       ResumeAnimationCommand,
@@ -43,5 +44,7 @@ export class AnimationModule {
       UpdateSpeedCommand,
       new UpdateSpeedCommandHandler(stores.animationStore)
     );
+
+    AnimationSaga.register(mediator);
   }
 }
